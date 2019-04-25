@@ -39,6 +39,7 @@ class CreateAdminsTable extends Migration
             $table->integer('schooling_id')->nullable();
             $table->string('img_avatar')->nullable();
             $table->integer('empresa_id')->nullable();
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

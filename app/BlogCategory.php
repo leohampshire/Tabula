@@ -9,7 +9,7 @@ class BlogCategory extends Model
 	protected $table = 'blog_categories';    
 
     protected $fillable = [
-		'name', 'meta_title', 'meta_description', 'title'
+		'name', 'meta_title', 'meta_description', 'title', 'urn',
 	];
 
 	public function posts()

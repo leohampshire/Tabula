@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Categorias')
+@section('title', 'Categorias Blog')
 
 @section('description', 'Descrição')
 
@@ -11,10 +11,10 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Categorias</h1>
+          <h1>Categorias Blog</h1>
         </div>
         <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.category.create')}}'">Novo</button>
+          <button class="btn-header" onclick="window.location.href='{{ route('admin.categ.blog.create')}}'">Novo</button>
         </div>
       </div>
     </section>
@@ -61,7 +61,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Nome Categoria</label>
+                    <label>Nome da Categoria do Blog</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
                   
@@ -99,8 +99,7 @@
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Desktop</th>
-                    <th>Mobile</th>
+                    <th>URN</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
@@ -108,13 +107,12 @@
                   @forelse($categories as $category)
                     <tr>
                       <td>{{$category->name}}</td>
-                      <td>{{$category->desktop_index}}</td>
-                      <td>{{$category->mobile_index}}</td>
+                      <td>{{$category->urn}}</td>
                       <td>
-                        <a href="{{ route('admin.category.edit', ['id' => $category->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.categ.blog.edit', ['id' => $category->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.category.delete', ['id' => $category->id])}}" title="Excluir" class="act-list act-delete">
+                        <a href="{{ route('admin.categ.blog.delete', ['id' => $category->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -128,8 +126,7 @@
                 <tfoot>
                   <tr>
                     <th>Nome</th>
-                    <th>Desktop</th>
-                    <th>Mobile</th>
+                    <th>URN</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   

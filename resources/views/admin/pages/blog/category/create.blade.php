@@ -51,57 +51,48 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-6">
+        <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.category.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.categ.blog.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="name">Nome</label>
-                    <input type="text" name="name" placeholder="Ex.: Informatica" class="form-control" id="name" value="{{old('name')}}">
+                    <input type="text" name="name" placeholder="Nome" class="form-control" id="name" value="{{old('name')}}">
                   </div>
                 </div>
-                <div class="form-group row box-nome" >
+                <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="urn">URN</label>
-                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{old('urn')}}">
+                    <input type="text" name="urn" placeholder="URN" class="form-control" id="urn" value="{{old('urn')}}">
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-sm-6">
-                    <label for="desktop_index">Índice Desktop</label>
-                    <input type="text" name="desktop_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('desktop_index')}}">
-                  </div>
-                  <div class="col-sm-6">
-                    <label for="mobile_index">Índice Mobile</label>
-                    <input type="text" name="mobile_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('mobile_index')}}">
-                  </div>
-                </div>
-                <div class="form-group row">
+                <div class="form-group  row">
                   <div class="col-xs-12">
-                    <label for="desktop_hex_bg">Hexágono Desktop</label>
-                    <input class="form-control" type="file" name="desktop_hex_bg">
+                    <label for="meta_title">Meta Title</label>
+                    <input class="form-control" type="text" name="meta_title" placeholder="Definir Meta Title" value="{{ old('meta_title') }}">
                   </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group  row">
                   <div class="col-xs-12">
-                    <label for="mobile_hex_bg">Hexágono Mobile</label>
-                    <input class="form-control" type="file" name="mobile_hex_bg">
+                    <label for="meta_description">Meta Description</label>
+                    <input class="form-control" type="text" name="meta_description" placeholder="Definir Description" value="{{ old('meta_description') }}">
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="col-xs-12"></div>
-                  <label for="hex_icon">Ícone Hexágono</label>
-                  <input class="form-control" type="file" name="hex_icon">
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="keyword">KeyWord</label>
+                    <input class="form-control" type="text" name="keyword" placeholder="Definir KeyWord" value="{{ old('keyword') }}">
+                  </div>
                 </div>
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Adicionar</button>
-                <a href="{{route('admin.category.index')}}">
+                <a href="{{route('admin.categ.blog.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
               </div>

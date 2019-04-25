@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->string('name', 191);
             $table->string('email', 191)->unique();
             $table->string('password');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -82,7 +82,7 @@
         <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Lista de Categorias</h3>
+              <h3 class="box-title">Lista de clientes</h3>
               <div class="box-tools">
                 <?php
 

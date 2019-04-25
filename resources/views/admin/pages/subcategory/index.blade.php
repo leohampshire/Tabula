@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Categorias')
+@section('title', 'Subcategorias')
 
 @section('description', 'Descrição')
 
@@ -11,10 +11,10 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Categorias</h1>
+          <h1>Subcategorias</h1>
         </div>
         <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.category.create')}}'">Novo</button>
+          <button class="btn-header" onclick="window.location.href='{{ route('admin.subcategory.create')}}'">Novo</button>
         </div>
       </div>
     </section>
@@ -61,7 +61,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Nome Categoria</label>
+                    <label>Nome Subcategoria</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
                   
@@ -86,7 +86,7 @@
               <div class="box-tools">
                 <?php
 
-                $paginate = $categories;
+                $paginate = $subcategories;
 
                 $link_limit = 7;
 
@@ -99,22 +99,22 @@
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Desktop</th>
-                    <th>Mobile</th>
+                    <th>URN</th>
+                    <th>Categoria</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($categories as $category)
+                  @forelse($subcategories as $subcategory)
                     <tr>
-                      <td>{{$category->name}}</td>
-                      <td>{{$category->desktop_index}}</td>
-                      <td>{{$category->mobile_index}}</td>
+                      <td>{{$subcategory->name}}</td>
+                      <td>{{$subcategory->urn}}</td>
+                      <td>{{$subcategory->category}}</td>
                       <td>
-                        <a href="{{ route('admin.category.edit', ['id' => $category->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.subcategory.edit', ['id' => $subcategory->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.category.delete', ['id' => $category->id])}}" title="Excluir" class="act-list act-delete">
+                        <a href="{{ route('admin.subcategory.delete', ['id' => $subcategory->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -128,8 +128,8 @@
                 <tfoot>
                   <tr>
                     <th>Nome</th>
-                    <th>Desktop</th>
-                    <th>Mobile</th>
+                    <th>URN</th>
+                    <th>Categoria</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   

@@ -15,7 +15,7 @@ class CreateSchoolingsTable extends Migration
     {
         Schema::create('schoolings', function (Blueprint $table) {
             $table->increments('id');
-            $table->longtext('desc');
+            $table->longtext('name');
             $table->timestamps();
         });
     }

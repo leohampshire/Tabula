@@ -19,9 +19,19 @@
             <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
+        <li {{ (Request::is('admin/categoria') ? 'class=active' : '') }} {{ (Request::is('admin/categoria/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.category.index')}}">
-            <i class="fa fa-tachometer"></i> <span>CATEGORIAS/MACROTEMAS</span>
+            <i class="fa fa-tachometer"></i> <span>CATEGORIAS</span>
+          </a>
+        </li>
+        <li {{ (Request::is('admin/subcategoria') ? 'class=active' : '') }} {{ (Request::is('admin/subcategoria/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.subcategory.index')}}">
+            <i class="fa fa-tachometer"></i> <span>SUBCATEGORIAS</span>
+          </a>
+        </li>
+        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
+          <a href="{{route('admin.dashboard')}}">
+            <i class="fa fa-tachometer"></i> <span>CURSOS</span>
           </a>
         </li>
         <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
@@ -34,34 +44,24 @@
             <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
-          <a href="{{route('admin.dashboard')}}">
-            <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
+        <li {{ (Request::is('admin/categoria-blog') ? 'class=active' : '') }} {{ (Request::is('admin/categoria-blog/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.categ.blog.index')}}">
+            <i class="fa fa-tachometer"></i> <span>CATEGORIAS DO BLOG</span>
           </a>
         </li>
         <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
           <a href="{{route('admin.dashboard')}}">
-            <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
+            <i class="fa fa-tachometer"></i> <span>POSTS DO BLOG</span>
           </a>
         </li>
         <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
           <a href="{{route('admin.dashboard')}}">
-            <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
+            <i class="fa fa-tachometer"></i> <span>COMENTÁRIOS DO BLOG</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
-          <a href="{{route('admin.dashboard')}}">
-            <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
-          </a>
-        </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
-          <a href="{{route('admin.dashboard')}}">
-            <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
-          </a>
-        </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
-          <a href="{{route('admin.dashboard')}}">
-            <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
+        <li {{ (Request::is('admin/paginas') ? 'class=active' : '') }} {{ (Request::is('admin/paginas/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.page.index')}}">
+            <i class="fa fa-tachometer"></i> <span>PÁGINAS</span>
           </a>
         </li>
         <li {{ (Request::is('admin/admin/configuration') ? 'class=active' : '') }} {{ (Request::is('admin/admin/configuration/*') ? 'class=active' : '') }} >

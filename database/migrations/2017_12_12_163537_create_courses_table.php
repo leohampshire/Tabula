@@ -29,6 +29,7 @@ class CreateCoursesTable extends Migration
             $table->integer('featured')->default(0);
             $table->integer('total_class')->nullable();
             $table->string('thumb_img')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

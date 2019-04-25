@@ -19,6 +19,7 @@ class CreateCupomUserTable extends Migration
             $table->integer('cupom_id');
             $table->string('type_cupom');
             $table->double('discount');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

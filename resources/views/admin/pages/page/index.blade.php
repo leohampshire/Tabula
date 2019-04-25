@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Categorias')
+@section('title', 'Páginas')
 
 @section('description', 'Descrição')
 
@@ -11,10 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Categorias</h1>
-        </div>
-        <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.category.create')}}'">Novo</button>
+          <h1>Páginas</h1>
         </div>
       </div>
     </section>
@@ -49,32 +46,6 @@
       </div>
     @endif
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <section class="col-lg-12">
-          <div class="box">
-              <form id="filterForm" method="GET" autocomplete="off">
-              <div class="box-header">
-                <h3 class="box-title">Filtrar resultados</h3>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <label>Nome Categoria</label>
-                    <input type="text" name="name" value="{{request('name')}}" class="form-control">
-                  </div>
-                  
-                  </div>
-                </div>
-              </div>
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-                <button type="button" class="btn btn-default clear-filters">Limpar</button>
-              </div>
-            </form>
-        </section>
-      </div>
 
       <!-- Main row -->
       <div class="row">
@@ -82,11 +53,11 @@
         <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Lista de Categorias</h3>
+              <h3 class="box-title">Lista de Páginas</h3>
               <div class="box-tools">
                 <?php
 
-                $paginate = $categories;
+                $paginate = $pages;
 
                 $link_limit = 7;
 
@@ -99,24 +70,17 @@
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Desktop</th>
-                    <th>Mobile</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($categories as $category)
+                  @forelse($pages as $page)
                     <tr>
-                      <td>{{$category->name}}</td>
-                      <td>{{$category->desktop_index}}</td>
-                      <td>{{$category->mobile_index}}</td>
+                      <td>{{$page->name}}</td>
                       <td>
-                        <a href="{{ route('admin.category.edit', ['id' => $category->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.page.edit', ['id' => $page->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
-                        <a href="{{ route('admin.category.delete', ['id' => $category->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-minus-square-o" aria-hidden="true"></i>
-                        </a>
+                        </a>  
                       </td>
                     </tr>
                   @empty
@@ -128,8 +92,6 @@
                 <tfoot>
                   <tr>
                     <th>Nome</th>
-                    <th>Desktop</th>
-                    <th>Mobile</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   

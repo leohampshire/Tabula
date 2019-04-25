@@ -16,6 +16,7 @@ class CrateBlogCategoriesTable extends Migration
         Schema::create('blog_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name');
+            $table->text('urn');
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('keyword');

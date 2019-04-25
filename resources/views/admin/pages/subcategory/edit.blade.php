@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Adicionar Categoria')
+@section('title', 'Editar Categoria')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Adicionar Categoria</h1>
+          <h1>Editar Categoria</h1>
         </div>
       </div>
     </section>
@@ -56,52 +56,36 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.category.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.subcategory.update')}}" enctype="multipart/form-data">
               {{csrf_field()}}
+              <input type="hidden" name="id" value="{{$subcategory->id}}">
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
+                    <label for="category_id">Categoria</label>
+                    <select class="form-control" name="category_id">
+                      <option value="" selected disabled>SELECIONE...</option>
+                      @foreach($categories as $category)
+                      <option value="{{$category->id}}" @if($category->id == $subcategory->category_id)) selected @endif>{{$category->name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12">
                     <label for="name">Nome</label>
-                    <input type="text" name="name" placeholder="Ex.: Informatica" class="form-control" id="name" value="{{old('name')}}">
+                    <input type="text" name="name" placeholder="Ex.: Informatica" class="form-control" id="name" value="{{$subcategory->name}}">
                   </div>
                 </div>
                 <div class="form-group row box-nome" >
                   <div class="col-xs-12">
                     <label for="urn">URN</label>
-                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{old('urn')}}">
+                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{$subcategory->urn}}">
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-sm-6">
-                    <label for="desktop_index">Índice Desktop</label>
-                    <input type="text" name="desktop_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('desktop_index')}}">
-                  </div>
-                  <div class="col-sm-6">
-                    <label for="mobile_index">Índice Mobile</label>
-                    <input type="text" name="mobile_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('mobile_index')}}">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-xs-12">
-                    <label for="desktop_hex_bg">Hexágono Desktop</label>
-                    <input class="form-control" type="file" name="desktop_hex_bg">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-xs-12">
-                    <label for="mobile_hex_bg">Hexágono Mobile</label>
-                    <input class="form-control" type="file" name="mobile_hex_bg">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-xs-12"></div>
-                  <label for="hex_icon">Ícone Hexágono</label>
-                  <input class="form-control" type="file" name="hex_icon">
-                </div>
-              </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Adicionar</button>
-                <a href="{{route('admin.category.index')}}">
+                <a href="{{route('admin.subcategory.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
               </div>
@@ -109,11 +93,11 @@
           </div>
         </section>
         
+      </section>
+      <!-- /.content -->
       </div>
       <!-- /.row (main row) -->
 
-    </section>
-    <!-- /.content -->
   </div>
 
 @stop
