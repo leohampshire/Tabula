@@ -51,7 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
-
+<!-- Select2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript">
   $('#type-transaction').on('change', function(){
     var type = $(this).val();
@@ -85,6 +86,81 @@
 
   });
 
+  $(document).ready(function() {
+    $(".multiple").select2({
+      ajax: { 
+       url: "{{route('admin.coupon.search')}}",
+       type: "post",
+       dataType: 'json',
+       delay: 250,
+       
+       data: function (params) {
+        return {
+          searchTerm: params.term,
+          type: $('select[name="type_coupon"]').val(),
+        };
+       },
+       processResults: function (response) {
+        console.log(response);
+         return {
+            results: response
+         };
+       },
+       cache: true
+      },
+      minimumInputLength: 3
+    });  
+  });
+  // Controle Cupom
+  $(document).ready(function(){
+    $('.course').hide();
+    $('.macrotema').hide();
+    $('.subcateg').hide();
+    if ($('select[name="type_coupon"]').val() == 'produto') {
+        $('.course').show();
+        $('.macrotema').hide();
+        $('.subcateg').hide();
+      }else if($('select[name="type_coupon"]').val() == 'macrotema'){
+        $('.course').hide();
+        $('.macrotema').show();
+        $('.subcateg').hide();
+      }else if($('select[name="type_coupon"]').val() == 'subcategoria'){  
+        $('.course').hide();
+        $('.macrotema').hide();
+        $('.subcateg').show();
+      }else{
+        $('.course').hide();
+        $('.macrotema').hide();
+        $('.subcateg').hide();
+      }
+
+  });
+
+  
+  $('#type_coupon').change(function(){
+    if($(this).val() == 'produto'){
+      $('.course').show();  
+      $('.macrotema').hide();
+      $('.subcateg').hide();
+    } else{
+      if ($(this).val() == 'macrotema') {
+        $('.macrotema').show();
+        $('.course').hide();
+        $('.subcateg').hide();
+      }else{
+        if ($(this).val() == 'subcategoria') {
+          $('.subcateg').show();
+          $('.macrotema').hide();
+          $('.course').hide();
+        }else{
+          $('.subcateg').hide();
+          $('.macrotema').hide();
+          $('.course').hide();
+        }
+      }
+    }
+  });
+// Fim controle do cupom
   $(document).ready(function(){
     @isset($course)
     var id = '{{$course->category_id}}';
@@ -149,7 +225,9 @@
     c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
   }
-//////////////////////////////////////////////////////////////////////////////////
+/*-----------------------------------------------------------------------------------------------------*/
+
+//Modals
   $('.act-delete').on('click', function (e) {
     e.preventDefault();
     $('#confirmationModal .modal-title').html('Confirmação');
@@ -186,9 +264,9 @@
       }else{
         $('.file').slideDown();
         if(type != 1){
-          $(".file").append('<img src="'+url+'/'+file+'" height="400px"">');
+          $(".path").html('<img src="'+url+'/'+file+'" height="400px"">');
         }else{
-          $(".file").append('<video  height="400px" controls><source src="'+url+'/'+file+'"></video>');
+          $(".path").html('<video  height="400px" controls><source src="'+url+'/'+file+'"></video>');
         }
       }
     }else if(type == 5){
@@ -196,7 +274,6 @@
     }
     $('#itemEditModal').modal('show');
   });
-
 
 
   $('.act-class').on('click', function(e){
@@ -217,7 +294,9 @@
     e.preventDefault();
     $('#questionModal').modal('show');
   });
-
+//End-Modals 
+/*-------------------------------------------------------------------------------------*/
+// Perguntas das provas
 $('.multiple').hide();
 $('.alternative').hide();
 $('.truefalse').hide();
@@ -245,7 +324,8 @@ $('.dissertative').hide();
       $('.multiple').slideUp();
     }
   });
-
+// fim Perguntas das provas
+/*-------------------------------------------------------------------------------------------------------*/
   $('.file').hide();
   $('.item_type_id').change(function(){
     if($(this).val() == 3){
@@ -306,20 +386,7 @@ $('.dissertative').hide();
       allowZero: true,
       symbolStay: true
   });
-  $('#no_due_batch').change(function(){
-    if ($(this).is(':checked')) {
-      $('input[name="due_date"]').attr('disabled', '');
-    }else{
-      $('input[name="due_date"]').removeAttr('disabled', '');
-    }
-  });
 
-  $('#no_due').change(function(){
-    if ($(this).is(':checked')) {
-      $('input[name="due_date"]').attr('disabled', '');
-    }else{
-      $('input[name="due_date"]').removeAttr('disabled', '');
-    }
-  });
+//Fim mascaras
 </script>
 

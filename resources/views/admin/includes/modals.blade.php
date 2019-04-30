@@ -229,13 +229,24 @@
                     
                   </div>
                 </div>
-                <div class="form-group row file">
-                  <div class="col-xs-12">
-                    <label for="file">Arquivo</label>
-                    <input class="form-control" type="file" name="file">
+                <div class="file">
+                  <div class="form-group row">
+                    <div class="col-xs-12">
+                      <label for="file">Arquivo</label>
+                      <input class="form-control" type="file" name="file">
+                      <div class="col-xs-12">
+                        <label for="vimeo"><input type="checkbox" id="vimeo" name="vimeo"> Upload Vimeo</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 path">
+                        
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>

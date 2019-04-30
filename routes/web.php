@@ -63,14 +63,26 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
       });
   });
-
+  //Cupons
   Route::group(['prefix' => 'cupom', 'as' => 'coupon.'], function(){
     Route::get('/index', 'Admin\AdminCouponController@index')->name('index');
+    Route::post('/pesquisar', 'Admin\AdminCouponController@search')->name('search');
     Route::get('/create', 'Admin\AdminCouponController@create')->name('create');
     Route::post('/store', 'Admin\AdminCouponController@store')->name('store');
     Route::get('/edit/{id}', 'Admin\AdminCouponController@edit')->name('edit');
     Route::post('/update', 'Admin\AdminCouponController@update')->name('update');
     Route::get('/delete/{id}', 'Admin\AdminCouponController@delete')->name('delete');
+  });
+
+    //Seos
+  Route::group(['prefix' => 'seo', 'as' => 'seo.'], function(){
+    Route::get('/index', 'Admin\AdminSeoController@index')->name('index');
+    Route::post('/pesquisar', 'Admin\AdminSeoController@search')->name('search');
+    Route::get('/create', 'Admin\AdminSeoController@create')->name('create');
+    Route::post('/store', 'Admin\AdminSeoController@store')->name('store');
+    Route::get('/edit/{id}', 'Admin\AdminSeoController@edit')->name('edit');
+    Route::post('/update', 'Admin\AdminSeoController@update')->name('update');
+    Route::get('/delete/{id}', 'Admin\AdminSeoController@delete')->name('delete');
   });
 
 
