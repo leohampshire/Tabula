@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Posts Blog')
+@section('title', 'Editar Curso')
 
 @section('description', 'Descrição')
 
@@ -10,11 +10,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="row">
-        <div class="col-sm-6">
-          <h1>Posts Blog</h1>
+        <div class="col-sm-4">
+          <h1>Capítulo: {{$chapter->name}}</h1>
         </div>
-        <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.post.blog.create')}}'">Novo</button>
+        <div class="col-sm-8">
+          <button class="btn btn-header act-complement">MATERIAL COMPLEMENTAR</button>
+          <button class="btn btn-header act-test">NOVA AVALIAÇÃO</button>
+          <button class="btn btn-header act-class">NOVA AULA</button>
         </div>
       </div>
     </section>
@@ -48,50 +50,16 @@
         @endforeach
       </div>
     @endif
-
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <section class="col-lg-12">
-          <div class="box">
-              <form id="filterForm" method="GET" autocomplete="off">
-              <div class="box-header">
-                <h3 class="box-title">Filtrar resultados</h3>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <label>Nome da Postsdo Blog</label>
-                    <input type="text" name="name" value="{{request('name')}}" class="form-control">
-                  </div>
-                  
-                  </div>
-                </div>
-              </div>
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-                <button type="button" class="btn btn-default clear-filters">Limpar</button>
-              </div>
-            </form>
-        </section>
-      </div>
-
-      <!-- Main row -->
+   <!-- Main row -->
       <div class="row">
         <!-- Left col -->
         <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Lista de Posts</h3>
+              <h3 class="box-title">Itens do Capítulo</h3>
               <div class="box-tools">
-                <?php
-
-                $paginate = $posts;
-
-                $link_limit = 7;
-
-                $filters = '&name='.request('name');
-                ?>
               </div>
             </div>
             <div class="box-body table-responsive">
@@ -99,24 +67,33 @@
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>URN</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($posts as $post)
+                  @forelse($chapter->course_item as $item)
+                    @if($item->course_item_type->id <= 6)
                     <tr>
-                      <td>{{$post->name}}</td>
-                      <td>{{$post->urn}}</td>
+                      <td>{{$item->name}}</td>
+                      <td>{{$item->desc}}</td>
+                      <td>{{$item->course_item_type->name}}</td>
                       <td>
-                        <a href="{{ route('admin.post.blog.edit', ['id' => $post->id])}}" title="Editar" class="act-list">
+                        @if($item->course_item_type->id == 6)
+                        <a href="{{ route('admin.course.item.test', ['id' => $item->id])}}" title="Incluir Perguntas" class="act-list">
+                          <i class="fa fa-bars" aria-hidden="true"></i>
+                        </a>
+                        @endif
+                        <a href="#" title="Editar" class="act-list act-edit-item" data-name="{{$item->name}}" data-desc="{{$item->desc}}" data-id="{{$item->id}}" data-file="{{$item->path}}" data-url="{{asset('uploads/archives/')}}" data-type="{{$item->course_item_types_id}}">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.post.blog.delete', ['id' => $post->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                        <a href="{{ route('admin.course.item.delete', ['id' => $item->id])}}" title="Excluir" class="act-list act-delete">
+                          <i class="fa fa-ban" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
+                    @endif
                   @empty
                     <tr>
                       <td colspan="7y">Nenhum resultado encontrado</td>
@@ -126,7 +103,8 @@
                 <tfoot>
                   <tr>
                     <th>Nome</th>
-                    <th>URN</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   
@@ -137,9 +115,8 @@
         </section>
       </div>
       <!-- /.row (main row) -->
-
     </section>
-    <!-- /.content -->
   </div>
+      <!-- /.row (main row) -->
 
 @stop

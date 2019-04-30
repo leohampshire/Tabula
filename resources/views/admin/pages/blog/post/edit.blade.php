@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Editar Categoria')
+@section('title', 'Adicionar Post')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Editar Categoria</h1>
+          <h1>Adicionar Post</h1>
         </div>
       </div>
     </section>
@@ -51,58 +51,61 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-6">
+        <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.category.update')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.post.blog.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
-              <input type="hidden" name="id" value="{{$category->id}}">
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" placeholder="Ex.: Informatica" class="form-control" id="name" value="{{$category->name}}">
-                  </div>
-                </div>
-                <div class="form-group row box-nome" >
-                  <div class="col-xs-12">
-                    <label for="urn">URN</label>
-                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{$category->urn}}">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-6">
-                    <label for="desktop_index">Índice Desktop</label>
-                    <input type="text" name="desktop_index" placeholder="Sugerido 17" class="form-control" value="{{$category->desktop_index}}">
-                  </div>
-                  <div class="col-sm-6">
-                    <label for="mobile_index">Índice Mobile</label>
-                    <input type="text" name="mobile_index" placeholder="Sugerido 17" class="form-control" value="{{$category->mobile_index}}">
+                    <label for="name">Titulo</label>
+                    <input class="form-control" type="text" name="name" placeholder="Titulo do post" value="{{ $post->name }}">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="desktop_hex_bg">Hexágono Desktop</label>
-                    <input class="form-control" type="file" name="desktop_hex_bg">
+                    <label for="content">Meta Title</label>
+                    <textarea class="form-control" rows="6" name="content" placeholder="Escrever Conteúdo">{{ $post->meta_title }}</textarea>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="mobile_hex_bg">Hexágono Mobile</label>
-                    <input class="form-control" type="file" name="mobile_hex_bg">
+                    <label for="meta_title">Meta Title</label>
+                    <input class="form-control" type="text" name="meta_title" placeholder="Definir Meta Title" value="{{ $post->meta_title }}">
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="col-xs-12"></div>
-                  <label for="hex_icon">Ícone Hexágono</label>
-                  <input class="form-control" type="file" name="hex_icon">
+
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="meta_description">Meta Description</label>
+                    <input class="form-control" type="text" name="meta_description" placeholder="Definir Description" value="{{ $post->meta_description }}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="keywords">KeyWord</label>
+                    <input class="form-control" type="text" name="keywords" placeholder="Definir KeyWord" value="{{ $post->keywords }}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="category_id">Categoria do Blog</label>
+                    <select name="category_id" class="form-control">
+                      <option selected disabled>SELECIONE...</option>
+                      @forelse($categories as $category)
+                      <option value="{{$category->id}}" @if($category->id == $post->category_id) selected @endif>{{$category->name}}</option>
+                      @empty
+                      @endforelse
+                    </select>
+                  </div>
                 </div>
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Atualizar</button>
-                <a href="{{route('admin.category.index')}}">
+                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <a href="{{route('admin.post.blog.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
               </div>
@@ -110,11 +113,11 @@
           </div>
         </section>
         
-      </section>
-      <!-- /.content -->
       </div>
       <!-- /.row (main row) -->
 
+    </section>
+    <!-- /.content -->
   </div>
 
 @stop

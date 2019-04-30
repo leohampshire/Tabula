@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Posts Blog')
+@section('title', 'Cursos')
 
 @section('description', 'Descrição')
 
@@ -11,10 +11,10 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Posts Blog</h1>
+          <h1>Cursos</h1>
         </div>
         <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.post.blog.create')}}'">Novo</button>
+          <button class="btn-header" onclick="window.location.href='{{ route('admin.course.create')}}'">Novo</button>
         </div>
       </div>
     </section>
@@ -61,7 +61,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Nome da Postsdo Blog</label>
+                    <label>Nome do Curso</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
                   
@@ -82,11 +82,11 @@
         <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Lista de Posts</h3>
+              <h3 class="box-title">Lista de Cursos</h3>
               <div class="box-tools">
                 <?php
 
-                $paginate = $posts;
+                $paginate = $courses;
 
                 $link_limit = 7;
 
@@ -104,15 +104,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($posts as $post)
+                  @forelse($courses as $course)
                     <tr>
-                      <td>{{$post->name}}</td>
-                      <td>{{$post->urn}}</td>
+                      <td>{{$course->name}}</td>
+                      <td>{{$course->urn}}</td>
                       <td>
-                        <a href="{{ route('admin.post.blog.edit', ['id' => $post->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.course.edit', ['id' => $course->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.post.blog.delete', ['id' => $post->id])}}" title="Excluir" class="act-list act-delete">
+                        <a href="{{ route('admin.course.delete', ['id' => $course->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
                       </td>

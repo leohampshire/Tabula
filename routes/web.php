@@ -39,6 +39,43 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
       Route::post('/update', 'Admin\AdminSubcategoryController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminSubcategoryController@delete')->name('delete');
   });
+  //Cursos
+  Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
+      Route::get('/index', 'Admin\AdminCourseController@index')->name('index');
+      Route::get('subcategoria-curso', 'Admin\AdminCourseController@SubCourse')->name('subcategory');
+      Route::get('/create', 'Admin\AdminCourseController@create')->name('create');
+      Route::post('/store', 'Admin\AdminCourseController@store')->name('store');
+      Route::get('/edit/{id}', 'Admin\AdminCourseController@edit')->name('edit');
+      Route::post('/update', 'Admin\AdminCourseController@update')->name('update');
+      Route::get('/delete/{id}', 'Admin\AdminCourseController@delete')->name('delete');
+      //capitulos do curso
+      Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
+        Route::post('/store', 'Admin\AdminCourseController@storeChapter')->name('store');
+        Route::post('/update', 'Admin\AdminCourseController@updateChapter')->name('update');
+        Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
+        Route::get('/item/{id}', 'Admin\AdminCourseController@itemChapter')->name('item');
+      });
+      //Itens do curso
+      Route::group(['prefix'=> 'item', 'as' => 'item.'], function(){
+        Route::get('/prova/{id}', 'Admin\AdminCourseController@createTest')->name('test');
+        Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
+        Route::post('/update', 'Admin\AdminCourseController@updateitem')->name('update');
+        Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
+      });
+  });
+
+  Route::group(['prefix' => 'cupom', 'as' => 'coupon.'], function(){
+    Route::get('/index', 'Admin\AdminCouponController@index')->name('index');
+    Route::get('/create', 'Admin\AdminCouponController@create')->name('create');
+    Route::post('/store', 'Admin\AdminCouponController@store')->name('store');
+    Route::get('/edit/{id}', 'Admin\AdminCouponController@edit')->name('edit');
+    Route::post('/update', 'Admin\AdminCouponController@update')->name('update');
+    Route::get('/delete/{id}', 'Admin\AdminCouponController@delete')->name('delete');
+  });
+
+
+
+
   //Categorias Blog
   Route::group(['prefix' => 'categoria-blog', 'as' => 'categ.blog.'], function(){
       Route::get('/index', 'Admin\AdminBlogController@indexCateg')->name('index');

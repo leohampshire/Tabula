@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\BlogCategory;
 use App\BlogPost;
+use Auth;
 
 class AdminBlogController extends Controller
 {
@@ -83,23 +84,69 @@ class AdminBlogController extends Controller
 
 	public function indexPost(Request $request)
 	{
-
+		$posts = BlogPost::all();
+		return view('admin.pages.blog.post.index')->with('posts', $posts);
 	}
 	public function createPost()
 	{
+		$categories = BlogCategory::all();
+		if ($categories->count() > 0) {
+			return view('admin.pages.blog.post.create')->with('categories', $categories);
 
+		}
+		return redirect()->back()->with('success', 'Criar ao mínimo uma categoria para o blog.');
 	}
 	public function storePost(Request $request)
 	{
-
+		$this->validate($request, [
+            'name' 				=> 'required|unique:blog_posts',		
+            'meta_title' 		=> 'required',
+            'category_id'		=> 'required',
+            'content'			=> 'required',
+        ]);
+		$post = new BlogPost;
+		$auth = Auth::guard('admin')->user();
+		$post->name 			= $request->name;
+		$post->meta_title 		= $request->meta_title;
+		$post->meta_description = $request->meta_description;
+		$post->keywords			= $request->keywords;
+		$post->content 			= $request->content;
+		$post->user_id 			= $auth->id;
+		$post->category_id 		= $request->category_id;
+		$post->save();
+		return redirect(route('admin.post.blog.index'))
+        ->with('success', 'Post do blog criado com sucesso');
 	}
 	public function editPost($id)
 	{
-
+		$post = BlogPost::find($id);
+    	return view('admin.pages.blog.post.edit')
+    	->with('post', $post)
+    	->with('categories', BlogCategory::all());
 	}
 	public function updatePost(Request $request)
 	{
-
+		$this->validate($request, [    
+            'name'        	=> [
+                'required',
+                Rule::unique('blog_posts')->ignore($request->id)
+            ],	
+            'meta_title' 	=> 'required',
+            'category_id'	=> 'required',
+            'content'		=> 'required',
+        ]);
+		$post = BlogPost::find($request->id);
+		$auth = Auth::guard('admin')->user();
+		$post->name 			= $request->name;
+		$post->meta_title 		= $request->meta_title;
+		$post->meta_description = $request->meta_description;
+		$post->keywords			= $request->keywords;
+		$post->content 			= $request->content;
+		$post->user_id 			= $auth->id;
+		$post->category_id 		= $request->category_id;
+		$post->save();
+		return redirect()->back()
+        ->with('success', 'Post do blog editado com sucesso');
 	}
 	public function deletePost($id)
 	{

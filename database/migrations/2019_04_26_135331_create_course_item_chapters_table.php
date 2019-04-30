@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCourseItemGroupsTable extends Migration
+class CreateCourseItemChaptersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCourseItemGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_item_groups', function (Blueprint $table) {
+        Schema::create('course_item_chapters', function (Blueprint $table) {
             $table->increments('id');
             $table->longtext('name');
             $table->longtext('desc');
             $table->integer('course_id');
             $table->longtext('order');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateCourseItemGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_item_groups');
+        Schema::dropIfExists('course_item_chapters');
     }
 }

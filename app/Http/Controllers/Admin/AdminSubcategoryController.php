@@ -45,7 +45,7 @@ class AdminSubcategoryController extends Controller
         $subcategory->category_id 	= $request->category_id;
         $subcategory->save();
         Session::flash('success', 'Subcategoria vinculada com sucesso.');
-        return route('admin.subcategory.index');
+        return redirect(route('admin.subcategory.index'));
 	}
 
 	public function edit($id)

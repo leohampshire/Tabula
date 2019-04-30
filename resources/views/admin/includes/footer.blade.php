@@ -85,8 +85,57 @@
 
   });
 
+  $(document).ready(function(){
+    @isset($course)
+    var id = '{{$course->category_id}}';
+    var url = "{{route('admin.course.subcategory')}}";
+    categAjax(url, id);
+    @endisset
 
-  
+      $('#categ' ).change(function() {
+        var categId = $('#categ option:selected').val();
+        console.log(categId);
+        categAjax(url, categId);
+      });
+    $('#sub_categ').hide();
+    $('#category_id' ).change(function() {
+      var url = "{{route('admin.course.subcategory')}}";
+      var categId = $('#category_id option:selected').val();
+      categAjax(url, categId);
+      
+    });
+
+    function categAjax(url, categId){
+      $.ajax({
+        type: 'GET',
+        url: url,
+        data:{
+            categId: categId,
+        },
+        beforeSend: function(){
+        },
+        success: function(data){
+            var result = $.parseJSON(data);
+            var i = 0;
+            $('#subcategory_id').html('');
+            if (result.length != 0) {
+              for (i =0; i < result.length; ++i){
+            console.log(result[i].id);
+                  $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
+              }
+              $('#categ').removeClass('col-xs-12');
+              $('#categ').addClass('col-xs-6');
+              $('#sub_categ').show();
+
+            }else{
+              $('#categ').removeClass('col-xs-6');
+              $('#categ').addClass('col-xs-12');
+              $('#sub_categ').hide();
+            }
+        }
+      });
+    }
+  });  
 
   // Converte número do formato brasileiro para tipo float
   function realToFloat(amount){
@@ -110,95 +159,100 @@
       window.location.href=href;
     });
   });
-
-  $('.act-batch').on('click', function (e) {
+  $('.act-chapter').on('click', function(e){
     e.preventDefault();
-    $('#productBatch form input[name="id_batch"]').val($(this).data('id'));
-    $('#productBatch').modal('show');
+    $('#chapterModal').modal('show');
+  });
+  $('.act-edit-chapter').on('click', function(e){
+    e.preventDefault();
+    $('#chapterEditModal form input[name="id"]').val($(this).data('id'));
+    $('#chapterEditModal form input[name="name"]').val($(this).data('name'));
+    $('#chapterEditModal form input[name="desc"]').val($(this).data('desc'));
+    $('#chapterEditModal').modal('show');
   });
 
-  //Product order
-  $('#productOrder').submit(function (e) {
+   $('.act-edit-item').on('click', function(e){
     e.preventDefault();
-    var form = $(this);
-    var url  = $(this).attr('action');
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data:form.serialize(),
-      beforeSend: function(){
-      },
-      success:function(data){
-        var result = $.parseJSON(data);
-        console.log(result);
-        if (result != null) {
-          // console.log($('#productOrder input[name="order_id"]'));
-          $('#addOrderProduct form input[name="order_id"]').val($('#productOrder input[name="order_id"]').val());
-          $('#addOrderProduct form input[name="bar_code"]').val(result.bar_code);
-          $('#addOrderProduct form input[name="name"]').val(result.name);
-          $('#addOrderProduct form input[name="total"]').val(result.total);
-          $('#addOrderProduct form input[name="sale_price"]').val(result.sale_price);
-
-          $('#addOrderProduct').modal('show');
+    var url = $(this).attr('data-url');
+    var file = $(this).attr('data-file');
+    var type = $(this).attr('data-type');
+    $('#itemEditModal form input[name="id"]').val($(this).data('type'));
+    $('#itemEditModal form input[name="name"]').val($(this).data('name'));
+    $('#itemEditModal form textarea[name="desc"]').val($(this).data('desc'));
+    if(type < 5){
+    $('#itemEditModal form select[name="item_type_id"]').val($(this).data('id'));
+      if (type == 3) {
+        $('.file').slideUp();
+      }else{
+        $('.file').slideDown();
+        if(type != 1){
+          $(".file").append('<img src="'+url+'/'+file+'" height="400px"">');
         }else{
-          $('#dontExist').modal('show');
+          $(".file").append('<video  height="400px" controls><source src="'+url+'/'+file+'"></video>');
         }
-      },
-      error: function(){
-        alert('erro');
       }
-    });
-  });
-  //Batch Order
-  $('#batchOrder').submit(function (e) {
-    e.preventDefault();
-    var form = $(this);
-    var url  = $(this).attr('action');
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data:form.serialize(),
-      beforeSend: function(){
-      },
-      success:function(data){
-        var result = $.parseJSON(data);
-        console.log(result);
-        if (result != null) {
-          $('#addOrderBatch form input[name="order_id"]').val($('#productOrder input[name="order_id"]').val());
-          $('#addOrderBatch form input[name="batch_code"]').val(result.batch_code);
-          $('#addOrderBatch form input[name="name"]').val(result.name);
-          $('#addOrderBatch form input[name="sale_price"]').val(result.sale_price);
-
-          $('#addOrderBatch').modal('show');
-        }else{
-          $('#dontExist').modal('show');
-        }
-      },
-      error: function(){
-        alert('erro');
-      }
-    });
-  });
-
-  $('.act-stock').on('click', function (e) {
-    e.preventDefault();
-    $('#editStock form input[name="quantity"]').val($(this).data('quantity'));
-    $('#editStock form input[name="id"]').val($(this).data('id'));
-    $('#editStock form input[name="name"]').val($(this).data('name'));
-    $('#editStock form input[name="ncm"]').val($(this).data('ncm'));
-    $('#editStock form input[name="date_transaction"]').val($(this).data('date-transaction'));
-    $('#editStock form select[name="type"] option[value="'+$(this).data('type')+'"]').attr('selected', 'selected');
-
-    if($(this).data('due-date') != '' && $(this).data('due-date') != null){
-      $('#editStock form input[name="due_date"]').val($(this).data('due-date'));
-      $('#editStock form input[name="due_date"]').removeAttr('disabled');
-      $('#editStock form input[name="no_due"]').prop( "checked", false );
-    } else {
-      $('#editStock form input[name="due_date"]').val('');
-      $('#editStock form input[name="due_date"]').attr('disabled', '');
-      $('#editStock form input[name="no_due"]').prop( "checked", true );
+    }else if(type == 5){
+      
     }
-    $('#editStock').modal('show');
+    $('#itemEditModal').modal('show');
+  });
+
+
+
+  $('.act-class').on('click', function(e){
+    e.preventDefault();
+    $('#itemModal').modal('show');
+  });
+  $('.act-complement').on('click', function(e){
+    e.preventDefault();
+    $('#complementModal').modal('show');
+  });
+
+  $('.act-test').on('click', function(e){
+    e.preventDefault();
+    $('#classModal').modal('show');
+  });
+
+   $('.act-question').on('click', function(e){
+    e.preventDefault();
+    $('#questionModal').modal('show');
+  });
+
+$('.multiple').hide();
+$('.alternative').hide();
+$('.truefalse').hide();
+$('.dissertative').hide();
+  $('.item_type_id').change(function(){
+    if($(this).val() == 7){
+      $('.multiple').slideDown();
+      $('.dissertative').slideUp();
+      $('.alternative').slideUp();
+      $('.truefalse').slideUp();
+    }else if($(this).val() == 8){
+      $('.truefalse').slideDown();
+      $('.dissertative').slideUp();
+      $('.alternative').slideUp();
+      $('.multiple').slideUp();
+    }else if($(this).val() == 9){
+      $('.alternative').slideDown();
+      $('.dissertative').slideUp();
+      $('.truefalse').slideUp();
+      $('.multiple').slideUp();
+    }else{
+      $('.dissertative').slideDown();
+      $('.alternative').slideUp();
+      $('.truefalse').slideUp();
+      $('.multiple').slideUp();
+    }
+  });
+
+  $('.file').hide();
+  $('.item_type_id').change(function(){
+    if($(this).val() == 3){
+      $('.file').slideUp();
+    }else{
+      $('.file').slideDown();
+    }
   });
 
   $('.clear-filters').click( function(){

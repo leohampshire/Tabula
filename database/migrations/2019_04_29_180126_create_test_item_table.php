@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCourseItemsTable extends Migration
+class CreateTestItemTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateCourseItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_items', function (Blueprint $table) {
+        Schema::create('test_item', function (Blueprint $table) {
             $table->increments('id');
-            $table->longtext('name');
             $table->longtext('desc')->nullable();
-            $table->integer('course_item_chapter_id');
-            $table->integer('course_item_types_id');
-            $table->string('path')->nullable();
-            $table->integer('course_items_parent')->nullable();
+            $table->integer('answer')->nullable();
+            $table->integer('course_item_id');
             $table->longtext('order');
-            $table->boolean('freeItem')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateCourseItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_items');
+        Schema::dropIfExists('test_item');
     }
 }

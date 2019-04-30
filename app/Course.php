@@ -22,7 +22,7 @@ class Course extends Model
 
     public function course_item_groups()
     {
-        return $this->hasMany('App\CourseItemGroup');
+        return $this->hasMany('App\CourseItemChapter');
     }
 
     public function userGroups()

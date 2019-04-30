@@ -56,7 +56,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.category.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.category.store')}}" >
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">

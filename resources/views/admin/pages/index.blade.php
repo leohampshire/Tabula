@@ -40,9 +40,9 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>10</h3>
+              <h3>5</h3>
 
-              <p>Clientes</p>
+              <p>Usuários</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -55,9 +55,9 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>10</h3>
+              <h3>2</h3>
 
-              <p>Produtos Cadastrados</p>
+              <p>Cursos Cadastrados</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -70,9 +70,9 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>10</h3>
+              <h3>9</h3>
 
-              <p>Lotes cadastrados</p>
+              <p>Cupons</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -85,9 +85,9 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>10</h3>
+              <h3>3</h3>
 
-              <p>Total de pedidos</p>
+              <p>Empresas</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -104,7 +104,7 @@
         <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Pedidos recentes</h3>
+              <h3 class="box-title">Compras recentes</h3>
             </div>
             <div class="box-body">
               <table id="tabela-com-filtro" class="table table-bordered table-striped">
