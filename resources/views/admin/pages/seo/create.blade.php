@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Adicionar Categoria')
+@section('title', 'Adicionar SEO')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Adicionar Subcategoria</h1>
+          <h1>Adicionar SEO</h1>
         </div>
       </div>
     </section>
@@ -56,35 +56,62 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.subcategory.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.seo.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="category_id">Categoria</label>
-                    <select class="form-control" name="category_id">
-                      <option value="" selected disabled>SELECIONE...</option>
-                      @foreach($categories as $category)
-                      <option value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif>{{$category->name}}</option>
-                      @endforeach
+                    <label for="metaType">Tipo meta</label>
+                    <select class="form-control" id="metaType" name="metaType">
+                      <option selected disabled> SELECIONE...</option>
+                      <option value="description">Description</option>
+                      <option value="title">Title</option>
+                      <option value="keyword">Keyword</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" placeholder="Ex.: Informatica" class="form-control" id="name" value="{{old('name')}}">
+                    <label for="pageType">Tipo de  página</label>
+                    <select class="form-control" id="pageType" name="pageType">
+                      <option selected disabled> SELECIONE...</option>
+                      <option value="home">Página Inicial</option>
+                      <option value="course">Curso</option>
+                      <option value="category">Categoria</option>
+                    </select>
                   </div>
                 </div>
-                <div class="form-group row box-nome" >
-                  <div class="col-xs-12">
-                    <label for="urn">URN</label>
-                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{old('urn')}}">
-                  </div>
+                <div class="form-group row pageCateg">
+                <div class="col-xs-12">
+                  <label for="pageCateg">Selecionar página</label>
+                  <select class="form-control" id="page" name="pageCateg">
+                    
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
+              </div>
+              <div class="form-group row pageCourse">
+                <div class="col-xs-12">
+                  <label for="pageCourse">Selecionar página</label>
+                  <select class="form-control" id="page" name="pageCourse">
+                    <option disabled selected>SELECIONE...</option>
+                    @foreach($courses as $course)
+                    <option value="{{$course->id}}">{{$course->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="metaDescription">Descrição Meta</label>
+                  <input class="form-control" name="metaDescription" type="text" placeholder="Descrição SEO" value="{{ old('metaDescription') }}">
+                </div>
+              </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Adicionar</button>
-                <a href="{{route('admin.subcategory.index')}}">
+                <a href="{{route('admin.seo.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
               </div>

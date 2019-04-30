@@ -15,6 +15,10 @@ class CreateSeosTable extends Migration
     {
         Schema::create('seos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('meta_type');
+            $table->string('meta_description');
+            $table->string('page');
+            $table->string('page_type');
             $table->timestamps();
         });
     }

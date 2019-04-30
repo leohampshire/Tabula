@@ -56,36 +56,64 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.subcategory.update')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.seo.update')}}" enctype="multipart/form-data">
               {{csrf_field()}}
-              <input type="hidden" name="id" value="{{$subcategory->id}}">
+              <input type="hidden" name="id" value="{{$seo->id}}">
               <div class="box-body">
-                <div class="form-group row">
+               <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="category_id">Categoria</label>
-                    <select class="form-control" name="category_id">
-                      <option value="" selected disabled>SELECIONE...</option>
-                      @foreach($categories as $category)
-                      <option value="{{$category->id}}" @if($category->id == $subcategory->category_id)) selected @endif>{{$category->name}}</option>
-                      @endforeach
+                    <label for="metaType">Tipo meta</label>
+                    <select class="form-control" id="metaType" name="metaType">
+                      <option selected disabled> SELECIONE...</option>
+                      <option value="description" @if($seo->meta_type == 'description') selected @endif>Description</option>
+                      <option value="title" @if($seo->meta_type == 'title') selected @endif>Title</option>
+                      <option value="keyword" @if($seo->meta_type == 'keyword') selected @endif>Keyword</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" placeholder="Ex.: Informatica" class="form-control" id="name" value="{{$subcategory->name}}">
+                    <label for="pageType">Tipo de  página</label>
+                    <select class="form-control" id="pageType" name="pageType">
+                      <option selected disabled> SELECIONE...</option>
+                      <option value="home" @if($seo->page_type == 'home') selected @endif>Página Inicial</option>
+                      <option value="course" @if($seo->page_type == 'course') selected @endif>Curso</option>
+                      <option value="category" @if($seo->page_type == 'category') selected @endif>Categoria</option>
+                    </select>
                   </div>
                 </div>
-                <div class="form-group row box-nome" >
-                  <div class="col-xs-12">
-                    <label for="urn">URN</label>
-                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{$subcategory->urn}}">
-                  </div>
+                <div class="form-group row pageCateg">
+                <div class="col-xs-12">
+                  <label for="pageCateg">Selecionar página</label>
+                  <select class="form-control" id="page" name="pageCateg">
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}" <?php if ($category->id == $seo->page): echo "selected"; ?>
+                    <?php endif ?>>{{$category->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
+              </div>
+
+              <div class="form-group row pageCourse">
+                <div class="col-xs-12">
+                  <label for="pageCourse">Selecionar página</label>
+                  <select class="form-control" id="page" name="pageCourse">
+                    @foreach($courses as $course)
+                    <option value="{{$course->edit}}" <?php if ($course->name == $seo->page): echo "selected"; ?>
+                    <?php endif ?>>{{$course->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="metaDescription">Descrição Meta</label>
+                  <input class="form-control" name="metaDescription" type="text" placeholder="Descrição SEO" value="{{ $seo->meta_description}}">
+                </div>
+              </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Adicionar</button>
-                <a href="{{route('admin.subcategory.index')}}">
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+                <a href="{{route('admin.seo.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
               </div>

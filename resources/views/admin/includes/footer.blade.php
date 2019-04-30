@@ -85,6 +85,33 @@
     $('#dataOrder input[name="total"]').val(total);
 
   });
+// Seo
+  seoValidate();
+
+  $('#pageType').change(function(){
+    seoValidate();
+  });
+    
+
+
+function seoValidate()
+{
+    if($('#pageType').val() == 'home'){
+      $('.pageCateg').hide();
+      $('.pageCourse').hide();
+    } else if ($('#pageType').val() == 'category') {
+      $('.pageCateg').show();
+      $('.pageCourse').hide();
+    }else if($('#pageType').val() == 'course'){
+      $('.pageCateg').hide();
+      $('.pageCourse').show();
+    }else{
+      $('.pageCateg').hide();
+      $('.pageCourse').hide();
+    }
+}
+//Fim Tela de SEO
+
 
   $(document).ready(function() {
     $(".multiple").select2({

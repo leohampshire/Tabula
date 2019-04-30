@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Subcategorias')
+@section('title', 'SEOs')
 
 @section('description', 'Descrição')
 
@@ -11,10 +11,10 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Subcategorias</h1>
+          <h1>SEO's</h1>
         </div>
         <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.subcategory.create')}}'">Novo</button>
+          <button class="btn-header" onclick="window.location.href='{{ route('admin.seo.create')}}'">Novo</button>
         </div>
       </div>
     </section>
@@ -61,7 +61,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Nome Subcategoria</label>
+                    <label>Nome Seo</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
                   
@@ -86,7 +86,7 @@
               <div class="box-tools">
                 <?php
 
-                $paginate = $subcategories;
+                $paginate = $seos;
 
                 $link_limit = 7;
 
@@ -98,23 +98,23 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>URN</th>
-                    <th>Categoria</th>
+                    <th>Tipo de Meta</th>
+                    <th>Descrição</th>
+                    <th>Página</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($subcategories as $subcategory)
+                  @forelse($seos as $seo)
                     <tr>
-                      <td>{{$subcategory->name}}</td>
-                      <td>{{$subcategory->urn}}</td>
-                      <td>{{$subcategory->category}}</td>
+                      <td>{{ucfirst ($seo->meta_type)}}</td>
+                      <td>{{$seo->meta_description}}</td>
+                      <td>{{$seo->meta_description}}</td>
                       <td>
-                        <a href="{{ route('admin.subcategory.edit', ['id' => $subcategory->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.seo.edit', ['id' => $seo->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.subcategory.delete', ['id' => $subcategory->id])}}" title="Excluir" class="act-list act-delete">
+                        <a href="{{ route('admin.seo.delete', ['id' => $seo->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -127,9 +127,9 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Nome</th>
-                    <th>URN</th>
-                    <th>Categoria</th>
+                    <th>Tipo de Meta</th>
+                    <th>Descrição</th>
+                    <th>Página</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   
