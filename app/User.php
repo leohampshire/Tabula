@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         $this->notify(new UserResetPassword($token));
     }
+
+    public function userTypes()
+    {
+        return $this->belongsTo('App\UserType', 'user_type_id');
+    }
 }

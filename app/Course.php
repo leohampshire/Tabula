@@ -20,7 +20,7 @@ class Course extends Model
     	return $this->belongsTo('App\Category');
     }
 
-    public function course_item_groups()
+    public function course_item_chapters()
     {
         return $this->hasMany('App\CourseItemChapter');
     }
@@ -33,5 +33,14 @@ class Course extends Model
     public function comments()
     {
         return $this->hasMany('App\Comment');
+    }
+
+    public function author()
+    {
+        if($this->course_type == 1){
+            return $this->belongsTo('App\Admin', 'user_id_owner');
+        }
+        return $this->belongsTo('App\User', 'user_id_owner');
+
     }
 }

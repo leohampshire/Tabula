@@ -163,6 +163,20 @@ function seoValidate()
 
   });
 
+  function states()
+  {
+    if($('#country').val() == 1){
+        $('.state').show();
+      }else{
+        $('.state').hide();
+      }
+    }
+  $('.state').hide();
+  states();
+  $('#country').change(function(){
+    states();
+  })
+
   
   $('#type_coupon').change(function(){
     if($(this).val() == 'produto'){

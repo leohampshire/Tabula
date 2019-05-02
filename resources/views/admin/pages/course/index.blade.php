@@ -100,6 +100,7 @@
                   <tr>
                     <th>Nome</th>
                     <th>URN</th>
+                    <th>Disponibilidade</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
@@ -108,7 +109,21 @@
                     <tr>
                       <td>{{$course->name}}</td>
                       <td>{{$course->urn}}</td>
+                      @if($course->avaliable == 1)
+                      <td>Aguardando Liberação</td>
+                      @else
+                      <td>Liberado</td>
+                      @endif
                       <td>
+                        @if($course->avaliable == 1)
+                          <a href="{{ route('admin.course.avaliable', ['id' => $course->id])}}" title="Disponibilizar" class="act-list">
+                            <i class="fa fa-toggle-off" aria-hidden="true"></i>
+                          </a>
+                          @else
+                          <a href="{{ route('admin.course.avaliable', ['id' => $course->id])}}" title="Remover" class="act-list">
+                            <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                          </a>
+                        @endif
                         <a href="{{ route('admin.course.edit', ['id' => $course->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
@@ -127,6 +142,7 @@
                   <tr>
                     <th>Nome</th>
                     <th>URN</th>
+                    <th>Disponibilidade</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   

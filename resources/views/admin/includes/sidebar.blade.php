@@ -19,13 +19,13 @@
             <i class="fa fa-tachometer"></i> <span>DASHBOARD</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/dashboarda') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
-          <a href="{{route('admin.dashboard')}}">
+        <li {{ (Request::is('admin/usuario') ? 'class=active' : '') }} {{ (Request::is('admin/usuario/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.user.index')}}">
             <i class="fa fa-users" aria-hidden="true"></i> <span>USUÁRIOS</span>
           </a>
         </li>
         <li {{ (Request::is('admin/categoria') ? 'class=active' : '') }} {{ (Request::is('admin/categoria/*') ? 'class=active' : '') }}>
-          <a href="{{route('admin.category.index')}}">
+          <a href="{{route('admin.user.index')}}">
             <i class="fa fa-cubes" aria-hidden="true"></i> <span>CATEGORIAS</span>
           </a>
         </li>
@@ -39,8 +39,8 @@
             <i class="fa fa-university" aria-hidden="true"></i> <span>CURSOS</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
-          <a href="{{route('admin.dashboard')}}">
+        <li {{ (Request::is('admin/analise') ? 'class=active' : '') }} {{ (Request::is('admin/analise/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.course.analyze.index')}}">
             <i class="fa fa-refresh" aria-hidden="true"></i> <span>ANÁLISES</span>
           </a>
         </li>

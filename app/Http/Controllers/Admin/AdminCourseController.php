@@ -25,6 +25,22 @@ class AdminCourseController extends Controller
 		$data = Category::where('category_id', $request->categId)->get();
         return json_encode($data);
 	}
+
+    public function avaliable($id)
+    {
+        $course = Course::find($id);
+        if ($course->avaliable == 1) {
+            $course->avaliable = 2;
+            Session::flash('success', 'Curso disponibilizado');
+        }else{
+            $course->avaliable = 1;
+            Session::flash('success', 'Curso Removido');
+        }
+        $course->save();
+
+        return redirect()->back();
+    }
+
 	public function create()
 	{
 		return view('admin.pages.course.create')->with('categories', Category::all());
@@ -54,6 +70,7 @@ class AdminCourseController extends Controller
         $course->featured           = $request->featured;
         $course->requirements       = $request->requirements;
         $course->total_class        = 0;
+        $course->course_type        = 1;
 		
 		$auth = Auth::guard('admin')->user();
         $course->user_id_owner      = $auth->id;
@@ -245,6 +262,18 @@ class AdminCourseController extends Controller
 
 	}
 
+    public function free($id)
+    {
+        $item = CourseItem::find($id);
+        if ($item->free_item == NULL || $item->free_item == '') {
+            $item->free_item = 1;
+        }else{
+            $item->free_item = NULL;
+        }
+        $item->save();
+
+        return redirect()->back()->with('success', 'Aula gratuita alterada!');
+    }
     public function storeChapter(Request $request)
     {
         $this->validate($request, [
@@ -279,6 +308,7 @@ class AdminCourseController extends Controller
         $chapter->desc       = $request->desc;
         $chapter->course_id  = $request->course_id;
         $chapter->save();
+        $course->save();
 
         return redirect()->back()->with('success', 'Capítulo editado com sucesso');
     }
@@ -465,6 +495,15 @@ class AdminCourseController extends Controller
         }
         $item->delete();
         return redirect()->back()->with('success', 'Conteúdo excluidos com sucesso.');
+    }
+
+    public function indexAnalyze()
+    {
+        return view('admin.pages.course.analyze.index')->with('courses', Course::all());
+    }
+    public function show()
+    {
+        
     }
 
 }

@@ -56,4 +56,9 @@ class Admin extends Authenticatable
     {
         $this->notify(new AdminResetPassword($token));
     }
+
+    public function userTypes()
+    {
+        return $this->belongsTo('App\UserType', 'user_type_id');
+    }
 }
