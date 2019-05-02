@@ -289,6 +289,11 @@ function seoValidate()
     $('#chapterEditModal form input[name="desc"]').val($(this).data('desc'));
     $('#chapterEditModal').modal('show');
   });
+  $('.act-include').on('click', function(e){
+    e.preventDefault();
+    $('#includeModal form input[name="id"]').val($(this).data('id'));
+    $('#includeModal').modal('show');
+  });
 
    $('.act-edit-item').on('click', function(e){
     e.preventDefault();

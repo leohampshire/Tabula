@@ -40,7 +40,7 @@
           </a>
         </li>
         <li {{ (Request::is('admin/analise') ? 'class=active' : '') }} {{ (Request::is('admin/analise/*') ? 'class=active' : '') }}>
-          <a href="{{route('admin.course.analyze.index')}}">
+          <a href="{{route('admin.analyze.index')}}">
             <i class="fa fa-refresh" aria-hidden="true"></i> <span>ANÁLISES</span>
           </a>
         </li>

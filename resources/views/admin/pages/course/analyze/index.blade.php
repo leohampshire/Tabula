@@ -13,9 +13,6 @@
         <div class="col-sm-6">
           <h1>Cursos</h1>
         </div>
-        <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.course.create')}}'">Novo</button>
-        </div>
       </div>
     </section>
 

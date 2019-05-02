@@ -99,20 +99,13 @@
 
                 <div class="form-group row">
                   <div class="col-xs-6">
-                      <label for="name">Nome Completo</label>
+                      <label for="name">Nome Empresa</label>
                       <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ old('name') }}">
-                    </div>
-
+                   </div>
                   <div class="col-xs-6">
-                    <label for="birthdate">Data de Nascimento</label>
-                    <input class="form-control input-date" type="text" name="birthdate" placeholder="DD/MM/AAAA" value="{{ old('birthdate') }}">
+                    <label for="email">E-mail</label>
+                    <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ old('email') }}">
                   </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label for="email">E-mail</label>
-                  <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ old('email') }}">
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
@@ -149,9 +142,6 @@
                     <input class="form-control" type="text" name="youtube" placeholder="https://..." value="{{ old('youtube') }}">
                   </div>
                 </div>
-
-        
-
                 <div class="form-group">
                     <label for="bio">Conte-nos um pouco sobre você:</label>
                     <textarea class="form-control" rows="5" id="bio" name="bio" placeholder="Escreva aqui...">{{ old('bio') }}</textarea>
