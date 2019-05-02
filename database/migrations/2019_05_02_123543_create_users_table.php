@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->char('login', 45);
             $table->string('password');
             $table->string('avatar')->default('default.png');
-            $table->string('group')->nullable();
+            $table->string('user_type_id');
             $table->char('email', 100)->unique();
             $table->string('name', 100);
             $table->string('cpf', 100)->nullable();
@@ -40,6 +40,7 @@ class CreateUsersTable extends Migration
             $table->integer('schooling_id')->nullable();
             $table->string('img_avatar')->nullable();
             $table->integer('empresa_id')->nullable();
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

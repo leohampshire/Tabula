@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Adicionar Curso')
+@section('title', 'Editar Usuário')
 
 @section('description', 'Descrição')
 
@@ -11,14 +11,14 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Adicionar Curso</h1>
+          <h1>Editar Usuário</h1>
         </div>
       </div>
     </section>
 
     @if(session()->has('success'))
       <section class="content-header">
-        <!-- Main row -->
+        <!-- Main row --> 
         <div class="row">
           <!-- Left col -->
           <section class="col-sm-12">
@@ -46,6 +46,7 @@
       </div>
     @endif
 
+
     <!-- Main content -->
     <section class="content">
       <!-- Main row -->
@@ -56,26 +57,17 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.user.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.company.update', ['id' => $user->id])}}" enctype="multipart/form-data">
               {{csrf_field()}}
+              <input type="hidden" name="id" value="{{$user->id}}">
               <div class="box-body">
                 <div class="form-group row">
-                  <div class="col-xs-4 userType">
-                    <label for="user_type_id">Tipo de usuário: </label>
-                    <select name="user_type_id" class="form-control">
-                      <option value="" selected disabled hidden>Escolha um...</option>
-                      @foreach ($userTypes as $userType)
-                        <option value="{{ $userType->id }}"> {{ $userType->name }} </option>
-                      @endforeach
-                      
-                    </select>
-                  </div>
                   <div class="col-xs-4">
                     <label for="country">País</label>
                     <select id="country" name="country_id" class="form-control">
                       <option value="" selected disabled hidden>Escolha um...</option>
                       @foreach ($countries as $country)
-                        <option value="{{ $country->id }}"> {{ $country->name }} </option>
+                        <option @if($user->country_id == $country->id) selected @endif value="{{ $country->id }}"> {{ $country->name }} </option>
                       @endforeach
                     </select>
                   </div>
@@ -86,7 +78,7 @@
                       <select id="state" name="state_id" class="form-control">
                         <option selected disabled hidden>Escolha um...</option>
                         @foreach ($states as $state)
-                          <option value="{{ $state->id }}"> {{ $state->name }} </option>
+                          <option @if($user->state_id == $state->id) selected @endif value="{{ $state->id }}"> {{ $state->name }} </option>
                         @endforeach
                       </select>
                     </div>
@@ -97,70 +89,66 @@
                 <div class="form-group row">
                   <div class="col-xs-6">
                     <label for="login">Login</label>
-                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ old('login') }}">
+                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ $user->login }}">
                   </div>
 
-                  <div class="col-xs-6">
-                    <label for="password">Senha</label>
-                    <input class="form-control"  type="password" placeholder="Sua senha" name="password">
-                  </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">
                       <label for="name">Nome Completo</label>
-                      <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ old('name') }}">
+                      <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ $user->name }}">
                     </div>
 
                   <div class="col-xs-6">
                     <label for="birthdate">Data de Nascimento</label>
-                    <input class="form-control input-date" type="text" name="birthdate" placeholder="DD/MM/AAAA" value="{{ old('birthdate') }}">
+                    <input class="form-control input-date" type="text" name="birthdate" placeholder="DD/MM/AAAA" value="{{ $user->birthdate }}">
                   </div>
                 </div>
 
 
                 <div class="form-group">
                   <label for="email">E-mail</label>
-                  <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ old('email') }}">
+                  <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ $user->email }}">
                 </div>
                 <div class="sex">
                   <label for="sex">Sexo: </label>
-                  <label class="radio-inline"><input type="radio" name="sex" value="Masculino">Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="sex" value="Feminino">Feminino</label>
+                  <label class="radio-inline"><input @if($user->sex == 'Masculino') checked @endif type="radio" name="sex" value="Masculino">Masculino</label>
+                  <label class="radio-inline"><input @if($user->sex == 'Feminino') checked @endif type="radio" name="sex" value="Feminino">Feminino</label>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
                     <label for="occupation">Cargo</label>
-                    <input class="form-control" type="text" name="occupation" placeholder="Seu cargo" value="{{ old('occupation') }}">
+                    <input class="form-control" type="text" name="occupation" placeholder="Seu cargo" value="{{ $user->occupation }}">
                   </div>
 
                   <div class="col-xs-6">
                     <label for="website">Website</label>
-                    <input class="form-control" type="text" name="website" placeholder="https://..." value="{{ old('website') }}">
+                    <input class="form-control" type="text" name="website" placeholder="https://..." value="{{ $user->website }}">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">
                     <label for="google_plus">Google +</label>
-                    <input class="form-control" type="text" name="google_plus" placeholder="https://..." value="{{ old('google_plus') }}">
+                    <input class="form-control" type="text" name="google_plus" placeholder="https://..." value="{{ $user->google_plus }}">
                   </div>
 
                   <div class="col-xs-6">
                     <label for="twitter">Twitter</label>
-                    <input class="form-control" type="text" name="twitter" placeholder="https://..." value="{{ old('twitter') }}">
+                    <input class="form-control" type="text" name="twitter" placeholder="https://..." value="{{ $user->twitter }}">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">
                     <label for="facebook">Facebook</label>
-                    <input class="form-control" type="text" name="facebook" placeholder="https://..." value="{{ old('facebook') }}">
+                    <input class="form-control" type="text" name="facebook" placeholder="https://..." value="{{ $user->facebook }}">
                   </div>
 
                   <div class="col-xs-6">
                     <label for="youtube">Youtube</label>
-                    <input class="form-control" type="text" name="youtube" placeholder="https://..." value="{{ old('youtube') }}">
+                    <input class="form-control" type="text" name="youtube" placeholder="https://..." value="{{ $user->youtube }}">
                   </div>
                 </div>
 
@@ -169,18 +157,18 @@
                   <select id="schooling" name="schooling_id" class="form-control">
                     <option value="" selected disabled hidden>Escolha uma...</option>
                     @foreach ($schoolings as $schooling)
-                      <option value="{{ $schooling->id }}"> {{ $schooling->name }} </option>
+                      <option value="{{ $schooling->id }}" @if($user->schooling_id == $schooling->id) selected @endif> {{ $schooling->name }} </option>
                     @endforeach
                   </select>
                 </div>
 
                 <div class="form-group">
                     <label for="bio">Conte-nos um pouco sobre você:</label>
-                    <textarea class="form-control" rows="5" id="bio" name="bio" placeholder="Escreva aqui...">{{ old('bio') }}</textarea>
+                    <textarea class="form-control" rows="5" id="bio" name="bio" placeholder="Escreva aqui...">{{ $user->bio }}</textarea>
                 </div>
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
                 <a href="{{route('admin.user.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
@@ -189,11 +177,11 @@
           </div>
         </section>
         
+      </section>
+      <!-- /.content -->
       </div>
       <!-- /.row (main row) -->
 
-    </section>
-    <!-- /.content -->
   </div>
 
 @stop

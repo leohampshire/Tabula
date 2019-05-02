@@ -57,14 +57,14 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.user.update')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.user.update', ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <input type="hidden" name="id" value="{{$user->id}}">
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-4 userType">
-                    <label for="usersType">Tipo de usuário: </label>
-                    <select name="usersType" class="form-control">
+                    <label for="user_type_id">Tipo de usuário: </label>
+                    <select name="user_type_id" class="form-control">
                       <option value="" selected disabled hidden>Escolha um...</option>
                       @foreach ($userTypes as $userType)
                         <option @if($user->user_type_id == $userType->id) selected @endif value="{{ $userType->id }}"> {{ $userType->name }} </option>
@@ -102,10 +102,6 @@
                     <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ $user->login }}">
                   </div>
 
-                  <div class="col-xs-6">
-                    <label for="password"></label>
-                    <button type="button" class="act-delete btn btn-xs btn-warning">Resetar Senha</button>
-                  </div>
                 </div>
 
                 <div class="form-group row">

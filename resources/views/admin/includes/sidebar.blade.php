@@ -44,8 +44,8 @@
             <i class="fa fa-refresh" aria-hidden="true"></i> <span>ANÁLISES</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
-          <a href="{{route('admin.dashboard')}}">
+        <li {{ (Request::is('admin/empresa') ? 'class=active' : '') }} {{ (Request::is('admin/empresa/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.company.index')}}">
             <i class="fa fa-industry" aria-hidden="true"></i> <span>EMPRESAS</span>
           </a>
         </li>

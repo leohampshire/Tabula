@@ -25,8 +25,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/create', 'Admin\AdminUserController@create')->name('create');
       Route::post('/store', 'Admin\AdminUserController@store')->name('store');
       Route::get('/edit/{id}/{type_id}', 'Admin\AdminUserController@edit')->name('edit');
-      Route::post('/update', 'Admin\AdminUserController@update')->name('update');
-      Route::get('/delete/{id}', 'Admin\AdminUserController@delete')->name('delete');
+      Route::get('/update/{id}/{type_id}', 'Admin\AdminUserController@update')->name('update');
+      Route::get('/delete/{id}/{type_id}', 'Admin\AdminUserController@delete')->name('delete');
+  });
+
+  //Usuários
+  Route::group(['prefix' => 'empresa', 'as' => 'company.'], function(){
+      Route::get('/', 'Admin\AdminCompanyController@index')->name('index');
+      Route::get('/create', 'Admin\AdminCompanyController@create')->name('create');
+      Route::post('/store', 'Admin\AdminCompanyController@store')->name('store');
+      Route::get('/edit/{id}}', 'Admin\AdminCompanyController@edit')->name('edit');
+      Route::get('/update/{id}', 'Admin\AdminCompanyController@update')->name('update');
+      Route::get('/delete/{id}', 'Admin\AdminCompanyController@delete')->name('delete');
   });
   //Categorias
   Route::group(['prefix' => 'categoria', 'as' => 'category.'], function(){
@@ -156,4 +166,18 @@ Route::group(['prefix' => 'user'], function () {
   Route::post('/password/reset', 'UserAuth\ResetPasswordController@reset')->name('password.email');
   Route::get('/password/reset', 'UserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'UserAuth\ResetPasswordController@showResetForm');
+});
+
+Route::group(['prefix' => 'company'], function () {
+  Route::get('/login', 'CompanyAuth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'CompanyAuth\LoginController@login');
+  Route::post('/logout', 'CompanyAuth\LoginController@logout')->name('logout');
+
+  Route::get('/register', 'CompanyAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'CompanyAuth\RegisterController@register');
+
+  Route::post('/password/email', 'CompanyAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'CompanyAuth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'CompanyAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'CompanyAuth\ResetPasswordController@showResetForm');
 });

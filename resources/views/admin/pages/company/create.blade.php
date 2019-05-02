@@ -56,21 +56,12 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.user.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.company.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">
-                  <div class="col-xs-4 userType">
-                    <label for="user_type_id">Tipo de usuário: </label>
-                    <select name="user_type_id" class="form-control">
-                      <option value="" selected disabled hidden>Escolha um...</option>
-                      @foreach ($userTypes as $userType)
-                        <option value="{{ $userType->id }}"> {{ $userType->name }} </option>
-                      @endforeach
-                      
-                    </select>
-                  </div>
-                  <div class="col-xs-4">
+             
+                  <div class="col-xs-6">
                     <label for="country">País</label>
                     <select id="country" name="country_id" class="form-control">
                       <option value="" selected disabled hidden>Escolha um...</option>
@@ -80,7 +71,7 @@
                     </select>
                   </div>
 
-                  <div class="col-xs-4">
+                  <div class="col-xs-6">
                     <div class="state">
                       <label for="state">Estado</label>
                       <select id="state" name="state_id" class="form-control">
@@ -123,15 +114,10 @@
                   <label for="email">E-mail</label>
                   <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ old('email') }}">
                 </div>
-                <div class="sex">
-                  <label for="sex">Sexo: </label>
-                  <label class="radio-inline"><input type="radio" name="sex" value="Masculino">Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="sex" value="Feminino">Feminino</label>
-                </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="occupation">Cargo</label>
-                    <input class="form-control" type="text" name="occupation" placeholder="Seu cargo" value="{{ old('occupation') }}">
+                    <label for="occupation">Ramo</label>
+                    <input class="form-control" type="text" name="occupation" placeholder="Seu ramo" value="{{ old('occupation') }}">
                   </div>
 
                   <div class="col-xs-6">
@@ -164,15 +150,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="schooling">Escolaridade</label>
-                  <select id="schooling" name="schooling_id" class="form-control">
-                    <option value="" selected disabled hidden>Escolha uma...</option>
-                    @foreach ($schoolings as $schooling)
-                      <option value="{{ $schooling->id }}"> {{ $schooling->name }} </option>
-                    @endforeach
-                  </select>
-                </div>
+        
 
                 <div class="form-group">
                     <label for="bio">Conte-nos um pouco sobre você:</label>
@@ -181,7 +159,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Adicionar</button>
-                <a href="{{route('admin.user.index')}}">
+                <a href="{{route('admin.company.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
               </div>

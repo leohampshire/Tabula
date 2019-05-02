@@ -10,12 +10,15 @@ use App\State;
 use App\Country;
 use App\Schooling;
 use App\UserType;
+use App\Admin;
 
 class AdminUserController extends Controller
 {
 	public function index(Request $request)
 	{
-		return view('admin.pages.user.index')->with('users', User::all());
+		return view('admin.pages.user.index')
+        ->with('usersAdmin', Admin::all())
+        ->with('users', User::all());
 	}
 	public function create()
 	{
@@ -27,15 +30,14 @@ class AdminUserController extends Controller
 	}
 	public function store(Request $request)
 	{
-
         $this->validate($request, [
             'login'         => 'required',
             'name'          => 'required',
             'country_id'	=> 'required',
             'password'      => 'required|min:6',
-            'usersType'     => 'required'
+            'user_type_id'  => 'required'
         ]);
-        if ($request->usersType <= 2) {
+        if ($request->user_type_id <= 2) {
         	$this->validate($request, [
             	'email'     => 'required|unique:admins',
         	]);
@@ -49,6 +51,7 @@ class AdminUserController extends Controller
         }
         $user->login        = $request->login;
         $user->name         = $request->name;
+        $user->user_type_id = $request->user_type_id;
         $user->password     = bcrypt($request->password);
         $user->birthdate    = implode("-", array_reverse(explode("/", $request->birthdate)));
         $user->sex          = $request->sex;
@@ -65,12 +68,6 @@ class AdminUserController extends Controller
         $user->youtube      = $request->youtube;
         $user->email        = $request->email;
         $user->save();
-
-        if ($request->usersType == "5") {
-            Company::create([
-                'user_id'   => $user->id
-            ]);
-        }
 
         return redirect(route('admin.user.index'))->with('success', 'Usuário Criado com sucesso');
 	}
@@ -95,9 +92,9 @@ class AdminUserController extends Controller
             'login'         => 'required',
             'name'          => 'required',
             'country_id'	=> 'required',
-            'usersType'     => 'required'
+            'user_type_id'     => 'required'
         ]);
-        if ($request->usersType <= 2) {
+        if ($request->user_type_id <= 2) {
         	$this->validate($request, [
         		'email'  => [
                 	'required',
@@ -118,6 +115,7 @@ class AdminUserController extends Controller
         }
         $user->login        = $request->login;
         $user->name         = $request->name;
+        $user->user_type_id = $request->user_type_id;
         $user->birthdate    = implode("-", array_reverse(explode("/", $request->birthdate)));
         $user->sex          = $request->sex;
         $user->occupation   = $request->occupation;
@@ -136,8 +134,16 @@ class AdminUserController extends Controller
 
         return redirect(route('admin.user.index'))->with('success', 'Usuário editado com sucesso');
 	}
-	public function delete($id)
+	public function delete($id, $type_id)
 	{
-		
+		if ($type_id <= 2) {
+            $user = Admin::find($id);
+        }else{
+            $user = User::find($id);
+        }
+
+        $user->delete();
+        return redirect()->back()->with('success', 'Usuário Removido');
 	}
+
 }

@@ -104,20 +104,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($users as $user)
+                  @forelse($usersAdmin as $user)
                     <tr>
                       <td>{{$user->name}}</td>
                       <td>{{$user->userTypes->name}}</td>
-                      @if($user->avaliable == 1)
-                      <td>Aguardando Liberação</td>
-                      @else
-                      <td>Liberado</td>
-                      @endif
                       <td>
                         <a href="{{ route('admin.user.edit', ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.user.delete', ['id' => $user->id])}}" title="Excluir" class="act-list act-delete">
+                      </td>
+                    </tr>
+                  @empty
+                    <tr>
+                      <td colspan="7y">Nenhum resultado encontrado</td>
+                    </tr>
+                  @endforelse
+                  @forelse($users as $user)
+                    <tr>
+                      <td>{{$user->name}}</td>
+                      <td>{{$user->userTypes->name}}</td>
+                      <td>
+                        <a href="{{ route('admin.user.edit', ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" title="Editar" class="act-list">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{ route('admin.user.delete',  ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -131,7 +141,7 @@
                 <tfoot>
                   <tr>
                     <th>Nome</th>
-                    <th>URN</th>
+                    <th>Tipo de Usuário</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   
