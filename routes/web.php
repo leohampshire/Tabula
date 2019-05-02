@@ -171,3 +171,17 @@ Route::group(['prefix' => 'company', 'as' => 'company.'], function () {
   Route::get('/password/reset', 'CompanyAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'CompanyAuth\ResetPasswordController@showResetForm');
 });
+
+Route::group(['prefix' => 'user'], function () {
+  Route::get('/login', 'UserAuth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'UserAuth\LoginController@login');
+  Route::post('/logout', 'UserAuth\LoginController@logout')->name('logout');
+
+  Route::get('/register', 'UserAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'UserAuth\RegisterController@register');
+
+  Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'UserAuth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'UserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'UserAuth\ResetPasswordController@showResetForm');
+});

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\CompanyAuth;
+namespace App\Http\Controllers\UserAuth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -28,7 +28,7 @@ class ForgotPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('company.guest');
+        $this->middleware('user.guest');
     }
 
     /**
@@ -38,7 +38,7 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm()
     {
-        return view('company.auth.passwords.email');
+        return view('user.auth.passwords.email');
     }
 
     /**
@@ -48,6 +48,6 @@ class ForgotPasswordController extends Controller
      */
     public function broker()
     {
-        return Password::broker('companies');
+        return Password::broker('users');
     }
 }

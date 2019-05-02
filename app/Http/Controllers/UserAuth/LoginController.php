@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\CompanyAuth;
+namespace App\Http\Controllers\UserAuth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    public $redirectTo = '/company/home';
+    public $redirectTo = '/user/home';
 
     /**
      * Create a new controller instance.
@@ -38,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('company.guest', ['except' => 'logout']);
+        $this->middleware('user.guest', ['except' => 'logout']);
     }
 
     /**
@@ -48,7 +48,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('company.auth.login');
+        return view('user.auth.login');
     }
 
     /**
@@ -58,6 +58,6 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('company');
+        return Auth::guard('user');
     }
 }

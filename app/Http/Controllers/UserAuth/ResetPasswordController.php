@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\StudentAuth;
+namespace App\Http\Controllers\UserAuth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -28,7 +28,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    public $redirectTo = '/student/home';
+    public $redirectTo = '/user/home';
 
 
     /**
@@ -38,7 +38,7 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('student.guest');
+        $this->middleware('user.guest');
     }
 
     /**
@@ -52,7 +52,7 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('student.auth.passwords.reset')->with(
+        return view('user.auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
     }
@@ -64,7 +64,7 @@ class ResetPasswordController extends Controller
      */
     public function broker()
     {
-        return Password::broker('students');
+        return Password::broker('users');
     }
 
     /**
@@ -74,6 +74,6 @@ class ResetPasswordController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('student');
+        return Auth::guard('user');
     }
 }
