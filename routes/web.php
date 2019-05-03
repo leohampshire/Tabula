@@ -12,10 +12,15 @@
 */
 Route::get('/', 'User\HomeController@index')->name('index');
 
+Route::get('/category', function () {
+  return view('user.pages.category');
+});
+
+Route::get('/search', function () {
+  return view('user.pages.search');
+});
 
 Route::get('curso/{urn}', 'User\CourseController@course')->name('course');
-
-
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], function () {
   Route::get('/dashboard', 'Admin\AdminController@dashboard')->name('dashboard');
