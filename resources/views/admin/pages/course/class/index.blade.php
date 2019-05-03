@@ -77,7 +77,7 @@
                     @if($item->course_item_type->id <= 6)
                     <tr>
                       <td>{{$item->name}}</td>
-                      <td>{{$item->desc}}</td>
+                      <td>{{substr($item->desc, 0, 100)}}</td>
                       <td>{{$item->course_item_type->name}}</td>
                       <td>
                         @if($item->course_item_type->id == 6)

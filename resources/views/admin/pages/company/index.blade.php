@@ -114,6 +114,9 @@
                         <a href="{{ route('admin.company.delete',  ['id' => $company->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
+                        <a href="#" title="Incluir usuário" class="act-list act-include" data-id="{{$company->id}}">
+                          <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        </a>
                       </td>
                     </tr>
                   @empty

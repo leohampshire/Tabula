@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'User\HomeController@index')->name('index');
 
 Route::get('/category', function () {
   return view('user.pages.category');
@@ -34,13 +33,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/delete/{id}/{type_id}', 'Admin\AdminUserController@delete')->name('delete');
   });
 
+  Route::group(['prefix' => 'configuracao', 'as' => 'configuration.'], function(){
+      Route::get('/', 'Admin\AdminController@index')->name('index');
+      Route::post('/update/', 'Admin\AdminController@update')->name('update');
+  });
+
   //Usuários
   Route::group(['prefix' => 'empresa', 'as' => 'company.'], function(){
       Route::get('/', 'Admin\AdminCompanyController@index')->name('index');
       Route::get('/create', 'Admin\AdminCompanyController@create')->name('create');
+      Route::post('/incluir', 'Admin\AdminCompanyController@include')->name('include');
       Route::post('/store', 'Admin\AdminCompanyController@store')->name('store');
-      Route::get('/edit/{id}}', 'Admin\AdminCompanyController@edit')->name('edit');
-      Route::get('/update/{id}', 'Admin\AdminCompanyController@update')->name('update');
+      Route::get('/edit/{id}', 'Admin\AdminCompanyController@edit')->name('edit');
+      Route::post('/update/{id}', 'Admin\AdminCompanyController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCompanyController@delete')->name('delete');
   });
   //Categorias
@@ -60,6 +65,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/edit/{id}', 'Admin\AdminSubcategoryController@edit')->name('edit');
       Route::post('/update', 'Admin\AdminSubcategoryController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminSubcategoryController@delete')->name('delete');
+  });
+  Route::group(['prefix' =>'analise', 'as' => 'analyze.'], function(){
+    Route::get('/', 'Admin\AdminCourseController@indexAnalyze')->name('index');
   });
   //Cursos
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
@@ -86,9 +94,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
         Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
         Route::post('/update', 'Admin\AdminCourseController@updateitem')->name('update');
         Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
-      });
-      Route::group(['prefix' =>'analise', 'as' => 'analyze.'], function(){
-        Route::get('/', 'Admin\AdminCourseController@indexAnalyze')->name('index');
       });
   });
   //Cupons

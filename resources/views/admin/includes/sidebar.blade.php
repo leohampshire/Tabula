@@ -1,3 +1,6 @@
+<?php 
+  $auth = Auth::guard('admin')->user();
+?>
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -7,8 +10,8 @@
           <img src="{{ asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Tabula</p>
-          <span><small>Administrador</small></span>
+          <p>{{$auth->name}}</p>
+          <span><small>{{$auth->userTypes->name}}</small></span>
         </div>
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -40,7 +43,7 @@
           </a>
         </li>
         <li {{ (Request::is('admin/analise') ? 'class=active' : '') }} {{ (Request::is('admin/analise/*') ? 'class=active' : '') }}>
-          <a href="{{route('admin.course.analyze.index')}}">
+          <a href="{{route('admin.analyze.index')}}">
             <i class="fa fa-refresh" aria-hidden="true"></i> <span>ANÁLISES</span>
           </a>
         </li>
@@ -79,8 +82,8 @@
             <i class="fa fa-tachometer"></i> <span>PÁGINAS</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/admin/configuration') ? 'class=active' : '') }} {{ (Request::is('admin/admin/configuration/*') ? 'class=active' : '') }} >
-          <a href="#">
+        <li {{ (Request::is('admin/admin/configuracao') ? 'class=active' : '') }} {{ (Request::is('admin/admin/configuracao/*') ? 'class=active' : '') }} >
+          <a href="{{route('admin.configuration.index')}}">
             <i class="fa fa-cogs"></i> <span>CONFIGURAÇÕES</span>
           </a>
         </li>

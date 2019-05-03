@@ -57,28 +57,29 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.company.update', ['id' => $user->id])}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.company.update', ['id' => $company->id])}}" enctype="multipart/form-data">
               {{csrf_field()}}
-              <input type="hidden" name="id" value="{{$user->id}}">
+              <input type="hidden" name="id" value="{{$company->id}}">
               <div class="box-body">
                 <div class="form-group row">
-                  <div class="col-xs-4">
+             
+                  <div class="col-xs-6">
                     <label for="country">País</label>
                     <select id="country" name="country_id" class="form-control">
                       <option value="" selected disabled hidden>Escolha um...</option>
                       @foreach ($countries as $country)
-                        <option @if($user->country_id == $country->id) selected @endif value="{{ $country->id }}"> {{ $country->name }} </option>
+                        <option @if($company->country_id == $country->id) selected @endif value="{{ $country->id }}"> {{ $country->name }} </option>
                       @endforeach
                     </select>
                   </div>
 
-                  <div class="col-xs-4">
+                  <div class="col-xs-6">
                     <div class="state">
                       <label for="state">Estado</label>
                       <select id="state" name="state_id" class="form-control">
                         <option selected disabled hidden>Escolha um...</option>
                         @foreach ($states as $state)
-                          <option @if($user->state_id == $state->id) selected @endif value="{{ $state->id }}"> {{ $state->name }} </option>
+                          <option @if($company->state_id == $state->id) selected @endif value="{{ $state->id }}"> {{ $state->name }} </option>
                         @endforeach
                       </select>
                     </div>
@@ -87,89 +88,66 @@
                 </div>
 
                 <div class="form-group row">
-                  <div class="col-xs-6">
+                  <div class="col-xs-12">
                     <label for="login">Login</label>
-                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ $user->login }}">
+                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ $company->login }}">
                   </div>
 
                 </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">
-                      <label for="name">Nome Completo</label>
-                      <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ $user->name }}">
-                    </div>
-
+                      <label for="name">Nome Empresa</label>
+                      <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ $company->name }}">
+                   </div>
                   <div class="col-xs-6">
-                    <label for="birthdate">Data de Nascimento</label>
-                    <input class="form-control input-date" type="text" name="birthdate" placeholder="DD/MM/AAAA" value="{{ $user->birthdate }}">
+                    <label for="email">E-mail</label>
+                    <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ $company->email }}">
                   </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label for="email">E-mail</label>
-                  <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ $user->email }}">
-                </div>
-                <div class="sex">
-                  <label for="sex">Sexo: </label>
-                  <label class="radio-inline"><input @if($user->sex == 'Masculino') checked @endif type="radio" name="sex" value="Masculino">Masculino</label>
-                  <label class="radio-inline"><input @if($user->sex == 'Feminino') checked @endif type="radio" name="sex" value="Feminino">Feminino</label>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="occupation">Cargo</label>
-                    <input class="form-control" type="text" name="occupation" placeholder="Seu cargo" value="{{ $user->occupation }}">
+                    <label for="occupation">Ramo</label>
+                    <input class="form-control" type="text" name="occupation" placeholder="Seu ramo" value="{{ $company->occupation }}">
                   </div>
 
                   <div class="col-xs-6">
                     <label for="website">Website</label>
-                    <input class="form-control" type="text" name="website" placeholder="https://..." value="{{ $user->website }}">
+                    <input class="form-control" type="text" name="website" placeholder="https://..." value="{{ $company->website }}">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">
                     <label for="google_plus">Google +</label>
-                    <input class="form-control" type="text" name="google_plus" placeholder="https://..." value="{{ $user->google_plus }}">
+                    <input class="form-control" type="text" name="google_plus" placeholder="https://..." value="{{ $company->google_plus }}">
                   </div>
 
                   <div class="col-xs-6">
                     <label for="twitter">Twitter</label>
-                    <input class="form-control" type="text" name="twitter" placeholder="https://..." value="{{ $user->twitter }}">
+                    <input class="form-control" type="text" name="twitter" placeholder="https://..." value="{{ $company->twitter }}">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">
                     <label for="facebook">Facebook</label>
-                    <input class="form-control" type="text" name="facebook" placeholder="https://..." value="{{ $user->facebook }}">
+                    <input class="form-control" type="text" name="facebook" placeholder="https://..." value="{{ $company->facebook }}">
                   </div>
 
                   <div class="col-xs-6">
                     <label for="youtube">Youtube</label>
-                    <input class="form-control" type="text" name="youtube" placeholder="https://..." value="{{ $user->youtube }}">
+                    <input class="form-control" type="text" name="youtube" placeholder="https://..." value="{{ $company->youtube }}">
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label for="schooling">Escolaridade</label>
-                  <select id="schooling" name="schooling_id" class="form-control">
-                    <option value="" selected disabled hidden>Escolha uma...</option>
-                    @foreach ($schoolings as $schooling)
-                      <option value="{{ $schooling->id }}" @if($user->schooling_id == $schooling->id) selected @endif> {{ $schooling->name }} </option>
-                    @endforeach
-                  </select>
-                </div>
-
                 <div class="form-group">
                     <label for="bio">Conte-nos um pouco sobre você:</label>
-                    <textarea class="form-control" rows="5" id="bio" name="bio" placeholder="Escreva aqui...">{{ $user->bio }}</textarea>
+                    <textarea class="form-control" rows="5" id="bio" name="bio" placeholder="Escreva aqui...">{{ $company->bio }}</textarea>
                 </div>
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Atualizar</button>
-                <a href="{{route('admin.user.index')}}">
+                <a href="{{route('admin.company.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>
               </div>
