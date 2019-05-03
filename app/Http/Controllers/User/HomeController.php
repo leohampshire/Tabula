@@ -47,8 +47,8 @@ class HomeController extends Controller
 		->with('courses', $courses)
 		->with('route', $route)
 		->with('userType', $userType)
-		->with('featured_category1', $featured_category1->desc)
-		->with('featured_category2', $featured_category2->desc)
+		->with('featured_category1', $featured_category1->name)
+		->with('featured_category2', $featured_category2->name)
 		->with('featured_courses1', $featured_courses1)
 		->with('featured_courses2', $featured_courses2)
 		->with('featured_posts', $featured_posts);

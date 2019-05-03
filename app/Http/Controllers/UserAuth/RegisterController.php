@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\UserAuth;
 
 use App\User;
+use App\State;
+use App\Country;
+use App\Schooling;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -49,9 +52,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'name'          => 'required|max:255',
+            'email'         => 'required|email|max:255|unique:users',
+            'sex'           => 'required',
+            'country_id'    => 'required',
+            'schooling_id'     => 'required',
+            'password'      => 'required|min:6|confirmed',
         ]);
     }
 
@@ -64,9 +70,14 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'name'          => $data['name'],
+            'email'         => $data['email'],
+            'password'      => bcrypt($data['password']),
+            'sex'           => $data['sex'],
+            'country_id'    => $data['country_id'],
+            'state_id'      => $data['state_id'],
+            'schooling_id'  => $data['schooling_id'],
+            'user_type_id'  => 3,
         ]);
     }
 
@@ -77,7 +88,10 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('user.auth.register');
+        return view('user.auth.register')
+        ->with('states', State::all())
+        ->with('countries', Country::all())
+        ->with('schoolings', Schooling::all());
     }
 
     /**

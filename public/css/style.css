@@ -186,6 +186,7 @@ header ul li a.btn-register {
   opacity: 0.5;
   font-size: 18px;
   line-height: 52px;
+  padding: 0;
 }
 
 .next-carousel-courses {

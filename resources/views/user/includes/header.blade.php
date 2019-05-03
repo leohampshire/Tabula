@@ -12,9 +12,13 @@
       </div>
       <div class="col-xs-5">
         <ul>
+          @if(Auth::guard('user')->user())
           <li><a href="#">Torne-se professor</a></li>
-          <li><a href="#" class="btn-login">Login</a></li>
-          <li><a href="#" class="btn-register">Cadastre-se</a></li>
+          <li><a href="{{route('user.logout')}}">Sair</a></li>
+          @else
+          <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>
+          <li><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
+          @endif
         </ul>
       </div>
     </div>

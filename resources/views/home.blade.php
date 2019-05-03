@@ -98,33 +98,66 @@
 	</div>
 </section>
 
+@if($featured_courses1->count())
 <section>
 	<div class="container">
 		<div class="box-w-shadow">
-			<h2>Cursos em destaque: Finanças e Economia</h2>
+			<h2>Cursos em destaque: {{$featured_category1}}</h2>
 			<div class="container-carousel-courses">
 				<button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 				<div class="carousel-courses">
-				  <?php for ($i=0; $i < 20; $i++) { ?>
-				  <div class="course-box">
-				  	<div class="course-thumb">
-				  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+					@forelse($featured_courses1 as $course)
+				  	<div class="course-box">
+					  	<div class="course-thumb">
+					  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+					  	</div>
+					  	<div class="course-desc">
+					  		<h3>{{$course->name}}</h3>
+					  		<p>{{substr($course->desc, 0, 50)}}</p>
+					  	</div>
+					  	<div class="course-value">
+					  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
+					  	</div>
 				  	</div>
-				  	<div class="course-desc">
-				  		<h3>Título do curso</h3>
-				  		<p>Descrição do curso</p>
-				  	</div>
-				  	<div class="course-value">
-				  		<span>R$ 200,00</span>
-				  	</div>
-				  </div>
-				  <?php } ?>
+				  	@empty
+				  	@endforelse
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+@endif
+@if($featured_courses2->count())
+<section>
+	<div class="container">
+		<div class="box-w-shadow">
+			<h2>Cursos em destaque:{{$featured_category2}}</h2>
+			<div class="container-carousel-courses">
+				<button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+				<div class="carousel-courses">
+					@forelse($featured_courses2 as $course)
+				  	<div class="course-box">
+					  	<div class="course-thumb">
+					  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+					  	</div>
+					  	<div class="course-desc">
+					  		<h3>{{$course->name}}</h3>
+					  		<p>{{substr($course->desc, 0, 50)}}</p>
+					  	</div>
+					  	<div class="course-value">
+					  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
+					  	</div>
+				  	</div>
+				  	@empty
+				  	@endforelse
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+@endif
 
 <section>
 	<div class="container">

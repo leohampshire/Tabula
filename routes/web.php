@@ -10,12 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/category', function () {
-  return view('user.pages.category');
-});
-
 Route::get('/', 'User\HomeController@index')->name('home');
+
+Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
+
 
 Route::get('/search', function () {
   return view('user.pages.search');
@@ -25,9 +23,6 @@ Route::get('/register', function () {
   return view('user.pages.register');
 });
 
-Route::get('/login', function () {
-  return view('user.pages.login');
-});
 
 Route::get('/panel_dados_pessoais', function () {
   return view('user.pages.panel_dados_pessoais');
@@ -232,9 +227,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 Route::group(['prefix' => 'user'], function () {
   Route::get('/login', 'UserAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'UserAuth\LoginController@login');
-  Route::post('/logout', 'UserAuth\LoginController@logout')->name('logout');
+  Route::get('/logout', 'UserAuth\LoginController@logout')->name('user.logout');
 
-  Route::get('/register', 'UserAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::get('/register', 'UserAuth\RegisterController@showRegistrationForm')->name('user.register');
   Route::post('/register', 'UserAuth\RegisterController@register');
 
   Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
