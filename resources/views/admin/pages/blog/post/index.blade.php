@@ -61,7 +61,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Nome da Postsdo Blog</label>
+                    <label>Nome da Posts do Blog</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
                   

@@ -34,6 +34,20 @@
       </section>
     @endisset
 
+    @if(session()->has('info'))
+      <section class="content-header">
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-sm-12">
+            <div class="alert alert-info alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{session('info')}}
+            </div>
+          </section>
+        </div>
+      </section>
+    @endisset
     @if ($errors->any())
       <div class="content-header">
         @foreach ($errors->all() as $error)

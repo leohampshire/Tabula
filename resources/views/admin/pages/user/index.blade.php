@@ -104,30 +104,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($usersAdmin as $user)
-                    <tr>
-                      <td>{{$user->name}}</td>
-                      <td>{{$user->userTypes->name}}</td>
-                      <td>
-                        <a href="{{ route('admin.user.edit', ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" title="Editar" class="act-list">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  @empty
-                    <tr>
-                      <td colspan="7y">Nenhum resultado encontrado</td>
-                    </tr>
-                  @endforelse
                   @forelse($users as $user)
                     <tr>
                       <td>{{$user->name}}</td>
                       <td>{{$user->userTypes->name}}</td>
                       <td>
-                        <a href="{{ route('admin.user.edit', ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.user.edit', ['id' => $user->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.user.delete',  ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" title="Excluir" class="act-list act-delete">
+                        <a href="{{ route('admin.user.delete',  ['id' => $user->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
                       </td>

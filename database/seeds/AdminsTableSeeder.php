@@ -15,7 +15,6 @@ class AdminsTableSeeder extends Seeder
         DB::table("admins")->insert([
             [
                 "name"          => "tabula",
-                "login"         => "tabula",
                 "email"         => "tabula@tabula.com.br",
                 "user_type_id"  => 1,
                 "password"      => bcrypt("tabula"),

@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Editar Usuário')
+@section('title', 'Editar Empresa')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Editar Usuário</h1>
+          <h1>Editar Empresa</h1>
         </div>
       </div>
     </section>
@@ -87,13 +87,6 @@
 
                 </div>
 
-                <div class="form-group row">
-                  <div class="col-xs-12">
-                    <label for="login">Login</label>
-                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ $company->login }}">
-                  </div>
-
-                </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">

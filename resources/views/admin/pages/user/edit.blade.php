@@ -57,7 +57,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.user.update', ['id' => $user->id, 'type_id' => $user->userTypes->id])}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.user.update', ['id' => $user->id])}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <input type="hidden" name="id" value="{{$user->id}}">
               <div class="box-body">
@@ -96,13 +96,6 @@
 
                 </div>
 
-                <div class="form-group row">
-                  <div class="col-xs-6">
-                    <label for="login">Login</label>
-                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ $user->login }}">
-                  </div>
-
-                </div>
 
                 <div class="form-group row">
                   <div class="col-xs-6">

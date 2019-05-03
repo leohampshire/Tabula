@@ -103,6 +103,7 @@ class AdminBlogController extends Controller
             'meta_title' 		=> 'required',
             'category_id'		=> 'required',
             'content'			=> 'required',
+            'urn'				=> 'required|unique:blog_posts'
         ]);
 		$post = new BlogPost;
 		$auth = Auth::guard('admin')->user();
@@ -111,6 +112,7 @@ class AdminBlogController extends Controller
 		$post->meta_description = $request->meta_description;
 		$post->keywords			= $request->keywords;
 		$post->content 			= $request->content;
+		$post->urn 				= $request->urn;
 		$post->user_id 			= $auth->id;
 		$post->category_id 		= $request->category_id;
 		$post->save();
@@ -126,8 +128,12 @@ class AdminBlogController extends Controller
 	}
 	public function updatePost(Request $request)
 	{
-		$this->validate($request, [    
-            'name'        	=> [
+		$this->validate($request, [  
+			'name'        => [
+                'required',
+                Rule::unique('blog_postsw')->ignore($request->id)
+            ],	
+            'urn'        	=> [
                 'required',
                 Rule::unique('blog_posts')->ignore($request->id)
             ],	
@@ -141,6 +147,7 @@ class AdminBlogController extends Controller
 		$post->meta_title 		= $request->meta_title;
 		$post->meta_description = $request->meta_description;
 		$post->keywords			= $request->keywords;
+		$post->urn 				= $request->urn;
 		$post->content 			= $request->content;
 		$post->user_id 			= $auth->id;
 		$post->category_id 		= $request->category_id;

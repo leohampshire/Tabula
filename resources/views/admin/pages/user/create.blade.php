@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Adicionar Curso')
+@section('title', 'Adicionar Usuário')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Adicionar Curso</h1>
+          <h1>Adicionar Usuário</h1>
         </div>
       </div>
     </section>
@@ -96,10 +96,10 @@
 
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="login">Login</label>
-                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ old('login') }}">
-                  </div>
-
+                      <label for="name">Nome Completo</label>
+                      <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ old('name') }}">
+                    </div>
+                  
                   <div class="col-xs-6">
                     <label for="password">Senha</label>
                     <input class="form-control"  type="password" placeholder="Sua senha" name="password">
@@ -108,9 +108,9 @@
 
                 <div class="form-group row">
                   <div class="col-xs-6">
-                      <label for="name">Nome Completo</label>
-                      <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ old('name') }}">
-                    </div>
+                    <label for="email">E-mail</label>
+                    <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ old('email') }}">
+                  </div>
 
                   <div class="col-xs-6">
                     <label for="birthdate">Data de Nascimento</label>
@@ -118,15 +118,12 @@
                   </div>
                 </div>
 
-
-                <div class="form-group">
-                  <label for="email">E-mail</label>
-                  <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ old('email') }}">
-                </div>
-                <div class="sex">
-                  <label for="sex">Sexo: </label>
-                  <label class="radio-inline"><input type="radio" name="sex" value="Masculino">Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="sex" value="Feminino">Feminino</label>
+                <div class="form-group row">
+                  <div class="col-sm-12 sex">
+                    <label for="sex">Sexo: </label>
+                    <label class="radio-inline"><input type="radio" name="sex" value="Masculino">Masculino</label>
+                    <label class="radio-inline"><input type="radio" name="sex" value="Feminino">Feminino</label>
+                  </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">

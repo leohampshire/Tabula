@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Adicionar Curso')
+@section('title', 'Adicionar Empresa')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Adicionar Curso</h1>
+          <h1>Adicionar Empresa</h1>
         </div>
       </div>
     </section>
@@ -87,9 +87,9 @@
 
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="login">Login</label>
-                    <input class="form-control" type="text" name="login" placeholder="Seu login" value="{{ old('login') }}">
-                  </div>
+                      <label for="name">Nome Empresa</label>
+                      <input class="form-control" name="name" type="text" placeholder="Nome Empresa" value="{{ old('name') }}">
+                   </div>
 
                   <div class="col-xs-6">
                     <label for="password">Senha</label>
@@ -98,11 +98,7 @@
                 </div>
 
                 <div class="form-group row">
-                  <div class="col-xs-6">
-                      <label for="name">Nome Empresa</label>
-                      <input class="form-control" name="name" type="text" placeholder="Seu nome" value="{{ old('name') }}">
-                   </div>
-                  <div class="col-xs-6">
+                  <div class="col-xs-12">
                     <label for="email">E-mail</label>
                     <input class="form-control" type="email" name="email" placeholder="exemplo@email.com" value="{{ old('email') }}">
                   </div>

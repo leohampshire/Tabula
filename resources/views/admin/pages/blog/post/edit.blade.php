@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Adicionar Post')
+@section('title', 'Atualizar Post')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Adicionar Post</h1>
+          <h1>Atualizar Post</h1>
         </div>
       </div>
     </section>
@@ -85,9 +85,13 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-xs-12">
+                  <div class="col-xs-6">
                     <label for="keywords">KeyWord</label>
                     <input class="form-control" type="text" name="keywords" placeholder="Definir KeyWord" value="{{ $post->keywords }}">
+                  </div>
+                  <div class="col-xs-6">
+                    <label for="urn">URN</label>
+                    <input class="form-control" type="text" name="urn" placeholder="Definir URN" value="{{ $post->urn }}">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -104,7 +108,7 @@
                 </div>
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
                 <a href="{{route('admin.post.blog.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>

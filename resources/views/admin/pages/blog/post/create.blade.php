@@ -85,9 +85,13 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-xs-12">
+                  <div class="col-xs-6">
                     <label for="keywords">KeyWord</label>
                     <input class="form-control" type="text" name="keywords" placeholder="Definir KeyWord" value="{{ old('keywords') }}">
+                  </div>
+                  <div class="col-xs-6">
+                    <label for="urn">URN</label>
+                    <input class="form-control" type="text" name="urn" placeholder="Definir URN" value="{{ old('urn') }}">
                   </div>
                 </div>
                 <div class="form-group row">

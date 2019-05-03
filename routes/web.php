@@ -15,6 +15,8 @@ Route::get('/category', function () {
   return view('user.pages.category');
 });
 
+Route::get('/', 'User\HomeController@index')->name('home');
+
 Route::get('/search', function () {
   return view('user.pages.search');
 });
@@ -55,9 +57,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/', 'Admin\AdminUserController@index')->name('index');
       Route::get('/create', 'Admin\AdminUserController@create')->name('create');
       Route::post('/store', 'Admin\AdminUserController@store')->name('store');
-      Route::get('/edit/{id}/{type_id}', 'Admin\AdminUserController@edit')->name('edit');
-      Route::get('/update/{id}/{type_id}', 'Admin\AdminUserController@update')->name('update');
-      Route::get('/delete/{id}/{type_id}', 'Admin\AdminUserController@delete')->name('delete');
+      Route::get('/edit/{id}/', 'Admin\AdminUserController@edit')->name('edit');
+      Route::post('/update/{id}/', 'Admin\AdminUserController@update')->name('update');
+      Route::get('/delete/{id}/', 'Admin\AdminUserController@delete')->name('delete');
+  });
+  //Administradores
+  Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
+      Route::get('/', 'Admin\AdminController@index')->name('index');
+      Route::get('/create', 'Admin\AdminController@create')->name('create');
+      Route::post('/store', 'Admin\AdminController@store')->name('store');
+      Route::get('/edit/{id}/', 'Admin\AdminController@edit')->name('edit');
+      Route::post('/update/{id}/', 'Admin\AdminController@update')->name('update');
+      Route::get('/delete/{id}/', 'Admin\AdminController@delete')->name('delete');
   });
 
   Route::group(['prefix' => 'configuracao', 'as' => 'configuration.'], function(){
@@ -65,7 +76,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update/', 'Admin\AdminController@update')->name('update');
   });
 
-  //Usuários
+  //Empresas
   Route::group(['prefix' => 'empresa', 'as' => 'company.'], function(){
       Route::get('/', 'Admin\AdminCompanyController@index')->name('index');
       Route::get('/create', 'Admin\AdminCompanyController@create')->name('create');

@@ -109,7 +109,7 @@
                     <tr>
                       <td>{{$subcategory->name}}</td>
                       <td>{{$subcategory->urn}}</td>
-                      <td>{{$subcategory->category}}</td>
+                      <td>{{$subcategory->category->name}}</td>
                       <td>
                         <a href="{{ route('admin.subcategory.edit', ['id' => $subcategory->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

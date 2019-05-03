@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'SEOs')
+@section('title', 'Administradores')
 
 @section('description', 'Descrição')
 
@@ -11,10 +11,10 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>SEO's</h1>
+          <h1>Administradores</h1>
         </div>
         <div class="col-sm-6">
-          <button class="btn-header" onclick="window.location.href='{{ route('admin.seo.create')}}'">Novo</button>
+          <button class="btn-header" onclick="window.location.href='{{ route('admin.admin.create')}}'">Novo</button>
         </div>
       </div>
     </section>
@@ -61,7 +61,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Nome Seo</label>
+                    <label>Nome do Administrador</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
                   
@@ -82,11 +82,11 @@
         <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Lista de SEO's</h3>
+              <h3 class="box-title">Lista de Administradores</h3>
               <div class="box-tools">
                 <?php
 
-                $paginate = $seos;
+                $paginate = $users;
 
                 $link_limit = 7;
 
@@ -98,23 +98,22 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Tipo de Meta</th>
-                    <th>Descrição</th>
-                    <th>Página</th>
+                    <th>Nome</th>
+                    <th>Tipo de Administrador</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($seos as $seo)
+                  
+                  @forelse($users as $user)
                     <tr>
-                      <td>{{ucfirst ($seo->meta_type)}}</td>
-                      <td>{{$seo->meta_description}}</td>
-                      <td>{{$seo->meta_description}}</td>
+                      <td>{{$user->name}}</td>
+                      <td>{{$user->userTypes->name}}</td>
                       <td>
-                        <a href="{{ route('admin.seo.edit', ['id' => $seo->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.admin.edit', ['id' => $user->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.seo.delete', ['id' => $seo->id])}}" title="Excluir" class="act-list act-delete">
+                        <a href="{{ route('admin.admin.delete',  ['id' => $user->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -127,9 +126,8 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Tipo de Meta</th>
-                    <th>Descrição</th>
-                    <th>Página</th>
+                    <th>Nome</th>
+                    <th>Tipo de Administrador</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   

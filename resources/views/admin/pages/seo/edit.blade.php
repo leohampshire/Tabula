@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Editar Categoria')
+@section('title', 'Editar SEO')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Editar Categoria</h1>
+          <h1>Editar SEO</h1>
         </div>
       </div>
     </section>
@@ -78,7 +78,7 @@
                       <option selected disabled> SELECIONE...</option>
                       <option value="home" @if($seo->page_type == 'home') selected @endif>Página Inicial</option>
                       <option value="course" @if($seo->page_type == 'course') selected @endif>Curso</option>
-                      <option value="category" @if($seo->page_type == 'category') selected @endif>Categoria</option>
+                      <option value="category" @if($seo->page_type == 'category') selected @endif>SEO</option>
                     </select>
                   </div>
                 </div>

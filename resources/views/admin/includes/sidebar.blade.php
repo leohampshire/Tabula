@@ -27,8 +27,13 @@
             <i class="fa fa-users" aria-hidden="true"></i> <span>USUÁRIOS</span>
           </a>
         </li>
+        <li {{ (Request::is('admin/admin') ? 'class=active' : '') }} {{ (Request::is('admin/admin/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.admin.index')}}">
+            <i class="fa fa-users" aria-hidden="true"></i> <span>ADMINISTRADORES</span>
+          </a>
+        </li>
         <li {{ (Request::is('admin/categoria') ? 'class=active' : '') }} {{ (Request::is('admin/categoria/*') ? 'class=active' : '') }}>
-          <a href="{{route('admin.user.index')}}">
+          <a href="{{route('admin.category.index')}}">
             <i class="fa fa-cubes" aria-hidden="true"></i> <span>CATEGORIAS</span>
           </a>
         </li>

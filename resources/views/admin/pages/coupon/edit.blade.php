@@ -109,7 +109,7 @@
                       @if($coupon->type_coupon == 'macrotema')
                         @foreach($coupon->type_id as $type_id)
 
-                          @if($category->find($type_id)->category_id_parent == NULL)
+                          @if($category->find($type_id)->category_id == NULL)
                           <option value="{{$type_id}}" selected>{{$category->find($type_id)->name}}</option>
                           @endif
                         @endforeach
@@ -122,8 +122,8 @@
                       <option value='0'>- Digite a Subcategoria -</option>
                       @if($coupon->type_coupon == 'subcategoria')
                         @foreach($coupon->type_id as $type_id)
-                          @if($category->find($type_id)->category_id_parent != NULL)
-                          <option value="{{$type_id}}" selected>{{$category->find($type_id)->desc}}</option>
+                          @if($category->find($type_id)->category_id != NULL)
+                          <option value="{{$type_id}}" selected>{{$category->find($type_id)->name}}</option>
                           @endif
                         @endforeach
                       @endif
@@ -132,7 +132,7 @@
                 </div>
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
                 <a href="{{route('admin.coupon.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>

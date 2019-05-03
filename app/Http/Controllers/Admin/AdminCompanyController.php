@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 use App\Company;
 use App\Country;
 use App\State;
@@ -27,16 +28,14 @@ class AdminCompanyController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-            'login'         => 'required',
             'name'          => 'required',
-            'email' 		=> 'required',
+            'email' 		=> 'required|unique:companies',
             'country_id'	=> 'required',
             'password'      => 'required|'
         ]);
         $company = new Company;
 
         $company->name 			= $request->name;
-        $company->login 		= $request->login;
         $company->email 		= $request->email;
         $company->country_id	= $request->country_id;
         $company->state_id 		= $request->state_id;
@@ -66,15 +65,16 @@ class AdminCompanyController extends Controller
 	public function update(Request $request)
 	{
 		$this->validate($request, [
-            'login'         => 'required',
             'name'          => 'required',
-            'email' 		=> 'required',
+            'email'  => [
+                'required',
+                Rule::unique('categories')->ignore($request->id)
+            ],
             'country_id'	=> 'required',
         ]);
         $company = Company::find($request->id);
 
         $company->name 			= $request->name;
-        $company->login 		= $request->login;
         $company->email 		= $request->email;
         $company->country_id	= $request->country_id;
         $company->state_id 		= $request->state_id;
@@ -104,11 +104,12 @@ class AdminCompanyController extends Controller
         $user = User::where('email', $request->email)->whereNull('empresa_id');
 
         if ($user->count() == 0) {
-            return redirect()->back()->with('success', 'Usuário inexistente ou ja vinculado a outra empresa');
+            return redirect()->back()->with('info', 'Usuário inexistente ou ja vinculado a outra empresa');
         }
+        $user = $user->first();
         $company = Company::find($request->id);
-        $user->first()->empresa_id = $company->id;
-        $user->first()->save(); 
+        $user->empresa_id = $company->id;
+        $user->save(); 
         return redirect()->back()->with('success', 'Usuário vinculado');
     }
 }

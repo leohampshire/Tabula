@@ -19,6 +19,7 @@ class CrateBlogPostsTable extends Migration
             $table->integer('category_id');
             $table->integer('user_id');
             $table->text('keywords')->nullable();
+            $table->text('urn')->nullable();
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->longText('content')->nullable();

@@ -17,39 +17,28 @@ class AdminUserController extends Controller
 	public function index(Request $request)
 	{
 		return view('admin.pages.user.index')
-        ->with('usersAdmin', Admin::all())
         ->with('users', User::all());
 	}
 	public function create()
 	{
+        $userTypes = UserType::where('id', '>', '2')->get();
 		return view('admin.pages.user.create')
 		->with('states', State::all())
         ->with('countries', Country::all())
-        ->with('userTypes', UserType::all())
+        ->with('userTypes', $userTypes)
         ->with('schoolings', Schooling::all());
 	}
 	public function store(Request $request)
 	{
         $this->validate($request, [
-            'login'         => 'required',
             'name'          => 'required',
+            'email'         => 'required|unique:admins',
             'country_id'	=> 'required',
             'password'      => 'required|min:6',
-            'user_type_id'  => 'required'
+            'user_type_id'  => 'required',
         ]);
-        if ($request->user_type_id <= 2) {
-        	$this->validate($request, [
-            	'email'     => 'required|unique:admins',
-        	]);
-			$user = new Admin;
-
-        }else{
-			$this->validate($request, [
-            	'email'     => 'required|unique:users',
-        	]);
-			$user = new User;
-        }
-        $user->login        = $request->login;
+        $user = new User;
+        
         $user->name         = $request->name;
         $user->user_type_id = $request->user_type_id;
         $user->password     = bcrypt($request->password);
@@ -71,49 +60,33 @@ class AdminUserController extends Controller
 
         return redirect(route('admin.user.index'))->with('success', 'Usuário Criado com sucesso');
 	}
-	public function edit($id, $type_id)
+	public function edit($id)
 	{
-		if ($type_id <= 2) {
-			$user = Admin::find($id);
-		}else{
-			$user = User::find($id);
-		}
+	
+        $userTypes = UserType::where('id', '>', '2')->get();
+        $user = User::find($id);
 		$user->birthdate = implode("/", array_reverse(explode("-", $user->birthdate)));
 		return view('admin.pages.user.edit')
 		->with('states', State::all())
         ->with('countries', Country::all())
-        ->with('userTypes', UserType::all())
+        ->with('userTypes', $userTypes)
         ->with('schoolings', Schooling::all())
         ->with('user', $user);
 	}
 	public function update(Request $request)
 	{
 		$this->validate($request, [
-            'login'         => 'required',
             'name'          => 'required',
             'country_id'	=> 'required',
-            'user_type_id'     => 'required'
+            'email'         => [
+                    'required',
+                    Rule::unique('users')->ignore($request->id)
+                ],
+            'user_type_id'  => 'required'
         ]);
-        if ($request->user_type_id <= 2) {
-        	$this->validate($request, [
-        		'email'  => [
-                	'required',
-                	Rule::unique('admins')->ignore($request->id)
-            	],
-        	]);
-			$user = Admin::find($request->id);
+       
+		$user = User::find($request->id);
 
-        }else{
-			$this->validate($request, [
-            	'email'  => [
-                	'required',
-                	Rule::unique('users')->ignore($request->id)
-            	],
-        	]);
-			$user = User::find($request->id);
-
-        }
-        $user->login        = $request->login;
         $user->name         = $request->name;
         $user->user_type_id = $request->user_type_id;
         $user->birthdate    = implode("-", array_reverse(explode("/", $request->birthdate)));
@@ -134,14 +107,9 @@ class AdminUserController extends Controller
 
         return redirect(route('admin.user.index'))->with('success', 'Usuário editado com sucesso');
 	}
-	public function delete($id, $type_id)
+	public function delete($id)
 	{
-		if ($type_id <= 2) {
-            $user = Admin::find($id);
-        }else{
-            $user = User::find($id);
-        }
-
+        $user = User::find($id);
         $user->delete();
         return redirect()->back()->with('success', 'Usuário Removido');
 	}
