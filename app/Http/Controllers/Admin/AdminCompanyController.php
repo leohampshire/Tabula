@@ -107,8 +107,8 @@ class AdminCompanyController extends Controller
             return redirect()->back()->with('success', 'Usuário inexistente ou ja vinculado a outra empresa');
         }
         $company = Company::find($request->id);
-        $user->empresa_id = $company->id;
-        $user->save(); 
+        $user->first()->empresa_id = $company->id;
+        $user->first()->save(); 
         return redirect()->back()->with('success', 'Usuário vinculado');
     }
 }

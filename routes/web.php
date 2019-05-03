@@ -10,10 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'User\HomeController@index')->name('index');
-
-
-Route::get('curso/{urn}', 'User\CourseController@course')->name('course');
 
 
 
@@ -27,6 +23,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/edit/{id}/{type_id}', 'Admin\AdminUserController@edit')->name('edit');
       Route::get('/update/{id}/{type_id}', 'Admin\AdminUserController@update')->name('update');
       Route::get('/delete/{id}/{type_id}', 'Admin\AdminUserController@delete')->name('delete');
+  });
+
+  Route::group(['prefix' => 'configuracao', 'as' => 'configuration.'], function(){
+      Route::get('/', 'Admin\AdminController@index')->name('index');
+      Route::post('/update/', 'Admin\AdminController@update')->name('update');
   });
 
   //Usuários
