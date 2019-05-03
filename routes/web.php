@@ -21,6 +21,33 @@ Route::get('/search', function () {
   return view('user.pages.search');
 });
 
+Route::get('/register', function () {
+  return view('user.pages.register');
+});
+
+Route::get('/login', function () {
+  return view('user.pages.login');
+});
+
+Route::get('/panel_dados_pessoais', function () {
+  return view('user.pages.panel_dados_pessoais');
+});
+
+Route::get('/serprofessor_1', function () {
+  return view('user.pages.serprofessor_1');
+});
+
+Route::get('/serprofessor_2', function () {
+  return view('user.pages.serprofessor_2');
+});
+
+Route::get('/serprofessor_3', function () {
+  return view('user.pages.serprofessor_3');
+});
+
+
+
+
 Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
   Route::get('painel-admin', 'Teacher\TeacherController@teacherPanel')->name('panel');
   Route::get('seja-professor', 'Teacher\TeacherController@beTeacher')->name('be');
