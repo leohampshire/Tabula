@@ -53,7 +53,6 @@ class AdminCourseController extends Controller
             'name'        => 'required|max:100',
             'desc'        => 'required',
             'price'       => 'required',
-            'featured'    => 'required',
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv'	
@@ -67,13 +66,9 @@ class AdminCourseController extends Controller
         $course->price              = str_replace(',', '.', str_replace('.', '', $request->price));
         $course->category_id        = $request->category_id;
         $course->subcategory_id     = $request->subcategory_id;
-        $course->featured           = $request->featured;
         $course->requirements       = $request->requirements;
         $course->total_class        = 0;
-        $course->course_type        = 1;
 		
-		$auth = Auth::guard('admin')->user();
-        $course->user_id_owner      = $auth->id;
         
         $urn 		= '';
         $urns 		= explode(' ', $request->name);
@@ -137,18 +132,36 @@ class AdminCourseController extends Controller
             $arq_video->move('images/thumbvideo', $arq_video_name); 
             $course->video = $arq_video_name;  
         }
+		if (Auth::guard('admin')->user()) {
+            $course->course_type        = 1;
+            $course->featured           = $request->featured;
+            $auth = Auth::guard('admin')->user();
+            $course->user_id_owner      = $auth->id;
+        }elseif(Auth::guard('user')->user()){
+            $course->course_type        = 2;
+            $auth = Auth::guard('user')->user();
+            $course->user_id_owner      = $auth->id;
+        }
         $course->avaliable = 1;
         $course->save();
 
         $course               = Course::find($course->id);
         $categories           = Category::all();
         $course_items_chapter = CourseItemChapter::all();
+        if ($auth->user_type_id <= 2) {
+            return redirect(route('admin.course.edit', ['id' => $course->id]))
+            ->with('success', 'Curso criado com sucesso')
+            ->with('course', $course)
+            ->with('categories', $categories)
+            ->with('course_items_chapter', $course_items_chapter);
+        }else{
+            return redirect(route('teacher.course.edit', ['id' => $course->id]))
+            ->with('success', 'Curso criado com sucesso')
+            ->with('course', $course)
+            ->with('categories', $categories)
+            ->with('course_items_chapter', $course_items_chapter);
+        }
 
-        return redirect(route('admin.course.edit', ['id' => $course->id]))
-        ->with('success', 'Curso criado com sucesso')
-        ->with('course', $course)
-        ->with('categories', $categories)
-        ->with('course_items_chapter', $course_items_chapter);
 	}
 
 	public function edit($id)
@@ -170,10 +183,8 @@ class AdminCourseController extends Controller
             'desc'        => 'required',
             'price'       => 'required',
             'urn'  		  => [
-                'required',
                 Rule::unique('courses')->ignore($request->id)
             ],
-            'featured'    => 'required',
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv'	
@@ -187,15 +198,10 @@ class AdminCourseController extends Controller
         $course->price              = str_replace(',', '.', str_replace('.', '', $request->price));
         $course->category_id        = $request->category_id;
         $course->subcategory_id     = $request->subcategory_id;
-        $course->featured           = $request->featured;
         $course->requirements       = $request->requirements;
         $course->total_class        = 0;
-        $course->urn 				= $request->urn;
 		
-		$auth = Auth::guard('admin')->user();
-        $course->user_id_owner      = $auth->id;
         
-        //valida a foto de capa
         if($request->thumb_img != '')
         {
             $arq_img = $request->file('thumb_img');
@@ -245,13 +251,14 @@ class AdminCourseController extends Controller
             $arq_video->move('images/thumbvideo', $arq_video_name); 
             $course->video = $arq_video_name;  
         }
-
+        if (Auth::guard('admin')->user()) {
+            $course->featured           = $request->featured;
+            $course->urn 				= $request->urn;
+        }
         $course->avaliable = 1;
         $course->save();
 
-        $course             = Course::find($course->id);
-        $categories         = Category::all();
-        $course_items_chapter = CourseItemChapter::all();
+
 
         return redirect()->back()
         ->with('success', 'Curso Editado com sucesso');
@@ -281,7 +288,6 @@ class AdminCourseController extends Controller
             'desc'      => 'required'
         ]);
 
-
         $order = CourseItemChapter::count();
 
         $chapter             = new CourseItemChapter;
@@ -300,13 +306,12 @@ class AdminCourseController extends Controller
             'desc'      => 'required'
         ]);
 
-
         $chapter             = CourseItemChapter::find($request->id);
         $course              = Course::find($chapter->course_id);
         $course->avaliable   = 1;
         $chapter->name       = $request->name;
         $chapter->desc       = $request->desc;
-        $chapter->course_id  = $request->course_id;
+        $chapter->course_id  = $chapter->course_id;
         $chapter->save();
         $course->save();
 
@@ -343,8 +348,13 @@ class AdminCourseController extends Controller
     {
         $chapter  = CourseItemChapter::find($id);
         $course   = Course::find($chapter->course_id);
-
-        return view('admin.pages.course.class.index')
+        if ($course->course_type == 1) {
+            return view('admin.pages.course.class.index')
+            ->with('item_types', CourseItemType::all())
+            ->with('chapter', $chapter)
+            ->with('course', $course);
+        }
+        return view('admin.pages.teacher.curso.aula.index')
         ->with('item_types', CourseItemType::all())
         ->with('chapter', $chapter)
         ->with('course', $course);
