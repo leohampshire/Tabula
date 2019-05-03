@@ -1,24 +1,22 @@
-<div class="wrapper">
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <span class="logo-lg"><b>TABULA</b></span>
-      <span class="logo-mini"><b>TBL</b></span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">            
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="{{ url('/admin/logout') }}"><i class="fa fa-sign-out"></i></a>
-          </li>
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3">
+        <a href="{{ url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
+      </div>
+      <div class="col-xs-4">
+        <form autocomplete="off">
+          <input type="text" name="search" placeholder="O que você quer aprender hoje?">
+          <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+      </div>
+      <div class="col-xs-5">
+        <ul>
+          <li><a href="#">Torne-se professor</a></li>
+          <li><a href="#" class="btn-login">Login</a></li>
+          <li><a href="#" class="btn-register">Cadastre-se</a></li>
         </ul>
       </div>
-    </nav>
-  </header>
+    </div>
+  </div>
+</header>
