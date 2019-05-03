@@ -56,7 +56,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.course.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('teacher.course.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">
@@ -87,15 +87,6 @@
                     <label for="subcategory_id">SubCategoria</label>
                     <select name="subcategory_id" class="form-control" id="subcategory_id">
                       <option selected disabled="">SELECIONE...</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-xs-12">
-                    <label for="featured">Destaque?</label>
-                    <select name="featured" class="form-control">
-                      <option value="0" @if(0 == old('featured')) selected @endif>Não</option>
-                      <option value="1" @if(1 == old('featured')) selected @endif>Sim</option>
                     </select>
                   </div>
                 </div>
