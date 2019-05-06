@@ -14,25 +14,27 @@
 					<p>Bem-vindo, produtor de conteúdo! Gostaríamos de te conhecer melhor e saber em qual perfil profissional você se encaixaria. Temos o intuito de te possibilitar uma experiência incrível e um relacionamento longo e duradouro conosco.</p><br><br>
 				</div>
 			</div>
-			<form>
+			<form action="{{route('teacher.store')}}" method="POST">
+				{{csrf_field()}}
+				<input type="hidden" name="row" value="answer_first">
 				<div class="row">
 					<div class="col-xs-6">
 						<p><b>Qual seu perfil de educador?</b></p>
 						<div class="radio">
 						  <label>
-						    <input type="radio" name="optionsRadios" value="teste">
+						    <input type="radio" name="answer" value="1">
 						    Trabalho na área de Educação.
 						  </label>
 						</div>
 						<div class="radio">
 						  <label>
-						    <input type="radio" name="optionsRadios" value="teste">
+						    <input type="radio" name="answer" value="2">
 						    Sou Profissional de Mercado.
 						  </label>
 						</div>
 						<div class="radio">
 						  <label>
-						    <input type="radio" name="optionsRadios" value="teste">
+						    <input type="radio" name="answer" value="3">
 						    Sou um Entusiasta
 						  </label>
 						</div>

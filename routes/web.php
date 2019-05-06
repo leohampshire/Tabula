@@ -13,19 +13,13 @@
 Route::get('/', 'User\HomeController@index')->name('home');
 
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
-
+Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
+  Route::get('/painel', 'User\UserController@userPanel')->name('panel');
+  Route::post('/update', 'User\UserController@update')->name('update');
+});
 
 Route::get('/search', function () {
   return view('user.pages.search');
-});
-
-Route::get('/register', function () {
-  return view('user.pages.register');
-});
-
-
-Route::get('/panel_dados_pessoais', function () {
-  return view('user.pages.panel_dados_pessoais');
 });
 
 Route::get('/serprofessor_1', function () {
@@ -41,10 +35,7 @@ Route::get('/serprofessor_3', function () {
 });
 
 
-
-
 Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
-  Route::get('painel-admin', 'Teacher\TeacherController@teacherPanel')->name('panel');
   Route::get('seja-professor', 'Teacher\TeacherController@beTeacher')->name('be');
   Route::post('store', 'Teacher\TeacherController@storeAnswer')->name('store');
   Route::get('delete/{id}', 'Teacher\TeacherController@deleteAnswer')->name('delete');
@@ -64,11 +55,10 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
       Route::get('/item/{id}', 'Admin\AdminCourseController@itemChapter')->name('item');
       Route::get('delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
     });
-
   });
 
 });
-Route::get('painel', 'Teacher\TeacherController@painel')->name('painel');
+// Route::get('painel', 'Teacher\TeacherController@painel')->name('painel');
 
 Route::get('curso/{urn}', 'User\CourseController@course')->name('course');
 
@@ -178,9 +168,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
     Route::get('/delete/{id}', 'Admin\AdminSeoController@delete')->name('delete');
   });
 
-
-
-
   //Categorias Blog
   Route::group(['prefix' => 'categoria-blog', 'as' => 'categ.blog.'], function(){
       Route::get('/index', 'Admin\AdminBlogController@indexCateg')->name('index');
@@ -222,7 +209,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
   Route::get('/password/reset', 'AdminAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
 });
-
 
 Route::group(['prefix' => 'user'], function () {
   Route::get('/login', 'UserAuth\LoginController@showLoginForm')->name('login');

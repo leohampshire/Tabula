@@ -1,3 +1,6 @@
+<?php
+  $auth = Auth::guard('user')->user();
+?>
 <header>
   <div class="container">
     <div class="row">
@@ -12,10 +15,18 @@
       </div>
       <div class="col-xs-5">
         <ul>
-          @if(Auth::guard('user')->user())
-          <li><a href="#">Torne-se professor</a></li>
-          <li><a href="{{route('user.logout')}}">Sair</a></li>
+          @if($auth)
+          <li><a href="{{route('user.panel')}}">
+            <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" width="50px" alt="Perfil"></li>
+          </a>
+            @if($auth->user_type_id == 3)
+            <li><a href="#">Torne-se professor</a></li>
+            @else
+            <li><a href="#">Carrinho</a></li>
+            <li><a href="{{route('user.logout')}}">Sair</a></li>
+            @endif
           @else
+          <li><a href="#">Carrinho</a></li>
           <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>
           <li><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
           @endif

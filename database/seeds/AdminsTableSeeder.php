@@ -18,8 +18,6 @@ class AdminsTableSeeder extends Seeder
                 "email"         => "tabula@tabula.com.br",
                 "user_type_id"  => 1,
                 "password"      => bcrypt("tabula"),
-                "country_id"    => 1,
-                "state_id"      => 1,
                 "created_at"    => $now,
                 "updated_at"    => $now,
             ], 

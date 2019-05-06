@@ -16,7 +16,27 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','sex', 'country_id', 'state_id', 'schooling', 'user_type_id'
+        'name', 
+        'email',
+        'password',
+        'sex', 
+        'cpf',
+        'birthdate',
+        'sex',
+        'occupation',
+        'interest',
+        'website',
+        'twitter',
+        'facebook',
+        'google_plus',
+        'youtube',
+        'country_id', 
+        'state_id', 
+        'schooling_id',
+        'empresa_id',
+        'avatar', 
+        'user_type_id', 
+        'bio'
     ];
 
     /**
@@ -42,5 +62,10 @@ class User extends Authenticatable
     public function userTypes()
     {
         return $this->belongsTo('App\UserType', 'user_type_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany('App\Course', 'user_id_owner');
     }
 }

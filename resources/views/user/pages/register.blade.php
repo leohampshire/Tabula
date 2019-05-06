@@ -32,10 +32,10 @@
 				<div class="col-sm-offset-4 col-sm-4">
 					<label>Sexo</label><br>
     				<label class="radio-inline">
-					  <input type="radio" name="sex" value="m"> Masculino
+					  <input type="radio" name="sex" value="Masculino"> Masculino
 					</label>
 					<label class="radio-inline">
-					  <input type="radio" name="sex" value="f"> Feminino
+					  <input type="radio" name="sex" value="Feminino"> Feminino
 					</label>
 				</div>
 			</div>
