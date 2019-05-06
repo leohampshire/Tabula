@@ -6,21 +6,6 @@
 
 @section('content')
 
- @if ($errors->any())
-  <div class="content-header">
-    @foreach ($errors->all() as $error)
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {{ $error }}
-        </div>
-      </div>
-    </div>
-    @endforeach
-  </div>
-@endif
-
 <section>
     <div class="container">
         <div class="box-title">
@@ -49,17 +34,17 @@
                 <div class="col-sm-offset-4 col-sm-4">
                     <label for="sex">Sexo</label><br>
                     <label class="radio-inline">
-                      <input type="radio" name="sex" value="m"> Masculino
+                      <input type="radio" name="sex" value="Masculino"> Masculino
                     </label>
                     <label class="radio-inline">
-                      <input type="radio" name="sex" value="f"> Feminino
+                      <input type="radio" name="sex" value="Feminino"> Feminino
                     </label>
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <label for="country_id">País</label>
-                    <select class="form-control" name="country_id">
+                    <select class="form-control" name="country_id" id="country">
                         <option value="" selected disabled hidden>Escolha</option>
                         @forelse($countries as $country)
                         <option value="{{$country->id}}">{{$country->name}}</option>
@@ -68,7 +53,7 @@
                     </select>
                 </div>
             </div>
-            <div class="row form-group">
+            <div class="row form-group state">
                 <div class="col-sm-offset-4 col-sm-4">
                     <label for="state_id">Estado</label>
                     <select class="form-control" name="state_id">
@@ -107,19 +92,16 @@
             </div>
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <label>Interesses</label>
+                    <label for="interest">Interesses</label>
+                    @forelse($categories as $categ)
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" value="">
-                        Finanças e Economia
+                        <input type="checkbox" name="interest[]" value="{{$categ->id}}">
+                        {{$categ->name}}
                       </label>
                     </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="">
-                        Varejo e Consumo
-                      </label>
-                    </div>
+                    @empty
+                    @endforelse
                 </div>
             </div>
             <div class="row">

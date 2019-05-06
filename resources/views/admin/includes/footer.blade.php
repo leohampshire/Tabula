@@ -175,7 +175,7 @@ function seoValidate()
   states();
   $('#country').change(function(){
     states();
-  })
+  });
 
   
   $('#type_coupon').change(function(){

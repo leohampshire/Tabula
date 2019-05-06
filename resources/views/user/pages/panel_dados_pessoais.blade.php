@@ -52,10 +52,13 @@
 				</div>
 			</div>
 			<div class="row">
+					
 				<div class="col-sm-3">
-					<div class="add-course-box">
-						<i class="fa fa-plus-circle" aria-hidden="true"></i>
-					</div>
+					<a href="#">
+						<div class="add-course-box">
+							<i class="fa fa-plus-circle" aria-hidden="true"></i>
+						</div>
+					</a>
 				</div>
 				<div class="col-sm-3">
 					<div class="course-box">
@@ -268,7 +271,7 @@
 					
 					<div class="col-xs-4">
 						<label for="country_id">País</label>
-	    				<select name="country_id" class="form-control">
+	    				<select name="country_id" id="country" class="form-control">
 							<option value="" selected disabled hidden>Escolha</option>
 							@foreach($countries as $country)
 							<option  value="{{$country->id}}" @if($country->id == $auth->country_id) selected @endif>{{$country->name}}</option>
@@ -276,7 +279,7 @@
 
 						</select>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-4 state">
 						<label>Estado</label>
 	    				<select name="state_id" class="form-control">
 							<option value="" selected disabled hidden>Escolha</option>

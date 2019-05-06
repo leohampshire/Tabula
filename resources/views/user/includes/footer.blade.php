@@ -77,4 +77,18 @@ $('.carousel-courses').slick({
   ]
 });
 
+function states()
+  {
+    if($('#country').val() == 1){
+        $('.state').slideDown();
+      }else{
+        $('.state').slideUp();
+      }
+    }
+  $('.state').hide();
+  states();
+  $('#country').change(function(){
+    states();
+  });
+
 </script>
