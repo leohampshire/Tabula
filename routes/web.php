@@ -56,6 +56,7 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
 
 //CARRINHO
 Route::group(['prefix' => 'comprar', 'as' => 'cart.'], function(){
+  Route::get('/checkout', 'User\CartController@checkout')->name('checkout');
   Route::get('/inserir/{id}/carrinho', 'User\CartController@insertCourseIntoCart')->name('insert');
   Route::get('/inserir/{id}/finalizar', 'User\CartController@insertCourseIntoFinish')->name('finish');
 

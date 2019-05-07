@@ -37,7 +37,9 @@
                     </form>
                     <h3>Total</h3>
                     <h3>R$ {{number_format($auth->cart->sum('price'), 2, ',', '.')}}</h3>
-                    <button>Finalizar Compra</button>
+                    <a href="{{route('cart.checkout')}}">
+                        <button>Finalizar Compra</button>
+                    </a>
                 </div>
             </div>                                           
         @endif
