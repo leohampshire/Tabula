@@ -15,7 +15,6 @@ Route::get('/', 'User\HomeController@index')->name('home');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('/carrinho', 'User\CartController@cart')->name('cart');
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
-
   Route::get('curso/{urn}', 'User\CourseController@course')->name('single');
 });
 
@@ -57,6 +56,7 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
 
 //CARRINHO
 Route::group(['prefix' => 'comprar', 'as' => 'cart.'], function(){
+  Route::get('/inserir/{id}/carrinho', 'User\CartController@insertCourseIntoCart')->name('insert');
   Route::get('/inserir/{id}/finalizar', 'User\CartController@insertCourseIntoFinish')->name('finish');
 
 });

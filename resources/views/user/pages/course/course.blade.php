@@ -39,7 +39,7 @@
           <a href="">
             <button>Avaliações</button>
           </a>
-          <a href="">
+          <a href="{{route('cart.insert', ['id' => $course->id])}}">
             <button>Adicionar ao Carrinho</button>
           </a>
         </div>
