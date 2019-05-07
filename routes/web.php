@@ -13,18 +13,29 @@
 Route::get('/', 'User\HomeController@index')->name('home');
 
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
+Route::get('/carrinho', 'User\CartController@cart')->name('cart');
+Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
+
+  Route::get('curso/{urn}', 'User\CourseController@course')->name('single');
+});
+
 Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
-  Route::post('/update', 'User\UserController@update')->name('update');
   Route::get('/', 'User\UserController@userPanel')->name('panel');
-  Route::get('/criar-curso', 'User\UserController@contentCreateCourse')->name('course.create');
-  Route::get('/leciono', 'User\UserController@contentTeachCourse')->name('teach');
+  Route::post('/update', 'User\UserController@update')->name('update');
+  //PAINEIS VIA AJAX
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');
-  Route::get('/editar-curso/{id}', 'User\UserController@contentCourseEdit')->name('course.edit');
-  Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
+  Route::get('/leciono', 'User\UserController@contentTeachCourse')->name('teach');
+
+  Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
+    Route::get('/criar', 'User\UserController@contentCreateCourse')->name('create');
+    Route::get('/editar/{id}', 'User\UserController@contentCourseEdit')->name('edit');
+    Route::get('/incluir-item/{id}', 'User\UserController@contentCourseItem')->name('item');
+  });
+    Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
 });
-Route::get('/search', function () {
-  return view('user.pages.search');
-});
+
+Route::get('/pesquisar/{id}', 'User\SearchController@search')->name('search.single');
+
 
 
 Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
@@ -33,28 +44,28 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
   Route::get('delete/{id}', 'Teacher\TeacherController@deleteAnswer')->name('delete');
   Route::get('ver-professor', 'Teacher\TeacherController@seeTeacher')->name('see');
 
-  //Cursos
+  //CURSOS
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
-    Route::post('/store', 'Admin\AdminCourseController@store')->name('store');
-    Route::post('/update', 'Admin\AdminCourseController@update')->name('update');
-    Route::get('/editar/{id}', 'Teacher\TeacherController@courseEdit')->name('edit');
-    
     Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
       Route::post('/store', 'Admin\AdminCourseController@storeChapter')->name('store');
-      Route::get('edit/{id}', 'Teacher\TeacherController@chapterEdit')->name('edit');
       Route::post('/update', 'Admin\AdminCourseController@updateChapter')->name('update');
-      Route::get('index/{id}', 'Teacher\TeacherController@chapterCreate')->name('create');
-      Route::get('/item/{id}', 'Admin\AdminCourseController@itemChapter')->name('item');
       Route::get('delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
     });
   });
 
 });
-Route::get('curso/{urn}', 'User\CourseController@course')->name('course');
+
+//CARRINHO
+Route::group(['prefix' => 'comprar', 'as' => 'cart.'], function(){
+  Route::get('/inserir/{id}/finalizar', 'User\CartController@insertCourseIntoFinish')->name('finish');
+
+});
+
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], function () {
   Route::get('/dashboard', 'Admin\AdminController@dashboard')->name('dashboard');
-  //Usuários
+  //USUARIOS
   Route::group(['prefix' => 'usuario', 'as' => 'user.'], function(){
       Route::get('/', 'Admin\AdminUserController@index')->name('index');
       Route::get('/create', 'Admin\AdminUserController@create')->name('create');
@@ -63,7 +74,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update/{id}/', 'Admin\AdminUserController@update')->name('update');
       Route::get('/delete/{id}/', 'Admin\AdminUserController@delete')->name('delete');
   });
-  //Administradores
+  //ADMINISTRADORES
   Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
       Route::get('/', 'Admin\AdminController@index')->name('index');
       Route::get('/create', 'Admin\AdminController@create')->name('create');

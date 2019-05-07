@@ -13,6 +13,7 @@ use Session;
 
 class TeacherController extends Controller
 {
+    //Direciona para a tela de perguntas
     public function beTeacher()
     {
     	if (Auth::guard('user')->user()) {
@@ -40,7 +41,7 @@ class TeacherController extends Controller
     	$session = session(['teacher' => 0]);
         return redirect()->route('register');
     }
-
+    //Salva a resposta
     public function storeAnswer(Request $request)
     {
     	if (Auth::guard('user')->user()) {
@@ -52,7 +53,7 @@ class TeacherController extends Controller
 	        return redirect()->route('teacher.be');
 	    }
     }
-
+    //remove a resposta
     public function deleteAnswer($id)
     {
     	if (Auth::guard('user')->user()) {
@@ -64,7 +65,7 @@ class TeacherController extends Controller
         	return redirect()->route('teacher.be');
     	}
     }
-
+    //Mostra o painel com o cadastro finalizado
     public function seeTeacher()
 	{
 		if (Auth::guard('user')->user()) {
@@ -75,32 +76,4 @@ class TeacherController extends Controller
 	        return redirect()->route('user.panel');
        }
     }	
-
-
-
-    public function courseEdit($id)
-    {
-        $course = Course::find($id);
-        $chapters = CourseItemChapter::where('course_id', $id)->orderBy('order', 'asc')->get();
-        $course->price = number_format($course->price, 2, ',', '.');
-        return view('admin.pages.teacher.curso.edit')
-        ->with('categories', Category::all())
-        ->with('chapters', $chapters)
-        ->with('course', $course);
-    }
-
-    public function chapterCreate($id)
-    {
-        $course = Course::find($id);
-        return view('admin.pages.teacher.curso.capitulo.index')
-        ->with('course', $course);
-    }
-
-    public function chapterEdit($id)
-    {   
-        $chapter = CourseItemChapter::find($id);
-        return view('admin.pages.teacher.curso.capitulo.edit')
-        ->with('chapter', $chapter);
-    }
-
 }

@@ -5,12 +5,13 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Country;
-use App\State;
-use App\Category;
 use App\CourseItemChapter;
-use App\User;
+use App\CourseItemType;
+use App\Category;
+use App\Country;
 use App\Course;
+use App\State;
+use App\User;
 use Auth;
 
 
@@ -52,6 +53,7 @@ class UserController extends Controller
     {
         $course = Course::find($id);
         $chapters = $course->course_item_chapters;
+        $course->price = number_format($course->price, 2, ',', '.');
         return view('user.pages.userPanel.editar-curso')
         ->with('categories', Category::all())
         ->with('chapters', CourseItemChapter::all())
@@ -64,9 +66,15 @@ class UserController extends Controller
         // ->with('courses', $courses);
     }   
 
-    public function contentCreateItem()
+    public function contentCourseItem($id)
     {
-        
+        $chapter = CourseItemChapter::find($id);
+
+
+        return view('user.pages.userPanel.item-curso')
+        ->with('item_types', CourseItemType::all())
+        ->with('chapter', $chapter);
+
     }
      
     public function update(Request $request)

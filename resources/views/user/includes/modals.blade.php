@@ -258,7 +258,7 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-<!--/.Criar Capitulo-->
+<!--/.editar item-->
 
 <!--Criar Complemento-->
 <div class="modal fade" id="complementModal">
@@ -589,3 +589,31 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.Criar Capitulo-->
+
+<!--Aula Gratis-->
+<div class="modal fade" id="freeItemModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="nome">
+          <h4 class="modal-title">Novo Item</h4>
+        </div>
+      </div>
+          <div class="modal-body">
+              <div class="desc"></div>
+              <div class="conteudo"></div>
+              <div class="path"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left stop" data-dismiss="modal" >Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.Aula gratis-->

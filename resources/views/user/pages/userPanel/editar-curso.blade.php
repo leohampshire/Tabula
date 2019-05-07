@@ -82,9 +82,7 @@
               <div class="box-tools">
               </div>
             </div>
-            <a href="#" class="act-chapter">
-          <button type="button" class="btn btn-secondary">Novo capitulo</button>
-        </a>
+          <button type="button" class="btn btn-secondary act-chapter">Novo capitulo</button>
             <div class="box-body table-responsive">
               <table class="table table-bordered table-striped">
                 <thead>
@@ -100,7 +98,7 @@
                       <td>{{$chapter->name}}</td>
                       <td>{{$chapter->desc}}</td>
                       <td>
-                        <a href="#" data-url="{{ route('teacher.course.chapter.item', ['id' => $chapter->id])}}" title="Incluir Aula" class="act-list course-item">item
+                        <a href="#" data-url="{{ route('user.course.item', ['id' => $chapter->id])}}" title="Incluir Aula" class="act-list course-item">item
                           <i class="fa fa-bars" aria-hidden="true"></i>
                         </a>
                         <a href="#" title="Editar" class="act-list act-edit-chapter" data-name="{{$chapter->name}}" data-desc="{{$chapter->desc}}" data-id="{{$chapter->id}}">

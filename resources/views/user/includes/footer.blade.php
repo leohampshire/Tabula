@@ -126,7 +126,7 @@ $(document).ready(function(){
       getContent(url);
     });
 
-    $('.course-create').on('click', function(){
+    $(document).on("click", '.course-create', function(event) { 
       var url = $(this).data('url');
       $('.btn-panel-menu').removeClass('btn-active');
       $(this).find('button').addClass('btn-active');
@@ -151,9 +151,9 @@ $(document).ready(function(){
     });
 
 
-//Modais
+//Modals
 
-$('.act-delete').on('click', function (e) {
+  $(document).on("click", '.act-delete', function(e) { 
     e.preventDefault();
     $('#confirmationModal .modal-title').html('Confirmação');
     $('#confirmationModal .modal-body p').html('Tem certeza que deseja realizar esta exclusão?');
@@ -179,6 +179,33 @@ $('.act-delete').on('click', function (e) {
     $('#includeModal form input[name="id"]').val($(this).data('id'));
     $('#includeModal').modal('show');
   });
+
+  $('.act-free-item').on('click', function(e){
+    e.preventDefault();
+    var name = $(this).data('name');
+    var desc = $(this).data('desc');
+    var path = $(this).data('path');
+    var type = $(this).data('type');
+    var url = $(this).data('url');
+    $('#freeItemModal').find('.nome').html('<h1>'+name+'</h1>');
+    $('#freeItemModal').find('.desc').html('<p>'+desc+'</p>');
+    if(type == 1 || type == 4){
+      $('#freeItemModal').find('.path').html(
+        '<video width="100%" id="path" controls> <source src="'+url+'/'+path+'" type="video/mp4"> </video>'
+      );
+    }else if (type == 2) {
+      $('#freeItemModal').find('.path').html(
+        '<img src="'+url+'/'+path+'" >'
+      );
+    }
+    $('#freeItemModal').modal('show');
+  });
+
+  $('.stop').on('click', function(){
+    path = document.getElementById('path');
+      path.pause();
+  });
+
 
   $(document).on("click", '.act-edit-item', function(e) { 
     e.preventDefault();
@@ -211,6 +238,7 @@ $('.act-delete').on('click', function (e) {
     e.preventDefault();
     $('#itemModal').modal('show');
   });
+
   $(document).on("click", '.act-complement', function(e) { 
     e.preventDefault();
     $('#complementModal').modal('show');
@@ -221,8 +249,8 @@ $('.act-delete').on('click', function (e) {
     $('#classModal').modal('show');
   });
 
-  $(document).on("click", '.act-question', function(e) { 
 
+  $(document).on("click", '.act-question', function(e) { 
     e.preventDefault();
     $('#questionModal').modal('show');
   });
@@ -260,7 +288,6 @@ $('.act-delete').on('click', function (e) {
             $('#subcategory_id').html('');
             if (result.length != 0) {
               for (i =0; i < result.length; ++i){
-            console.log(result[i].id);
                   $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
               }
               $('#sub_categ').show();

@@ -23,24 +23,28 @@
 		?>
 		<div class="row">
 		@forelse ($courses as $row)
+		@if($row->avaliable == 2)
 		        <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
-		            <div class="course-box">
-						<div class="course-thumb">
-							<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+		        	<a href="{{route('course.single', ['urn' => $row->urn])}}">
+			            <div class="course-box">
+							<div class="course-thumb">
+								<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+							</div>
+							<div class="course-desc">
+								<h3>{{$row->name}}</h3>
+								<p>{{substr($row->desc, 0, 50)}}</p>
+							</div>
+							<div class="course-value">
+								<span>R$ {{number_format($row->price, 2, ',', '.')}}</span>
+							</div>
 						</div>
-						<div class="course-desc">
-							<h3>{{$row->name}}</h3>
-							<p>{{substr($row->desc, 0, 50)}}</p>
-						</div>
-						<div class="course-value">
-							<span>R$ {{number_format($row->price, 2, ',', '.')}}</span>
-						</div>
-					</div>
+		        	</a>
 		        </div>
 		<?php
 		    $rowCount++;
 		    if($rowCount % $numOfCols == 0) echo '</div><div class="row">';
 		?>
+		@endif
 		@empty
 		<div class="col-sm-12">
 			Não existem cursos nesta categoria.

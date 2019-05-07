@@ -41,6 +41,10 @@ class Course extends Model
             return $this->belongsTo('App\Admin', 'user_id_owner');
         }
         return $this->belongsTo('App\User', 'user_id_owner');
+    }
 
+    public function cart()
+    {
+        return $this->hasMany('App\Cart');
     }
 }

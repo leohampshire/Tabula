@@ -350,13 +350,7 @@ class AdminCourseController extends Controller
     {
         $chapter  = CourseItemChapter::find($id);
         $course   = Course::find($chapter->course_id);
-        if ($course->course_type == 1) {
-            return view('admin.pages.course.class.index')
-            ->with('item_types', CourseItemType::all())
-            ->with('chapter', $chapter)
-            ->with('course', $course);
-        }
-        return view('admin.pages.teacher.curso.aula.index')
+        return view('admin.pages.course.class.index')
         ->with('item_types', CourseItemType::all())
         ->with('chapter', $chapter)
         ->with('course', $course);
@@ -379,7 +373,7 @@ class AdminCourseController extends Controller
         {
             $arq = $request->file('file');
             $this->validate($request, [
-                'file'      => 'mimes:jpeg,bmp,png,jpg,pdf,mp4'
+                'file'      => 'mimes:jpeg,bmp,png,jpg,pdf,mp4, mp3'
             ]);
             $attach_file = $request->file;
             //Gera string aleatória

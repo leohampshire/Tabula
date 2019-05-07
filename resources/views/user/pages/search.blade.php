@@ -11,53 +11,39 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<ul>
-					<li>Categoria</li>
+					@forelse($categories as $category)
+					<li>{{$category->name}}</li>
+					@empty
+					@endforelse
 				</ul>
 			</div>
 			<div class="col-sm-9">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="course-box">
-							<div class="course-thumb">
-								<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+				<div class="row">   
+                    @forelse($courses as $course)    
+                    	@if($course->avaliable == 2)
+                    	<a href="{{route('course.single', ['id' => $course->urn])}}">
+							<div class="col-sm-4">
+								<div class="course-box">
+									<div class="course-thumb">
+										<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+									</div>
+									<div class="course-desc">
+										<h3>{{$course->name}}</h3>
+										<p>{{substr($course->desc, 0, 50)}}</p>
+									</div>
+									<div class="course-value">
+										<span>R$ {{number_format($course->price, 2, ',', '.')}}</span>
+									</div>
+								</div>
 							</div>
-							<div class="course-desc">
-								<h3>Título do curso</h3>
-								<p>Descrição do curso</p>
-							</div>
-							<div class="course-value">
-								<span>R$ 200,00</span>
-							</div>
-						</div>
+                    	</a>       
+						@endif
+					@empty
+					<div class="col-sm-6">
+						Não existem cursos das opções selecionadas.
 					</div>
-					<div class="col-sm-4">
-						<div class="course-box">
-							<div class="course-thumb">
-								<img src="{{ asset('images/course.jpg')}}" alt="Curso">
-							</div>
-							<div class="course-desc">
-								<h3>Título do curso</h3>
-								<p>Descrição do curso</p>
-							</div>
-							<div class="course-value">
-								<span>R$ 200,00</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="course-box">
-							<div class="course-thumb">
-								<img src="{{ asset('images/course.jpg')}}" alt="Curso">
-							</div>
-							<div class="course-desc">
-								<h3>Título do curso</h3>
-								<p>Descrição do curso</p>
-							</div>
-							<div class="course-value">
-								<span>R$ 200,00</span>
-							</div>
-						</div>
-					</div>
+					@endforelse
+					
 				</div>
 			</div>
 		</div>
