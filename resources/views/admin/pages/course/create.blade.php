@@ -96,6 +96,7 @@
                     <input class="form-control input-money" type="text" name="price" placeholder="Definir Preço do Curso" value="{{ old('price') }}">
                   </div>
                 </div>
+                </div>
                 <div class="form-group  row">
                   <div class="col-xs-12">
                     <label for="requirements">Requisitos para o curso</label>

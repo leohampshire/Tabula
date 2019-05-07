@@ -7,7 +7,10 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Country;
 use App\State;
+use App\Category;
+use App\CourseItemChapter;
 use App\User;
+use App\Course;
 use Auth;
 
 
@@ -18,10 +21,54 @@ class UserController extends Controller
     	$auth = Auth::guard('user')->user();
     	return view('user.pages.panel_dados_pessoais')
     	->with('countries', Country::all())
+        ->with('categories', Category::all())
     	->with('states', State::all())
     	->with('auth', $auth);
     }
+//Cursos que leciono
+    public function contentTeachCourse()
+    {
+        $auth = Auth::guard('user')->user();
+        return view('user.pages.userPanel.cursos-leciono')
+        ->with('auth', $auth);
+    }
+    //Dados Pessoais
+    public function contentPersonal()
+    {
+        $auth = Auth::guard('user')->user();
+        return view('user.pages.userPanel.dados-pessoais')
+        ->with('countries', Country::all())
+        ->with('states', State::all())
+        ->with('auth', $auth);
+    }   
+    //Criar Curso professor
+    public function contentCreateCourse()
+    {
+        return view('user.pages.userPanel.criar-curso')
+        ->with('categories', Category::all());
+    }
+    //Editar Curso Professor
+    public function contentCourseEdit($id)
+    {
+        $course = Course::find($id);
+        $chapters = $course->course_item_chapters;
+        return view('user.pages.userPanel.editar-curso')
+        ->with('categories', Category::all())
+        ->with('chapters', CourseItemChapter::all())
+        ->with('course', $course);
+    }
 
+    public function contentMyCourses()
+    {
+        return view('user.pages.userPanel.meus-cursos');
+        // ->with('courses', $courses);
+    }   
+
+    public function contentCreateItem()
+    {
+        
+    }
+     
     public function update(Request $request)
     {
     	$this->validate($request, [
@@ -33,7 +80,6 @@ class UserController extends Controller
 	        'country_id' 	=> 'required',
 	        'img_avatar' 	=> 'mimes:jpeg,bmp,png'
         ]);
-
 
         $user = User::find($request->id);
     	$request['avatar'] = $this->thumbValidate($request);

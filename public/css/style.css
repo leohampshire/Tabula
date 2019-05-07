@@ -94,7 +94,7 @@ header {
 	top: 0;
 	left: 0;
 	right: 0;
-  z-index: 9999;
+  z-index: 999;
   position: fixed;
   width: 100%;
   padding: 10px 0;
@@ -363,6 +363,10 @@ footer ul li a:hover {
   font-size: 22px;
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.modal {
+  z-index: 99999;
 }
 
 /* HEXS MACROTEMAS */

@@ -83,8 +83,7 @@ class AdminCourseController extends Controller
             }
             $i++;
         }
-     
-        
+        $course->urn = $urn;
         //valida a foto de capa
         if($request->thumb_img != '')
         {
@@ -137,7 +136,6 @@ class AdminCourseController extends Controller
         }
 		if (Auth::guard('admin')->user()) {
             $course->course_type        = 1;
-            $course->featured           = $request->featured;
             $auth = Auth::guard('admin')->user();
             $course->user_id_owner      = $auth->id;
         }elseif(Auth::guard('user')->user()){
@@ -158,11 +156,8 @@ class AdminCourseController extends Controller
             ->with('categories', $categories)
             ->with('course_items_chapter', $course_items_chapter);
         }else{
-            return redirect(route('teacher.course.edit', ['id' => $course->id]))
-            ->with('success', 'Curso criado com sucesso')
-            ->with('course', $course)
-            ->with('categories', $categories)
-            ->with('course_items_chapter', $course_items_chapter);
+            return redirect(route('user.panel'))
+            ->with('success', 'Curso criado com sucesso');            
         }
 
 	}
@@ -297,7 +292,6 @@ class AdminCourseController extends Controller
         ]);
 
         $order = CourseItemChapter::count();
-
         $chapter             = new CourseItemChapter;
         $chapter->name       = $request->name;
         $chapter->desc       = $request->desc;

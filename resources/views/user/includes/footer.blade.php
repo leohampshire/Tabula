@@ -39,7 +39,7 @@
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script type="text/javascript">
 
 $('.carousel-courses').slick({
@@ -77,18 +77,239 @@ $('.carousel-courses').slick({
   ]
 });
 
-function states()
+  function states()
   {
     if($('#country').val() == 1){
         $('.state').slideDown();
       }else{
         $('.state').slideUp();
-      }
-    }
+     }
+   }
+
   $('.state').hide();
   states();
-  $('#country').change(function(){
+  $(document).on("change", '#country', function(event){
     states();
   });
 
+$(document).ready(function(){
+    @isset($course)
+    var id = '{{$course->category_id}}';
+    var url = "{{route('admin.course.subcategory')}}";
+    categAjax(url, id);
+    @endisset
+
+      $('#categ' ).change(function() {
+        var categId = $('#categ option:selected').val();
+        console.log(categId);
+        categAjax(url, categId);
+      });
+    $('#sub_categ').hide();
+    $('#category_id' ).change(function() {
+      var url = "{{route('admin.course.subcategory')}}";
+      var categId = $('#category_id option:selected').val();
+      categAjax(url, categId);
+    });
+
+    
+    getContent("{{route('user.personal')}}");
+    $('.personal').on('click', function(){
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+    $('.teach').on('click', function(){
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $('.course-create').on('click', function(){
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $('.my-course').on('click', function(){
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $(document).on("click", '.course-edit', function(event) { 
+      var url = $(this).data('url');
+      getContent(url);
+    });
+
+    $(document).on("click", '.course-item', function(event){
+      var url = $(this).data('url');
+      getContent(url);
+    });
+
+
+//Modais
+
+$('.act-delete').on('click', function (e) {
+    e.preventDefault();
+    $('#confirmationModal .modal-title').html('Confirmação');
+    $('#confirmationModal .modal-body p').html('Tem certeza que deseja realizar esta exclusão?');
+    var href = $(this).attr('href');
+    $('#confirmationModal').modal('show').on('click', '#confirm', function() {
+      window.location.href=href;
+    });
+  });
+  $(document).on("click", '.act-chapter', function(e) { 
+    e.preventDefault();
+    $('#chapterModal').modal('show');
+  });
+
+  $(document).on("click", '.act-edit-chapter', function(e) { 
+    e.preventDefault();
+    $('#chapterEditModal form input[name="id"]').val($(this).data('id'));
+    $('#chapterEditModal form input[name="name"]').val($(this).data('name'));
+    $('#chapterEditModal form input[name="desc"]').val($(this).data('desc'));
+    $('#chapterEditModal').modal('show');
+  });
+  $(document).on("click", '.act-include', function(e) {
+    e.preventDefault();
+    $('#includeModal form input[name="id"]').val($(this).data('id'));
+    $('#includeModal').modal('show');
+  });
+
+  $(document).on("click", '.act-edit-item', function(e) { 
+    e.preventDefault();
+    var url = $(this).attr('data-url');
+    var file = $(this).attr('data-file');
+    var type = $(this).attr('data-type');
+    $('#itemEditModal form input[name="id"]').val($(this).data('type'));
+    $('#itemEditModal form input[name="name"]').val($(this).data('name'));
+    $('#itemEditModal form textarea[name="desc"]').val($(this).data('desc'));
+    if(type < 5){
+    $('#itemEditModal form select[name="item_type_id"]').val($(this).data('id'));
+      if (type == 3) {
+        $('.file').slideUp();
+      }else{
+        $('.file').slideDown();
+        if(type != 1){
+          $(".path").html('<img src="'+url+'/'+file+'" height="400px"">');
+        }else{
+          $(".path").html('<video  height="400px" controls><source src="'+url+'/'+file+'"></video>');
+        }
+      }
+    }else if(type == 5){
+      
+    }
+    $('#itemEditModal').modal('show');
+  });
+
+
+  $(document).on("click", '.act-class', function(e) { 
+    e.preventDefault();
+    $('#itemModal').modal('show');
+  });
+  $(document).on("click", '.act-complement', function(e) { 
+    e.preventDefault();
+    $('#complementModal').modal('show');
+  });
+
+  $(document).on("click", '.act-test', function(e) { 
+    e.preventDefault();
+    $('#classModal').modal('show');
+  });
+
+  $(document).on("click", '.act-question', function(e) { 
+
+    e.preventDefault();
+    $('#questionModal').modal('show');
+  });
+  //Fim Modais
+  /*----------------------------------------------------------------------------------------------*/
+    //Funcoes Ajax
+    function getContent(url){
+      $.ajax({
+        url: url,
+        type: 'GET',
+        beforeSend: function(){
+          $('#content').html('Carregando...');
+        },
+        success: function(data){
+          $('#content').html(data);
+        },
+        error: function(e){
+          console.log(e);
+        }
+      });
+    }
+
+    function categAjax(url, categId){
+      $.ajax({
+        type: 'GET',
+        url: url,
+        data:{
+            categId: categId,
+        },
+        beforeSend: function(){
+        },
+        success: function(data){
+            var result = $.parseJSON(data);
+            var i = 0;
+            $('#subcategory_id').html('');
+            if (result.length != 0) {
+              for (i =0; i < result.length; ++i){
+            console.log(result[i].id);
+                  $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
+              }
+              $('#sub_categ').show();
+
+            }else{
+              $('#sub_categ').hide();
+            }
+        }
+      });
+    }
+  });  
+  //Fi, funções ajax
+// Mask
+  $( document ).ready(function() {
+    $('.input-telefone').each( function(){
+      var phone = $(this).val().replace(/\D/g, '');
+      if(phone.length > 10){
+        $(this).inputmask({"mask": "(99) 99999-9999", "placeholder":" "});
+      } else {
+        $(this).inputmask({"mask": "(99) 9999-99999", "placeholder":" "});
+      }
+    });
+  });
+
+  $('.input-phone').focusout( function(){
+    var phone = $(this).val().replace(/\D/g, '');
+    if(phone.length > 10){
+      $(this).inputmask({"mask": "(99) 99999-9999", "placeholder":" "});
+    } else {
+      $(this).inputmask({"mask": "(99) 9999-99999", "placeholder":" "});
+    }
+  });
+    
+
+  $('.alert .close').click( function(){
+    $(this).parent().hide();
+  });
+
+  $('.input-date').datepicker({
+      language: 'pt-BR',
+      format: 'dd/mm/yyyy',
+      autoclose: true
+  });
+
+  $(".input-money").maskMoney({
+      thousands:'.', 
+      decimal:',', 
+      allowZero: true,
+      symbolStay: true
+  });
+//Fim mascaras
 </script>

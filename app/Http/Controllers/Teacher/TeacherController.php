@@ -76,11 +76,7 @@ class TeacherController extends Controller
        }
     }	
 
-    public function courseCreate()
-    {
-    	return view('admin.pages.teacher.curso.create')
-    	->with('categories', Category::all());
-    }
+
 
     public function courseEdit($id)
     {
