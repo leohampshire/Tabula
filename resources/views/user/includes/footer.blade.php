@@ -28,6 +28,15 @@
         </ul>
       </div>
     </div>
+    <div class="footer-credit">
+      <div class="row">
+        <div class="col-sm-12">
+          <p class="text-center">© 2019 Tabula. Todos os direitos reservados.</p>
+          <p class="text-center">CNPJ: 05.517.390/0001-95. Atendimento: suporte@tabula.com.br</p>
+          <p class="text-center"></p>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>
 

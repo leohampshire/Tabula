@@ -369,6 +369,11 @@ footer ul li a:hover {
   z-index: 99999;
 }
 
+.footer-credit {
+    color: #b3b3b3;
+    padding: 22px 0 0;
+}
+
 /* HEXS MACROTEMAS */
 .macro-mobile-wrapper {
   display: -webkit-box;
