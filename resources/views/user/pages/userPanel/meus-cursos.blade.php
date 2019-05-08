@@ -6,60 +6,25 @@
 	</div>
 </div>
 <div class="row">
+	@forelse($courses as $myCourse)
 	<div class="col-sm-3">
 		<div class="course-box">
 			<div class="course-thumb">
 				<img src="{{ asset('images/course.jpg')}}" alt="Curso">
 			</div>
 			<div class="course-desc">
-				<h3>Título do curso</h3>
-				<p>Descrição do curso</p>
+				<h3>{{$myCourse->name}}</h3>
+				<p>{{$myCourse->desc}}</p>
 			</div>
 			<div class="course-access">
-				<a href=""><span>ACESSAR</span></a>
+				<a href="{{route('course.single', ['urn' =>$myCourse->urn])}}"><span>ACESSAR</span></a>
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-3">
-		<div class="course-box">
-			<div class="course-thumb">
-				<img src="{{ asset('images/course.jpg')}}" alt="Curso">
-			</div>
-			<div class="course-desc">
-				<h3>Título do curso</h3>
-				<p>Descrição do curso</p>
-			</div>
-			<div class="course-access">
-				<a href=""><span>ACESSAR</span></a>
-			</div>
-		</div>
+	@empty
+	<div class="col-xs-12">
+		<p>Não possui nenhum curso</p>
 	</div>
-	<div class="col-sm-3">
-		<div class="course-box">
-			<div class="course-thumb">
-				<img src="{{ asset('images/course.jpg')}}" alt="Curso">
-			</div>
-			<div class="course-desc">
-				<h3>Título do curso</h3>
-				<p>Descrição do curso</p>
-			</div>
-			<div class="course-access">
-				<a href=""><span>ACESSAR</span></a>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="course-box">
-			<div class="course-thumb">
-				<img src="{{ asset('images/course.jpg')}}" alt="Curso">
-			</div>
-			<div class="course-desc">
-				<h3>Título do curso</h3>
-				<p>Descrição do curso</p>
-			</div>
-			<div class="course-access">
-				<a href=""><span>ACESSAR</span></a>
-			</div>
-		</div>
-	</div>
+	@endforelse
+	
 </div>

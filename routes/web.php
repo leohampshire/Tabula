@@ -14,13 +14,16 @@ Route::get('/', 'User\HomeController@index')->name('home');
 
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('/carrinho', 'User\CartController@cart')->name('cart');
+Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::get('curso/{urn}', 'User\CourseController@course')->name('single');
 });
 
+
 Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
   Route::get('/', 'User\UserController@userPanel')->name('panel');
   Route::post('/update', 'User\UserController@update')->name('update');
+  Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
   //PAINEIS VIA AJAX
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');
   Route::get('/leciono', 'User\UserController@contentTeachCourse')->name('teach');
@@ -30,7 +33,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('/editar/{id}', 'User\UserController@contentCourseEdit')->name('edit');
     Route::get('/incluir-item/{id}', 'User\UserController@contentCourseItem')->name('item');
   });
-    Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
 });
 
 Route::get('/pesquisar/{id}', 'User\SearchController@search')->name('search.single');
