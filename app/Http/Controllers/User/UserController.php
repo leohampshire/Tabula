@@ -62,8 +62,10 @@ class UserController extends Controller
 
     public function contentMyCourses()
     {
-        return view('user.pages.userPanel.meus-cursos');
-        // ->with('courses', $courses);
+        $auth = Auth::guard('user')->user();
+        $courses = $auth->myCourses;
+        return view('user.pages.userPanel.meus-cursos')
+        ->with('courses', $courses);
     }   
 
     public function contentCourseItem($id)
