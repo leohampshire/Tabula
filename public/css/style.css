@@ -27,7 +27,7 @@ a, a:hover {
 	text-decoration: none;
 }
 
-input, select, textarea, button {
+input, select, textarea, button, a, a:focus {
 	outline: none;
 }
 
@@ -40,6 +40,10 @@ button {
 
 button[type="submit"] {
   padding: 10px 20px;
+}
+
+button[type="submit"].btn-search {
+  padding: 0;
 }
 
 .btn-block {
@@ -117,6 +121,36 @@ header ul li {
   float: left;
 }
 
+header ul li a:hover, header ul li a:focus{
+  color: #000;
+}
+
+li.menu-cart a i {
+  color: #000;
+  font-size: 34px;
+  line-height: 0;
+}
+
+li.menu-cart a {
+  padding: 18px 14px 0 0;
+  position: relative;
+}
+
+li.menu-cart a span.menu-cart-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #000;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  font-size: 11px;
+  text-align: center;
+  line-height: 20px;
+  border: solid 1px #fff;
+  color: #fff;
+}
+
 header input {
 	padding: 8px;
 	background: #fff;
@@ -170,6 +204,11 @@ header ul li a.btn-register {
   margin: 25px 0 0;
 }
 
+.box-w-shadow {
+  background: #fff;
+  margin: 25px 0 0;
+}
+
 .container-carousel-courses {
 	position: relative;
 	margin-top: 20px;
@@ -207,9 +246,10 @@ header ul li a.btn-register {
 }
 
 .course-box {
-	box-shadow: 0 0 5px #ccc;
-	outline: none;
-	background: #303030;
+  position: relative;
+  box-shadow: 0 0 5px #ccc;
+  outline: none;
+  background: #303030;
   margin-bottom: 25px;
 }
 
@@ -223,17 +263,17 @@ header ul li a.btn-register {
 }
 
 .add-course-box i {
-    color: #5fd22f;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 159px auto;
-    display: table;
-    text-align: center;
-    width: 100%;
-    font-size: 65px;
+  color: #5fd22f;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 159px auto;
+  display: table;
+  text-align: center;
+  width: 100%;
+  font-size: 65px;
 }
 
 .carousel-courses .course-box {
@@ -291,7 +331,7 @@ header ul li a.btn-register {
 }
 
 .box-title {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 #teacher-questions p {
@@ -370,8 +410,89 @@ footer ul li a:hover {
 }
 
 .footer-credit {
-    color: #b3b3b3;
-    padding: 22px 0 0;
+  color: #b3b3b3;
+  padding: 22px 0 0;
+}
+
+.btn-cart-delete {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #f00;
+  text-align: center;
+  padding: 9px;
+  border-radius: 100%;
+  right: 6px;
+  top: 6px;
+  color: #fff;
+}
+
+.btn-cart-delete:hover, .btn-cart-delete:focus {
+  color: #fff;
+}
+
+.btn-cart-delete i {
+  line-height: 22px;
+  font-size: 20px;
+}
+
+.cart-resume .subtotal-value {
+  width: 100%;
+  display: table;
+  font-weight: 500;
+  color: #000000;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.cart-resume .total-value {
+  width: 100%;
+  display: table;
+  font-weight: 700;
+  color: #5fd22f;
+  font-size: 28px;
+  line-height: 30px;
+}
+
+.cart-resume .cupon-form input {
+  float: left;
+  width: 60%;
+  padding: 7px;
+  border: solid 1px #000;
+  border-right: none;
+}
+
+.cart-resume .cupon-form button {
+  float: left;
+  width: 40%;
+  padding: 8px;
+}
+
+.cart-resume .cupon-form {
+  margin: 16px 0;
+}
+
+.cart-resume .cupon-form span {
+  padding-bottom: 6px;
+  display: table;
+}
+
+.cart-resume .btn-checkout {
+  width: 100%;
+  margin: 4px 0;
+  padding: 16px;
+  background: #5fd22f;
+}
+
+.course-details h2.course-category {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.course-details h2.course-author {
+  font-size: 20px
+  font-weight: 500;
+  font-size: 18px;
 }
 
 /* HEXS MACROTEMAS */

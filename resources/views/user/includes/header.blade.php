@@ -1,9 +1,13 @@
 <?php
-  session_start();
-  $count = 0;
   $auth = Auth::guard('user')->user();
   if ($auth) {
     $count = count($auth->cart);
+  } else {
+    if(session('cart')){
+      $count = count(session('cart'));
+    } else {
+      $count = 0;
+    }
   }
 ?>
 <header>
@@ -15,7 +19,7 @@
       <div class="col-xs-4">
         <form autocomplete="off" action="{{ route('search.single', ['id' => -1]) }}" method="get">
           <input type="text" name="search_string" placeholder="O que você quer aprender hoje?">
-          <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          <button class="btn-search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
        
       </div>
@@ -28,23 +32,24 @@
               <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" width="30px" alt="Perfil">
             </a>
           </li>
-          <li><a href="{{route('cart')}}">Carrinho {{$count}}</a></li>
             @if($auth->user_type_id == 3)
             <li><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
             @endif
             <li><a href="{{route('user.logout')}}">Sair</a></li>
           @else
-          <li><a href="{{route('cart')}}">Carrinho {{$count}}</a></li>
+          
           <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>
           <li><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
+          
           @endif
+          <li class="menu-cart"><a href="{{route('cart')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="menu-cart-count">{{$count}}</span></a></li>
         </ul>
       </div>
     </div>
   </div>
 </header>
 @if(session()->has('success'))
-  <section class="content-header" style="margin-top: 30px;">
+  <section class="container" style="margin-top: 30px;">
     <!-- Main row --> 
     <div class="row">
       <!-- Left col -->
@@ -58,7 +63,7 @@
   </section>
 @endisset
 @if(session()->has('info'))
-  <section class="content-header" style="margin-top: 30px;">
+  <section class="container" style="margin-top: 30px;">
     <!-- Main row --> 
     <div class="row">
       <!-- Left col -->
@@ -73,7 +78,7 @@
 @endisset
 
 @if(session()->has('warning'))
-  <section class="content-header" style="margin-top: 30px;">
+  <section class="container" style="margin-top: 30px;">
     <!-- Main row --> 
     <div class="row">
       <!-- Left col -->
@@ -88,7 +93,7 @@
 @endisset
 
 @if(session()->has('primary'))
-  <section class="content-header" style="margin-top: 30px;">
+  <section class="container" style="margin-top: 30px;">
     <!-- Main row --> 
     <div class="row">
       <!-- Left col -->
@@ -103,7 +108,7 @@
 @endisset
 
 @if(session()->has('danger'))
-  <section class="content-header" style="margin-top: 30px;">
+  <section class="container" style="margin-top: 30px;">
     <!-- Main row --> 
     <div class="row">
       <!-- Left col -->
@@ -118,7 +123,7 @@
 @endisset
 
 @if ($errors->any())
-  <div class="content-header"  style="margin-top: 30px;">
+  <div class="container"  style="margin-top: 30px;">
     @foreach ($errors->all() as $error)
     <div class="row">
       <div class="col-sm-12">
