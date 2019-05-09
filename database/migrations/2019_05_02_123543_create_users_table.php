@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->longtext('bio')->nullable();
             $table->string('website', 100)->nullable();
             $table->string('google_plus', 100)->nullable();
+            $table->string('linkedin', 100)->nullable();
             $table->string('twitter', 100)->nullable();
             $table->string('facebook', 100)->nullable();
             $table->integer('country_id')->nullable();

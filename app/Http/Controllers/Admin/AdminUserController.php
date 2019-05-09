@@ -16,8 +16,23 @@ class AdminUserController extends Controller
 {
 	public function index(Request $request)
 	{
-		return view('admin.pages.user.index')
-        ->with('users', User::all());
+
+        $users = new User;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $users = $users->where('name', 'like', request('name') . '%');
+            }
+        }
+        if($request->has('email')){
+            if(request('email') != ''){
+                $users = $users->where('email', 'like', request('email') . '%');
+            }
+        }
+
+        $users = $users->orderBy('name', 'asc')->paginate(20);
+        return view('admin.pages.user.index')
+        ->with('users', $users);
 	}
 	public function create()
 	{
@@ -32,8 +47,7 @@ class AdminUserController extends Controller
 	{
         $this->validate($request, [
             'name'          => 'required',
-            'email'         => 'required|unique:admins',
-            'country_id'	=> 'required',
+            'email'         => 'required|unique:users',
             'password'      => 'required|min:6',
             'user_type_id'  => 'required',
         ]);
@@ -44,7 +58,7 @@ class AdminUserController extends Controller
         $user->password     = bcrypt($request->password);
         $user->birthdate    = implode("-", array_reverse(explode("/", $request->birthdate)));
         $user->sex          = $request->sex;
-        $user->occupation   = $request->occupation;
+        $user->linkedin     = $request->linkedin;
         $user->bio          = $request->bio;
         $user->website      = $request->website;
         $user->google_plus  = $request->google_plus;
@@ -94,6 +108,7 @@ class AdminUserController extends Controller
         $user->bio          = $request->bio;
         $user->website      = $request->website;
         $user->google_plus  = $request->google_plus;
+        $user->linkedin     = $request->linkedin;
         $user->twitter      = $request->twitter;
         $user->facebook     = $request->facebook;
         $user->youtube      = $request->youtube;

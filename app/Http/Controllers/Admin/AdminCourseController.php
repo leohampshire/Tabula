@@ -17,7 +17,16 @@ class AdminCourseController extends Controller
 {
 	public function index(Request $request)
 	{
-		return view('admin.pages.course.index')->with('courses', Course::all());
+
+        $courses = new Course;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $courses = $courses->where('name', 'like', request('name') . '%');
+            }
+        }
+        $courses = $courses->orderBy('name', 'asc')->paginate(20);
+		return view('admin.pages.course.index')->with('courses', $courses);
 	}
 
 	public function SubCourse(Request $request)
@@ -56,7 +65,7 @@ class AdminCourseController extends Controller
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv',
-            'requirements'=> 'max:500'	
+            'requirements'=> 'max:1000'	
         ]);
 
         //Chama o objeto
@@ -146,7 +155,7 @@ class AdminCourseController extends Controller
 	{
 		$this->validate($request, [
             'name'        => 'required|max:100',
-            'desc'        => 'required',
+            'desc'        => 'required|max:1500',
             'price'       => 'required',
             'urn'  		  => [
                 Rule::unique('courses')->ignore($request->id)
@@ -235,8 +244,8 @@ class AdminCourseController extends Controller
     public function storeChapter(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
-            'desc'      => 'required'
+            'name'      => 'required|max:100',
+            'desc'      => 'required|max:1000'
         ]);
 
         $order = CourseItemChapter::count();
@@ -252,8 +261,8 @@ class AdminCourseController extends Controller
     public function updateChapter(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
-            'desc'      => 'required'
+            'name'      => 'required|max:100',
+            'desc'      => 'required|max:1000'
         ]);
 
         $chapter             = CourseItemChapter::find($request->id);
@@ -307,8 +316,8 @@ class AdminCourseController extends Controller
     public function storeItem(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
-            'desc'      => 'max:400'
+            'name'      => 'required|max:100',
+            'desc'      => 'max:500'
         ]);
         $item = new CourseItem;
         $item->name                     = $request->name;
@@ -419,9 +428,17 @@ class AdminCourseController extends Controller
         return redirect()->back()->with('success', 'Conteúdo excluidos com sucesso.');
     }
 
-    public function indexAnalyze()
+    public function indexAnalyze(Request $request)
     {
-        return view('admin.pages.course.analyze.index')->with('courses', Course::all());
+        $courses = new Course;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $courses = $courses->where('name', 'like', request('name') . '%');
+            }
+        }
+        $courses = $courses->orderBy('name', 'asc')->paginate(20);
+        return view('admin.pages.course.analyze.index')->with('courses', $courses);
     }
     public function show()
     {

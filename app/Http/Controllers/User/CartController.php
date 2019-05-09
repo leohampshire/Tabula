@@ -146,8 +146,10 @@ class CartController extends Controller
     public function checkout()
     {
         $auth = Auth::guard('user')->user();
-
-        return view('user.pages.checkout')
-        ->with('auth', $auth);
+        if ($auth) {
+            return view('user.pages.checkout')
+            ->with('auth', $auth);
+        }
+        return redirect(url('/user/login'));
     }
 }

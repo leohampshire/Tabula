@@ -28,6 +28,7 @@ class User extends Authenticatable
         'twitter',
         'facebook',
         'google_plus',
+        'linkedin',
         'youtube',
         'country_id', 
         'state_id', 

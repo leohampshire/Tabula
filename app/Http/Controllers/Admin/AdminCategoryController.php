@@ -18,7 +18,7 @@ class AdminCategoryController extends Controller
 
         if($request->has('name')){
             if(request('name') != ''){
-                $categories = $categories->where('name', 'like', '%' . request('name') . '%');
+                $categories = $categories->where('name', 'like', request('name') . '%');
             }
         }
         $categories = $categories->orderBy('name', 'asc')->paginate(20);

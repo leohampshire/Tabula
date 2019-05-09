@@ -121,8 +121,8 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="occupation">Cargo</label>
-                    <input class="form-control" type="text" name="occupation" placeholder="Seu cargo" value="{{ $user->occupation }}">
+                    <label for="linkedin">Linkedin</label>
+                    <input class="form-control" type="text" name="linkedin" placeholder="https://..." value="{{ $user->linkedin }}">
                   </div>
 
                   <div class="col-xs-6">

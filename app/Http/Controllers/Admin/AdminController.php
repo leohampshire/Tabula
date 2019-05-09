@@ -28,8 +28,23 @@ class AdminController extends Controller
     }
 	public function index(Request $request)
 	{
+        $users = new Admin;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $users = $users->where('name', 'like', request('name') . '%');
+            }
+        }
+        if($request->has('email')){
+            if(request('email') != ''){
+                $users = $users->where('email', 'like', request('email') . '%');
+            }
+        }
+
+        $users = $users->orderBy('name', 'asc')->paginate(20);
+        
 		return view('admin.pages.admin.index')
-        ->with('users', Admin::all());
+        ->with('users', $users);
 	}
 
 	public function create()

@@ -13,7 +13,15 @@ class AdminBlogController extends Controller
 {
 	public function indexCateg(Request $request)
 	{
-		return view('admin.pages.blog.category.index')->with('categories', BlogCategory::all());
+		$categories = new BlogCategory;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $categories = $categories->where('name', 'like', request('name') . '%');
+            }
+        }
+        $categories = $categories->orderBy('name', 'asc')->paginate(20);
+		return view('admin.pages.blog.category.index')->with('categories', $categories);
 	}
 
 	public function createCateg()

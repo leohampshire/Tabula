@@ -65,7 +65,7 @@
                     <select name="user_type_id" class="form-control">
                       <option value="" selected disabled hidden>Escolha um...</option>
                       @foreach ($userTypes as $userType)
-                        <option value="{{ $userType->id }}"> {{ $userType->name }} </option>
+                        <option @if(old('user_type_id') == $userType->id) selected @endif value="{{ $userType->id }}"> {{ $userType->name }} </option>
                       @endforeach
                       
                     </select>
@@ -75,7 +75,7 @@
                     <select id="country" name="country_id" class="form-control">
                       <option value="" selected disabled hidden>Escolha um...</option>
                       @foreach ($countries as $country)
-                        <option value="{{ $country->id }}"> {{ $country->name }} </option>
+                        <option @if(old('country_id') == $country->id) selected @endif value="{{ $country->id }}"> {{ $country->name }} </option>
                       @endforeach
                     </select>
                   </div>
@@ -86,7 +86,7 @@
                       <select id="state" name="state_id" class="form-control">
                         <option selected disabled hidden>Escolha um...</option>
                         @foreach ($states as $state)
-                          <option value="{{ $state->id }}"> {{ $state->name }} </option>
+                          <option @if(old('state_id') == $state->id) selected @endif value="{{ $state->id }}"> {{ $state->name }} </option>
                         @endforeach
                       </select>
                     </div>
@@ -121,14 +121,14 @@
                 <div class="form-group row">
                   <div class="col-sm-12 sex">
                     <label for="sex">Sexo: </label>
-                    <label class="radio-inline"><input type="radio" name="sex" value="Masculino">Masculino</label>
-                    <label class="radio-inline"><input type="radio" name="sex" value="Feminino">Feminino</label>
+                    <label class="radio-inline"><input type="radio" name="sex" @if(old('sex') == 'Masculino') checked @endif value="Masculino">Masculino</label>
+                    <label class="radio-inline"><input type="radio" name="sex" @if(old('sex') == 'Feminino') checked @endif value="Feminino">Feminino</label>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="occupation">Cargo</label>
-                    <input class="form-control" type="text" name="occupation" placeholder="Seu cargo" value="{{ old('occupation') }}">
+                    <label for="linkedin">linkedin</label>
+                    <input class="form-control" type="text" name="linkedin" placeholder="https://..." value="{{ old('linkedin') }}">
                   </div>
 
                   <div class="col-xs-6">

@@ -58,16 +58,14 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Nome do Curso</label>
+                    <label for="name">Nome do Curso</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
-                  </div>
-                  
                   </div>
                 </div>
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
-                <button type="button" class="btn btn-default clear-filters">Limpar</button>
+                <button type="submit" class="btn btn-default clear-filters">Limpar</button>
               </div>
             </form>
         </section>
