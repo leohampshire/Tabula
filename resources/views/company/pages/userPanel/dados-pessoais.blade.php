@@ -15,13 +15,21 @@
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<label>Nome</label>
 			<input name="name" value="{{$auth->name}}" type="text" class="form-control" placeholder="Nome">
 		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<label>E-mail</label>
 			<input name="email" type="email" value="{{$auth->email}}" class="form-control" placeholder="E-mail">
+		</div>
+		<div class="col-xs-4">
+			<label for="sex">Sexo</label>
+			<select class="form-control">
+				<option value="" selected disabled hidden>Escolha</option>
+				<option name="sex" value="m" @if($auth->sex == 'Masculino') selected @endif>Masculino</option>
+				<option name="sex" value="f" @if($auth->sex == 'Feminino') selected @endif>Feminino</option>
+			</select>
 		</div>
 	</div>
 	<div class="row form-group">
@@ -45,50 +53,77 @@
 				@endforeach
 			</select>
 		</div>
-		<div class="col-xs-4">
-			<label for="sex">Sexo</label>
-			<select class="form-control">
-				<option value="" selected disabled hidden>Escolha</option>
-				<option name="sex" value="m" @if($auth->sex == 'Masculino') selected @endif>Masculino</option>
-				<option name="sex" value="f" @if($auth->sex == 'Feminino') selected @endif>Feminino</option>
-			</select>
-		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-12">
+		<div class="col-xs-8">
 			<label for="bio">Conte-nos um pouco sobre você</label>
-			<textarea name="bio" class="form-control" placeholder="Escreva aqui..." rows="4">{{$auth->bio}}</textarea>
+			<textarea name="bio" class="form-control" placeholder="Escreva aqui..." rows="5">{{$auth->bio}}</textarea>
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<label for="website">Website</label>
 			<input name="website" value="{{$auth->website}}" type="text" class="form-control" placeholder="https:// ...">
 		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<label for="facebook">Facebook</label>
 			<input name="facebook" value="{{$auth->facebook}}" type="text" class="form-control" placeholder="https:// ...">
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<label for="twitter">Twitter</label>
 			<input name="twitter" value="{{$auth->twitter}}" type="text" class="form-control" placeholder="https:// ...">
 		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<label for="google_plus">Google</label>
 			<input name="google_plus" value="{{$auth->google_plus}}" type="text" class="form-control" placeholder="https:// ...">
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-6">
-			<label for="interest">Interesses</label>
-				@forelse($interests as $interest)
-				<div class="form-check">
-					<input type="checkbox" @if(in_array($interest->id, $auth->interest)) checked @endif name="interest[]" class="form-check-input" value="{{$interest->id}}">{{$interest->name}}
-				</div>
-				@empty
-				@endforelse	
+		<div class="col-xs-4">
+			<button type="submit">Atualizar</button>
+		</div>
+	</div>
+</form>
+<div class="box-title">
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>Dados de pagamento</h2>
+		</div>
+	</div>
+</div>
+<form>
+	<div class="row form-group">
+		<div class="col-xs-5">
+			<label>Endereço</label>
+			<input name="website" type="text" class="form-control" placeholder="Endereço">
+		</div>
+		<div class="col-xs-3">
+			<label>Número</label>
+			<input name="facebook" type="text" class="form-control" placeholder="Número">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-4">
+			<label>Estado</label>
+			<select class="form-control">
+				<option value="" selected disabled hidden>Escolha</option>
+				<option>Brasil</option>
+			</select>
+		</div>
+		<div class="col-xs-4">
+			<label>Cidade</label>
+			<select class="form-control">
+				<option value="" selected disabled hidden>Escolha</option>
+				<option>Brasil</option>
+			</select>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-3">
+			<label>CEP</label>
+			<input name="cep" type="text" class="form-control" placeholder="CEP">
 		</div>
 	</div>
 	<div class="row form-group">

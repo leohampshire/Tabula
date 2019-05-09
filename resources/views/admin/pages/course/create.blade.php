@@ -56,7 +56,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('teacher.course.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.course.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">
@@ -96,8 +96,7 @@
                     <input class="form-control input-money" type="text" name="price" placeholder="Definir Preço do Curso" value="{{ old('price') }}">
                   </div>
                 </div>
-                </div>
-                <div class="form-group  row">
+                <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="requirements">Requisitos para o curso</label>
                     <textarea name="requirements" placeholder="Requisitos para realizar o curso (opcional)" class="form-control" rows="4">{{ old('requirements') }}</textarea>

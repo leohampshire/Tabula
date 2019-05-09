@@ -20,7 +20,16 @@ class UserController extends Controller
     public function userPanel()
     {
     	$auth = Auth::guard('user')->user();
-    	return view('user.pages.panel_dados_pessoais')
+        if ($auth) {
+            return view('user.pages.panel_dados_pessoais')
+            ->with('countries', Country::all())
+            ->with('categories', Category::all())
+            ->with('states', State::all())
+            ->with('auth', $auth);
+        }
+        $auth = Auth::guard('company')->user();
+
+    	return view('company.pages.panel_dados_pessoais')
     	->with('countries', Country::all())
         ->with('categories', Category::all())
     	->with('states', State::all())
@@ -37,9 +46,11 @@ class UserController extends Controller
     public function contentPersonal()
     {
         $auth = Auth::guard('user')->user();
+        $auth->interest = unserialize($auth->interest);
         return view('user.pages.userPanel.dados-pessoais')
         ->with('countries', Country::all())
         ->with('states', State::all())
+        ->with('interests', Category::all())
         ->with('auth', $auth);
     }   
     //Criar Curso professor
@@ -56,7 +67,7 @@ class UserController extends Controller
         $course->price = number_format($course->price, 2, ',', '.');
         return view('user.pages.userPanel.editar-curso')
         ->with('categories', Category::all())
-        ->with('chapters', CourseItemChapter::all())
+        ->with('chapters', $chapters)
         ->with('course', $course);
     }
 
@@ -87,12 +98,18 @@ class UserController extends Controller
                 'required',
                 Rule::unique('users')->ignore($request->id)
             ],
-	        'country_id' 	=> 'required',
+            'bio'           => 'max:1000',
 	        'img_avatar' 	=> 'mimes:jpeg,bmp,png'
         ]);
 
         $user = User::find($request->id);
-    	$request['avatar'] = $this->thumbValidate($request);
+        if ($request->img_avatar != '') {
+        	$request['avatar'] = $this->thumbValidate($request);
+        }
+        $interest = NULL;
+        if (isset($request->interest)) {
+            $request['interest'] = serialize($request->interest);
+        }
         
         $user->update($request->all());
         return redirect()->back()->with('success', 'Cadastro alterado');

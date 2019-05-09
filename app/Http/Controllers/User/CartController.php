@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cart;
+use App\CourseUser;
 use App\Course;
 use Auth;
 use Session;
@@ -16,10 +17,11 @@ class CartController extends Controller
         $auth = Auth::guard('user')->user();
         if (!$auth) {
             $cart = $request->session()->get('cart');
-            $course = Course::whereIn('id', $cart)->get();
-
             $auth = (object)$auth;
-            $auth->cart = $course;
+            if ($cart) {
+                $course = Course::whereIn('id', $cart)->get();
+                $auth->cart = $course;
+            }
         }
 
         return view('user.pages.cart')->with('auth', $auth);
@@ -59,7 +61,6 @@ class CartController extends Controller
 
     public function insertCourseIntoCart($id, Request $request)
     {   
-        // return dd($request->session()->get('cart'));
         $cart = $request->session()->get('cart');
         $auth = Auth::guard('user')->user();
         if (!$auth) {
@@ -96,6 +97,48 @@ class CartController extends Controller
                 Session::flash('info', 'Curso já existente no carrinho');
 
             return redirect()->back();
+    }
+
+    public function removeCourseIntoCart($id, Request $request)
+    {
+        $cart = $request->session()->get('cart');
+        $auth = Auth::guard('user')->user();
+        if (!$auth) {
+            if (in_array($id, $cart)) { 
+                $key = array_search($id, $cart);
+                $request->session()->pull('cart', $key);
+            }                
+        }else{
+            $item = Cart::where('user_id', $auth->id)->where('course_id', $id)->first();
+            $item->delete();
+            Session::flash('success', 'Curso removido do carrinho!');
+        }
+
+        return redirect()->back();
+    }
+
+    public function sessionCourseIntoCart(Request $request)
+    {
+        $auth = Auth::guard('user')->user();
+
+        if ($auth) {
+            $carts = $request->session()->get('cart');
+            if ($carts) {
+                foreach ($carts as $cart) {
+                    $exist = Cart::where('course_id', $cart)->where('user_id', $auth->id)->count();
+                    $myCourse = CourseUser::where('user_id', $auth->id)->where('course_id', $cart)->count();
+                    if ($exist == 0 && $myCourse == 0) {
+                        $crt = new Cart;
+                        $crt->user_id = $auth->id;
+                        $crt->course_id = $cart;
+                        $crt->save();
+                    }
+                }
+                $value = $request->session()->forget('cart');
+                return redirect()->route('cart.checkout');
+            }
+        return redirect(url('/'));        
+        }
     }
 
     public function checkout()

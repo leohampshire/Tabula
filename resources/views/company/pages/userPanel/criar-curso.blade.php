@@ -8,24 +8,19 @@
 <form method="POST" action="{{route('teacher.course.store')}}" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<div class="row form-group">
-		<div class="col-xs-8">
+		<div class="col-xs-6">
 			<label for="name">Nome</label>
 			<input name="name" value="{{ old('name') }}" type="text" class="form-control" placeholder="Nome">
 		</div>
-
-		<div class="col-xs-4">
-			<label for="time">Tempo do curso em horas</label>
-			<input name="time" value="{{ old('time') }}" type="number" class="form-control" placeholder="Tempo do Curso">
-		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-12">
+		<div class="col-xs-6">
 			<label for="desc">Descrição</label>
 			<input name="desc" type="text" value="{{ old('desc') }}" class="form-control" placeholder="Descrição">
 		</div>
 	</div>
-	<div class="row form-group">
-		<div class="col-sm-4"  id="categ">
+	<div class="row form-group" id="categ">
+		<div class="col-sm-4">
 			<label for="category_id">Categoria</label>
 			<select name="category_id" class="form-control">
 				<option value="" selected disabled hidden>Escolha</option>
@@ -36,15 +31,24 @@
               	@endforeach
 			</select>
 		</div>
-		<div class="col-sm-4" id="sub_categ">
+	</div>
+	<div class="row form-group" id="sub_categ">
+		<div class="col-sm-4">
 			<label for="subcategory_id">SubCategoria</label>
 			<select name="subcategory_id" class="form-control" id="subcategory_id">
 				<option value="" selected disabled hidden>Escolha</option>
+				
 			</select>
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-12">
+		<div class="col-xs-4">
+			<label for="price">Preço</label>
+			<input  name="price" value="{{ old('price') }}" type="text" class="form-control input-money" placeholder="Preço">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-6">
 			<label for="requirements">Requisitos</label>
 			<textarea name="requirements" class="form-control" placeholder="Requisitos para o curso" rows="4">{{ old('requirements') }}</textarea>
 		</div>

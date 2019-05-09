@@ -35,7 +35,9 @@
       <form method="POST" action="{{route('teacher.course.chapter.store')}}" enctype="multipart/form-data">
           <div class="modal-body">
               {{csrf_field()}}
-              <input type="hidden" name="course_id" value="">
+              @isset($course)
+                <input type="hidden" name="course_id" value="{{$course->id}}">
+              @endisset
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
@@ -607,7 +609,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left stop" data-dismiss="modal" >Cancelar</button>
-            <button type="submit" class="btn btn-primary stop" data-dismiss="modal">Confirmar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
           </div>
     </div>
     <!-- /.modal-content -->

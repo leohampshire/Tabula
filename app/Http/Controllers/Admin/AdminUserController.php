@@ -91,7 +91,6 @@ class AdminUserController extends Controller
         $user->user_type_id = $request->user_type_id;
         $user->birthdate    = implode("-", array_reverse(explode("/", $request->birthdate)));
         $user->sex          = $request->sex;
-        $user->occupation   = $request->occupation;
         $user->bio          = $request->bio;
         $user->website      = $request->website;
         $user->google_plus  = $request->google_plus;

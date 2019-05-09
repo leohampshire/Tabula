@@ -1,10 +1,5 @@
 <?php
-  session_start();
-  $count = 0;
   $auth = Auth::guard('user')->user();
-  if ($auth) {
-    $count = count($auth->cart);
-  }
 ?>
 <header>
   <div class="container">
@@ -25,16 +20,16 @@
           @if($auth)
           <li>
             <a href="{{route('user.panel')}}">
-              <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" width="30px" alt="Perfil">
+              <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" width="50px" alt="Perfil">
             </a>
           </li>
-          <li><a href="{{route('cart')}}">Carrinho {{$count}}</a></li>
+          <li><a href="{{route('cart')}}">Carrinho</a></li>
             @if($auth->user_type_id == 3)
-            <li><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
+            <li><a href="#">Torne-se professor</a></li>
             @endif
             <li><a href="{{route('user.logout')}}">Sair</a></li>
           @else
-          <li><a href="{{route('cart')}}">Carrinho {{$count}}</a></li>
+          <li><a href="{{route('cart')}}">Carrinho</a></li>
           <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>
           <li><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
           @endif

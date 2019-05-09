@@ -47,19 +47,25 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
 
   //CURSOS
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
+    Route::post('/store', 'Admin\AdminCourseController@store')->name('store');
+    Route::get('subcategoria-curso', 'Admin\AdminCourseController@SubCourse')->name('subcategory');    
+    Route::post('/update', 'Admin\AdminCourseController@update')->name('update');
+    Route::get('/editar/{id}', 'Teacher\TeacherController@courseEdit')->name('edit');
     Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
       Route::post('/store', 'Admin\AdminCourseController@storeChapter')->name('store');
       Route::post('/update', 'Admin\AdminCourseController@updateChapter')->name('update');
       Route::get('delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
     });
   });
-
 });
+
 
 //CARRINHO
 Route::group(['prefix' => 'comprar', 'as' => 'cart.'], function(){
   Route::get('/checkout', 'User\CartController@checkout')->name('checkout');
+  Route::get('/inserir/sessao', 'User\CartController@sessionCourseIntoCart')->name('session');
   Route::get('/inserir/{id}/carrinho', 'User\CartController@insertCourseIntoCart')->name('insert');
+  Route::get('/inserir/{id}/remover', 'User\CartController@removeCourseIntoCart')->name('remove');
   Route::get('/inserir/{id}/finalizar', 'User\CartController@insertCourseIntoFinish')->name('finish');
 
 });
@@ -68,7 +74,7 @@ Route::group(['prefix' => 'comprar', 'as' => 'cart.'], function(){
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], function () {
   Route::get('/dashboard', 'Admin\AdminController@dashboard')->name('dashboard');
-  //USUARIOS
+  //USUARIOS ADMIN
   Route::group(['prefix' => 'usuario', 'as' => 'user.'], function(){
       Route::get('/', 'Admin\AdminUserController@index')->name('index');
       Route::get('/create', 'Admin\AdminUserController@create')->name('create');
@@ -77,7 +83,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update/{id}/', 'Admin\AdminUserController@update')->name('update');
       Route::get('/delete/{id}/', 'Admin\AdminUserController@delete')->name('delete');
   });
-  //ADMINISTRADORES
+  //ADMINISTRADORES ADMIN
   Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
       Route::get('/', 'Admin\AdminController@index')->name('index');
       Route::get('/create', 'Admin\AdminController@create')->name('create');
@@ -92,7 +98,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update/', 'Admin\AdminController@update')->name('update');
   });
 
-  //Empresas
+  //EMPRESAS ADMIN
   Route::group(['prefix' => 'empresa', 'as' => 'company.'], function(){
       Route::get('/', 'Admin\AdminCompanyController@index')->name('index');
       Route::get('/create', 'Admin\AdminCompanyController@create')->name('create');
@@ -102,7 +108,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update/{id}', 'Admin\AdminCompanyController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCompanyController@delete')->name('delete');
   });
-  //Categorias
+  //CATEGORIAS ADMIN
   Route::group(['prefix' => 'categoria', 'as' => 'category.'], function(){
       Route::get('/', 'Admin\AdminCategoryController@index')->name('index');
       Route::get('/create', 'Admin\AdminCategoryController@create')->name('create');
@@ -111,7 +117,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update', 'Admin\AdminCategoryController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCategoryController@delete')->name('delete');
   });
-  //Subcategorias
+  //SUBCATEGORIAS ADMIN
   Route::group(['prefix' => 'subcategoria', 'as' => 'subcategory.'], function(){
       Route::get('/', 'Admin\AdminSubcategoryController@index')->name('index');
       Route::get('/create', 'Admin\AdminSubcategoryController@create')->name('create');
@@ -123,7 +129,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
   Route::group(['prefix' =>'analise', 'as' => 'analyze.'], function(){
     Route::get('/', 'Admin\AdminCourseController@indexAnalyze')->name('index');
   });
-  //Cursos
+  //CURSOS ADMIN
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
       Route::get('/', 'Admin\AdminCourseController@index')->name('index');
       Route::get('subcategoria-curso', 'Admin\AdminCourseController@SubCourse')->name('subcategory');
@@ -134,14 +140,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/visualizar/{id}', 'Admin\AdminCourseController@show')->name('show');
       Route::post('/update', 'Admin\AdminCourseController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCourseController@delete')->name('delete');
-      //capitulos do curso
+      //CAPITULOS CURSO ADMIN
       Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
         Route::post('/store', 'Admin\AdminCourseController@storeChapter')->name('store');
         Route::post('/update', 'Admin\AdminCourseController@updateChapter')->name('update');
         Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
         Route::get('/item/{id}', 'Admin\AdminCourseController@itemChapter')->name('item');
       });
-      //Itens do curso
+      //ITENS CURSO ADMIN
       Route::group(['prefix'=> 'item', 'as' => 'item.'], function(){
         Route::get('/prova/{id}', 'Admin\AdminCourseController@createTest')->name('test');
         Route::get('/gratis/{id}', 'Admin\AdminCourseController@free')->name('free');
@@ -150,7 +156,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
         Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
       });
   });
-  //Cupons
+  //CUPONS ADMIN
   Route::group(['prefix' => 'cupom', 'as' => 'coupon.'], function(){
     Route::get('/index', 'Admin\AdminCouponController@index')->name('index');
     Route::post('/pesquisar', 'Admin\AdminCouponController@search')->name('search');
@@ -161,7 +167,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
     Route::get('/delete/{id}', 'Admin\AdminCouponController@delete')->name('delete');
   });
 
-    //Seos
+    //SEOS ADMIN
   Route::group(['prefix' => 'seo', 'as' => 'seo.'], function(){
     Route::get('/index', 'Admin\AdminSeoController@index')->name('index');
     Route::post('/pesquisar', 'Admin\AdminSeoController@search')->name('search');
@@ -172,7 +178,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
     Route::get('/delete/{id}', 'Admin\AdminSeoController@delete')->name('delete');
   });
 
-  //Categorias Blog
+  //CATEGORIAS BLOG ADMIN
   Route::group(['prefix' => 'categoria-blog', 'as' => 'categ.blog.'], function(){
       Route::get('/index', 'Admin\AdminBlogController@indexCateg')->name('index');
       Route::get('/create', 'Admin\AdminBlogController@createCateg')->name('create');
@@ -181,7 +187,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update', 'Admin\AdminBlogController@updateCateg')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminBlogController@deleteCateg')->name('delete');
   });
-  //Posts Blog
+  //POSTS ADMIN
   Route::group(['prefix' => 'post-blog', 'as' => 'post.blog.'], function(){
       Route::get('/index', 'Admin\AdminBlogController@indexPost')->name('index');
       Route::get('/create', 'Admin\AdminBlogController@createPost')->name('create');
@@ -191,23 +197,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/delete/{id}', 'Admin\AdminBlogController@deletePost')->name('delete');
   });
 
-  //Paginas
+  //PAGINAS ADMIN
   Route::group(['prefix' => 'paginas', 'as' => 'page.'], function(){
       Route::get('/index', 'Admin\AdminPageController@index')->name('index');
       Route::get('/edit/{id}', 'Admin\AdminPageController@edit')->name('edit');
       Route::post('/update', 'Admin\AdminPageController@update')->name('update');
   });
 });
-
+//AUTH ADMIN
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-  //login
+  //LOGIN ADMIN
   Route::get('/', 'AdminAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'AdminAuth\LoginController@login');
   Route::get('/logout', 'AdminAuth\LoginController@logout')->name('logout');
-//Registro
+//REGISTRO ADMIN
   Route::get('/register', 'AdminAuth\RegisterController@showRegistrationForm')->name('register');
   Route::post('/register', 'AdminAuth\RegisterController@register');
-//Recuperacao de senha
+//RECUPERACAO DE SENHA ADMIN
   Route::post('/password/email', 'AdminAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'AdminAuth\ResetPasswordController@reset')->name('password.email');
   Route::get('/password/reset', 'AdminAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
@@ -228,12 +234,19 @@ Route::group(['prefix' => 'user'], function () {
   Route::get('/password/reset/{token}', 'UserAuth\ResetPasswordController@showResetForm');
 });
 
+Route::group(['prefix' => 'empresa', 'as' => 'company.'], function () {
+  Route::get('/', 'User\UserController@userPanel')->name('panel');
+  
+});
+
+
+
 Route::group(['prefix' => 'company'], function () {
   Route::get('/login', 'CompanyAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'CompanyAuth\LoginController@login');
   Route::post('/logout', 'CompanyAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'CompanyAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::get('/register', 'CompanyAuth\RegisterController@showRegistrationForm')->name('company.register');
   Route::post('/register', 'CompanyAuth\RegisterController@register');
 
   Route::post('/password/email', 'CompanyAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');

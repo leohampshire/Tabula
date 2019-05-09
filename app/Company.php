@@ -38,4 +38,9 @@ class Company extends Authenticatable
     {
         $this->notify(new CompanyResetPassword($token));
     }
+
+    public function courses()
+    {
+        return $this->hasMany('App\Course', 'user_id_owner');
+    }
 }

@@ -15,8 +15,8 @@ class TransactionController extends Controller
 
 		foreach ($auth->cart()->get() as $cart) {
 			CourseUser::create([
-				'user_id' 	=> $cart->id;,
-				'course_id' => $auth->id;,
+				'user_id' 	=> $cart->id,
+				'course_id' => $auth->id,
 				'progress'	=> 0,
 			]);
 			$cart->pivot->delete();

@@ -55,7 +55,8 @@ class AdminCourseController extends Controller
             'price'       => 'required',
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
-            'video'		  => 'mimes:mp4, mkv'	
+            'video'		  => 'mimes:mp4, mkv',
+            'requirements'=> 'max:500'	
         ]);
 
         //Chama o objeto
@@ -69,47 +70,14 @@ class AdminCourseController extends Controller
         $course->requirements       = $request->requirements;
         $course->total_class        = 0;
         //URN
-        $urn = '';
-        $i   = 0;
-        $urnCourse = 1;
-        while ($urnCourse > 0) {
-            $urnCourse = Course::where('urn', $urn)->count();
-            $urn = iconv('UTF-8', 'ASCII//TRANSLIT', $request->name);
-            $urn = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $urn);
-            $urn = strtolower(trim($urn, '-'));
-            $urn = preg_replace("/[\/_| -]+/", '-', $urn);
-            if ($i != 0) {
-                $urn = "{$urn}-{$i}";
-            }
-            $i++;
-        }
-        $course->urn = $urn;
+        
+        $course->urn = $this->urnValidate($request->name);
         //valida a foto de capa
-        if($request->thumb_img != '')
-        {
-            $arq_img = $request->file('thumb_img');
-            $name    = basename($arq_img->getClientOriginalName());
-            $type    = strtolower(pathinfo($name,PATHINFO_EXTENSION));
-            $count = 1;
-            //Gera string aleatória
-            while($count != 0){
-                $str            = "";
-                $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
-                $max            = count($characters) - 1;
-
-                for ($i = 0; $i < 7; $i++) {
-                    $rand   = mt_rand(0, $max);
-                    $str   .= $characters[$rand];
-                    $count  = Course::where('thumb_img', $str)->count();
-                }
-            }
-            $arq_img_name = $str.'.'.$type;
-            $arq_img->move('images/aulas', $arq_img); 
-
-            $course->thumb_img      = $arq_img_name;  
-        }
-        else
+        if($request->thumb_img != ''){
+            $course->thumb_img      = $this->thumbImgValidate($request);
+        }else{
             $course->thumb_img      = 'e-learning.jpg';
+        }
 
         //Valida o video     
         if($request->video != '')
@@ -200,31 +168,11 @@ class AdminCourseController extends Controller
         $course->total_class        = 0;
 		
         
-        if($request->thumb_img != '')
-        {
-            $arq_img = $request->file('thumb_img');
-            $name    = basename($arq_img->getClientOriginalName());
-            $type    = strtolower(pathinfo($name,PATHINFO_EXTENSION));
-            $count = 1;
-            //Gera string aleatória
-            while($count != 0){
-                $str            = "";
-                $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
-                $max            = count($characters) - 1;
-
-                for ($i = 0; $i < 7; $i++) {
-                    $rand   = mt_rand(0, $max);
-                    $str   .= $characters[$rand];
-                    $count  = Course::where('thumb_img', $str)->count();
-                }
-            }
-            $arq_img_name = $str.'.'.$type;
-            $arq_img->move('images/aulas', $arq_img); 
-
-            $course->thumb_img      = $arq_img_name;  
-        }
-        else
+        if($request->thumb_img != ''){
+            $course->thumb_img      = $this->thumbImgValidate($request);
+        }else{
             $course->thumb_img      = 'e-learning.jpg';
+        }
 
         //Valida o video     
         if($request->video != '')
@@ -511,4 +459,46 @@ class AdminCourseController extends Controller
         
     }
 
+    public function urnValidate(String $name)
+    {
+        $urn = '';
+        $i   = 0;
+        $urnCourse = 1;
+        while ($urnCourse > 0) {
+            $urnCourse = Course::where('urn', $urn)->count();
+            $urn = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+            $urn = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $urn);
+            $urn = strtolower(trim($urn, '-'));
+            $urn = preg_replace("/[\/_| -]+/", '-', $urn);
+            if ($i != 0) {
+                $urn = "{$urn}-{$i}";
+            }
+            $i++;
+        }
+        return $urn;
+    }
+
+    public function thumbImgValidate(Request $request)
+    {
+        $arq_img = $request->file('thumb_img');
+        $name    = basename($arq_img->getClientOriginalName());
+        $type    = strtolower(pathinfo($name,PATHINFO_EXTENSION));
+        $count = 1;
+        //Gera string aleatória
+        while($count != 0){
+            $str            = "";
+            $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+            $max            = count($characters) - 1;
+
+            for ($i = 0; $i < 7; $i++) {
+                $rand   = mt_rand(0, $max);
+                $str   .= $characters[$rand];
+                $count  = Course::where('thumb_img', $str)->count();
+            }
+        }
+        $arq_img_name = $str.'.'.$type;
+        $arq_img->move('images/aulas', $arq_img); 
+
+        return $arq_img_name;  
+    }
 }

@@ -56,8 +56,6 @@ class RegisterController extends Controller
             'name'          => 'required|max:255',
             'email'         => 'required|email|max:255|unique:users',
             'sex'           => 'required',
-            'country_id'    => 'required',
-            'schooling_id'  => 'required',
             'password'      => 'required|min:6|confirmed',
         ]);
     }
@@ -70,19 +68,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $interest = NULL;
-        if (isset($data['interest'])) {
-            $interest = serialize($data['interest']);
-        }
         return User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
             'password'      => bcrypt($data['password']),
             'sex'           => $data['sex'],
-            'country_id'    => $data['country_id'],
-            'state_id'      => $data['state_id'],
-            'schooling_id'  => $data['schooling_id'],
-            'interest'      => $interest,
+            // 'interest'      => $interest,
             'user_type_id'  => 3,
         ])->with('success', "Seja bem-vindo {$data['name']}");
     }

@@ -31,16 +31,21 @@
             @endforeach
           @endforeach 
         </div>
-
         <div class="col-sm-6">
+        @if($hasCourse)
+          <a href="#">
+            <button>Iniciar Curso</button>
+          </a>
+        @else
           <a href="{{route('cart.finish', ['id' => $course->id])}}">
             <button>Comprar</button>
           </a>
-          <a href="">
-            <button>Avaliações</button>
-          </a>
           <a href="{{route('cart.insert', ['id' => $course->id])}}">
             <button>Adicionar ao Carrinho</button>
+          </a>
+        @endif
+          <a href="">
+            <button>Avaliações</button>
           </a>
         </div>
      </div>

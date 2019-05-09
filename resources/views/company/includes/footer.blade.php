@@ -6,7 +6,7 @@
         <ul>
           <li><a href="#">Institucional</a></li>
           <li><a href="#">Blog</a></li>
-          <li><a href="{{route('company.register')}}">Tabula para Empresas</a></li>
+          <li><a href="#">Tabula para Empresas</a></li>
         </ul>
       </div>
       <div class="col-sm-4">
@@ -93,20 +93,20 @@ $('.carousel-courses').slick({
   });
 
 $(document).ready(function(){
-    var url = "{{route('teacher.course.subcategory')}}";
     @isset($course)
     var id = '{{$course->category_id}}';
+    var url = "{{route('admin.course.subcategory')}}";
     categAjax(url, id);
     @endisset
 
+      $('#categ' ).change(function() {
+        var categId = $('#categ option:selected').val();
+        console.log(categId);
+        categAjax(url, categId);
+      });
     $('#sub_categ').hide();
-    $(document).on("change", '#categ', function(event) { 
-      var categId = $('#categ option:selected').val();
-      console.log(categId);
-      categAjax(url, categId);
-    });
-    $(document).on("change", '#category_id', function(event) { 
-      var url = "{{route('teacher.course.subcategory')}}";
+    $('#category_id' ).change(function() {
+      var url = "{{route('admin.course.subcategory')}}";
       var categId = $('#category_id option:selected').val();
       categAjax(url, categId);
     });
@@ -164,7 +164,6 @@ $(document).ready(function(){
   });
   $(document).on("click", '.act-chapter', function(e) { 
     e.preventDefault();
-    $('#chapterModal form input[name="course_id"]').val($(this).data('id'));
     $('#chapterModal').modal('show');
   });
 

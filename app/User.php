@@ -23,7 +23,6 @@ class User extends Authenticatable
         'cpf',
         'birthdate',
         'sex',
-        'occupation',
         'interest',
         'website',
         'twitter',
@@ -66,7 +65,7 @@ class User extends Authenticatable
 
     public function courses()
     {
-        return $this->hasMany('App\Course', 'user_id_owner');
+        return $this->hasMany('App\Course', 'user_id_owner')->where('course_type', 2);
     }
 
     public function myCourses()

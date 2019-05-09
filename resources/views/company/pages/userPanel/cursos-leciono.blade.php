@@ -25,7 +25,6 @@
 				<p>{{substr($course->desc, 0, 100)}}</p>
 			</div>
 			<div class="course-access">
-									
 				<a href="#" class="course-edit" data-url="{{route('user.course.edit', ['id' => $course->id])}}"><span>EDITAR</span></a>
 			</div>
 		</div>
