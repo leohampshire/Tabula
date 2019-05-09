@@ -23,6 +23,7 @@ class UserController extends Controller
         if ($auth) {
             return view('user.pages.panel_dados_pessoais')
             ->with('countries', Country::all())
+            ->with('item_types', CourseItemType::all())
             ->with('categories', Category::all())
             ->with('states', State::all())
             ->with('auth', $auth);
@@ -46,7 +47,11 @@ class UserController extends Controller
     public function contentPersonal()
     {
         $auth = Auth::guard('user')->user();
-        $auth->interest = unserialize($auth->interest);
+        if ($auth->interest) {
+            $auth->interest = unserialize($auth->interest);
+        }else{   
+            $auth->interest = array();
+        }
         return view('user.pages.userPanel.dados-pessoais')
         ->with('countries', Country::all())
         ->with('states', State::all())

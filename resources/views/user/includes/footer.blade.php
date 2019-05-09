@@ -246,16 +246,22 @@ $(document).ready(function(){
 
   $(document).on("click", '.act-class', function(e) { 
     e.preventDefault();
+    $('#itemModal form input[name="chapter_id"]').val($(this).data('chapter_id'));
+    $('#itemModal form input[name="course_id"]').val($(this).data('course_id'));
     $('#itemModal').modal('show');
   });
 
   $(document).on("click", '.act-complement', function(e) { 
     e.preventDefault();
+    $('#complementModal form input[name="chapter_id"]').val($(this).data('chapter_id'));
+    $('#complementModal form input[name="course_id"]').val($(this).data('course_id'));
     $('#complementModal').modal('show');
   });
 
   $(document).on("click", '.act-test', function(e) { 
     e.preventDefault();
+    $('#classModal form input[name="chapter_id"]').val($(this).data('chapter_id'));
+    $('#classModal form input[name="course_id"]').val($(this).data('course_id'));
     $('#classModal').modal('show');
   });
 

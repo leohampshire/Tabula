@@ -42,6 +42,10 @@
 				<option value="" selected disabled hidden>Escolha</option>
 			</select>
 		</div>
+		<div class="col-xs-4">
+			<label for="price">Preço</label>
+			<input  name="price" value="{{ old('price') }}" type="text" class="form-control input-money" placeholder="Preço">
+		</div>
 	</div>
 	<div class="row form-group">
 		<div class="col-xs-12">

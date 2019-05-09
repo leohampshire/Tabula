@@ -14,4 +14,8 @@ class CourseItemChapter extends Model
     {
     	return $this->hasMany('App\CourseItem');
     }
+    public function course()
+    {
+    	return $this->belongsTo('App\Course');
+    }
 }

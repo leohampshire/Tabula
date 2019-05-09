@@ -56,6 +56,13 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
       Route::post('/update', 'Admin\AdminCourseController@updateChapter')->name('update');
       Route::get('delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
     });
+    Route::group(['prefix'=> 'item', 'as' => 'item.'], function(){
+      Route::get('/prova/{id}', 'Admin\AdminCourseController@createTest')->name('test');
+      Route::get('/gratis/{id}', 'Admin\AdminCourseController@free')->name('free');
+      Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
+      Route::post('/update', 'Admin\AdminCourseController@updateitem')->name('update');
+      Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
+    });
   });
 });
 

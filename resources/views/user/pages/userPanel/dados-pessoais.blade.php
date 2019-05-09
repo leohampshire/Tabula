@@ -83,9 +83,10 @@
 	<div class="row form-group">
 		<div class="col-xs-6">
 			<label for="interest">Interesses</label>
+
 				@forelse($interests as $interest)
 				<div class="form-check">
-					<input type="checkbox" @if(in_array($interest->id, $auth->interest)) checked @endif name="interest[]" class="form-check-input" value="{{$interest->id}}">{{$interest->name}}
+					<input type="checkbox" @if(in_array($interest->id, $auth['interest'])) checked @endif name="interest[]" class="form-check-input" value="{{$interest->id}}">{{$interest->name}}
 				</div>
 				@empty
 				@endforelse	

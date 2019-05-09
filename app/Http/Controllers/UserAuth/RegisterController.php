@@ -73,9 +73,8 @@ class RegisterController extends Controller
             'email'         => $data['email'],
             'password'      => bcrypt($data['password']),
             'sex'           => $data['sex'],
-            // 'interest'      => $interest,
             'user_type_id'  => 3,
-        ])->with('success', "Seja bem-vindo {$data['name']}");
+        ]);
     }
 
     /**
