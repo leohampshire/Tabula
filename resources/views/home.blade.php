@@ -108,18 +108,20 @@
 				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 				<div class="carousel-courses">
 					@forelse($featured_courses1 as $course)
-				  	<div class="course-box">
-					  	<div class="course-thumb">
-					  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+					<a href="{{route('course.single', ['urn' =>$course->urn])}}">
+					  	<div class="course-box">
+						  	<div class="course-thumb">
+						  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+						  	</div>
+						  	<div class="course-desc">
+						  		<h3>{{$course->name}}</h3>
+						  		<p>{{substr($course->desc, 0, 50)}}</p>
+						  	</div>
+						  	<div class="course-value">
+						  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
+						  	</div>
 					  	</div>
-					  	<div class="course-desc">
-					  		<h3>{{$course->name}}</h3>
-					  		<p>{{substr($course->desc, 0, 50)}}</p>
-					  	</div>
-					  	<div class="course-value">
-					  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
-					  	</div>
-				  	</div>
+					</a>
 				  	@empty
 				  	@endforelse
 				</div>
@@ -138,18 +140,20 @@
 				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 				<div class="carousel-courses">
 					@forelse($featured_courses2 as $course)
-				  	<div class="course-box">
-					  	<div class="course-thumb">
-					  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+					<a href="{{route('course.single', ['urn' =>$course->urn])}}">
+					  	<div class="course-box">
+						  	<div class="course-thumb">
+						  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+						  	</div>
+						  	<div class="course-desc">
+						  		<h3>{{$course->name}}</h3>
+						  		<p>{{substr($course->desc, 0, 50)}}</p>
+						  	</div>
+						  	<div class="course-value">
+						  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
+						  	</div>
 					  	</div>
-					  	<div class="course-desc">
-					  		<h3>{{$course->name}}</h3>
-					  		<p>{{substr($course->desc, 0, 50)}}</p>
-					  	</div>
-					  	<div class="course-value">
-					  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
-					  	</div>
-				  	</div>
+					</a>
 				  	@empty
 				  	@endforelse
 				</div>
