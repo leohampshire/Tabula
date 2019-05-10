@@ -10,7 +10,8 @@
 
 	        @yield('content')
 
-	        @include('user.includes.modals')
+            @include('user.includes.modals')
+	        @include('user.includes.footer-class')
 	    </div>
     </body>
 

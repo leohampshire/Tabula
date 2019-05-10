@@ -22,7 +22,7 @@
           <p>{{$course->desc}}</p>
           <br>
             @if($hasCourse)
-              <a href="#">
+              <a href="{{route('course.class', ['id' => $course->id])}}">
                 <button>Iniciar Curso</button>
               </a>
               <a href="#" class="act-rating" data-user_id="{{$auth->id}}" data-course_id="{{$course->id}}">

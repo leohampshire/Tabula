@@ -165,6 +165,8 @@ $('.carousel-courses').slick({
       var url = $(this).data('url');
       getContent(url);
     });
+
+
 function avaliar(estrela) {
   var url = window.location;
   url = url.toString()
@@ -437,7 +439,8 @@ function avaliar(estrela) {
         }
       });
     }
-  //Fi, funções ajax
+
+//--------Fim funções ajax-------------------------------------------------------------------------
 // Mask
   $( document ).ready(function() {
     $('.input-telefone').each( function(){

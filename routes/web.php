@@ -10,9 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/class', function () {
-  return view('user.pages.class');
-});
 
 
 Route::get('/', 'User\HomeController@index')->name('home');
@@ -20,8 +17,11 @@ Route::get('/', 'User\HomeController@index')->name('home');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('/carrinho', 'User\CartController@cart')->name('cart');
 Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
+
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
-  Route::get('curso/{urn}', 'User\CourseController@course')->name('single');
+  Route::post('/checked', 'User\CourseController@classChecked')->name('checked');
+  Route::get('/aula/{id}', 'User\CourseController@class')->name('class');
+  Route::get('/{urn}', 'User\CourseController@course')->name('single');
 });
 
 
