@@ -43,7 +43,7 @@
     </div>
     <div class="box-w-shadow">
       <div class="row"> 
-        <div class="col-sm-6">
+        <div class="col-sm-7">
           <h3>Conteúdo</h3>
           @foreach($course->course_item_chapters as $chapter)
             <div class="row-chapter">
@@ -77,7 +77,7 @@
             @endforeach
           @endforeach 
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-5">
           <h3>Requisitos</h3>
           <p>{{$course->requirements}}</p>
         </div>

@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/class', function () {
+  return view('user.pages.class');
+});
+
+
 Route::get('/', 'User\HomeController@index')->name('home');
 
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');

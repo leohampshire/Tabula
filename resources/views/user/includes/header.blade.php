@@ -27,9 +27,9 @@
       <div class="col-xs-5">
         <ul>
           @if($auth)
-          <li>
+          <li class="menu-profile">
             <a href="{{route('user.panel')}}">
-              <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" width="30px" alt="Perfil">
+              <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" alt="Perfil">
             </a>
           </li>
             @if($auth->user_type_id == 3)
