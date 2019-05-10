@@ -591,3 +591,62 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.Aula gratis-->
+
+<!--Avaliacao-->
+<div class="modal fade" id="ratingModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="nome">
+          <h4 class="modal-title">Avaliar Curso</h4>
+        </div>
+      </div>
+          <form method="POST" action="{{route('user.rating')}}">
+              {{csrf_field()}}
+
+            <div class="modal-body">
+                  <div class="form-group row">
+                    <div class="col-xs-12"> 
+                      <label>Comentários</label>
+                      <textarea name="comment" class="form-control" rows="5" placeholder="(opcional)"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-xs-12">
+                      <label for="rating">Avaliação</label>
+
+                      <a href="javascript:void(0)" onclick="avaliar(1)">
+                      <img src="{{asset('images/img/star0.png')}}" id="s1"></a>
+
+                      <a href="javascript:void(0)" onclick="avaliar(2)">
+                      <img src="{{asset('images/img/star0.png')}}" id="s2"></a>
+
+                      <a href="javascript:void(0)" onclick="avaliar(3)">
+                      <img src="{{asset('images/img/star0.png')}}" id="s3"></a>
+
+                      <a href="javascript:void(0)" onclick="avaliar(4)">
+                      <img src="{{asset('images/img/star0.png')}}" id="s4"></a>
+
+                      <a href="javascript:void(0)" onclick="avaliar(5)">
+                      <img src="{{asset('images/img/star0.png')}}" id="s5"></a>
+                      <p id="rating">0</p>
+                      <input type="hidden" name="user_id" value="">
+                      <input type="hidden" name="course_id" value="">
+                      <input type="hidden" name="star" id="ratings" value="">
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left stop" data-dismiss="modal" >Cancelar</button>
+              <button type="submit" class="btn btn-primary" >Confirmar</button>
+            </div>
+          </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.Aula gratis-->

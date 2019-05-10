@@ -29,7 +29,7 @@
           @if($auth)
           <li>
             <a href="{{route('user.panel')}}">
-              <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" width="30px" alt="Perfil">
+              <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" style="width: 35px; border-radius: 50%;" alt="Perfil">
             </a>
           </li>
             @if($auth->user_type_id == 3)

@@ -52,11 +52,13 @@
 						</a>
 					</div>
 					@endif
+					<!-- 
 					<div class="col-xs-3">
 						<a href="#"class="my-course" data-url="#">
 							<button class="btn-block btn-panel-menu" type="button">Cupons</button>
 						</a>
 					</div>
+					 -->
 				@endif
 			</div>
 		</div>

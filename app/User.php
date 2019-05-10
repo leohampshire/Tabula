@@ -76,6 +76,11 @@ class User extends Authenticatable
 
 
     public function cart(){
-        return $this->belongsToMany('App\Course', 'carts', 'user_id', 'course_id')->withPivot('user_id', 'course_id');;
+        return $this->belongsToMany('App\Course', 'carts', 'user_id', 'course_id')->withPivot('user_id', 'course_id');
+    }
+
+    public function rating()
+    {
+        return $this->belongsToMany('App\Course', 'ratings', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'star', 'comment');
     }
 }

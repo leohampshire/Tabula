@@ -23,6 +23,8 @@ Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
 Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
   Route::get('/', 'User\UserController@userPanel')->name('panel');
   Route::post('/update', 'User\UserController@update')->name('update');
+  Route::post('/rating', 'User\RatingController@rating')->name('rating');
+
   Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
   //PAINEIS VIA AJAX
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');

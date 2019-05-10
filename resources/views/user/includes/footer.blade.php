@@ -95,13 +95,13 @@ $('.carousel-courses').slick({
      }
    }
 
+  
   $('.state').hide();
   states();
   $(document).on("change", '#country', function(event){
     states();
   });
 
-$(document).ready(function(){
     var url = "{{route('teacher.course.subcategory')}}";
     @isset($course)
     var id = '{{$course->category_id}}';
@@ -120,8 +120,15 @@ $(document).ready(function(){
       categAjax(url, categId);
     });
 
-    
-    getContent("{{route('user.personal')}}");
+    var url_atual = window.location.href;
+    var uri = window.location.pathname;
+    var url = window.location.protocol + "//" + window.location.host;
+    var urn = url+uri;
+     if (urn == '{{route('user.panel')}}') {
+      getContent("{{route('user.personal')}}");
+    }
+   
+
     $('.personal').on('click', function(){
       var url = $(this).data('url');
       $('.btn-panel-menu').removeClass('btn-active');
@@ -158,9 +165,118 @@ $(document).ready(function(){
       var url = $(this).data('url');
       getContent(url);
     });
+function avaliar(estrela) {
+  var url = window.location;
+  url = url.toString()
+  url = url.split("index.html");
+  url = url[0];
+  var s1 = document.getElementById("s1").src;
+  var s2 = document.getElementById("s2").src;
+  var s3 = document.getElementById("s3").src;
+  var s4 = document.getElementById("s4").src;
+  var s5 = document.getElementById("s5").src;
+  var avaliacao = 0;
 
+  if (estrela == 5){ 
+    if (s5 == "{{asset('images/img/star0.png')}}") {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star1.png')}}";
+      avaliacao = 5;
+    } else {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 4;
+    }
+  }
 
-//Modals
+  //ESTRELA 4
+  if (estrela == 4){ 
+    if (s4 == "{{asset('images/img/star0.png')}}") {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 4;
+    } else {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 3;
+    }
+  }
+
+  //ESTRELA 3
+  if (estrela == 3){ 
+    if (s3 == "{{asset('images/img/star0.png')}}") {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 3;
+    } else {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 2;
+    }
+  }
+
+  //ESTRELA 2
+  if (estrela == 2){ 
+    if (s2 == "{{asset('images/img/star0.png')}}") {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 2;
+    } else {
+       document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+       document.getElementById("s2").src = "{{asset('images/img/star0.png')}}";
+       document.getElementById("s3").src = "{{asset('images/img/star0.png')}}";
+       document.getElementById("s4").src = "{{asset('images/img/star0.png')}}";
+       document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+       avaliacao = 1;
+    }
+  }
+   
+   //ESTRELA 1
+  if (estrela == 1){ 
+    if (s1 == "{{asset('images/img/star0.png')}}") {
+      document.getElementById("s1").src = "{{asset('images/img/star1.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 1;
+    } else {
+      document.getElementById("s1").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s2").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s3").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s4").src = "{{asset('images/img/star0.png')}}";
+      document.getElementById("s5").src = "{{asset('images/img/star0.png')}}";
+      avaliacao = 0;
+    }
+  }
+
+  document.getElementById('rating').innerHTML = avaliacao;
+  document.getElementById('ratings').value = avaliacao;
+
+}
+
+/*-----------------------------Modals------------------------------------*/
 
   $(document).on("click", '.act-delete', function(e) { 
     e.preventDefault();
@@ -270,6 +386,13 @@ $(document).ready(function(){
     e.preventDefault();
     $('#questionModal').modal('show');
   });
+
+  $(document).on("click", '.act-rating', function(e) { 
+    e.preventDefault(e);
+    $('#ratingModal form input[name="course_id"]').val($(this).data('course_id'));
+    $('#ratingModal form input[name="user_id"]').val($(this).data('user_id'));
+    $('#ratingModal').modal('show');
+  });
   //Fim Modais
   /*----------------------------------------------------------------------------------------------*/
     //Funcoes Ajax
@@ -314,7 +437,6 @@ $(document).ready(function(){
         }
       });
     }
-  });  
   //Fi, funções ajax
 // Mask
   $( document ).ready(function() {

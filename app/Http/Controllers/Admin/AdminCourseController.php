@@ -60,7 +60,7 @@ class AdminCourseController extends Controller
 
 		$this->validate($request, [
             'name'        => 'required|max:100',
-            'desc'        => 'required',
+            'desc'        => 'required|max:1500',
             'price'       => 'required',
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
@@ -85,7 +85,7 @@ class AdminCourseController extends Controller
         if($request->thumb_img != ''){
             $course->thumb_img      = $this->thumbImgValidate($request);
         }else{
-            $course->thumb_img      = 'e-learning.jpg';
+            $course->thumb_img      = 'course.jpg';
         }
 
         //Valida o video     
@@ -484,7 +484,7 @@ class AdminCourseController extends Controller
             }
         }
         $arq_img_name = $str.'.'.$type;
-        $arq_img->move('images/aulas', $arq_img); 
+        $arq_img->move('images/aulas', $arq_img_name); 
 
         return $arq_img_name;  
     }

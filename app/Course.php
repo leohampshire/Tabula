@@ -47,4 +47,10 @@ class Course extends Model
     {
         return $this->hasMany('App\Cart');
     }
+
+    public function rating()
+    {
+        return $this->belongsToMany('App\User', 'ratings', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'star', 'comment');
+    }
+
 }
