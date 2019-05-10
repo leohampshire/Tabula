@@ -17,7 +17,16 @@ class AdminCourseController extends Controller
 {
 	public function index(Request $request)
 	{
-		return view('admin.pages.course.index')->with('courses', Course::all());
+
+        $courses = new Course;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $courses = $courses->where('name', 'like', request('name') . '%');
+            }
+        }
+        $courses = $courses->orderBy('name', 'asc')->paginate(20);
+		return view('admin.pages.course.index')->with('courses', $courses);
 	}
 
 	public function SubCourse(Request $request)
@@ -56,7 +65,7 @@ class AdminCourseController extends Controller
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv',
-            'requirements'=> 'max:500'	
+            'requirements'=> 'max:1000'	
         ]);
 
         //Chama o objeto
@@ -146,7 +155,7 @@ class AdminCourseController extends Controller
 	{
 		$this->validate($request, [
             'name'        => 'required|max:100',
-            'desc'        => 'required',
+            'desc'        => 'required|max:1500',
             'price'       => 'required',
             'urn'  		  => [
                 Rule::unique('courses')->ignore($request->id)
@@ -235,8 +244,8 @@ class AdminCourseController extends Controller
     public function storeChapter(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
-            'desc'      => 'required'
+            'name'      => 'required|max:100',
+            'desc'      => 'required|max:1000'
         ]);
 
         $order = CourseItemChapter::count();
@@ -252,8 +261,8 @@ class AdminCourseController extends Controller
     public function updateChapter(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
-            'desc'      => 'required'
+            'name'      => 'required|max:100',
+            'desc'      => 'required|max:1000'
         ]);
 
         $chapter             = CourseItemChapter::find($request->id);
@@ -307,8 +316,8 @@ class AdminCourseController extends Controller
     public function storeItem(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
-            'desc'      => 'max:400'
+            'name'      => 'required|max:100',
+            'desc'      => 'max:500'
         ]);
         $item = new CourseItem;
         $item->name                     = $request->name;
@@ -317,39 +326,8 @@ class AdminCourseController extends Controller
         if ($request->item_type_id < 6) {
                 $item->desc             = $request->desc;
         }
-        if(isset($request->file))
-        {
-            $arq = $request->file('file');
-            $this->validate($request, [
-                'file'      => 'mimes:jpeg,bmp,png,jpg,pdf,mp4, mp3'
-            ]);
-            $attach_file = $request->file;
-            //Gera string aleatória
-            $count = 1;
-            while($count != 0){
-                $str            = "";
-                $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
-                $max            = count($characters) - 1;
-                
-                for ($i = 0; $i < 7; $i++) {
-                    $rand   = mt_rand(0, $max);
-                    $str   .= $characters[$rand];
-                    $count  = CourseItem::where('path', $str)->count();
-                }
-            }
-            $attach_file_name = $str;
-            $attach_file_name =  $attach_file_name.".".pathinfo($attach_file->getClientOriginalName(),PATHINFO_EXTENSION);
-            $attach_file->move('uploads/archives', $attach_file_name); 
-
-            $item->path    = $attach_file_name;
-            //Vimeo upload
-            if($request->vimeo == 'on'){                
-                $vimeo_result = vimeo_tools::Upload_Video($attach_file_name,$item);                
-                $item->path = $vimeo_result;
-            }
-            else {                
-                $item->path = $attach_file_name;       
-            }
+        if(isset($request->file)){
+            $item->path = $this->strVideoGenerate($request);
         }
 
         $order = CourseItem::count();
@@ -450,14 +428,23 @@ class AdminCourseController extends Controller
         return redirect()->back()->with('success', 'Conteúdo excluidos com sucesso.');
     }
 
-    public function indexAnalyze()
+    public function indexAnalyze(Request $request)
     {
-        return view('admin.pages.course.analyze.index')->with('courses', Course::all());
+        $courses = new Course;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $courses = $courses->where('name', 'like', request('name') . '%');
+            }
+        }
+        $courses = $courses->orderBy('name', 'asc')->paginate(20);
+        return view('admin.pages.course.analyze.index')->with('courses', $courses);
     }
     public function show()
     {
         
     }
+
 
     public function urnValidate(String $name)
     {
@@ -500,5 +487,54 @@ class AdminCourseController extends Controller
         $arq_img->move('images/aulas', $arq_img); 
 
         return $arq_img_name;  
+    }
+
+    public function strVideoGenerate(Request $request)
+    {
+        $arq = $request->file('file');
+
+        if ($request->item_type_id == 1) {
+            $this->validate($request, [
+                'file'      => 'mimes:mp4,avi,mpg,mkv'
+            ]);
+        }elseif($request->item_type_id == 2){
+            $this->validate($request, [
+                'file'      => 'mimes:jpeg,bmp,png,jpg,gif,svg'
+            ]);
+        }elseif ($request->item_type_id == 4) {
+            $this->validate($request, [
+                'file'      => 'mimes:mid,mp3,ogg,wav'
+            ]);
+        }elseif ($request->item_type_id == 5) {
+            $this->validate($request, [
+                'file'      => 'mimes:pdf,doc,xls,ppt,pps,otp,odp,ods,odt,psd,rar'
+            ]);
+        }
+        $attach_file = $request->file;
+        //Gera string aleatória
+        $count = 1;
+        while($count != 0){
+            $str            = "";
+            $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+            $max            = count($characters) - 1;
+            
+            for ($i = 0; $i < 7; $i++) {
+                $rand   = mt_rand(0, $max);
+                $str   .= $characters[$rand];
+                $count  = CourseItem::where('path', $str)->count();
+            }
+        }
+        $attach_file_name = $str;
+        $attach_file_name =  $attach_file_name.".".pathinfo($attach_file->getClientOriginalName(),PATHINFO_EXTENSION);
+        $attach_file->move('uploads/archives', $attach_file_name); 
+
+        //Vimeo upload
+        if($request->vimeo == 'on'){                
+            $vimeo_result = vimeo_tools::Upload_Video($attach_file_name,$item);                
+            $path = $vimeo_result;
+        }
+        else {                
+            $path = $attach_file_name;       
+        }
     }
 }

@@ -18,7 +18,7 @@ class AdminSubcategoryController extends Controller
 
         if($request->has('name')){
             if(request('name') != ''){
-                $subcategories = $subcategories->where('name', 'like', '%' . request('name') . '%')->where('category_id','<>', null);
+                $subcategories = $subcategories->where('name', 'like', request('name') . '%')->where('category_id','<>', null);
             }
         }
         $subcategories = $subcategories->orderBy('name', 'asc')->paginate(20);

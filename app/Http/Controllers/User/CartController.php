@@ -106,7 +106,9 @@ class CartController extends Controller
         if (!$auth) {
             if (in_array($id, $cart)) { 
                 $key = array_search($id, $cart);
-                $request->session()->pull('cart', $key);
+                unset($cart[$key]);
+                session()->forget('cart');
+                session()->put('cart', $cart);
             }                
         }else{
             $item = Cart::where('user_id', $auth->id)->where('course_id', $id)->first();
@@ -144,8 +146,10 @@ class CartController extends Controller
     public function checkout()
     {
         $auth = Auth::guard('user')->user();
-
-        return view('user.pages.checkout')
-        ->with('auth', $auth);
+        if ($auth) {
+            return view('user.pages.checkout')
+            ->with('auth', $auth);
+        }
+        return redirect(url('/user/login'));
     }
 }

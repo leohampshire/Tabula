@@ -14,7 +14,7 @@
 			</div>
 			<div class="course-desc">
 				<h3>{{$myCourse->name}}</h3>
-				<p>{{$myCourse->desc}}</p>
+				<p>{{substr($mCyourse->desc, 0, 30)}}</p>
 			</div>
 			<div class="course-access">
 				<a href="{{route('course.single', ['urn' =>$myCourse->urn])}}"><span>ACESSAR</span></a>

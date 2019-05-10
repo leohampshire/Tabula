@@ -14,7 +14,21 @@ class AdminCompanyController extends Controller
 {
 	public function index(Request $request)
 	{
-		$companies = Company::all();
+        $companies = new Company;
+
+        if($request->has('name')){
+            if(request('name') != ''){
+                $companies = $companies->where('name', 'like', request('name') . '%');
+            }
+        }
+        if($request->has('email')){
+            if(request('email') != ''){
+                $companies = $companies->where('email', 'like', request('email') . '%');
+            }
+        }
+
+        $companies = $companies->orderBy('name', 'asc')->paginate(20);
+        
 		return view('admin.pages.company.index')->with('companies', $companies);
 	}
 

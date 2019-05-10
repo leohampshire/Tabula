@@ -118,15 +118,11 @@
         </button>
         <h4 class="modal-title">Novo Item</h4>
       </div>
-      <form method="POST" action="{{route('admin.course.item.store')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('teacher.course.item.store')}}" enctype="multipart/form-data">
           <div class="modal-body">
               {{csrf_field()}}
-              @isset($chapter)
-                <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
-              @endisset
-              @isset($course)
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-              @endisset
+                <input type="hidden" name="chapter_id" value="">
+                <input type="hidden" name="course_id" value="">
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
@@ -189,15 +185,11 @@
         </button>
         <h4 class="modal-title">Novo Item</h4>
       </div>
-      <form method="POST" action="{{route('admin.course.item.update')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('teacher.course.item.update')}}" enctype="multipart/form-data">
           <div class="modal-body">
               {{csrf_field()}}
-              @isset($chapter)
-                <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
-              @endisset
-              @isset($course)
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-              @endisset
+                <input type="hidden" name="chapter_id" value="">
+                <input type="hidden" name="course_id" value="">
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
@@ -268,15 +260,11 @@
         </button>
         <h4 class="modal-title">Incluir Material Complementar</h4>
       </div>
-      <form method="POST" action="{{route('admin.course.item.store')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('teacher.course.item.store')}}" enctype="multipart/form-data">
           <div class="modal-body">
               {{csrf_field()}}
-              @isset($chapter)
-                <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
-              @endisset
-              @isset($course)
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-              @endisset
+                <input type="hidden" name="chapter_id" value="">
+                <input type="hidden" name="course_id" value="">
                 <input type="hidden" name="item_type_id" value="5">
               <div class="box-body">
                 <div class="form-group row">
@@ -323,15 +311,11 @@
         </button>
         <h4 class="modal-title">Incluir Material Complementar</h4>
       </div>
-      <form method="POST" action="{{route('admin.course.item.store')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('teacher.course.item.store')}}" enctype="multipart/form-data">
           <div class="modal-body">
               {{csrf_field()}}
-              @isset($chapter)
-                <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
-              @endisset
-              @isset($course)
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-              @endisset
+                <input type="hidden" name="chapter_id" value="">
+                <input type="hidden" name="course_id" value="">
                 <input type="hidden" name="item_type_id" value="5">
               <div class="box-body">
                 <div class="form-group row">
@@ -378,15 +362,11 @@
         </button>
         <h4 class="modal-title">Incluir Prova</h4>
       </div>
-      <form method="POST" action="{{route('admin.course.item.store')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('teacher.course.item.store')}}" enctype="multipart/form-data">
           <div class="modal-body">
               {{csrf_field()}}
-              @isset($chapter)
-                <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
-              @endisset
-              @isset($course)
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-              @endisset
+                <input type="hidden" name="chapter_id" value="">
+                <input type="hidden" name="course_id" value="">
                 <input type="hidden" name="item_type_id" value="6">
               <div class="box-body">
                 <div class="form-group row">
@@ -426,15 +406,11 @@
         </button>
         <h4 class="modal-title">Incluir Questão</h4>
       </div>
-      <form method="POST" action="{{route('admin.course.item.store')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('teacher.course.item.store')}}" enctype="multipart/form-data">
           <div class="modal-body">
               {{csrf_field()}}
-              @isset($chapter)
-                <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
-              @endisset
-              @isset($course)
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-              @endisset
+                <input type="hidden" name="chapter_id" value="">
+                <input type="hidden" name="course_id" value="">
               @isset($item_parent)
                 <input type="hidden" name="item_parent" value="{{$item_parent->id}}">
               @endisset

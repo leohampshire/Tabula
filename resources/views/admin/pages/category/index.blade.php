@@ -65,12 +65,11 @@
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
                   
-                  </div>
                 </div>
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
-                <button type="button" class="btn btn-default clear-filters">Limpar</button>
+                <button type="submit" class="btn btn-default clear-filters">Limpar</button>
               </div>
             </form>
         </section>

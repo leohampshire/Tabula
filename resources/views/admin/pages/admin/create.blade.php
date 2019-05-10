@@ -65,7 +65,7 @@
                     <select name="user_type_id" class="form-control">
                       <option value="" selected disabled hidden>Escolha um...</option>
                       @foreach ($userTypes as $userType)
-                        <option value="{{ $userType->id }}"> {{ $userType->name }} </option>
+                        <option @if(old('user_type_id') == $userType->id) selected @endif value="{{ $userType->id }}"> {{ $userType->name }} </option>
                       @endforeach
                       
                     </select>

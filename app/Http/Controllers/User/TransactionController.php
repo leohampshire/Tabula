@@ -12,11 +12,10 @@ class TransactionController extends Controller
     public function statusTransaction(Request $request)
 	{  
 		$auth = Auth::guard('user')->user();
-
 		foreach ($auth->cart()->get() as $cart) {
 			CourseUser::create([
-				'user_id' 	=> $cart->id,
-				'course_id' => $auth->id,
+				'user_id' 	=> $auth->id,
+				'course_id' => $cart->id,
 				'progress'	=> 0,
 			]);
 			$cart->pivot->delete();
