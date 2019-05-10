@@ -31,6 +31,10 @@ input, select, textarea, button, a, a:focus {
 	outline: none;
 }
 
+img {
+  max-width: 100%;
+}
+
 button {
   background: #000;
   border: none;
@@ -487,12 +491,57 @@ footer ul li a:hover {
 .course-details h2.course-category {
   font-size: 18px;
   font-weight: 400;
+  margin: 0;
+  line-height: 16px;
 }
 
-.course-details h2.course-author {
+h1.course-name {
+  margin: 8px 0;
+}
+
+.course-details hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 0;
+  border: 0;
+  width: 110px;
+  border-top: 2px solid #ffee6a;
+  text-align: left;
+}
+
+.course-details h3.course-author {
   font-size: 20px
   font-weight: 500;
   font-size: 18px;
+}
+
+.row-chapter {
+  background: #f0f0f0;
+  padding: 5px 15px;
+  border: solid 1px #ccc;
+}
+
+.row-item {
+  background: #ffffff;
+  padding: 5px 15px 5px 30px;
+  border: solid 1px #ccc;
+  border-top: 0;
+}
+
+.row-item h5 {
+  float: left;
+}
+
+.row-item a {
+  float: right;
+  padding-top: 7px;
+}
+
+.row-chapter {
+  background: #f0f0f0;
+  padding: 5px 15px;
+  border: solid 1px #ccc;
+  margin-top: 10px;
 }
 
 /* HEXS MACROTEMAS */
