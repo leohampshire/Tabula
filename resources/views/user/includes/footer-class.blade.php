@@ -45,6 +45,10 @@ $('.carousel-courses').slick({
     }
   ]
 });
+    $(document).on("click", '.class-item', function(event){
+      var item = $('a').attr('data-item');
+      console.log(item);
+    });
 
     $(document).on("click", '.check-class', function(event){
       var class_id = $(this).attr('id');
@@ -53,9 +57,6 @@ $('.carousel-courses').slick({
       checkedClassAjax(url, class_id, user_id);
     });
 
-    $(document).on("click", '.check-class', function(event){
-      
-    });
 
 
   /*----------------------------------------------------------------------------------------------*/
