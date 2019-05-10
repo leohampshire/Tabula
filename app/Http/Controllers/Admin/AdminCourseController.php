@@ -65,7 +65,9 @@ class AdminCourseController extends Controller
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv',
-            'requirements'=> 'max:1000'	
+            'requirements'=> 'max:1000'	,
+            'timeH'       => 'required',
+            'timeM'       => 'max:59',
         ]);
 
         //Chama o objeto
@@ -77,6 +79,8 @@ class AdminCourseController extends Controller
         $course->category_id        = $request->category_id;
         $course->subcategory_id     = $request->subcategory_id;
         $course->requirements       = $request->requirements;
+        $course->timeH              = $request->timeH;
+        $course->timeM              = $request->timeM;
         $course->total_class        = 0;
         //URN
         
@@ -161,6 +165,8 @@ class AdminCourseController extends Controller
                 Rule::unique('courses')->ignore($request->id)
             ],
             'category_id' => 'required',
+            'timeH'       => 'required',
+            'timeM'       => 'max:59',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv'	
         ]);
@@ -174,6 +180,8 @@ class AdminCourseController extends Controller
         $course->category_id        = $request->category_id;
         $course->subcategory_id     = $request->subcategory_id;
         $course->requirements       = $request->requirements;
+        $course->timeH              = $request->timeH;
+        $course->timeM              = $request->timeM;
         $course->total_class        = 0;
 		
         

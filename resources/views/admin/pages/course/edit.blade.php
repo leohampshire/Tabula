@@ -124,9 +124,18 @@
               <input type="hidden" name="id" value="{{$course->id}}">
               <div class="box-body">
                 <div class="form-group row">
-                  <div class="col-xs-12">
+                  <div class="col-xs-8">
                     <label for="name">Nome</label>
                     <input type="text" name="name" placeholder="Nome" class="form-control" id="name" value="{{$course->name}}">
+                  </div>
+                  <div class="col-xs-2">
+                  <label>Tempo em horas</label>
+                    <input name="timeH" value="{{ $course->timeH }}" type="number" class="form-control" placeholder="Horas">
+                  </div>
+
+                  <div class="col-xs-2">
+                  <label>Tempo em minutos</label>
+                    <input name="timeM" value="{{ $course->timeM }}" type="number" class="form-control" placeholder="Minutos">
                   </div>
                 </div>
                 <div class="form-group row">
