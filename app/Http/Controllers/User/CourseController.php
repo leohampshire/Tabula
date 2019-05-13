@@ -104,5 +104,17 @@ class CourseController extends Controller
 
     }
 
+    public function getClass($id)
+    {
+        $item = CourseItem::find($id);
+
+        if ($item->course_item_types_id == 2) {
+            return view('user.pages.course.image')->with('item', $item);
+        }
+        if($item->course_item_types_id == 4 || $item->course_item_types_id == 1){
+            return view('user.pages.course.video')->with('item', $item);
+        }
+        return view('user.pages.course.text')->with('item', $item);
+    }
     
 }
