@@ -45,19 +45,18 @@ $('.carousel-courses').slick({
     }
   ]
 });
-    $(document).on("click", '.class-item', function(event){
-      var item = $('a').attr('data-item');
-      console.log(item);
-    });
 
-    $(document).on("click", '.check-class', function(event){
-      var class_id = $(this).attr('id');
-      var url = $(this).data('url');
-      var user_id = $(this).data('user_id');
-      checkedClassAjax(url, class_id, user_id);
-    });
+$(document).on("click", '.btn-class-item', function(event){
+  var item = $(this).data('item');
+  console.log(item);
+});
 
-
+$(document).on("click", '.check-class', function(event){
+  var class_id = $(this).attr('id');
+  var url = $(this).data('url');
+  var user_id = $(this).data('user_id');
+  checkedClassAjax(url, class_id, user_id);
+});
 
   /*----------------------------------------------------------------------------------------------*/
     //Funcoes Ajax

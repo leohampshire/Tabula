@@ -19,13 +19,13 @@
 		<div class="class-items">
         	@foreach($chapter->course_item as $item)
 	        	@if($item->course_items_parent == null)
-				<div class="class-item">
-					<a href="#" data-item="{{$item->id}}">
+	        	<a href="#" class="btn-class-item" data-item="{{$item->id}}">
+					<div class="class-item" >
 						<p class="active">{{$item->name}}</p>
-					</a>
-					<input id="{{$chapter->id}}-{{$item->id}}" class="check-class" data-user_id="{{$auth->id}}" data-url="{{route('course.checked')}}" type="checkbox" name="check" checked>
-					<label for="{{$chapter->id}}-{{$item->id}}" class="label-check-class"></label>
-				</div>
+						<input id="{{$chapter->id}}-{{$item->id}}" class="check-class" data-user_id="{{$auth->id}}" data-url="{{route('course.checked')}}" type="checkbox" name="check" checked>
+						<label for="{{$chapter->id}}-{{$item->id}}" class="label-check-class"></label>
+					</div>
+				</a>
 				@endif
 			@endforeach
 		</div>
