@@ -111,7 +111,7 @@
 					<a href="{{route('course.single', ['urn' =>$course->urn])}}">
 					  	<div class="course-box">
 						  	<div class="course-thumb">
-						  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+						  		<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
 						  	</div>
 						  	<div class="course-desc">
 						  		<h3>{{$course->name}}</h3>
@@ -143,7 +143,7 @@
 					<a href="{{route('course.single', ['urn' =>$course->urn])}}">
 					  	<div class="course-box">
 						  	<div class="course-thumb">
-						  		<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+						  		<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
 						  	</div>
 						  	<div class="course-desc">
 						  		<h3>{{$course->name}}</h3>

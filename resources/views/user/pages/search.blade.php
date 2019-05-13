@@ -25,7 +25,7 @@
 							<div class="col-sm-4">
 								<div class="course-box">
 									<div class="course-thumb">
-										<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+										<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
 									</div>
 									<div class="course-desc">
 										<h3>{{$course->name}}</h3>

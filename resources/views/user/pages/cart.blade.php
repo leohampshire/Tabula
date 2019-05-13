@@ -36,7 +36,7 @@
 		                    		</a>
 					        		<a href="{{route('course.single', ['urn' => $cart['urn']])}}">
 										<div class="course-thumb">
-											<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+											<img src="{{ asset('images/aulas')}}/{{$cart['thumb_img']}}" alt="Curso">
 										</div>
 										<div class="course-desc">
 											<h3>{{ $cart['name'] }}</h3>

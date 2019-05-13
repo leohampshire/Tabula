@@ -28,7 +28,7 @@
 		        	<a href="{{route('course.single', ['urn' => $row->urn])}}">
 			            <div class="course-box">
 							<div class="course-thumb">
-								<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+								<img src="{{ asset('images/aulas')}}/{{$row->thumb_img}}" alt="Curso">
 							</div>
 							<div class="course-desc">
 								<h3>{{$row->name}}</h3>

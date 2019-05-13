@@ -116,7 +116,7 @@
           <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
               <div class="course-box">
                 <div class="course-thumb">
-                  <img src="{{ asset('images/course.jpg')}}" alt="Curso">
+                  <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
                 </div>
                 <div class="course-desc">
                   <h3>{{substr($recommended->name,0, 14)}}</h3>

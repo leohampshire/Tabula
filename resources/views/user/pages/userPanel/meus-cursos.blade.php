@@ -10,7 +10,7 @@
 	<div class="col-sm-3">
 		<div class="course-box">
 			<div class="course-thumb">
-				<img src="{{ asset('images/course.jpg')}}" alt="Curso">
+				<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
 			</div>
 			<div class="course-desc">
 				<h3>{{$myCourse->name}}</h3>
