@@ -343,13 +343,13 @@ function seoValidate()
 //End-Modals 
 /*-------------------------------------------------------------------------------------*/
 // Perguntas das provas
-$('.multiple').hide();
+$('.alt_mult').hide();
 $('.alternative').hide();
 $('.truefalse').hide();
 $('.dissertative').hide();
   $('.item_type_id').change(function(){
     if($(this).val() == 7){
-      $('.multiple').slideDown();
+      $('.alt_mult').slideDown();
       $('.dissertative').slideUp();
       $('.alternative').slideUp();
       $('.truefalse').slideUp();
@@ -357,17 +357,17 @@ $('.dissertative').hide();
       $('.truefalse').slideDown();
       $('.dissertative').slideUp();
       $('.alternative').slideUp();
-      $('.multiple').slideUp();
+      $('.alt_mult').slideUp();
     }else if($(this).val() == 9){
       $('.alternative').slideDown();
       $('.dissertative').slideUp();
       $('.truefalse').slideUp();
-      $('.multiple').slideUp();
+      $('.alt_mult').slideUp();
     }else{
       $('.dissertative').slideDown();
       $('.alternative').slideUp();
       $('.truefalse').slideUp();
-      $('.multiple').slideUp();
+      $('.alt_mult').slideUp();
     }
   });
 // fim Perguntas das provas

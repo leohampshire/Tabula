@@ -323,10 +323,12 @@ class AdminCourseController extends Controller
 
     public function storeItem(Request $request)
     {
+        
         $this->validate($request, [
             'name'      => 'required|max:100',
             'desc'      => 'max:500'
         ]);
+        $total_class = 0;
         $item = new CourseItem;
         $item->name                     = $request->name;
         $item->course_item_chapter_id   = $request->chapter_id;
@@ -345,36 +347,33 @@ class AdminCourseController extends Controller
         if ($request->item_type_id >6 ) {
             $item->course_items_parent  = $request->item_parent;
         }
+        
         $item->save();
         if ($request->item_type_id == 8) {
-            $item->course_items_parent  = $request->item_parent;
             $itemTest                   = new TestItem;
             $itemTest->course_item_id   = $item->id;
             $itemTest->answer           = $request->trueFalse;
             $itemTest->save();
 
         }elseif($request->item_type_id == 7){
-            $item->course_items_parent  = $request->item_parent;
 
             foreach ($request->afirmacao as $key => $afirmacao) {
-                $itemTest               = new TestItem;
-                $itemTest->desc         = $afirmacao;
+                $itemTest                   = new TestItem;
+                $itemTest->desc             = $afirmacao;
                 $itemTest->course_item_id   = $item->id;
                 if(in_array($key, $request->verdadeira)){
-                    $itemTest->answer   = 1;
+                    $itemTest->answer       = 1;
                 }else{
-                    $itemTest->answer   = 0;
+                    $itemTest->answer       = 0;
                 }
                 $itemTest->save();
             }
         }elseif($request->item_type_id == 9){
-            $item->course_items_parent  = $request->item_parent;
-
             foreach ($request->afirma as $key => $afirma) {
                 $itemTest               = new TestItem;
                 $itemTest->desc         = $afirma;
                 $itemTest->course_item_id   = $item->id;
-                if($key === $request->verdadeira){
+                if($key == $request->verdadeira){
                     $itemTest->answer   = 1;
                 }else{
                     $itemTest->answer   = 0;
@@ -382,17 +381,18 @@ class AdminCourseController extends Controller
                 $itemTest->save();
             }
         }elseif($request->item_type_id == 10){
-            $item->course_items_parent  = $request->item_parent;
             $itemTest                   = new TestItem;
             $itemTest->course_item_id   = $item->id;
             $itemTest->desc             = $request->desc;
             $itemTest->save();
         }
 
-        $total_class = CourseItem::where('course_item_chapter_id', $request->chapter_id)
-        ->where('course_item_types_id', '<>', 5)->count();
-        
-        Course::where('id', $request->course_id)->update([
+        $course = $item->course_item_chapter->course;
+        foreach ($course->course_item_chapters as $chapter) {
+                $total_class += count($chapter->course_item
+                    ->where('course_item_types_id', '<', 5));
+        }
+        $course->update([
             'total_class' => $total_class,
         ]);
 
@@ -515,7 +515,7 @@ class AdminCourseController extends Controller
             ]);
         }elseif ($request->item_type_id == 5) {
             $this->validate($request, [
-                'file'      => 'mimes:pdf,doc,xls,ppt,pps,otp,odp,ods,odt,psd,rar'
+                'file'      => 'mimes:pdf,doc,xls,ppt,pps,otp,odp,ods,odt,psd,rar,docx'
             ]);
         }
         $attach_file = $request->file;
@@ -544,5 +544,6 @@ class AdminCourseController extends Controller
         else {                
             $path = $attach_file_name;       
         }
+        return $path;
     }
 }

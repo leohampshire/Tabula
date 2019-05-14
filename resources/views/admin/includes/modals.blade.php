@@ -525,17 +525,16 @@
                     <label class="radio-inline"><input type="radio" name="trueFalse" value="0">Falsa</label>
                   </div>
                 </div>
-                <div class="form-group row multiple">
+                <div class="form-group row alt_mult">
                   <div class="col-xs-12">
                     <label for="verdadeira">Multipla Escolha</label><br>
                     <div class="col-lg-12">
                       <div class="input-group">
                             <span class="input-group-addon">
-                              <input type="checkbox" name = "verdadeira[]" value="0">
+                              <input type="checkbox" name ="verdadeira[]" value="0">
                             </span>
-                        <input type="text" name="afirmacao[]" class="form-control">
+                        <input type="text" class="form-control" name="afirmacao[]">
                       </div>
-                      <!-- /input-group -->
                     </div>
                     <div class="col-lg-12">
                       <div class="input-group">
@@ -573,6 +572,7 @@
                       </div>
                       <!-- /input-group -->
                     </div>
+                    
                     
                   </div>
                 </div>

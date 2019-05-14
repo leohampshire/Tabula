@@ -19,13 +19,21 @@
 		<div class="class-items">
         	@foreach($chapter->course_item as $item)
 	        	@if($item->course_items_parent == null)
-	        	<a href="#" class="btn-class-item" data-item="{{$item->id}}">
-					<div class="class-item" >
-						<p class="active">{{$item->name}}</p>
-						<input id="{{$chapter->id}}-{{$item->id}}" class="check-class" data-user_id="{{$auth->id}}" data-url="{{route('course.checked')}}" type="checkbox" name="check" checked>
-						<label for="{{$chapter->id}}-{{$item->id}}" class="label-check-class"></label>
-					</div>
-				</a>
+	        		@if($item->course_item_types_id == 5)
+	        		<a href="{{asset('uploads/archives')}}/{{$item->path}}" download="{{$item->name}}" class="btn-class-item">
+						<div class="class-item-complementar" >
+							<p class="active">{{$item->name}}</p>
+						</div>
+					</a>
+	        		@else
+		        	<a href="#" class="btn-class-item" data-item="{{$item->id}}" data-url="{{route('course.getclass')}}">
+						<div class="class-item" >
+							<p class="active">{{$item->name}}</p>
+							<input id="{{$chapter->id}}-{{$item->id}}" class="check-class" data-user_id="{{$auth->id}}" data-url="{{route('course.checked')}}" type="checkbox" name="check">
+							<label for="{{$chapter->id}}-{{$item->id}}" class="label-check-class"></label>
+						</div>
+					</a>
+	        		@endif
 				@endif
 			@endforeach
 		</div>
@@ -33,7 +41,7 @@
 		
 	</div>
 
-	<div class="class-content">
+	<div class="class-content" id="content">
 	</div>
 </section>
 

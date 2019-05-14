@@ -20,7 +20,8 @@ Route::post('/transaction', 'User\TransactionController@statusTransaction')->nam
 
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::post('/checked', 'User\CourseController@classChecked')->name('checked');
-  Route::get('/item/{id}', 'User\CourseController@getClass')->name('getclass');
+  Route::get('/item/', 'User\CourseController@getClass')->name('getclass');
+  Route::post('/test/', 'User\CourseController@testValidate')->name('test');
   Route::get('/aula/{id}', 'User\CourseController@class')->name('class');
   Route::get('/{urn}', 'User\CourseController@course')->name('single');
 });

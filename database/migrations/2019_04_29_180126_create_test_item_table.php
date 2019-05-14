@@ -18,7 +18,6 @@ class CreateTestItemTable extends Migration
             $table->longtext('desc')->nullable();
             $table->integer('answer')->nullable();
             $table->integer('course_item_id');
-            $table->longtext('order');
             $table->timestamps();
         });
     }

@@ -104,17 +104,31 @@ class CourseController extends Controller
 
     }
 
-    public function getClass($id)
-    {
-        $item = CourseItem::find($id);
+    public function getClass(Request $request)
+    {   
+        $item = CourseItem::find($request->item);
 
-        if ($item->course_item_types_id == 2) {
-            return view('user.pages.course.image')->with('item', $item);
-        }
-        if($item->course_item_types_id == 4 || $item->course_item_types_id == 1){
+        if ($item->course_item_types_id == 1) {
             return view('user.pages.course.video')->with('item', $item);
         }
-        return view('user.pages.course.text')->with('item', $item);
+        if ($item->course_item_types_id == 2) {
+            return view('user.pages.course.image')->with('item', $item);
+
+        }
+        if ($item->course_item_types_id == 3) {
+            return view('user.pages.course.text')->with('item', $item);
+        }if($item->course_item_types_id == 6){
+            $items = CourseItem::where('course_items_parent', $item->id)->get();
+            return view('user.pages.course.test')
+            ->with('items', $items)
+            ->with('item', $item);
+        }
+        return view('user.pages.course.audio')->with('item', $item);
+    }
+
+    public function testValidate(Request $request)
+    {
+        return dd($request);
     }
     
 }

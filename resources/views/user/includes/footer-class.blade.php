@@ -48,7 +48,9 @@ $('.carousel-courses').slick({
 
 $(document).on("click", '.btn-class-item', function(event){
   var item = $(this).data('item');
+  var url = $(this).data('url');
   console.log(item);
+  getContent(item, url)
 });
 
 $(document).on("click", '.check-class', function(event){
@@ -60,15 +62,20 @@ $(document).on("click", '.check-class', function(event){
 
   /*----------------------------------------------------------------------------------------------*/
     //Funcoes Ajax
-    function getContent(url){
+    function getContent(item, url){
       $.ajax({
         url: url,
         type: 'GET',
+        data:{
+            item: item,
+        },
         beforeSend: function(){
-          $('#content').html('Carregando...');
+          $('#content').html('<h1>Carregando...</h1>');
         },
         success: function(data){
           $('#content').html(data);
+          console.log(data);
+          
         },
         error: function(e){
           console.log(e);
@@ -89,7 +96,6 @@ $(document).on("click", '.check-class', function(event){
           console.log('carregando...');
         },
         success: function(data){
-            //var result = $.parseJSON(data);
             console.log(data);
         }
       });

@@ -24,4 +24,9 @@ class CourseItem extends Model
         return $this->hasMany('App\CourseItem', 'course_items_parent');
     }
 
+    public function test()
+    {
+        return $this->hasMany('App\TestItem', 'course_item_id');
+    }
+
 }
