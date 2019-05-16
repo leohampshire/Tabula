@@ -88,4 +88,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\CourseItem', 'course_item_user', 'user_id', 'course_item_id')->withPivot('course_chapter_id', 'course_item_status_id');
     }
+
+    public function company()
+    {
+        return $this->hasOne('App\company');
+    }
 }

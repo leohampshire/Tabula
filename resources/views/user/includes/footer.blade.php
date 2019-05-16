@@ -87,6 +87,20 @@ $('.carousel-courses').slick({
   ]
 });
 
+$(document).on('click', '#scroll', function(event){
+    var tela = $(window).width();
+    if(tela < 768){
+        event.preventDefault(); 
+        $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top -90
+        }, 800);
+    } else {
+        event.preventDefault(); 
+        $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top -50
+        }, 800);
+    }
+});
   function states()
   {
     if($('#country').val() == 1){
@@ -165,6 +179,14 @@ $('.carousel-courses').slick({
     $(document).on("click", '.course-item', function(event){
       var url = $(this).data('url');
       getContent(url);
+    });
+    $(document).on("click", '.teacher-include', function(e) { 
+      e.preventDefault();
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      $('#teacherModal form input[name="company_id"]').val($(this).data('id'));
+      $('#teacherModal').modal('show');
     });
 
 
@@ -287,6 +309,13 @@ function avaliar(estrela) {
     $('#confirmationModal .modal-body p').html('Tem certeza que deseja realizar esta exclusão?');
     var href = $(this).attr('href');
     $('#confirmationModal').modal('show').on('click', '#confirm', function() {
+      window.location.href=href;
+    });
+  });
+  $(document).on("click", '.act-avaliable', function(e) { 
+    e.preventDefault();
+    var href = $(this).attr('href');
+    $('#avaliableModal').modal('show').on('click', '#confirm', function() {
       window.location.href=href;
     });
   });
@@ -441,7 +470,7 @@ function avaliar(estrela) {
       });
     }
 
-//--------Fim funções ajax-------------------------------------------------------------------------
+//--------Fim funções ajax ---------------------------------------------------------------
 // Mask
   $( document ).ready(function() {
     $('.input-telefone').each( function(){

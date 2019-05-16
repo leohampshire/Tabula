@@ -8,39 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Company extends Authenticatable
 {
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    
     protected $fillable = [
-        'name', 'email', 'password',
+        'mission', 'user_id', 'cover',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
-    public function sendPasswordResetNotification($token)
+ 
+    public function teachers()
     {
-        $this->notify(new CompanyResetPassword($token));
-    }
-
-    public function courses()
-    {
-        return $this->hasMany('App\Course', 'user_id_owner');
+    	return $this->hasMany('App\User');
     }
 }

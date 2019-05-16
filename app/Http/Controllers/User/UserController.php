@@ -10,6 +10,7 @@ use App\CourseItemType;
 use App\Category;
 use App\Country;
 use App\Course;
+use App\Company;
 use App\State;
 use App\User;
 use Auth;
@@ -94,6 +95,17 @@ class UserController extends Controller
         ->with('chapter', $chapter);
 
     }
+
+    public function contentTeacher()
+    {
+        $auth = Auth::guard('user')->user();
+
+        $teachers = User::where('company_id', $auth->company->id)->get();
+        return view('user.pages.userPanel.professor-empresa')
+        ->with('auth', $auth)
+        ->with('teachers', $teachers);
+    }
+    
      
     public function update(Request $request)
     {
@@ -103,7 +115,7 @@ class UserController extends Controller
                 'required',
                 Rule::unique('users')->ignore($request->id)
             ],
-            'bio'           => 'max:1000',
+            'bio'           => 'max:10000',
 	        'img_avatar' 	=> 'mimes:jpeg,bmp,png'
         ]);
 
@@ -115,7 +127,12 @@ class UserController extends Controller
         if (isset($request->interest)) {
             $request['interest'] = serialize($request->interest);
         }
-        
+        if ($user->user_type_id == 5) {
+            Company::where('user_id', $user->id)->update([
+                'about' => $request->bio,
+                'cover' => $this->coverValidate($request),
+            ]);
+        }
         $user->update($request->all());
         return redirect()->back()->with('success', 'Cadastro alterado');
     }
@@ -124,7 +141,7 @@ class UserController extends Controller
 //valida foto do perfil
     public function thumbValidate(Request $thumb)
     {
-    	 if($thumb->img_avatar != '')
+    	if($thumb->img_avatar != '')
         {
             $arq_img = $thumb->file('img_avatar');
             $name    = basename($arq_img->getClientOriginalName());
@@ -152,4 +169,37 @@ class UserController extends Controller
         return $arq_img_name;  
  
     }
+    
+    public function coverValidate(Request $thumb)
+    {
+        if($thumb->cover != '')
+        {
+            $arq_img = $thumb->file('cover');
+            $name    = basename($arq_img->getClientOriginalName());
+            $type    = strtolower(pathinfo($name,PATHINFO_EXTENSION));
+            $count = 1;
+            //Gera string aleatória
+            while($count != 0){
+                $str            = "";
+                $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+                $max            = count($characters) - 1;
+
+                for ($i = 0; $i < 7; $i++) {
+                    $rand   = mt_rand(0, $max);
+                    $str   .= $characters[$rand];
+                    $count  = Company::where('cover', "{$str}.{$type}")->count();
+                }
+            }
+            $arq_img_name ="{$str}.{$type}";
+            $arq_img->move('images/cover', $arq_img_name); 
+
+        }
+        else{
+            $arq_img_name      = 'default.png';
+        }
+        return $arq_img_name;  
+ 
+    }
+
+
 }

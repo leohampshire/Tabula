@@ -21,6 +21,29 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.Exclusão-->
+<!--Confirmacao-->
+<div class="modal fade" id="avaliableModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmação</h4>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza que deseja enviar o seu curso para análise de nossa equipe</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="confirm">Confirmar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.Confirmação-->
 
 <!--Criar Capitulo-->
 <div class="modal fade" id="chapterModal">
@@ -650,3 +673,38 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.Aula gratis-->
+
+<!--Incluir Professor-->
+<div class="modal fade" id="teacherModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Incluir Professor</h4>
+      </div>
+      <form method="POST" action="{{route('user.teacher.include')}}" enctype="multipart/form-data">
+          <div class="modal-body">
+              {{csrf_field()}}
+              <input type="hidden" name="company_id" value="">
+              <div class="box-body">
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="email">Nome</label>
+                    <input type="email" name="email" placeholder="E-mail" class="form-control" id="name" value="{{old('email')}}">
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.Incluir Professor-->

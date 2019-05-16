@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
             $table->integer('state_id')->nullable();
             $table->integer('schooling_id')->nullable();
             $table->string('img_avatar')->nullable();
-            $table->integer('empresa_id')->nullable();
+            $table->integer('company_id')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

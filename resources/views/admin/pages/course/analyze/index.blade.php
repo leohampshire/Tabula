@@ -101,6 +101,7 @@
                 </thead>
                 <tbody>
                   @forelse($courses as $course)
+                    @if($course->avaliable == 3)
                     <tr>
                       <td>{{$course->name}}</td>
                       <td>{{$course->urn}}</td>
@@ -110,13 +111,13 @@
                       <td>Liberado</td>
                       @endif
                       <td>
-                        @if($course->avaliable == 1)
-                          <a href="{{ route('admin.course.avaliable', ['id' => $course->id])}}" title="Disponibilizar" class="act-list">
-                            <i class="fa fa-toggle-off" aria-hidden="true"></i>
-                          </a>
-                          @else
+                        @if($course->avaliable == 2)
                           <a href="{{ route('admin.course.avaliable', ['id' => $course->id])}}" title="Remover" class="act-list">
                             <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                          </a>
+                        @else
+                          <a href="{{ route('admin.course.avaliable', ['id' => $course->id])}}" title="Disponibilizar" class="act-list">
+                            <i class="fa fa-toggle-off" aria-hidden="true"></i>
                           </a>
                         @endif
                         <a href="{{ route('admin.course.show', ['id' => $course->id])}}" title="Editar" class="act-list">
@@ -124,6 +125,7 @@
                         </a>
                       </td>
                     </tr>
+                    @endif
                   @empty
                     <tr>
                       <td colspan="7y">Nenhum resultado encontrado</td>

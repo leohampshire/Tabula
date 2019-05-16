@@ -130,5 +130,13 @@ class CourseController extends Controller
     {
         return dd($request);
     }
+
+    public function avaliable($id)
+    {
+        $course = Course::find($id);
+        $course->avaliable = 3;
+        $course->save();
+        return redirect()->back()->with('success', 'Enviado para análise');
+    }
     
 }

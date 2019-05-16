@@ -35,7 +35,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::get('/criar', 'User\UserController@contentCreateCourse')->name('create');
     Route::get('/editar/{id}', 'User\UserController@contentCourseEdit')->name('edit');
+    Route::get('/liberar/{id}', 'User\CourseController@avaliable')->name('avaliable');
     Route::get('/incluir-item/{id}', 'User\UserController@contentCourseItem')->name('item');
+  });
+  Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
+    Route::get('/criar', 'User\UserController@contentTeacher')->name('index');
+    Route::post('/incluir', 'Company\CompanyController@include')->name('include');
+    Route::get('/remover/{id}', 'Company\CompanyController@deleteTeacher')->name('delete');
   });
 });
 

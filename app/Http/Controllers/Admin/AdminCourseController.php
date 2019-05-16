@@ -38,7 +38,7 @@ class AdminCourseController extends Controller
     public function avaliable($id)
     {
         $course = Course::find($id);
-        if ($course->avaliable == 1) {
+        if ($course->avaliable == 1 || $course->avaliable == 3) {
             $course->avaliable = 2;
             Session::flash('success', 'Curso disponibilizado');
         }else{

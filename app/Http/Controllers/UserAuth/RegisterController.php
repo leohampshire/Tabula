@@ -7,6 +7,7 @@ use App\State;
 use App\Country;
 use App\Schooling;
 use App\Category;
+use App\Company;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -52,11 +53,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return dd($data);
+        if(!array_key_exists("user_type", $data)){
+            $this->validate($request, [
+                'sex'        => 'required'
+            ]);
+        }
         return Validator::make($data, [
             'name'          => 'required|max:255',
             'email'         => 'required|email|max:255|unique:users',
-            'sex'           => 'required',
             'password'      => 'required|min:6|confirmed',
         ]);
     }
@@ -69,15 +73,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return dd($data);
+        $user_type = 3;
+        if(array_key_exists("user_type", $data)){
+            $user_type = 5;
+            $user = User::create([
+                'name'          => $data['name'],
+                'email'         => $data['email'],
+                'password'      => bcrypt($data['password']),
+                'user_type_id'  => $user_type,
+            ]);
+             return Company::create([
+                'name'      => $data['name'],
+                'user_id'   => $user->id,
+             ]);
 
-        return User::create([
-            'name'          => $data['name'],
-            'email'         => $data['email'],
-            'password'      => bcrypt($data['password']),
-            'sex'           => $data['sex'],
-            'user_type_id'  => 3,
-        ]);
+        }else{
+            return User::create([
+                'name'          => $data['name'],
+                'email'         => $data['email'],
+                'password'      => bcrypt($data['password']),
+                'sex'           => $data['sex'],
+                'user_type_id'  => $user_type,
+            ]);
+        }
     }
 
     /**

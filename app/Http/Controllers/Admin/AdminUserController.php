@@ -56,7 +56,7 @@ class AdminUserController extends Controller
         $user->name         = $request->name;
         $user->user_type_id = $request->user_type_id;
         $user->password     = bcrypt($request->password);
-        $user->birthdate    = implode("-", array_reverse(explode("/", $request->birthdate)));
+        
         $user->sex          = $request->sex;
         $user->linkedin     = $request->linkedin;
         $user->bio          = $request->bio;
@@ -79,7 +79,6 @@ class AdminUserController extends Controller
 	
         $userTypes = UserType::where('id', '>', '2')->get();
         $user = User::find($id);
-		$user->birthdate = implode("/", array_reverse(explode("-", $user->birthdate)));
 		return view('admin.pages.user.edit')
 		->with('states', State::all())
         ->with('countries', Country::all())
@@ -103,7 +102,6 @@ class AdminUserController extends Controller
 
         $user->name         = $request->name;
         $user->user_type_id = $request->user_type_id;
-        $user->birthdate    = implode("-", array_reverse(explode("/", $request->birthdate)));
         $user->sex          = $request->sex;
         $user->bio          = $request->bio;
         $user->website      = $request->website;

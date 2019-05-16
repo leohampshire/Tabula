@@ -15,6 +15,12 @@
 		</div>
 	</div>
 	<div class="row form-group">
+		<div class="col-xs-4">
+			<label for="cover">Capa de apresentação da empresa</label>
+			<input type="file" name="cover">
+		</div>
+	</div>
+	<div class="row form-group">
 		<div class="col-xs-6">
 			<label>Nome</label>
 			<input name="name" value="{{$auth->name}}" type="text" class="form-control" placeholder="Nome">
@@ -45,6 +51,7 @@
 				@endforeach
 			</select>
 		</div>
+		@if($auth->user_type_id != 5)
 		<div class="col-xs-4">
 			<label for="sex">Sexo</label>
 			<select class="form-control">
@@ -53,6 +60,7 @@
 				<option name="sex" value="f" @if($auth->sex == 'Feminino') selected @endif>Feminino</option>
 			</select>
 		</div>
+		@endif
 	</div>
 	<div class="row form-group">
 		<div class="col-xs-12">

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Course;
 use App\Category;
-use App\Usertype;
+use App\UserType;
 use App\Page;
 use App\User;
 use Auth;

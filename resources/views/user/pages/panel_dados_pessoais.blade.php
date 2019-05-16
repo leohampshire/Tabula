@@ -38,11 +38,11 @@
 						<button class="btn-block btn-panel-menu" type="button">Tornar-se professor</button>
 					</a>
 				</div>
-				@elseif($auth->user_type_id == 4)
+				@else
 					@if($auth->courses()->count() == 0)
 					<div class="col-xs-3" >
 						<a href="#" class="course-create" data-url="{{route('user.course.create')}}">
-							<button class="btn-block btn-panel-menu" type="button">Criar Curso</button>
+							<button class="btn-block btn-panel-menu btn-danger" type="button">Criar Curso</button>
 						</a>
 					</div>
 					@else
@@ -59,6 +59,13 @@
 						</a>
 					</div>
 					 -->
+			 	@endif
+			 	@if($auth->user_type_id == 5)
+			 	<div class="col-xs-3" >
+						<a href="#" class="course-create" data-url="{{route('user.teacher.index')}}">
+							<button class="btn-block btn-panel-menu" type="button">Professores </button>
+						</a>
+					</div>
 				@endif
 			</div>
 		</div>

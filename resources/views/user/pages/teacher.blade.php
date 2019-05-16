@@ -37,7 +37,7 @@
 		?>
 		@empty
 		<div class="col-sm-12">
-			Não existem cursos nesta categoria.
+			Não existem cursos para este professor.
 		</div>
 		@endforelse
 		</div>

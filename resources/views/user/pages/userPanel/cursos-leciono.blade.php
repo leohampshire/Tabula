@@ -25,8 +25,11 @@
 				<p>{{substr($course->desc, 0, 59)}}</p>
 			</div>
 			<div class="course-access">
-									
 				<a href="#" class="course-edit" data-url="{{route('user.course.edit', ['id' => $course->id])}}"><span>EDITAR</span></a>
+				<a href="#" class="course-edit" data-url="{{route('user.course.edit', ['id' => $course->id])}}"><span>VISUALIZAR</span></a>		
+				@if($course->avaliable == 1)
+				<a href="{{route('user.course.avaliable', ['id' => $course->id])}}" class="act-avaliable"><span>DISPONIBILIZAR</span></a>		
+				@endif	
 			</div>
 		</div>
 	</div>
