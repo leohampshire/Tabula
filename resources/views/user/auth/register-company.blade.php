@@ -15,9 +15,9 @@
                 </div>
             </div>
         </div>
-        <form action="{{route('company.register')}}" method="POST">
+        <form action="{{route('user.register')}}" method="POST">
               {{csrf_field()}}
-            
+            <input type="hidden" name="user_type">
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <label>Nome</label>

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Course;
 use App\Category;
 use App\Usertype;
+use App\Page;
+use App\User;
 use Auth;
 use Route;
 
@@ -52,6 +54,41 @@ class HomeController extends Controller
 		->with('featured_courses1', $featured_courses1)
 		->with('featured_courses2', $featured_courses2)
 		->with('featured_posts', $featured_posts);
+	}
+
+	public function pages($urn)
+	{
+		$page = Page::where('urn', $urn)->first();
+		return view('user.pages.pages')
+		->with('page', $page);
+	}
+
+	public function allTeachers()
+	{
+		$teachers = User::where('user_type_id', 4)->get();
+		return view('user.pages.all-teachers')
+		->with('teachers', $teachers);
+	}
+
+	public function teacher($id)
+	{
+		$teacher = User::find($id);
+		return view('user.pages.teacher')
+		->with('teacher', $teacher);
+	}
+
+	public function allCompanies()
+	{
+		$companies = User::where('user_type_id', 5)->get();
+		return view('user.pages.all-companies')
+		->with('companies', $companies);
+	}
+
+	public function company($id)
+	{
+		$company = User::find($id);
+		return view('user.pages.company')
+		->with('company', $company);
 	}
 
 }

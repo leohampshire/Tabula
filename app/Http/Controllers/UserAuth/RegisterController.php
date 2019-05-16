@@ -52,6 +52,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        return dd($data);
         return Validator::make($data, [
             'name'          => 'required|max:255',
             'email'         => 'required|email|max:255|unique:users',
@@ -68,6 +69,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        return dd($data);
+
         return User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
@@ -85,6 +88,14 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         return view('user.auth.register')
+        ->with('states', State::all())
+        ->with('countries', Country::all())
+        ->with('categories', Category::all())
+        ->with('schoolings', Schooling::all());
+    }
+    public function showRegistrationCompany()
+    {
+        return view('user.auth.register-company')
         ->with('states', State::all())
         ->with('countries', Country::all())
         ->with('categories', Category::all())

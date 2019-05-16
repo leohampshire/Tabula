@@ -12,11 +12,6 @@
 */
 
 
-Route::get('/', 'User\HomeController@index')->name('home');
-
-Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
-Route::get('/carrinho', 'User\CartController@cart')->name('cart');
-Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
 
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::post('/checked', 'User\CourseController@classChecked')->name('checked');
@@ -252,6 +247,7 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'empresa', 'as' => 'company.'], function () {
   Route::get('/', 'User\UserController@userPanel')->name('panel');
+  Route::get('/register', 'UserAuth\RegisterController@showRegistrationCompany')->name('register');
   
 });
 
@@ -262,7 +258,6 @@ Route::group(['prefix' => 'company'], function () {
   Route::post('/login', 'CompanyAuth\LoginController@login');
   Route::post('/logout', 'CompanyAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'CompanyAuth\RegisterController@showRegistrationForm')->name('company.register');
   Route::post('/register', 'CompanyAuth\RegisterController@register');
 
   Route::post('/password/email', 'CompanyAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
@@ -270,3 +265,14 @@ Route::group(['prefix' => 'company'], function () {
   Route::get('/password/reset', 'CompanyAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'CompanyAuth\ResetPasswordController@showResetForm');
 });
+
+Route::get('/', 'User\HomeController@index')->name('home');
+Route::get('todos-professores', 'User\HomeController@allTeachers')->name('all-teachers');
+Route::get('todas-empresas', 'User\HomeController@allCompanies')->name('all-companies');
+Route::get('professor/{id}', 'User\HomeController@teacher')->name('teacher');
+Route::get('empresa/{id}', 'User\HomeController@company')->name('company');
+
+Route::get('/carrinho', 'User\CartController@cart')->name('cart');
+Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
+Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
+Route::get('/{urn}', 'User\HomeController@pages')->name('page');

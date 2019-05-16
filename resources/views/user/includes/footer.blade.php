@@ -1,3 +1,6 @@
+<?php
+  $pages = DB::table('pages')->get();
+?>
 <footer>
   <div class="container">
     <div class="row">
@@ -12,19 +15,17 @@
       <div class="col-sm-4">
         <h4>Suporte</h4>
         <ul>
-          <li><a href="#">Central de Ajuda</a></li>
-          <li><a href="#">Perguntas Frequentes</a></li>
-          <li><a href="#">Termos e Condições</a></li>
-          <li><a href="#">Política de Privacidade</a></li>
-          <li><a href="#">Política de Propriedade Intelectual</a></li>
+          @foreach($pages as $page)
+          <li><a href="{{route('page', ['urn'=> $page->urn])}}">{{$page->name}}</a></li>
+          @endforeach
         </ul>
       </div>
       <div class="col-sm-4">
         <h4>Comunidade</h4>
         <ul>
           <li><a href="#">Parceiros</a></li>
-          <li><a href="#">Empresas</a></li>
-          <li><a href="#">Professores</a></li>
+          <li><a href="{{route('all-companies')}}">Empresas</a></li>
+          <li><a href="{{route('all-teachers')}}">Professores</a></li>
         </ul>
       </div>
     </div>
