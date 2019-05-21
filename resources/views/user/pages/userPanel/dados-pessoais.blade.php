@@ -16,7 +16,7 @@
 	</div>
 	<div class="row form-group">
 		<div class="col-xs-4">
-			<label for="cover">Capa de apresentação da empresa</label>
+			<label for="cover">Capa perfil público</label>
 			<input type="file" name="cover">
 		</div>
 	</div>

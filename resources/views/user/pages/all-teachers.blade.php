@@ -18,6 +18,7 @@
 		?>
 		<div class="row">
 		@forelse ($teachers as $row)
+			@if(count($row->courses) >0)
 		        <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
 		        	<a href="{{route('teacher', ['id' => $row->id])}}">
 			            <div class="course-box">
@@ -31,13 +32,18 @@
 						</div>
 		        	</a>
 		        </div>
+	        @else
+				<div class="col-sm-12">
+					Não existem professores matriculados.
+				</div>
+	        @endif
 		<?php
 		    $rowCount++;
 		    if($rowCount % $numOfCols == 0) echo '</div><div class="row">';
 		?>
 		@empty
 		<div class="col-sm-12">
-			Não existem cursos nesta categoria.
+			Não existem professores matriculados.
 		</div>
 		@endforelse
 		</div>

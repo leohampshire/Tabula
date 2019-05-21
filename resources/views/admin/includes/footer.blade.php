@@ -278,10 +278,18 @@ function seoValidate()
       window.location.href=href;
     });
   });
+
   $('.act-chapter').on('click', function(e){
     e.preventDefault();
     $('#chapterModal').modal('show');
   });
+
+   $('.act-student').on('click', function(e){
+    e.preventDefault();
+    $('#studentModal form input[name="id"]').val($(this).data('id'));
+    $('#studentModal').modal('show');
+  });
+
   $('.act-edit-chapter').on('click', function(e){
     e.preventDefault();
     $('#chapterEditModal form input[name="id"]').val($(this).data('id'));
@@ -336,7 +344,7 @@ function seoValidate()
     $('#classModal').modal('show');
   });
 
-   $('.act-question').on('click', function(e){
+  $('.act-question').on('click', function(e){
     e.preventDefault();
     $('#questionModal').modal('show');
   });

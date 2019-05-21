@@ -77,7 +77,7 @@
             <i class="fa fa-tag" aria-hidden="true"></i> <span>POSTS DO BLOG</span>
           </a>
         </li>
-        <li {{ (Request::is('admin/dashboard') ? 'class=active' : '') }} {{ (Request::is('admin/dashboard') ? 'class=active' : '') }}>
+        <li {{ (Request::is('admin/comentario') ? 'class=active' : '') }} {{ (Request::is('admin/comentario/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.dashboard')}}">
             <i class="fa fa-comments-o" aria-hidden="true"></i> <span>COMENTÁRIOS DO BLOG</span>
           </a>

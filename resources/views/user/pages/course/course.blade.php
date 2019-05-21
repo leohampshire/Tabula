@@ -25,8 +25,11 @@
               <a href="{{route('course.class', ['id' => $course->id])}}">
                 <button>Iniciar Curso</button>
               </a>
+              <a href="{{route('course.forum', ['id' => $course->id])}}">
+                <button>Fórum</button>
+              </a>
               <a href="#" class="act-rating" data-user_id="{{$auth->id}}" data-course_id="{{$course->id}}">
-                <button>Avaliações</button>
+                <button>Avaliar</button>
               </a>
             @else
               <a href="{{route('cart.finish', ['id' => $course->id])}}">

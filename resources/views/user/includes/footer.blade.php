@@ -176,6 +176,11 @@ $(document).on('click', '#scroll', function(event){
       getContent(url);
     });
 
+    $(document).on("click", '.test-index', function(event) { 
+      var url = $(this).data('url');
+      getContent(url);
+    });
+
     $(document).on("click", '.course-item', function(event){
       var url = $(this).data('url');
       getContent(url);
@@ -188,6 +193,13 @@ $(document).on('click', '#scroll', function(event){
       $('#teacherModal form input[name="company_id"]').val($(this).data('id'));
       $('#teacherModal').modal('show');
     });
+    
+
+    $('.answer').hide();
+    function seeAnswer(id){
+      $('#'+id).slideToggle();
+    }
+    
 
 
 function avaliar(estrela) {
@@ -338,6 +350,13 @@ function avaliar(estrela) {
     $('#includeModal').modal('show');
   });
 
+  $('.act-answer').on("click", function(e) {
+    e.preventDefault();
+    $('#answerModal form input[name="course_id"]').val($(this).data('course_id'));
+    $('#answerModal form input[name="answer"]').val($(this).data('answer'));
+    $('#answerModal').modal('show');
+  });
+
   $('.act-free-item').on('click', function(e){
     e.preventDefault();
     var name = $(this).data('name');
@@ -416,6 +435,9 @@ function avaliar(estrela) {
 
   $(document).on("click", '.act-question', function(e) { 
     e.preventDefault();
+    $('#questionModal form input[name="course_id"]').val($(this).data('course_id'));
+    $('#questionModal form input[name="chapter_id"]').val($(this).data('chapter_id'));
+    $('#questionModal form input[name="item_parent"]').val($(this).data('item'));
     $('#questionModal').modal('show');
   });
 

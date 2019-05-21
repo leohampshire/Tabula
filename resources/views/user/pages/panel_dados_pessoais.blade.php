@@ -23,7 +23,7 @@
 		<div class="box-w-shadow">
 			<div class="row">
 				<div class="col-xs-3">
-					<a href="#" class="personal" data-url="{{route('user.personal')}}">
+					<a href="#personal" class="personal" data-url="{{route('user.personal')}}">
 						<button class="btn-block btn-active btn-panel-menu" type="button">Dados pessoais</button>
 					</a>
 				</div>

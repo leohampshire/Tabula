@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Course;
-use App\Category;
 use App\CourseItemChapter;
 use App\CourseItemType;
+use App\CourseUser;
 use App\CourseItem;
 use App\TestItem;
+use App\Category;
+use App\Course;
+use App\User;
 use Session;
 use Auth;
 class AdminCourseController extends Controller
@@ -66,7 +68,6 @@ class AdminCourseController extends Controller
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv',
             'requirements'=> 'max:1000'	,
-            'timeH'       => 'required',
             'timeM'       => 'max:59',
         ]);
 
@@ -82,7 +83,6 @@ class AdminCourseController extends Controller
         $course->timeH              = $request->timeH;
         $course->timeM              = $request->timeM;
         $course->total_class        = 0;
-        //URN
         
         $course->urn = $this->urnValidate($request->name);
         //valida a foto de capa
@@ -323,10 +323,10 @@ class AdminCourseController extends Controller
 
     public function storeItem(Request $request)
     {
-        
         $this->validate($request, [
-            'name'      => 'required|max:100',
-            'desc'      => 'max:500'
+            'item_type_id'  => 'required',
+            'name'          => 'required|max:200',
+            'desc'          => 'max:500'
         ]);
         $total_class = 0;
         $item = new CourseItem;
@@ -453,6 +453,30 @@ class AdminCourseController extends Controller
         
     }
 
+    public function student($id)
+    {
+        $course = Course::find($id);
+        return view('admin.pages.course.student.index')
+        ->with('course', $course);
+    }
+    public function studentInclude(Request $request)
+    {
+        $student = User::where('email', $request->email)->first();
+        if($student){
+            CourseUser::create([
+                'user_id'   => $student->id,
+                'course_id' => $request->id,
+                'progress'  => 0,
+            ]);
+            return redirect()->back()->with('success', 'Aluno Incluso ao seu curso');
+        }
+        return redirect()->back()->with('warning', 'Usuário já vinculado ao curso ou inexistente');
+    }
+
+    public function studentRestart($id)
+    {
+        $student = User::find($id);
+    }
 
     public function urnValidate(String $name)
     {
@@ -511,11 +535,11 @@ class AdminCourseController extends Controller
             ]);
         }elseif ($request->item_type_id == 4) {
             $this->validate($request, [
-                'file'      => 'mimes:mid,mp3,ogg,wav'
+                'file'      => 'mimes:mid,mp3,ogg,wav,mpga,mp2,mp2a,m2a,m3a'
             ]);
         }elseif ($request->item_type_id == 5) {
             $this->validate($request, [
-                'file'      => 'mimes:pdf,doc,xls,ppt,pps,otp,odp,ods,odt,psd,rar,docx'
+                'file'      => 'mimes:pdf,doc,xls,ppt,pps,otp,odp,ods,odt,psd,rar,docx, xlsx'
             ]);
         }
         $attach_file = $request->file;

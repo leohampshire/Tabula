@@ -49,15 +49,15 @@ $('.carousel-courses').slick({
 $(document).on("click", '.btn-class-item', function(event){
   var item = $(this).data('item');
   var url = $(this).data('url');
-  console.log(item);
   getContent(item, url)
 });
 
 $(document).on("click", '.check-class', function(event){
   var class_id = $(this).attr('id');
   var url = $(this).data('url');
+  var course_id = $(this).data('course_id');
   var user_id = $(this).data('user_id');
-  checkedClassAjax(url, class_id, user_id);
+  checkedClassAjax(url, class_id, user_id, course_id);
 });
 
   /*----------------------------------------------------------------------------------------------*/
@@ -74,7 +74,6 @@ $(document).on("click", '.check-class', function(event){
         },
         success: function(data){
           $('#content').html(data);
-          console.log(data);
           
         },
         error: function(e){
@@ -84,22 +83,23 @@ $(document).on("click", '.check-class', function(event){
     }
 
 
-    function checkedClassAjax(url, class_id, user_id){
+    function checkedClassAjax(url, class_id, user_id, course_id){
       $.ajax({
         type: 'POST',
         url: url,
         data:{
             class_id: class_id,
             user_id: user_id,
+            course_id: course_id,
         },
         beforeSend: function(){
-          console.log('carregando...');
+          console.log(course_id)
         },
         success: function(data){
-            console.log(data);
         }
       });
     }
+
 
 //--------Fim funções ajax-------------------------------------------------------------------------
 // Mask

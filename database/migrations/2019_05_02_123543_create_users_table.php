@@ -19,12 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('user_type_id');
             $table->string('avatar')->default('default.png');
+            $table->string('cover')->default('default.png');
             $table->string('cpf', 100)->nullable();
             $table->string('birthdate', 10)->nullable();
             $table->string('sex', 45)->nullable();
             $table->string('interest')->nullable();
             $table->longtext('bio')->nullable();
             $table->string('website', 100)->nullable();
+            $table->string('youtube', 100)->nullable();
             $table->string('google_plus', 100)->nullable();
             $table->string('linkedin', 100)->nullable();
             $table->string('twitter', 100)->nullable();
@@ -32,7 +34,6 @@ class CreateUsersTable extends Migration
             $table->integer('country_id')->nullable();
             $table->integer('state_id')->nullable();
             $table->integer('schooling_id')->nullable();
-            $table->string('img_avatar')->nullable();
             $table->integer('company_id')->nullable();
             $table->softDeletes();
             $table->rememberToken();

@@ -15,9 +15,11 @@
 
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::post('/checked', 'User\CourseController@classChecked')->name('checked');
+  Route::post('pergunta', 'User\CourseController@question')->name('question');
   Route::get('/item/', 'User\CourseController@getClass')->name('getclass');
   Route::post('/test/', 'User\CourseController@testValidate')->name('test');
   Route::get('/aula/{id}', 'User\CourseController@class')->name('class');
+  Route::get('/forum/{id}', 'User\CourseController@forum')->name('forum');
   Route::get('/{urn}', 'User\CourseController@course')->name('single');
 });
 
@@ -67,7 +69,7 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
       Route::get('delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
     });
     Route::group(['prefix'=> 'item', 'as' => 'item.'], function(){
-      Route::get('/prova/{id}', 'Admin\AdminCourseController@createTest')->name('test');
+      Route::get('/prova/{id}', 'Teacher\TeacherController@createTest')->name('test');
       Route::get('/gratis/{id}', 'Admin\AdminCourseController@free')->name('free');
       Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
       Route::post('/update', 'Admin\AdminCourseController@updateitem')->name('update');
@@ -157,6 +159,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/visualizar/{id}', 'Admin\AdminCourseController@show')->name('show');
       Route::post('/update', 'Admin\AdminCourseController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCourseController@delete')->name('delete');
+      Route::get('/aluno/{id}', 'Admin\AdminCourseController@student')->name('student');
+      Route::group(['prefix'=> 'aluno', 'as' => 'student.'], function(){
+        Route::post('incluir/', 'Admin\AdminCourseController@studentInclude')->name('include');
+        Route::post('reiniciar/{id}', 'Admin\AdminCourseController@studentRestart')->name('restart');
+      });
       //CAPITULOS CURSO ADMIN
       Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
         Route::post('/store', 'Admin\AdminCourseController@storeChapter')->name('store');

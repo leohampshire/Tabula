@@ -12,10 +12,12 @@ class CompanyController extends Controller
     {
 
         $user = User::where('email', $request->email)->where('company_id', NULL)->first();
-        if ($user->company_id == '' || $user != '') {
-	        $user->company_id = $request->company_id;
-	        $user->save();
-	        return redirect()->back()->with('success', 'Usuário vinculado');
+        if ($user != '') {
+            if($user->company_id == ''){
+    	        $user->company_id = $request->company_id;
+    	        $user->save();
+    	        return redirect()->back()->with('success', 'Usuário vinculado');
+            }
         }
     	return redirect()->back()->with('warning', 'Usuário não é um professor ou já está vinculado a outra empresa'); 
     }

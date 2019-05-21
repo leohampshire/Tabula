@@ -14,6 +14,10 @@ class Course extends Model
     {
     	return $this->hasMany('App\User');
     }
+    public function students()
+    {
+        return $this->belongsToMany('App\User')->withPivot('progress');
+    }
 
     public function category()
     {
@@ -51,6 +55,11 @@ class Course extends Model
     public function rating()
     {
         return $this->belongsToMany('App\User', 'ratings', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'star', 'comment');
+    }
+
+    public function question()
+    {
+        return $this->hasMany('App\Forum');
     }
 
 }

@@ -14,8 +14,18 @@
 }
 
 button.btn-header {
-    border: 0;
+    border: solid 1px #51801c;
     background: #8BC34A;
+    padding: 10px 30px;
+    vertical-align: middle;
+    float: right;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+button.btn-header-back {
+    border: solid 1px #6a6b69;
+    background: #c3c3c3;
     padding: 10px 30px;
     vertical-align: middle;
     float: right;

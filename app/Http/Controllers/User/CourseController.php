@@ -4,11 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Course;
-use App\Rating;
-use App\CourseItem;
-use App\CourseItemChapter;
-use App\CourseItemUser;
+use App\{Course, Rating, Forum, CourseItem, CourseItemChapter, CourseItemUser};
 use Auth;
 
 class CourseController extends Controller
@@ -43,15 +39,41 @@ class CourseController extends Controller
     public function class($id)
     {
         $auth = Auth::guard('user')->user();
-        $course = Course::find($id);
+        $course = Course::find($id);        
 
         return view('user.pages.course.class')
         ->with('auth', $auth)
         ->with('course', $course);
     }
 
+    public function forum($id)
+    {
+        $course = Course::find($id);
+        $auth = Auth::guard('user')->user();
+        return view('user.pages.course.forum')
+        ->with('course', $course)
+        ->with('auth', $auth);
+    }
+
+    public function question(Request $request)
+    {
+        if(!isset($request->answer)){
+            $this->validate($request, [
+                'title'         => 'required',
+            ]);
+        }
+        $this->validate($request, [
+            'question'         => 'required',
+        ]);
+        $auth = Auth::guard('user')->user();
+        $request['user_id'] = $auth->id;
+        Forum::create($request->all());
+        return redirect()->back()->with('success', 'Registrado.');
+    }
+
     public function classChecked(Request $request)
     {
+        $auth = Auth::guard('user')->user();
         $class = NULL;
         if (strpos($request->class_id, '-')) {
             $class = explode('-', $request->class_id);
@@ -100,6 +122,18 @@ class CourseController extends Controller
             }
         }
         $item->save();
+        //Acessa as aulas feitas
+        $progress = $auth->itemUser()->where('course_item_status_id', 1)->count();
+        //Percorre todos os cursos
+        $course = $auth->myCourses()->where('course_id', $request->course_id)->first();
+        foreach ($auth->myCourses as $value) {
+            if($value->id == $request->course_id)
+            {
+                $value->pivot->progress = $progress;
+                $value->pivot->save();
+            }
+        };
+
         return json_encode($item);
 
     }

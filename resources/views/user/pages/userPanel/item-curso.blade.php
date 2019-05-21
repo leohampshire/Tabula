@@ -44,7 +44,7 @@
                   <td>{{$item->course_item_type->name}}</td>
                   <td>
                     @if($item->course_item_type->id == 6)
-                    <a href="{{ route('teacher.course.item.test', ['id' => $item->id])}}" title="Incluir Perguntas" class="act-list">
+                    <a href="#" data-url="{{ route('teacher.course.item.test', ['id' => $item->id])}}" title="Incluir Perguntas" class="act-list test-index">
                       <i class="fa fa-bars" aria-hidden="true"></i>
                     </a>
                     @endif

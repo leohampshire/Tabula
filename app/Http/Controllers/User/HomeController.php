@@ -4,13 +4,13 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Course;
 use App\Category;
 use App\UserType;
+use App\Course;
 use App\Page;
 use App\User;
-use Auth;
 use Route;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -21,13 +21,12 @@ class HomeController extends Controller
 		if ($session != null) {
 			return redirect()->route('cart.insert', ['id' => $session]);   
 		}
-
+		
 		$featured_category1  = Category::find(1);              
 		$featured_category2  = Category::find(2);
-		$auth                = Auth::user();
+		$auth                = Auth::guard('user')->user();
 		$userType            = Usertype::all();
 		$courses             = NULL;
-
 		if ($auth != NULL && $auth->interest != NULL) {
 			$interests  = unserialize($auth->interest); 
 			$courses    = Course::wherein('category_id', $interests)->inRandomOrder()->take(8)->get();
@@ -41,7 +40,8 @@ class HomeController extends Controller
 		->with('categories', Category::whereNull('category_id')->whereNotNull('desktop_index')->orderBy('desktop_index', 'ASC')->get())
 		->with('row_limit', 5)
 		->with('category_count', 0)
-		->with('mobile_categories', Category::whereNull('category_id')->whereNotNull('mobile_index')
+		->with('mobile_categories', Category::whereNull('category_id')
+			->whereNotNull('mobile_index')
 			->orderBy('mobile_index', 'ASC')->get())
 		->with('mobile_col_limit', 5)
 		->with('mobile_category_count', 0)

@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/comprar/inserir/sessao';
 
     /**
      * Create a new controller instance.
@@ -54,7 +54,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         if(!array_key_exists("user_type", $data)){
-            $this->validate($request, [
+            Validator::make($data, [
                 'sex'        => 'required'
             ]);
         }

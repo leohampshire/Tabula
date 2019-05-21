@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Teacher;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\CourseItemChapter;
+use App\CourseItemType;
+use App\CourseItem;
+use App\Category;
 use App\Teacher;
 use App\Course;
-use App\Category;
-use App\CourseItemChapter;
-use Auth;
 use Session;
+use Auth;
 
 class TeacherController extends Controller
 {
@@ -76,4 +78,19 @@ class TeacherController extends Controller
 	        return redirect()->route('user.panel');
        }
     }	
+
+    public function createTest($id)
+    {
+        $item_parent  = CourseItem::find($id);
+        $chapter  = CourseItemChapter::find($item_parent->course_item_chapter_id);
+        $course   = Course::find($chapter->course_id);
+        $items = CourseItem::where('course_items_parent', $id)->get();
+
+        return view('user.pages.userPanel.test-item')
+        ->with('item_types', CourseItemType::all())
+        ->with('items', $items)
+        ->with('item_parent', $item_parent)
+        ->with('chapter', $chapter)
+        ->with('course', $course);
+    }
 }

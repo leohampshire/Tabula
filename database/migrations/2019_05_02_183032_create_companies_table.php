@@ -16,7 +16,7 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->longtext('about');
+            $table->longtext('about')->nullable();
             $table->string('cover')->default('default.png');
 
             $table->softDeletes();

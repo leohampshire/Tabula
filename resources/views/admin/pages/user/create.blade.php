@@ -127,7 +127,7 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="linkedin">linkedin</label>
+                    <label for="linkedin">Linkedin</label>
                     <input class="form-control" type="text" name="linkedin" placeholder="https://..." value="{{ old('linkedin') }}">
                   </div>
 

@@ -10,13 +10,14 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="row">
-        <div class="col-sm-4">
-          <h1>Capítulo: {{$chapter->name}}</h1>
-        </div>
-        <div class="col-sm-8">
+        <div class="col-sm-12">
           <button class="btn btn-header act-complement">MATERIAL COMPLEMENTAR</button>
           <button class="btn btn-header act-test">NOVA AVALIAÇÃO</button>
           <button class="btn btn-header act-class">NOVA AULA</button>
+          <button class="btn-header-back" onclick="window.location.href='{{ route('admin.course.edit', ['id' => $course->id])}}'">VOLTAR</button>
+        </div>
+        <div class="col-sm-12">
+          <h1>Capítulo: {{$chapter->name}}</h1>
         </div>
       </div>
     </section>

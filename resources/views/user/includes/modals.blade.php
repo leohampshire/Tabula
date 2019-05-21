@@ -434,9 +434,7 @@
               {{csrf_field()}}
                 <input type="hidden" name="chapter_id" value="">
                 <input type="hidden" name="course_id" value="">
-              @isset($item_parent)
-                <input type="hidden" name="item_parent" value="{{$item_parent->id}}">
-              @endisset
+                <input type="hidden" name="item_parent" value="">
               <div class="box-body">
                 <div class="form-group row">
                   <div class="col-xs-12">
@@ -708,3 +706,40 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.Incluir Professor-->
+
+
+<!--Incluir Resposta-->
+<div class="modal fade" id="answerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Incluir Resposta</h4>
+      </div>
+      <form method="POST" action="{{route('course.question')}}" enctype="multipart/form-data">
+          <div class="modal-body">
+              {{csrf_field()}}
+              <input type="hidden" name="course_id" value="">
+              <input type="hidden" name="answer" value="">
+              <div class="box-body">
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="email">Resposta</label>
+                    <textarea name="question" placeholder="Resposta" id="name" class="form-control">{{old('question')}}</textarea>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.Incluir Resposta-->

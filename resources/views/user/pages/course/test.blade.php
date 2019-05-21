@@ -15,7 +15,7 @@
 				<div class="col-sm-12">
 					<div class="input-group">
 	                    <span class="input-group-addon">
-	                      <input type="radio" name="alternative" value="{{$question->id}}">
+	                      <input type="radio" name="alternative[]" value="{{$question->id}}">
 	                    </span>
 	                    <label for="alternative" class="form-control">{{$question->desc}}</label>
 	              	</div>
@@ -33,13 +33,13 @@
 			<div class="col-sm-12">
 				<div class="input-group">
 		            <span class="input-group-addon">
-		              <input type="radio" name="true_false-{{$itm->id}}" value="1">
+		              <input type="radio" name="true_false[]" value="1">
 		            </span>
 		            <label  class="form-control">Verdadeiro</label>
 		        </div>
 		        <div class="input-group">    
 		            <span class="input-group-addon">
-		              <input type="radio" name="true_false-{{$itm->id}}" value="0">
+		              <input type="radio" name="true_false[]" value="0">
 		            </span>
 		            <label  class="form-control">Falso</label>
 		      	</div>

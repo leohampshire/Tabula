@@ -14,7 +14,10 @@
           <h1>Editar Curso</h1>
         </div>
         <div class="col-sm-6">
-          <button class="btn-header act-chapter">NOVO CAPITULO</button>
+            <button class="btn-header act-chapter">NOVO CAPITULO</button>
+          <a href="{{route('admin.course.index')}}">
+            <button class="btn-header-back">VOLTAR</button>
+          </a>
         </div>
       </div>
     </section>
