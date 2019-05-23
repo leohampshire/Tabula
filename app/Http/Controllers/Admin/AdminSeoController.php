@@ -16,11 +16,6 @@ class AdminSeoController extends Controller
 		->with('seos', Seo::all());
 	}
 	
-	public function search()
-	{
-
-	}
-	
 	public function create()
 	{
 		return view('admin.pages.seo.create')

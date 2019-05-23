@@ -30,6 +30,13 @@
 				@if($course->avaliable == 1)
 				<a href="{{route('user.course.avaliable', ['id' => $course->id])}}" class="act-avaliable"><span>DISPONIBILIZAR</span></a>		
 				@endif	
+				@if($auth->company_id != NULL)
+					@if($course->company != 1)
+					<a href="{{route('user.course.company', ['course' => $course->id])}}"><span>LIBERAR EMPRESA</span></a>
+					@else	
+					<a href="{{route('user.course.company', ['course' => $course->id])}}"><span>REMOVER EMPRESA</span></a>
+					@endif
+				@endif
 			</div>
 		</div>
 	</div>

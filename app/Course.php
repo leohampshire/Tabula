@@ -49,7 +49,7 @@ class Course extends Model
 
     public function cart()
     {
-        return $this->hasMany('App\Cart');
+        return $this->hasMany('App\Cart')->withPivot('coupon', 'discount');
     }
 
     public function rating()

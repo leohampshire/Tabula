@@ -73,7 +73,7 @@
                   @forelse($items as $item)
                     <tr>
                       <td>{{$item->name}}</td>
-                      <td>{{$item->course_item_type->name}}</td>
+                      <td>{{$item->course_item_type->value}}</td>
                       <td>
                         <a href="#" title="Editar" class="act-list act-edit-chapter" data-name="{{$item->name}}" data-desc="{{$item->desc}}" data-id="{{$item->id}}">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

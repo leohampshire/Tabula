@@ -37,6 +37,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::get('/criar', 'User\UserController@contentCreateCourse')->name('create');
     Route::get('/editar/{id}', 'User\UserController@contentCourseEdit')->name('edit');
+    Route::get('/liberar-empresa/{course}', 'Company\CompanyController@avaliable')->name('company');
     Route::get('/liberar/{id}', 'User\CourseController@avaliable')->name('avaliable');
     Route::get('/incluir-item/{id}', 'User\UserController@contentCourseItem')->name('item');
   });
@@ -48,6 +49,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
 });
 
 Route::get('/pesquisar/{id}', 'User\SearchController@search')->name('search.single');
+Route::get('searchcat', 'User\SearchController@searchCat')->name('search.category');
 
 
 
@@ -162,7 +164,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/aluno/{id}', 'Admin\AdminCourseController@student')->name('student');
       Route::group(['prefix'=> 'aluno', 'as' => 'student.'], function(){
         Route::post('incluir/', 'Admin\AdminCourseController@studentInclude')->name('include');
-        Route::post('reiniciar/{id}', 'Admin\AdminCourseController@studentRestart')->name('restart');
+        Route::get('certificado/{student}/{course}', 'Admin\AdminCourseController@certificate')->name('certificate');
+        Route::get('reiniciar/{course_id}/{user_id}', 'Admin\AdminCourseController@studentRestart')->name('restart');
       });
       //CAPITULOS CURSO ADMIN
       Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
@@ -194,12 +197,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
     //SEOS ADMIN
   Route::group(['prefix' => 'seo', 'as' => 'seo.'], function(){
     Route::get('/index', 'Admin\AdminSeoController@index')->name('index');
-    Route::post('/pesquisar', 'Admin\AdminSeoController@search')->name('search');
     Route::get('/create', 'Admin\AdminSeoController@create')->name('create');
     Route::post('/store', 'Admin\AdminSeoController@store')->name('store');
     Route::get('/edit/{id}', 'Admin\AdminSeoController@edit')->name('edit');
     Route::post('/update', 'Admin\AdminSeoController@update')->name('update');
     Route::get('/delete/{id}', 'Admin\AdminSeoController@delete')->name('delete');
+  });
+    //PROMOCOES ADMIN
+  Route::group(['prefix' => 'promocao', 'as' => 'promotion.'], function(){
+    Route::get('/index', 'Admin\AdminPromotionController@index')->name('index');
+    Route::get('/create', 'Admin\AdminPromotionController@create')->name('create');
+    Route::post('/store', 'Admin\AdminPromotionController@store')->name('store');
+    Route::get('/edit/{promotion}', 'Admin\AdminPromotionController@edit')->name('edit');
+    Route::post('/update', 'Admin\AdminPromotionController@update')->name('update');
+    Route::get('/delete/{promotion}', 'Admin\AdminPromotionController@delete')->name('delete');
   });
 
   //CATEGORIAS BLOG ADMIN
@@ -286,6 +297,7 @@ Route::get('professor/{id}', 'User\HomeController@teacher')->name('teacher');
 Route::get('empresa/{id}', 'User\HomeController@company')->name('company');
 
 Route::get('/carrinho', 'User\CartController@cart')->name('cart');
+Route::post('/carrinho/cupom', 'User\CartController@coupon')->name('coupon');
 Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('/{urn}', 'User\HomeController@pages')->name('page');

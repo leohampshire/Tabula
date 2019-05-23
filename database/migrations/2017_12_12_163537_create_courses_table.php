@@ -24,6 +24,7 @@ class CreateCoursesTable extends Migration
             $table->integer('subcategory_id')->nullable();
             $table->text('requirements')->nullable();
             $table->boolean('avaliable')->nullable();
+            $table->boolean('company')->nullable();
             $table->string('video')->nullable();
             $table->boolean('featured')->default(0);
             $table->integer('total_class')->nullable();

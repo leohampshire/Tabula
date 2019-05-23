@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Course, Rating, Forum, CourseItem, CourseItemChapter, CourseItemUser};
+use App\{Course, Rating, Forum, CourseItem, CourseItemChapter, CourseItemUser, TestItem, TestUser, Test};
 use Auth;
 
 class CourseController extends Controller
@@ -162,7 +162,59 @@ class CourseController extends Controller
 
     public function testValidate(Request $request)
     {
-        return dd($request);
+
+        $auth = Auth::guard('user')->user();
+        $itm = CourseItem::find($request->item_id);
+        
+        if (isset($request->true_false)) {
+            foreach ($request->true_false as $key => $answer) {
+                $item = TestItem::where('id', $key)->first();
+                if ($key = $item->id) {
+                    $this->userTest($auth->id, $key, $answer);
+                }
+            }
+        }
+        
+        if(isset($request->alternative)){
+            foreach ($request->alternative as $key => $answer) {
+                $item = TestItem::where('id', $key)->first();
+                if ($key = $item->id) {
+                    $this->userTest($auth->id, $key, $answer);
+                }
+            }
+        }
+
+        if(isset($request->alt_mult)){
+            foreach ($request->alt_mult as $key => $answer) {
+                $item = TestItem::where('id', $key)->first();
+                if ($key = $item->id) {
+                    foreach ($answer as $answers) {
+                        $this->userTest($auth->id, $key, $answers);
+                    }
+                }
+            }
+        }
+        if(isset($request->dissertative)){
+            foreach ($request->dissertative as $key => $answer) {
+                $item = TestItem::where('id', $key)->first();
+                if ($key = $item->id) {
+                    $testUser                   = new TestUser;
+                    $testUser->user_id          = $auth->id;
+                    $testUser->course_item_id   = $key;
+                    $testUser->answer           = 2;
+                    $testUser->desc             = $answer;
+                    $testUser->save();
+                }
+            }
+        }
+        $test                   = new Test;
+        $test->user_id          = $auth->id;
+        $test->course_item_id   = $request->item_id;
+        $test->answers          = $itm->course_item_parent()->count();
+        $test->correct          = $this->correctAnswer($itm);
+        $test->save();
+
+        return redirect()->back();
     }
 
     public function avaliable($id)
@@ -171,6 +223,47 @@ class CourseController extends Controller
         $course->avaliable = 3;
         $course->save();
         return redirect()->back()->with('success', 'Enviado para análise');
+    }
+
+    private function userTest($id, $key, $answer)
+    {
+        $testUser                   = new TestUser;
+        $testUser->user_id          = $id;
+        $testUser->course_item_id   = $key;
+        $testUser->answer           = $answer;
+        $testUser->save();
+    }
+
+    private function correctAnswer($item)
+    {
+        $auth = Auth::guard('user')->user();
+        $count = 0;
+        foreach ($item->course_item_parent as $key => $items) {
+            if($items->course_item_types_id ==  8){
+                $userItem = TestUser::where('course_item_id', $items->id)->where('user_id', $auth->id)->first();
+                if($items->test()->first()->answer == $userItem->answer){
+                    $count++;
+                }
+            }
+
+            if($items->course_item_types_id ==  9){
+                $userItem = TestUser::where('course_item_id', $items->id)->where('user_id', $auth->id)->first();
+                if($items->test()->first()->answer == $userItem->answer){
+                    $count++;
+                }
+            }
+
+            if($items->course_item_types_id ==  7){
+                $userItem = TestUser::where('course_item_id', $items->id)
+                ->where('user_id', $auth->id)->where('answer', 1)->count();
+                $answers = $items->test()->where('answer', 1)->count();
+                if ($userItem == $answers) {
+                    $count++;
+                }
+            }
+
+        }
+        return $count;
     }
     
 }

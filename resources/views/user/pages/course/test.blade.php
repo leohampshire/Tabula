@@ -15,7 +15,7 @@
 				<div class="col-sm-12">
 					<div class="input-group">
 	                    <span class="input-group-addon">
-	                      <input type="radio" name="alternative[]" value="{{$question->id}}">
+	                      <input type="radio" name="alternative[{{$itm->id}}]" value="{{$question->answer}}">
 	                    </span>
 	                    <label for="alternative" class="form-control">{{$question->desc}}</label>
 	              	</div>
@@ -33,13 +33,13 @@
 			<div class="col-sm-12">
 				<div class="input-group">
 		            <span class="input-group-addon">
-		              <input type="radio" name="true_false[]" value="1">
+		              <input type="radio" name="true_false[{{$itm->id}}]" value="1">
 		            </span>
 		            <label  class="form-control">Verdadeiro</label>
 		        </div>
 		        <div class="input-group">    
 		            <span class="input-group-addon">
-		              <input type="radio" name="true_false[]" value="0">
+		              <input type="radio" name="true_false[{{$itm->id}}]" value="0">
 		            </span>
 		            <label  class="form-control">Falso</label>
 		      	</div>
@@ -57,7 +57,7 @@
 				<div class="col-sm-12">
 					<div class="input-group">
 	                    <span class="input-group-addon">
-	                      <input type="checkbox" name="alt_mult[]" value="{{$question->id}}">
+	                      <input type="checkbox" name="alt_mult[{{$itm->id}}][]" value="{{$question->answer}}">
 	                    </span>
 	                    <label for="alternative" class="form-control">{{$question->desc}}</label>
 	              	</div>
@@ -65,17 +65,16 @@
 			</div>
 			@empty
 			@endforelse
-
-		@elseif($itm->course_item_type_id == 10)
+		@elseif($itm->course_item_types_id == 10)
 		<div class="row">
 			<div class="col-sm-12">
 				<h3>{{$itm->name}}</h3>
-				<textarea rows="4" class="form-control" name="dissertative"></textarea>
+				<textarea rows="4" class="form-control" name="dissertative[{{$itm->id}}]"></textarea>
 			</div>
 		</div>
 		@endif
 	@empty
-	@endforelse
+	@endforelse	
 		<button class="btn btn-primary" type="submit">Enviar Prova</button>
 	</form>
 </div>

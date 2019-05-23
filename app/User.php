@@ -76,7 +76,7 @@ class User extends Authenticatable
 
 
     public function cart(){
-        return $this->belongsToMany('App\Course', 'carts', 'user_id', 'course_id')->withPivot('user_id', 'course_id');
+        return $this->belongsToMany('App\Course', 'carts', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'coupon', 'discount');
     }
 
     public function rating()
@@ -91,7 +91,10 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->hasOne('App\company');
+        return $this->belongsTo('App\company');
     }
-
+    public function progress()
+    {
+        return $this->belongsToMany('App\Course')->withPivot('progress');
+    }
 }

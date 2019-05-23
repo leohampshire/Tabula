@@ -87,7 +87,11 @@
                 <tbody>
                   @forelse($course->students as $student)
                   <?php
-                  $progress = ($student->pivot->progress / $course->total_class)*100;
+                  if($course->total_class != 0){
+                    $progress = ($student->pivot->progress / $course->total_class)*100;
+                  }else{
+                    $progress = 0;
+                  }
                   ?>
                     <tr>
                       <td>{{$student->name}}</td>
@@ -98,10 +102,10 @@
                       </div>
                       </td>
                       <td>
-                        <a href="{{ route('admin.course.student.restart', ['id' => $student->id])}}" title="Reiniciar" class="act-list act-delete">
+                        <a href="{{ route('admin.course.student.restart', ['id' => $student->id, 'course_id' => $course->id])}}" title="Reiniciar" class="act-list act-delete">
                           <i class="fa fa-refresh" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.course.student', ['id' => $student->id])}}" title="Alunos" class="act-list">
+                        <a href="{{ route('admin.course.student.certificate', ['id' => $student->id, 'course_id' => $course->id])}}" title="Gerar Certificado" class="act-list">
                           <i class="fa fa-certificate" aria-hidden="true"></i>
                         </a>
                       </td>

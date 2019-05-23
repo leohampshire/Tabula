@@ -18,7 +18,8 @@ class SearchController extends Controller
 
         if($categories){
             foreach ($categories as $category) {
-                $category->parent_categories = Category::where('category_id', $category->id)->orderBy('name', 'ASC')->get();
+                
+                $category->parent_categories = $category->categories;
             }
         }
 
@@ -57,27 +58,24 @@ class SearchController extends Controller
             ->with('checked_category', $category)
                 // variável para ser escrita no campo de busca na search.blade
             ->with('search_string', '')
-            ->with('user', $user)
-            ->with('userType', $userType);
+            ->with('user', $user);
         }
     }
 
     public function searchCat(Request $request)
     {
         $user = Auth::user();
-        $userType = Usertype::all();
         if ($request->ajax()){
 
             $courses_group = array();
             $courses_check = array();
             $courses_string = array();
-
             // CHECK E STRING
             if($request->any_check == "true" && $request->any_string == "true")
             {
                 // monta um collection com as categorias selecionadas
                 $categories = Category::all()->whereIN('id', explode(',', $request->checked_group_output));
-                
+
                 foreach($categories as $category)
                 {
                     // cursos de cada categoria
@@ -97,51 +95,53 @@ class SearchController extends Controller
                 // retorna searchResults que é uma view extra apenas para os resultados da busca    
                     return view('searchResults')
                     ->with('courses', $courses_group);
-                }
+            }
             // CHECK APENAS
-                else if($request->any_check == "true" && $request->any_string == "false")
+            else if($request->any_check == "true" && $request->any_string == "false")
+            {
+            // monta um collection com as categorias selecionadas
+                $categories = Category::all()->whereIN('id', explode(',', $request->checked_group_output));
+
+                foreach($categories as $category)
                 {
-                // monta um collection com as categorias selecionadas
-                    $categories = Category::all()->whereIN('id', explode(',', $request->checked_group_output));
+                // cursos de cada categoria
 
-                    foreach($categories as $category)
-                    {
-                    // cursos de cada categoria
-                        $category_courses = $category->courses->all();
+                    $category_courses = Course::where('category_id', $category->id)->orWhere('subcategory_id', $category->id)->get();
+                    foreach($category_courses as $category_course){
+                    // adiciona cada curso de cada categoria no array de cursos checadas
+                        if(!in_array($category_course, $courses_check)){
 
-                        foreach($category_courses as $category_course)
-                        // adiciona cada curso de cada categoria no array de cursos checadas
                             array_push($courses_check, $category_course);
+                        }
                     }
-
-                // retorna searchResults que é uma view extra apenas para os resultados da busca
-                    return view('searchResults')
-                    ->with('courses', $courses_check);
                 }
+            // retorna searchResults que é uma view extra apenas para os resultados da busca
+                return view('user.pages.searchResults')
+                ->with('courses', $courses_check);
+            }
             // STRING APENAS
-                else if($request->any_check == "false" && $request->any_string == "true")
-                {
-                // monta um collection com cursos contendo a string escrita no campo de busca
-                    $courses_collection = Course::where('name','like', '%' . $request->course_title_output . '%')->get();
+            else if($request->any_check == "false" && $request->any_string == "true")
+            {
+            // monta um collection com cursos contendo a string escrita no campo de busca
+                $courses_collection = Course::where('name','like', '%' . $request->course_title_output . '%')->get();
 
-                    foreach($courses_collection as $courses)
-                    // transfere os cursos do collection para um novo array de cursos
-                        array_push($courses_string, $courses);
+                foreach($courses_collection as $courses)
+                // transfere os cursos do collection para um novo array de cursos
+                    array_push($courses_string, $courses);
 
-                // retorna searchResults que é uma view extra apenas para os resultados da busca
-                    return view('searchResults')
-                    ->with('courses', $courses_string);
-                } 
+            // retorna searchResults que é uma view extra apenas para os resultados da busca
+                return view('user.pages.searchResults')
+                ->with('courses', $courses_string);
+            } 
             // NEM CHECK NEM STRING
-                else
-                {
-                    $courses = Course::all();
-                // retorna searchResults que é uma view extra apenas para os resultados da busca
-                    return view('searchResults')
-                    ->with('user', $user)
-                    ->with('userType', $userType)
-                    ->with('courses', $courses);
-                }
+            else
+            {
+                $courses = Course::all();
+            // retorna searchResults que é uma view extra apenas para os resultados da busca
+                return view('user.pages.searchResults')
+                ->with('user', $user)
+                ->with('courses', $courses);
             }
         }
+    }
 }

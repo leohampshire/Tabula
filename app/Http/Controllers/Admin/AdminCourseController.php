@@ -15,6 +15,7 @@ use App\Course;
 use App\User;
 use Session;
 use Auth;
+use PDF;
 class AdminCourseController extends Controller
 {
 	public function index(Request $request)
@@ -67,7 +68,7 @@ class AdminCourseController extends Controller
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv',
-            'requirements'=> 'max:1000'	,
+            'requirements'=> 'max:10000'	,
             'timeM'       => 'max:59',
         ]);
 
@@ -473,9 +474,33 @@ class AdminCourseController extends Controller
         return redirect()->back()->with('warning', 'Usuário já vinculado ao curso ou inexistente');
     }
 
-    public function studentRestart($id)
+    public function studentRestart($user_id, $course_id)
     {
-        $student = User::find($id);
+        CourseUser::where('course_id', $course_id)->where('user_id', $user_id)->update([
+            'progress' => 0,
+        ]);
+        return redirect()->back()->with('success', 'Progresso Reiniciado');
+    }
+
+    public function certificate(User $student, Course $course)
+    {
+        $progress = $student->progress()->find($course->id)->pivot->progress; 
+        if ($progress != $course->total_class) {
+            return redirect()->back()->with('warning', 'Curso ainda não finalizado para gerar o certificado.');
+        }
+        $teacher = User::find($course->user_id_owner);
+        $now = date("Y-m-d H:i:s");
+        $data = [
+            'date'      => $now,
+            'student'   => $student,
+            'course'    => $course,
+            'teacher'   => $teacher,
+            'company'   => $teacher->company,
+            'hour'      => $course->timeH,
+            'minute'    => $course->timeM,
+            ];
+        $pdf = PDF::loadView('admin.pages.course.student.certificate', $data);
+        return $pdf->stream('document.pdf');
     }
 
     public function urnValidate(String $name)

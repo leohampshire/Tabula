@@ -47,7 +47,7 @@
 <script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
 
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-
+<script src="//cdn.jsdelivr.net/npm/afterglowplayer@1.x"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script type="text/javascript">
@@ -109,6 +109,84 @@ $(document).on('click', '#scroll', function(event){
         $('.state').slideUp();
      }
    }
+ $(document).ready(function(){
+  // a cada click em qualquer checkbox ou no botao de procurar
+  $('input[name="macrotema"], input[name="subtema"], #search_btn').click(function(){
+
+  var checked_group = [];
+  // controla a quantidade de checks, se = 0, any_check = false
+  var checked_num = 0;
+  // controla o valor do campo de busca (string), se '', any_string = false
+  var course_title;
+  // variavel que vai segurar ATRIBRUTOS extras no 'data' do ajax, e passar para o controller
+  var output;
+
+  // adiciona cada categoria checada no array checked_group (a cada click em qualquer checkbox ou no botao de procurar)
+  $('input[name="macrotema"]:checked').each(function()
+  {
+    var count_sub_checked = 0;
+    var count_sub_total = 0;
+
+    // Faz a contagem de quantas subcategorias da categoria principal estão selecionadas
+    $('input[name="subtema"][data-macro-main="'+$(this).val()+'"]').each(function(){
+      if($(this).is(':checked')){
+          count_sub_checked++;
+      }
+      count_sub_total++;
+    });
+
+    // Se não for selecionada nenhuma ou todas as subcategorias para filtro
+    if(count_sub_checked == 0 || count_sub_total == count_sub_checked){
+      // Adiciona a categoria principal na busca
+      checked_group.push($(this).val());
+      checked_num++;
+      // Adiciona todas as subcategorias na busca
+      $('input[name="subtema"][data-macro-main="'+$(this).val()+'"]').each(function(){
+          checked_group.push($(this).val());
+          checked_num++;
+      });
+    } else {
+      $('input[name="subtema"][data-macro-main="'+$(this).val()+'"]').each(function(){
+          if($(this).is(':checked')){
+              checked_group.push($(this).val());
+              checked_num++;
+          }
+      });
+    }
+  });
+
+  checked_group = checked_group.toString();
+    
+  // pega o valor do campo de busca (string)
+  var course_title = $('#search_string').val();
+  course_title = course_title.toString();
+
+  // verifica se existe check ou string e altera os ATRIBUTOS que serão usados pelo controller
+  if (course_title != "" && checked_num > 0)
+      output = {any_string:true,any_check:true,checked_group_output:checked_group,course_title_output:course_title};
+  else if (course_title != "" && checked_num == 0)
+
+      output = {any_string:true,any_check:false,course_title_output:course_title};
+  else if (course_title == "" && checked_num > 0)
+      output = {any_string:false,any_check:true,checked_group_output:checked_group};
+  else
+      output = {any_string:false,any_check:false,};
+console.log(output);
+  $.ajax({
+      type: 'GET',
+      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      url: '{{ route('search.category') }}',
+      data: output,
+      error: function(e){
+          console.log(e);
+      },
+      success: function(response){
+          console.log(response);
+          $('#search-results').html(response);
+      }
+    });
+  });
+});
 
   
   $('.state').hide();

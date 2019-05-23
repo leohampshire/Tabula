@@ -21,6 +21,8 @@ class CreateCouponsTable extends Migration
             $table->string('desc_coupon',100)->nullable();
             $table->string('type_id')->nullable();
             $table->integer('active');
+            $table->string('type_discount')->nullable();
+            $table->integer('limit')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

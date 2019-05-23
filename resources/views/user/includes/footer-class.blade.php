@@ -9,6 +9,7 @@
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/afterglowplayer@1.x"></script>
 <script type="text/javascript">
 
 $('.carousel-courses').slick({
@@ -60,6 +61,8 @@ $(document).on("click", '.check-class', function(event){
   checkedClassAjax(url, class_id, user_id, course_id);
 });
 
+
+
   /*----------------------------------------------------------------------------------------------*/
     //Funcoes Ajax
     function getContent(item, url){
@@ -74,6 +77,7 @@ $(document).on("click", '.check-class', function(event){
         },
         success: function(data){
           $('#content').html(data);
+          afterglow.getPlayer('teste');
           
         },
         error: function(e){

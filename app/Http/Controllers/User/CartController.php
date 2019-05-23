@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cart;
 use App\CourseUser;
+use App\CouponUser;
+use App\Coupon;
 use App\Course;
 use Auth;
 use Session;
@@ -22,6 +24,9 @@ class CartController extends Controller
                 $course = Course::whereIn('id', $cart)->get();
                 $auth->cart = $course;
             }
+        }else{
+            $auth->discount = $this->discount();
+
         }
 
         return view('user.pages.cart')->with('auth', $auth);
@@ -137,7 +142,7 @@ class CartController extends Controller
                     }
                 }
                 $value = $request->session()->forget('cart');
-                return redirect()->route('cart.checkout');
+                return redirect()->route('cart');
             }
         return redirect(url('/'));        
         }
@@ -152,4 +157,176 @@ class CartController extends Controller
         }
         return redirect(url('/user/login'));
     }
+
+    public function coupon(Request $request){
+        $auth = Auth::guard('user')->user();
+        if (!$auth) {
+            $request->session()->put('coupon', $request->coupon);
+            return redirect(url('/user/login'));
+        }
+        $coupon = Coupon::where('cod_coupon', $request->coupon)->first();
+        if ($coupon) {
+            $request->session()->forget('coupon');
+            $this->validateCoupon($coupon);
+            
+            return redirect()->back()->with('success', 'Cupom Aplicado');
+        }
+        return redirect()->back()->with('warning', 'Cupom não disponível');
+    }
+
+    //Valida se o cupom pode ser usado
+    private function validateCoupon(Coupon $coupon)
+    {
+        $auth = Auth::guard('user')->user();
+        $couponUser = CouponUser::where('user_id', $auth->id)->where('coupon_id', $coupon->id)->first();
+        if(!$couponUser){
+            $this->limitValidate($coupon); 
+            foreach ($auth->cart as $cart) {
+                $cart->pivot->coupon = $coupon->cod_coupon;
+                $cart->pivot->save();
+            }
+            $this->generateDiscount($coupon, $auth->cart);
+        }
+    }
+
+    private function generateDiscount(Coupon $coupon, $course)
+    {
+        if ($coupon->type_coupon == 'carrinho') {
+            $this->fixedDiscount($coupon, $course);
+        }elseif($coupon->type_coupon == 'produto') {
+            $this->courseDiscount($coupon, $course);
+        }elseif($coupon->type_coupon == 'macrotema'){
+            $this->macrotemaDiscount($coupon, $course);
+        }elseif($coupon->type_coupon == 'subcategoria'){
+            $this->subcategoryDiscount($coupon, $course);
+        }
+        
+    }
+
+    //Verifica o limite do cupom
+    private function limitValidate(Coupon $coupon)
+    {
+        $limit = CouponUser::where('coupon_id', $coupon->id)->count();
+        if($limit == $coupon->limit){
+            return redirect()->back()->with('warning', 'Este cupom não é mais válido');
+        }
+    }
+
+    private function discount()
+    {
+        $total = 0;
+        $auth = Auth::guard('user')->user();
+        foreach ($auth->cart as  $cart) {
+            $discount = $cart->pivot->discount;
+            $total = $total + $discount;
+        }
+        return $total;
+    }
+
+
+    private function fixedDiscount(Coupon $coupon, $course)
+    {
+        $discount = $coupon->value_coupon / $course->count();
+        if ($coupon->type_discount == 'dinheiro') {
+            foreach ($course as $key => $cart) {
+                $cart->pivot->discount = $discount;
+                $cart->pivot->save();
+            }
+        }else{
+            foreach ($course as $key => $cart) {
+                $cart->pivot->discount = ($cart->price * $discount) / 100;
+                
+                $cart->pivot->save();
+            }
+        }
+    }
+
+    private function courseDiscount(Coupon $coupon, $course)
+    {
+        $courses = unserialize($coupon->type_id);
+        $discount = $coupon->value_coupon / count($courses);
+
+        if ($coupon->type_discount == 'dinheiro') {
+            foreach ($course as $key => $cart) {
+                if(in_array($cart->id, $courses)){
+                    $cart->pivot->discount = $discount;
+                }else{
+                    $cart->pivot->discount = 0;
+                }
+                $cart->pivot->save();
+            }
+        }else{
+            foreach ($course as $key => $cart) {
+                if(in_array($cart->id, $courses)){
+                    $cart->pivot->discount = $discount;
+                }else{
+                    $cart->pivot->discount = ($cart->price * $discount) / 100;
+                }
+                $cart->pivot->save();
+            }
+        }
+    }
+
+    private function macrotemaDiscount(Coupon $coupon, $course)
+    {
+        $count = 0;
+        $categories = unserialize($coupon->type_id);
+        foreach ($course as $cart) {
+            if(in_array($cart->category_id, $categories)){
+                $count++;
+            }
+        }
+        $discount = $coupon->value_coupon / $count;
+        if ($coupon->type_discount == 'dinheiro') {
+            foreach ($course as $cart) {
+                if(in_array($cart->category_id, $categories)){
+                    $cart->pivot->discount = $discount;
+                }else{
+                    $cart->pivot->discount = 0;
+                }
+                $cart->pivot->save();
+            }
+        }else{
+            foreach ($course as $cart) {
+                if(in_array($cart->category_id, $categories)){
+                    $cart->pivot->discount = $discount;
+                }else{
+                    $cart->pivot->discount = ($cart->price * $discount) / 100;
+                }
+                $cart->pivot->save();
+            }
+        }
+    }
+
+    private function subcategoryDiscount(Coupon $coupon, $course)
+    {
+        $count = 0;
+        $subcategories = unserialize($coupon->type_id);
+        foreach ($course as $cart) {
+            if(in_array($cart->subcategory_id, $subcategories)){
+                $count++;
+            }
+        }
+        $discount = $coupon->value_coupon / $count;
+        if ($coupon->type_discount == 'dinheiro') {
+            foreach ($course as $cart) {
+                if(in_array($cart->subcategory_id, $subcategories)){
+                    $cart->pivot->discount = $discount;
+                }else{
+                    $cart->pivot->discount = 0;
+                }
+                $cart->pivot->save();
+            }
+        }else{
+            foreach ($course as $cart) {
+                if(in_array($cart->subcategory_id, $subcategories)){
+                    $cart->pivot->discount = $discount;
+                }else{
+                    $cart->pivot->discount = ($cart->price * $discount) / 100;
+                }
+                $cart->pivot->save();
+            }
+        }
+    }
+
 }

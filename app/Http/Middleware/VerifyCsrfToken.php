@@ -14,6 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'admin/cupom/pesquisar',
         'curso/checked',
-        'curso/item'
+        'curso/item',
     ];
 }

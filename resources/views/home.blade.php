@@ -7,27 +7,32 @@
 @section('content')
 
 <section>
+	@if(count($promotions) > 0)
 	<div class="container">
 		<div class="box-w-shadow">
 			<div id="slider" class="carousel slide" data-ride="carousel">
 		    <!-- Indicators -->
-		    <ol class="carousel-indicators">
-		      <li data-target="#slider" data-slide-to="0" class="active"></li>
-		      <li data-target="#slider" data-slide-to="1"></li>
-		    </ol>
 
 		    <!-- Wrapper for slides -->
 		    <div class="carousel-inner">
-
-		      <div class="item active">
-		        <img src="{{ asset('images/slider.png')}}" alt="Slider" style="width:100%;">
-		      </div>
-
-		      <div class="item">
-		        <img src="{{ asset('images/slider2.png')}}" alt="Slider" style="width:100%;">
-		      </div>
+		    	<?php $i = 0; ?>
+		    	@forelse($promotions as $key => $promotion)
+		    	
+			    <div class="item @if($key == 0) active @endif">
+			    	@if($promotion->type == 'image')
+			    	<a href="{{$promotion->url}}" target="_blank">
+				    	<img src="{{ asset('images/promotion')}}/{{$promotion->file}}" alt="Slider" style="width:100%; height: 350px; object-fit: cover;">
+			    	</a>
+			    	@else
+			    	<video controlsList="nodownload" oncontextmenu="return false;" class="afterglow" id="{{$promotion->id}}" style="width:100%; height: 350px; object-fit: cover;">
+			    		<source src="{{asset('/images/promotion/')}}/{{$promotion->file}}" type="video/mp4">
+			    	</video>
+			    	@endif
+			    </div>
+			    <?php $i++; ?>
+			    @empty
+			    @endforelse
 		    </div>
-
 		    <!-- Left and right controls -->
 		    <a class="left carousel-control" href="#slider" data-slide="prev">
 		      <span class="glyphicon glyphicon-chevron-left"></span>
@@ -40,6 +45,7 @@
 		  </div>
 		</div>
 	</div>
+    @endif
 </section>
 
 <section>
@@ -200,7 +206,7 @@
 <section>
 	<div class="container">
 		<div class="box-w-shadow">
-            <video class="video-about" controls poster="../images/layout/home/poster-video.png" width="500px">
+            <video  controlsList="nodownload" oncontextmenu="return false;" class="video-about" controls poster="{{asset('/images/layout/home/poster-video.png')}}" width="500px">
                 <source src="{{asset('/images/layout/home/presentation-tabula.mp4')}}">
             </video>
 		</div>

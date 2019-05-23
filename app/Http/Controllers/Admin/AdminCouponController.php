@@ -48,22 +48,19 @@ class AdminCouponController extends Controller
 	{
 		//valida os campos digitados
     	$this->validate($request, [
-    		'value_coupon'  => 'required|max:100',
+            'type_discount' => 'required',
+            'type_coupon'   => 'required',
+    		'value_coupon'  => 'required',
     		'cod_coupon'    => 'required|unique:coupons|max:100'
     	]);
-    	$auth = Auth::guard('admin')->user();
-        
+        if ($request->type_discount == 'porcentagem') {
+            $this->validate($request, [
+                'value_coupon' => 'max:100',
+            ]);
+        }
             
         $coupon = new Coupon;
-        $coupon->cod_coupon       = $request->cod_coupon;
-        $coupon->desc_coupon      = $request->desc_coupon;
-        $coupon->type_coupon      = $request->type_coupon;
-        $coupon->value_coupon     = str_replace(',', '.', str_replace('.', '', $request->value_coupon));
-        $coupon->active           = 1;
-        $coupon->type_id          = serialize($request->type_id);
-        $coupon->user_id          = $auth->id;
-        
-        $coupon->save();
+        $this->couponGenerate($coupon, $request);
 
     	return redirect(route('admin.coupon.index'))->with('success', 'Cupom criado com sucesso');
 	}
@@ -90,19 +87,15 @@ class AdminCouponController extends Controller
                 Rule::unique('coupons')->ignore($request->id)
             ],
     	]);
+        if ($request->type_discount == 'porcentagem') {
+            $this->validate($request, [
+                'value_coupon' => 'max:100',
+            ]);
+        }
 
-    	$auth = Auth::guard('admin')->user();
           
         $coupon = Coupon::find($request->id);
-        $coupon->cod_coupon       = $request->cod_coupon;
-        $coupon->desc_coupon      = $request->desc_coupon;
-        $coupon->type_coupon      = $request->type_coupon;
-        $coupon->value_coupon     = str_replace(',', '.', str_replace('.', '', $request->value_coupon));
-        $coupon->active           = 1;
-        $coupon->type_id          = serialize($request->type_id);
-        $coupon->user_id          = $auth->id;
-        
-        $coupon->save();
+        $this->couponGenerate($coupon, $request);
 
         return redirect(route('admin.coupon.index'))->with('success', 'Cupom editado com sucesso');
 	}
@@ -115,5 +108,20 @@ class AdminCouponController extends Controller
 
         return redirect()->back()->with('success', 'Cupom removido com sucesso');
 	}
+
+    private function couponGenerate(Coupon $coupon, Request $request)
+    {
+        $auth = Auth::guard('admin')->user();
+        $coupon->cod_coupon       = $request->cod_coupon;
+        $coupon->desc_coupon      = $request->desc_coupon;
+        $coupon->type_coupon      = $request->type_coupon;
+        $coupon->type_discount    = $request->type_discount;
+        $coupon->limit            = $request->limit;
+        $coupon->value_coupon     = str_replace(',', '.', str_replace('.', '', $request->value_coupon));
+        $coupon->active           = 1;
+        $coupon->type_id          = serialize($request->type_id);
+        $coupon->user_id          = $auth->id;
+        $coupon->save();
+    }
 
 }

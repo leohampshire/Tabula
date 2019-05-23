@@ -100,6 +100,7 @@
                   <tr>
                     <th>Código do Cupom</th>
                     <th>Tipo Cupom</th>
+                    <th>Tipo Desconto</th>
                     <th>Descrição Cupom</th>
                     <th>Ações</th>
                   </tr>
@@ -109,6 +110,7 @@
                     <tr>
                       <td>{{$coupon->cod_coupon}}</td>
                       <td>{{ucfirst ($coupon->type_coupon)}}</td>
+                      <td>{{ucfirst ($coupon->type_discount)}}</td>
                       <td>{{$coupon->desc_coupon}}</td>
                       <td>
                         <a href="{{ route('admin.coupon.edit', ['id' => $coupon->id])}}" title="Editar" class="act-list">
@@ -129,6 +131,7 @@
                   <tr>
                     <th>Código do Cupom</th>
                     <th>Tipo Cupom</th>
+                    <th>Tipo Desconto</th>
                     <th>Descrição Cupom</th>
                     <th>Ações</th>
                   </tr>

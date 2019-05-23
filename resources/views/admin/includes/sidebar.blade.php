@@ -67,6 +67,11 @@
             <i class="fa fa-server" aria-hidden="true"></i> <span>SEO</span>
           </a>
         </li>
+        <li {{ (Request::is('admin/promocao') ? 'class=active' : '') }} {{ (Request::is('admin/promocao/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.promotion.index')}}">
+            <i class="fa fa-cart-plus" aria-hidden="true"></i> <span>PROMOÇÕES</span>
+          </a>
+        </li>
         <li {{ (Request::is('admin/categoria-blog') ? 'class=active' : '') }} {{ (Request::is('admin/categoria-blog/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.categ.blog.index')}}">
             <i class="fa fa-cube" aria-hidden="true"></i><span>CATEGORIAS DO BLOG</span>

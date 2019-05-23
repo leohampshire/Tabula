@@ -22,6 +22,10 @@ class Category extends Model
     {
     	return $this->belongsTo('App\Category', 'category_id');
     }
+    public function categories()
+    {
+        return $this->hasMany('App\Category');
+    }
 
     protected $dates = ['deleted_at'];
 }

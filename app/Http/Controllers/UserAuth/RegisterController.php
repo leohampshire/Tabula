@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\UserAuth;
 
+use Validator;
 use App\User;
 use App\State;
 use App\Country;
 use App\Schooling;
 use App\Category;
 use App\Company;
-use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;

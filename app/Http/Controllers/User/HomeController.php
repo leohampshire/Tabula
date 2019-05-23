@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\UserType;
 use App\Course;
+use App\Promotion;
 use App\Page;
 use App\User;
 use Route;
@@ -35,7 +36,7 @@ class HomeController extends Controller
 
 		$featured_courses1 = $featured_category1->courses()->where('featured', 1)->inRandomOrder()->take(8)->get();
 		$featured_courses2 = $featured_category2->courses()->where('featured', 1)->inRandomOrder()->take(8)->get();
-		$featured_posts = Course::inRandomOrder()->take(8)->get();       
+		$featured_posts = Course::inRandomOrder()->take(8)->get();     
 		return view('home')
 		->with('categories', Category::whereNull('category_id')->whereNotNull('desktop_index')->orderBy('desktop_index', 'ASC')->get())
 		->with('row_limit', 5)
@@ -53,6 +54,7 @@ class HomeController extends Controller
 		->with('featured_category2', $featured_category2->name)
 		->with('featured_courses1', $featured_courses1)
 		->with('featured_courses2', $featured_courses2)
+		->with('promotions', Promotion::all())
 		->with('featured_posts', $featured_posts);
 	}
 

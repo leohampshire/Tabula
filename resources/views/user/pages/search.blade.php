@@ -9,16 +9,39 @@
 <section class="p-top">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
-				<ul>
+			<div class="col-sm-4">
+				<ul class="macro-main">
 					@forelse($categories as $category)
-					<li>{{$category->name}}</li>
-					@empty
-					@endforelse
+                    <li class="macro-main__item">
+                        <input type="checkbox" class="macro-main__checkbox--category" id="{{$category->id}}" value="{{$category->id}}" name="macrotema">
+                        <label for="{{$category->id}}" class="macro-main-label">{{$category->name}}</label>
+                        <ul class="macro-sub--category">
+                            @forelse($category->parent_categories as $parent_category)
+                            <li class="macro-sub__item">
+                                <input type="checkbox" name="subtema" class="macro-main__checkbox" id="{{$parent_category->id}}" value="{{$parent_category->id}}" data-macro-main="{{$parent_category->category_id}}">
+                                <label for="{{$parent_category->id}}">{{$parent_category->name}}</label>
+                            </li>
+                            @empty
+                            @endforelse
+                        </ul>
+                    </li>
+                    @empty
+                    @endforelse
 				</ul>
 			</div>
-			<div class="col-sm-9">
-				<div class="row">   
+			<form action="{{ route('search.single', ['id' => -1]) }}" method="get" enctype="multipart/form-data" style="display: none;">
+                <?php
+                if(isset($_GET['search_string'])){
+                    $search_string = $_GET['search_string'];
+                } else {
+                    $search_string = '';
+                }
+                ?>
+                <input id="search_string" class="input-tabula-white" name="search_string" type="text" placeholder="Digite sua busca." value="{{$search_string}}">
+                <button class="button-tabula-gray" type="submit">Buscar</button>
+            </form>
+			<div class="col-sm-8">
+				<div class="row" id="search-results">   
                     @forelse($courses as $course)    
                     	@if($course->avaliable == 2)
                     	<a href="{{route('course.single', ['id' => $course->urn])}}">

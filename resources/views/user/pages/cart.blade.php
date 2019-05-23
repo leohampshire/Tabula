@@ -63,9 +63,14 @@
 	                    <span class="subtotal-value">R$ {{number_format($auth->cart->sum('price'), 2, ',', '.')}}</span>
 	                    
 	                    <span class="total">Total</span>
+	                    @auth
+	                    <?php $discount = $auth->cart->sum('price') - $auth->discount;?>
+	                    <span class="total-value">R$ {{number_format($discount, 2, ',', '.')}}</span>
+	                    @else
 	                    <span class="total-value">R$ {{number_format($auth->cart->sum('price'), 2, ',', '.')}}</span>
-	                    
-	                    <form class="cupon-form">
+	                    @endauth
+	                    <form class="cupon-form" action="{{route('coupon')}}" method="POST">
+	                    	{{csrf_field()}}
 	                    	<div class="row">
 	                    		<div class="col-xs-12">
 	                    			<span class="total">Cupom de desconto</span>
@@ -73,7 +78,7 @@
 	                    	</div>
 	                    	<div class="row">
 	                    		<div class="col-xs-12">
-			                        <input type="text" name="coupon" placeholder="Código">
+			                        <input type="text" name="coupon" placeholder="Código" value="{{session('coupon')}}">
 			                        <button type="submit">Aplicar</button>
 			                    </div>
 			                </div>
