@@ -36,7 +36,8 @@ class User extends Authenticatable
         'empresa_id',
         'avatar', 
         'user_type_id', 
-        'bio'
+        'bio',
+        'facebook_id'
     ];
 
     /**
@@ -57,6 +58,19 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new UserResetPassword($token));
+    }
+
+    public function addNew($input)
+    {
+        $check = static::where('facebook_id',$input['facebook_id'])->first();
+
+
+        if(is_null($check)){
+            return static::create($input);
+        }
+
+
+        return $check;
     }
 
     public function userTypes()

@@ -301,3 +301,10 @@ Route::post('/carrinho/cupom', 'User\CartController@coupon')->name('coupon');
 Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('/{urn}', 'User\HomeController@pages')->name('page');
+
+Route::get('facebook', function () {
+    return view('facebook');
+});
+Route::get('auth/facebook', 'Admin\FacebookController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'Admin\FacebookController@handleFacebookCallback');
+Route::post('transaction/pagarme', 'User\TransactionController@pagarMe');

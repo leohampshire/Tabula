@@ -86,6 +86,18 @@
 	                    <a href="{{route('cart.checkout')}}">
 	                        <button class="btn-checkout">Finalizar Compra</button>
 	                    </a>
+	                    <?php $points = array(",", "."); ?>
+	                    <form method="POST" action="{{url('transaction/pagarme/')}}">
+                    		{{csrf_field()}}
+	                        <script type="text/javascript"
+	                            src="https://assets.pagar.me/checkout/checkout.js"
+	                            data-encryption-key="ek_test_BAungYpRc4WGgApTuLGEBBzrauSpcN"
+	                            data-customer-data="true"
+	                            data-create-token="false"
+						        data-button-text="Finalizar Compra"
+	                            data-amount="{{number_format(($auth->cart->sum('price') - $auth->discount), 2, '','')}}">
+	                        </script>
+	                    </form>
 	                </div>
 	            </div>                                           
 	        @endif

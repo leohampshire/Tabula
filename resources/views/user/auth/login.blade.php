@@ -49,9 +49,11 @@
             </div>
             <div class="row">
                 <div class="col-sm-offset-4 col-sm-2">
-                    <button class="btn-block btn-login-facebook" type="button">
-                        <i class="fa fa-facebook" aria-hidden="true"></i> Facebook
-                    </button>
+                    <a href="{{ url('auth/facebook') }}">
+                        <button class="btn-block btn-login-facebook" type="button">
+                            <i class="fa fa-facebook" aria-hidden="true"></i> Facebook
+                        </button>
+                    </a>
                 </div>
                 <div class="col-sm-2">
                     <button class="btn-block btn-login-google" type="button">
