@@ -12,6 +12,7 @@ use App\Country;
 use App\Course;
 use App\Company;
 use App\State;
+use App\Order;
 use App\User;
 use Auth;
 
@@ -93,6 +94,21 @@ class UserController extends Controller
         return view('user.pages.userPanel.item-curso')
         ->with('item_types', CourseItemType::all())
         ->with('chapter', $chapter);
+
+    }
+
+    public function contentOrders()
+    {
+        $auth = Auth::guard('user')->user();
+        $orders = Order::where('user_id', $auth->id);
+        $orders = Order::all();
+        return view('user.pages.userPanel.pedidos')
+        ->with('orders', $orders);
+    }
+    public function contentThisOrder($id)
+    {
+        $order = Order::find($id);
+        return view('user.pages.userPanel.mostrar-pedido')->with('order', $order);
 
     }
 

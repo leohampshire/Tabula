@@ -32,6 +32,11 @@
 						<button class="btn-block btn-panel-menu" type="button">Meus cursos</button>
 					</a>
 				</div>
+				<div class="col-xs-3">
+					<a href="#"class="orders" data-url="{{route('user.orders')}}">
+						<button class="btn-block btn-panel-menu" type="button">Meus Pedidos</button>
+					</a>
+				</div>
 				@if($auth->user_type_id == 3)
 				<div class="col-xs-3">
 					<a href="{{route('teacher.be')}}">

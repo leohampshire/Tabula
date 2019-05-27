@@ -30,6 +30,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
   Route::post('/rating', 'User\RatingController@rating')->name('rating');
 
   Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
+  Route::get('/pedidos', 'User\UserController@contentOrders')->name('orders');
+  Route::get('/pedido/{id}', 'User\UserController@contentThisOrder')->name('order');
   //PAINEIS VIA AJAX
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');
   Route::get('/leciono', 'User\UserController@contentTeachCourse')->name('teach');
@@ -307,4 +309,5 @@ Route::get('facebook', function () {
 });
 Route::get('auth/facebook', 'Admin\FacebookController@redirectToFacebook');
 Route::get('auth/facebook/callback', 'Admin\FacebookController@handleFacebookCallback');
-Route::post('transaction/pagarme', 'User\TransactionController@pagarMe');
+Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
+Route::get('transaction/callback', 'User\TransactionController@callback')->name('callback');

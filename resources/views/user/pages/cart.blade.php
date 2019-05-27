@@ -86,7 +86,6 @@
 	                    <a href="{{route('cart.checkout')}}">
 	                        <button class="btn-checkout">Finalizar Compra</button>
 	                    </a>
-	                    <?php $points = array(",", "."); ?>
 	                    <form method="POST" action="{{url('transaction/pagarme/')}}">
                     		{{csrf_field()}}
 	                        <script type="text/javascript"

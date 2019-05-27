@@ -243,6 +243,19 @@ console.log(output);
       getContent(url);
     });
 
+    $(document).on("click", '.this-order', function(event){
+       var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+    $(document).on("click", '.orders', function(event){
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    })
+
     $('.my-course').on('click', function(){
       var url = $(this).data('url');
       $('.btn-panel-menu').removeClass('btn-active');
