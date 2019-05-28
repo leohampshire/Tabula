@@ -307,7 +307,9 @@ Route::get('/{urn}', 'User\HomeController@pages')->name('page');
 Route::get('facebook', function () {
     return view('facebook');
 });
+
 Route::get('auth/facebook', 'Admin\FacebookController@redirectToFacebook');
 Route::get('auth/facebook/callback', 'Admin\FacebookController@handleFacebookCallback');
+
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::get('transaction/callback', 'User\TransactionController@callback')->name('callback');

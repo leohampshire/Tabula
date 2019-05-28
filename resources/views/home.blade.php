@@ -202,6 +202,35 @@
 </section>
 @endif
 
+@if($posts->count())
+<section>
+	<div class="container">
+		<div class="box-w-shadow">
+			<div class="container-carousel-courses">
+				<button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+				<div class="carousel-courses">
+					@forelse($posts as $post)
+					<a href="#">
+					  	<div class="course-box">
+						  	<div class="course-thumb">
+						  		<img src="{{ asset('images/aulas')}}/{{$post->thumb_img}}" alt="Curso">
+						  	</div>
+						  	<div class="course-desc">
+						  		<h3>{{$post->name}}</h3>
+						  		<p>{{substr($post->desc, 0, 50)}}</p>
+						  	</div>
+					  	</div>
+					</a>
+				  	@empty
+				  	@endforelse
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+@endif
+
 
 <section>
 	<div class="container">

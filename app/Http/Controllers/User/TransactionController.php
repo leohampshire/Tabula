@@ -69,7 +69,7 @@ class TransactionController extends Controller
     		  	'amount' => $amount,
     		  	'payment_method' => $payment_method,
     		  	'card_hash' => $card_hash,
-    		  	'postback_url' => 'https://enj6c3nwvjoqn.x.pipedream.net/',
+    		  	'postback_url' => 'http://www.tabula.com.br/transaction/callback',
     		  	'customer' => [
     		    	'external_id' => '1',
     		    	'name' => $name, 
@@ -104,7 +104,7 @@ class TransactionController extends Controller
     			'api_key' => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
     		  	'amount' => $amount,
     		  	'payment_method' => $payment_method,
-    		  	'postback_url' => 'https://enj6c3nwvjoqn.x.pipedream.net/',
+    		  	'postback_url' => 'http://www.tabula.com.br/transaction/callback',
     		  	'customer' => [
     		    	'external_id' => '1',
     		    	'name' => $name, 

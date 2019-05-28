@@ -8,6 +8,7 @@ use App\Category;
 use App\UserType;
 use App\Course;
 use App\Promotion;
+use App\BlogPost;
 use App\Page;
 use App\User;
 use Route;
@@ -22,6 +23,7 @@ class HomeController extends Controller
 		if ($session != null) {
 			return redirect()->route('cart.insert', ['id' => $session]);   
 		}
+		$posts 				 = BlogPost::inRandomOrder()->take(12)->get();
 		
 		$featured_category1  = Category::find(1);              
 		$featured_category2  = Category::find(2);
@@ -50,6 +52,7 @@ class HomeController extends Controller
 		->with('courses', $courses)
 		->with('route', $route)
 		->with('userType', $userType)
+		->with('posts', $posts)
 		->with('featured_category1', $featured_category1->name)
 		->with('featured_category2', $featured_category2->name)
 		->with('featured_courses1', $featured_courses1)

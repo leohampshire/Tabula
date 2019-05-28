@@ -43,7 +43,7 @@
 											<p>{{substr($cart['desc'], 0, 50)}}</p>
 										</div>
 										<div class="course-value">
-											<span>R$ {{$cart['price']}}</span>
+											<span>R$ {{number_format($cart['price'],2,',','.')}}</span>
 										</div>
 									</a>
 					        	</div>
@@ -83,9 +83,7 @@
 			                    </div>
 			                </div>
 	                    </form>
-	                    <a href="{{route('cart.checkout')}}">
-	                        <button class="btn-checkout">Finalizar Compra</button>
-	                    </a>
+	                    @if(Auth::guard('user')->check())
 	                    <form method="POST" action="{{url('transaction/pagarme/')}}">
                     		{{csrf_field()}}
 	                        <script type="text/javascript"
@@ -97,6 +95,11 @@
 	                            data-amount="{{number_format(($auth->cart->sum('price') - $auth->discount), 2, '','')}}">
 	                        </script>
 	                    </form>
+	                    @else
+	                    <a href="{{route('cart.checkout')}}">
+	                        <button class="btn-checkout">Finalizar Compra</button>
+	                    </a>
+	                    @endif
 	                </div>
 	            </div>                                           
 	        @endif
