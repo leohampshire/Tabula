@@ -214,13 +214,32 @@ console.log(output);
       categAjax(url, categId);
     });
 
-    var url_atual = window.location.href;
-    var uri = window.location.pathname;
-    var url = window.location.protocol + "//" + window.location.host;
-    var urn = url+uri;
-     if (urn == '{{route('user.panel')}}') {
+
+
+  $(document).ready( function(){
+
+    url = window.location.href;
+    console.log(url);
+    if(url.indexOf("#personal") > 0){
       getContent("{{route('user.personal')}}");
-    }
+
+    }else if(url.indexOf("#my-course") > 0){
+      getContent("{{route('user.my.course')}}");
+
+    }else if(url.indexOf("#orders") > 0){
+      getContent("{{route('user.orders')}}");
+
+    }else if(url.indexOf("#course-create") > 0){
+      getContent("{{route('user.course.create')}}");
+
+    }else if(url.indexOf("#teach") > 0){
+      getContent("{{route('user.teach')}}");
+
+    }else if(url.indexOf("#course-create") > 0){
+      getContent("{{route('user.teacher.index')}}");
+    }  
+  
+});
    
 
     $('.personal').on('click', function(){

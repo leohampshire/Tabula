@@ -9,6 +9,7 @@ use App\Course;
 use App\UserType;
 use App\State;
 use App\Country;
+use App\Taxa;
 use App\Schooling;
 use App\Coupon;
 use App\Company;
@@ -46,6 +47,14 @@ class AdminController extends Controller
 		return view('admin.pages.admin.index')
         ->with('users', $users);
 	}
+    public function configuration()
+    {
+        $auth = Auth::guard('admin')->user();
+        $taxa = Taxa::first();
+        return view('admin.pages.configuration')
+        ->with('taxa', $taxa)
+        ->with('auth', $auth);
+    }
 
 	public function create()
 	{
@@ -53,6 +62,20 @@ class AdminController extends Controller
 		return view('admin.pages.admin.create')
         ->with('userTypes', $userTypes);
 	}
+
+    public function taxa()
+    {
+        return view('admin');
+    }
+    public function taxaUpdate(Request $request)
+    {
+        $taxa_tabula = 100 -$request->taxa;
+        Taxa::where('id', 1)->update([
+            'taxa_tabula' => $taxa_tabula,
+            'taxa_users'  => $request->taxa,  
+        ]); 
+        return redirect()->back()->with('success','Taxa Atualizada');
+    }
 
 	public function store(Request $request)
 	{

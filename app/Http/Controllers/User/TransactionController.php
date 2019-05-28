@@ -4,11 +4,54 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{CourseUser, Transaction, Order, OrderItem};
+use App\{CourseUser, Transaction, Order, OrderItem, Databank};
 use Auth;
 
 class TransactionController extends Controller
 {
+
+    public function getRecipient(Request $request)
+    {
+        $auth = Auth::guard('user')->user();
+
+        $payload = ([
+          'bank_code'       => $request->bank_code,
+          'agencia'         => $request->agencia,
+          'agencia_dv'      => $request->agencia_dv,
+          'api_key'         => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
+          'conta'           => $request->conta,
+          'conta_dv'        => $request->conta_dv,
+          'document_number' => $request->cpf,
+          'legal_name'      => $auth->name
+        ]);
+
+        $payload = json_encode($payload);
+        $ch = curl_init('https://api.pagar.me/1/bank_accounts');
+
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        # Return response instead of printing.
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        # Send request.
+        $result = curl_exec($ch);
+        curl_close($ch);
+        # Print response.
+        $result = json_decode($result);
+
+        return dd($result);
+        $data_bank = new Databank;
+        $data_bank->account_id      = $result->id;
+        $data_bank->bank_code       = $request->bank_code;
+        $data_bank->agencia         = $request->agencia;
+        $data_bank->agencia_dv      = $request->agencia_dv;
+        $data_bank->conta           = $request->conta;
+        $data_bank->conta_dv        = $request->conta_dv;
+        $data_bank->document_number = $request->cpf;
+        $data_bank->user_id         = $auth->id;
+        $data_bank->save();
+
+        return redirect()->back()->with('succes', 'Dados Bancários salvos com sucesso');
+    }
     public function statusTransaction(Request $request)
 	{  
 		$auth = Auth::guard('user')->user();

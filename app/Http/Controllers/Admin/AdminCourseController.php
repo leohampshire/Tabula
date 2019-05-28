@@ -564,7 +564,22 @@ class AdminCourseController extends Controller
             ]);
         }elseif ($request->item_type_id == 5) {
             $this->validate($request, [
-                'file'      => 'mimes:pdf,doc,xls,ppt,pps,otp,odp,ods,odt,psd,rar,docx, xlsx'
+                'file'  => 'mimetypes:
+                            application/vnd.sealedmedia.softseal.pdf,
+                            application/msword,
+                            application/vnd.ms-excel,
+                            application/vnd.ms-powerpoint,
+                            application/vnd.openxmlformats-officedocument.presentationml.presentation,
+                            application/vnd.openxmlformats-officedocument.presentationml.slideshow,
+                            application/vnd.ms-powerpoint,
+                            application/vnd.oasis.opendocument.presentation-template,
+                            application/vnd.oasis.opendocument.presentation,
+                            application/vnd.oasis.opendocument.spreadsheet,
+                            application/vnd.oasis.opendocument.text,
+                            image/vnd.adobe.photoshop,
+                            application/x-rar-compressed,
+                            application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             ]);
         }
         $attach_file = $request->file;

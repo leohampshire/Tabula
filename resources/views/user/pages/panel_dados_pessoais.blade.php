@@ -28,12 +28,12 @@
 					</a>
 				</div>
 				<div class="col-xs-3">
-					<a href="#"class="my-course" data-url="{{route('user.my.course')}}">
+					<a href="#my-course"class="my-course" data-url="{{route('user.my.course')}}">
 						<button class="btn-block btn-panel-menu" type="button">Meus cursos</button>
 					</a>
 				</div>
 				<div class="col-xs-3">
-					<a href="#"class="orders" data-url="{{route('user.orders')}}">
+					<a href="#orders"class="orders" data-url="{{route('user.orders')}}">
 						<button class="btn-block btn-panel-menu" type="button">Meus Pedidos</button>
 					</a>
 				</div>
@@ -46,13 +46,13 @@
 				@else
 					@if($auth->courses()->count() == 0)
 					<div class="col-xs-3" >
-						<a href="#" class="course-create" data-url="{{route('user.course.create')}}">
+						<a href="#course-create" class="course-create" data-url="{{route('user.course.create')}}">
 							<button class="btn-block btn-panel-menu btn-danger" type="button">Criar Curso</button>
 						</a>
 					</div>
 					@else
 					<div class="col-xs-3" >
-						<a href="#" class="teach" data-url="{{route('user.teach')}}">
+						<a href="#teach" class="teach" data-url="{{route('user.teach')}}">
 							<button class="btn-block btn-panel-menu" type="button">Cursos que leciono</button>
 						</a>
 					</div>
@@ -67,7 +67,7 @@
 			 	@endif
 			 	@if($auth->user_type_id == 5)
 			 	<div class="col-xs-3" >
-						<a href="#" class="course-create" data-url="{{route('user.teacher.index')}}">
+						<a href="#course-create" class="course-create" data-url="{{route('user.teacher.index')}}">
 							<button class="btn-block btn-panel-menu" type="button">Professores </button>
 						</a>
 					</div>

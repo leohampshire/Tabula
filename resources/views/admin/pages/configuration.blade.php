@@ -31,6 +31,7 @@
       </section>
     @endisset
 
+
     <!-- Main content -->
     <section class="content">
       <!-- Main row -->
@@ -60,13 +61,39 @@
             </form>
           </div>
         </section>
+        @if($auth->user_type_id == 1)
+        <section class="col-lg-6">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Taxas Aplicadas</h3>
+            </div>
+            <form method="POST" action="{{ url('admin/configuracao/taxa') }}">
+              {{csrf_field()}}
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="taxa">Taxa a favor do Professor(%)</label>
+                  <input type="number" name="taxa" max="100" class="form-control"  value="{{ $taxa->taxa_users }}" required>
 
-      
+                </div>
+                <div class="form-group">
+                  <p>Valor recebido pelo professor (%): {{ $taxa->taxa_users }} %</p>
+                  <p>Valor recebido pelo Tabula (%): {{ $taxa->taxa_tabula }} %</p>
+                </div>
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+              </div>
+            </form>
+          </div>
+        </section>
+        @endif
       </div>
+
       <!-- /.row (main row) -->
 
     </section>
     <!-- /.content -->
+
   </div>
 
 @stop

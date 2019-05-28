@@ -31,7 +31,7 @@
         <ul>
           @if($auth)
           <li class="menu-profile">
-            <a href="{{route('user.panel')}}">
+            <a href="{{route('user.panel')}}#personal">
               <img src="{{ asset('images/profile/')}}/{{$auth->avatar}}" alt="Perfil">
             </a>
           </li>

@@ -22,8 +22,8 @@
 	</div>
 	<div class="row form-group">
 		<div class="col-xs-6">
-			<label>Nome</label>
-			<input name="name" value="{{$auth->name}}" type="text" class="form-control" placeholder="Nome">
+			<label>Nome Completo</label>
+			<input name="name" value="{{$auth->name}}" type="text" class="form-control" placeholder="Nome Completo">
 		</div>
 		<div class="col-xs-6">
 			<label>E-mail</label>
@@ -88,6 +88,7 @@
 			<input name="google_plus" value="{{$auth->google_plus}}" type="text" class="form-control" placeholder="https:// ...">
 		</div>
 	</div>
+	
 	<div class="row form-group">
 		<div class="col-xs-6">
 			<label for="interest">Interesses</label>
@@ -106,3 +107,47 @@
 		</div>
 	</div>
 </form>
+@if($auth->user_type_id != 3)
+<form method="POST" action="{{route('bank-data')}}">
+	{{csrf_field()}}
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>Dados bancários</h2>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-2">
+			<label for="bank_code">Cód. Banco</label>
+			<input name="bank_code" value="{{$auth->databank->bank_code}}" placeholder="XXX" type="number" class="form-control">
+		</div>
+		<div class="col-xs-2">
+			<label for="agencia">Agência</label>
+			<input name="agencia" value="{{$auth->databank->agencia}}" placeholder="XXXXX" type="number" class="form-control">
+		</div>
+		<div class="col-xs-2">
+			<label for="agencia_dv">Dig. Agência</label>
+			<input name="agencia_dv" value="{{$auth->databank->agencia_dv}}" placeholder="X" type="number" class="form-control">
+		</div>
+
+		<div class="col-xs-3">
+			<label for="conta">Conta (sem dígito)</label>
+			<input name="conta" value="{{$auth->databank->conta}}" type="number" placeholder="Conta" class="form-control">
+		</div>
+
+		<div class="col-xs-2">
+			<label for="conta_dv">Digito conta</label>
+			<input name="conta_dv" value="{{$auth->databank->conta_dv}}" placeholder="XX" type="number"  class="form-control">
+		</div>
+		<div class="col-xs-3">
+			<label for="cpf">CPF</label>
+			<input name="cpf" value="{{$auth->databank->document_number}}" type="text" class="form-control input-cpf">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-4">
+			<button type="submit">Salvar</button>
+		</div>
+	</div>
+</form>
+@endif
+

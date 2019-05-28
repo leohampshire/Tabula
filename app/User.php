@@ -111,4 +111,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Course')->withPivot('progress');
     }
+
+    public function databank()
+    {
+        return $this->hasOne('App\Databank');
+    }
 }

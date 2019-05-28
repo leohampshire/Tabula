@@ -117,7 +117,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
   });
 
   Route::group(['prefix' => 'configuracao', 'as' => 'configuration.'], function(){
-      Route::get('/', 'Admin\AdminController@index')->name('index');
+      Route::get('/', 'Admin\AdminController@configuration')->name('index');
+      Route::get('/taxa', 'Admin\AdminController@taxa')->name('taxa');
+      Route::post('/taxa', 'Admin\AdminController@taxaUpdate');
       Route::post('/update/', 'Admin\AdminController@update')->name('update');
   });
 
@@ -313,3 +315,4 @@ Route::get('auth/facebook/callback', 'Admin\FacebookController@handleFacebookCal
 
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::get('transaction/callback', 'User\TransactionController@callback')->name('callback');
+Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');
