@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Editar Curso')
+@section('title', 'Aluno')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Editar Curso</h1>
+          <h1>Alunos</h1>
         </div>
         <div class="col-sm-6">
           <button class="btn-header act-student" data-id="{{$course->id}}">INCLUIR ALUNO</button>

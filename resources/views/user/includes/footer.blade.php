@@ -51,6 +51,9 @@
 <script src="//cdn.jsdelivr.net/npm/afterglowplayer@1.x"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
 <script type="text/javascript">
 
 $('.carousel-courses').slick({
@@ -172,7 +175,6 @@ $(document).on('click', '#scroll', function(event){
       output = {any_string:false,any_check:true,checked_group_output:checked_group};
   else
       output = {any_string:false,any_check:false,};
-console.log(output);
   $.ajax({
       type: 'GET',
       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -182,7 +184,6 @@ console.log(output);
           console.log(e);
       },
       success: function(response){
-          console.log(response);
           $('#search-results').html(response);
       }
     });
@@ -205,7 +206,6 @@ console.log(output);
     $('#sub_categ').hide();
     $(document).on("change", '#categ', function(event) { 
       var categId = $('#categ option:selected').val();
-      console.log(categId);
       categAjax(url, categId);
     });
     $(document).on("change", '#category_id', function(event) { 
@@ -219,7 +219,6 @@ console.log(output);
   $(document).ready( function(){
 
     url = window.location.href;
-    console.log(url);
     if(url.indexOf("#personal") > 0){
       getContent("{{route('user.personal')}}");
 
@@ -230,8 +229,11 @@ console.log(output);
       getContent("{{route('user.orders')}}");
 
     }else if(url.indexOf("#course-create") > 0){
+
       getContent("{{route('user.course.create')}}");
 
+    }else if(url.indexOf("#course-edit") > 0){
+      getContent("{{route('user.teach')}}");
     }else if(url.indexOf("#teach") > 0){
       getContent("{{route('user.teach')}}");
 
@@ -257,9 +259,14 @@ console.log(output);
 
     $(document).on("click", '.course-create', function(event) { 
       var url = $(this).data('url');
-      $('.btn-panel-menu').removeClass('btn-active');
-      $(this).find('button').addClass('btn-active');
-      getContent(url);
+      var databank = $(this).data('databank');
+      if (databank == "") {
+        $('#bankModal').modal('show');
+      }else{
+        $('.btn-panel-menu').removeClass('btn-active');
+        $(this).find('button').addClass('btn-active');
+        getContent(url);
+      }
     });
 
     $(document).on("click", '.this-order', function(event){
@@ -283,6 +290,7 @@ console.log(output);
     });
 
     $(document).on("click", '.course-edit', function(event) { 
+
       var url = $(this).data('url');
       getContent(url);
     });
@@ -615,6 +623,8 @@ function avaliar(estrela) {
       }
     });
   });
+
+  $('.input-cpf').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
 
   $('.input-phone').focusout( function(){
     var phone = $(this).val().replace(/\D/g, '');

@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Vimeo\Laravel\VimeoServiceProvider::class,
 
 
         /*
@@ -230,7 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
+        'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class,
     ],
 
 ];

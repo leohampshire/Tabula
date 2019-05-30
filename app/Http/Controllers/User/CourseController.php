@@ -222,7 +222,7 @@ class CourseController extends Controller
         $course = Course::find($id);
         $course->avaliable = 3;
         $course->save();
-        return redirect()->back()->with('success', 'Enviado para análise');
+        return redirect(route('user.panel')."#teach")->with('success', 'Enviado para análise');
     }
 
     private function userTest($id, $key, $answer)

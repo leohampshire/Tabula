@@ -163,6 +163,16 @@ function seoValidate()
 
   });
 
+  function destaque()
+  {
+    var categId = $('#category_id option:selected').val();
+    if(categId == 1 || categId == 2){
+      $('#featured').show();
+    }else{
+      $('#featured').hide();
+
+    }
+  }
   function states()
   {
     if($('#country').val() == 1){
@@ -173,8 +183,12 @@ function seoValidate()
     }
   $('.state').hide();
   states();
+  destaque();
   $('#country').change(function(){
     states();
+  });
+  $('#category_id').change(function(){
+    destaque();
   });
 
   
@@ -211,7 +225,6 @@ function seoValidate()
 
       $('#categ' ).change(function() {
         var categId = $('#categ option:selected').val();
-        console.log(categId);
         categAjax(url, categId);
       });
     $('#sub_categ').hide();

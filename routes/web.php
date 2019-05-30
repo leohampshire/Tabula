@@ -56,24 +56,24 @@ Route::get('searchcat', 'User\SearchController@searchCat')->name('search.categor
 
 
 Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
-  Route::get('seja-professor', 'Teacher\TeacherController@beTeacher')->name('be');
-  Route::post('store', 'Teacher\TeacherController@storeAnswer')->name('store');
-  Route::get('delete/{id}', 'Teacher\TeacherController@deleteAnswer')->name('delete');
-  Route::get('ver-professor', 'Teacher\TeacherController@seeTeacher')->name('see');
+  Route::get('seja-professor', 'User\TeacherController@beTeacher')->name('be');
+  Route::post('store', 'User\TeacherController@storeAnswer')->name('store');
+  Route::get('delete/{id}', 'User\TeacherController@deleteAnswer')->name('delete');
+  Route::get('ver-professor', 'User\TeacherController@seeTeacher')->name('see');
 
   //CURSOS
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::post('/store', 'Admin\AdminCourseController@store')->name('store');
     Route::get('subcategoria-curso', 'Admin\AdminCourseController@SubCourse')->name('subcategory');    
     Route::post('/update', 'Admin\AdminCourseController@update')->name('update');
-    Route::get('/editar/{id}', 'Teacher\TeacherController@courseEdit')->name('edit');
+    Route::get('/editar/{id}', 'User\TeacherController@courseEdit')->name('edit');
     Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
       Route::post('/store', 'Admin\AdminCourseController@storeChapter')->name('store');
       Route::post('/update', 'Admin\AdminCourseController@updateChapter')->name('update');
       Route::get('delete/{id}', 'Admin\AdminCourseController@deleteChapter')->name('delete');
     });
     Route::group(['prefix'=> 'item', 'as' => 'item.'], function(){
-      Route::get('/prova/{id}', 'Teacher\TeacherController@createTest')->name('test');
+      Route::get('/prova/{id}', 'User\TeacherController@createTest')->name('test');
       Route::get('/gratis/{id}', 'Admin\AdminCourseController@free')->name('free');
       Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
       Route::post('/update', 'Admin\AdminCourseController@updateitem')->name('update');

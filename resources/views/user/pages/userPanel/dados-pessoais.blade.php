@@ -118,29 +118,29 @@
 	<div class="row form-group">
 		<div class="col-xs-2">
 			<label for="bank_code">Cód. Banco</label>
-			<input name="bank_code" value="{{$auth->databank->bank_code}}" placeholder="XXX" type="number" class="form-control">
+			<input name="bank_code" @if($auth->databank) value="{{$auth->databank->bank_code}}" @endif placeholder="XXX" type="number" class="form-control">
 		</div>
 		<div class="col-xs-2">
 			<label for="agencia">Agência</label>
-			<input name="agencia" value="{{$auth->databank->agencia}}" placeholder="XXXXX" type="number" class="form-control">
+			<input name="agencia" @if($auth->databank) value="{{$auth->databank->agencia}}" @endif placeholder="XXXXX" type="number" class="form-control">
 		</div>
 		<div class="col-xs-2">
 			<label for="agencia_dv">Dig. Agência</label>
-			<input name="agencia_dv" value="{{$auth->databank->agencia_dv}}" placeholder="X" type="number" class="form-control">
+			<input name="agencia_dv" @if($auth->databank) value="{{$auth->databank->agencia_dv}}" @endif placeholder="X" type="number" class="form-control">
 		</div>
 
 		<div class="col-xs-3">
 			<label for="conta">Conta (sem dígito)</label>
-			<input name="conta" value="{{$auth->databank->conta}}" type="number" placeholder="Conta" class="form-control">
+			<input name="conta" @if($auth->databank) value="{{$auth->databank->conta}}" @endif type="number" placeholder="Conta" class="form-control">
 		</div>
 
 		<div class="col-xs-2">
 			<label for="conta_dv">Digito conta</label>
-			<input name="conta_dv" value="{{$auth->databank->conta_dv}}" placeholder="XX" type="number"  class="form-control">
+			<input name="conta_dv" @if($auth->databank) value="{{$auth->databank->conta_dv}}" @endif placeholder="XX" type="number"  class="form-control">
 		</div>
 		<div class="col-xs-3">
 			<label for="cpf">CPF</label>
-			<input name="cpf" value="{{$auth->databank->document_number}}" type="text" class="form-control input-cpf">
+			<input name="cpf" @if($auth->databank) value="{{$auth->databank->document_number}}" @endif type="text" class="form-control input-cpf">
 		</div>
 	</div>
 	<div class="row form-group">

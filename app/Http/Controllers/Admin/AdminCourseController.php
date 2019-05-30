@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\CustomClasses\vimeo_tools;
 use App\CourseItemChapter;
 use App\CourseItemType;
 use App\CourseUser;
@@ -138,7 +139,7 @@ class AdminCourseController extends Controller
             ->with('categories', $categories)
             ->with('course_items_chapter', $course_items_chapter);
         }else{
-            return redirect(route('user.panel'))
+            return redirect(route('user.panel')."#teach")
             ->with('success', 'Curso criado com sucesso');            
         }
 
@@ -219,12 +220,12 @@ class AdminCourseController extends Controller
             $course->featured           = $request->featured;
             $course->urn 				= $request->urn;
         }
-        $course->avaliable = 1;
         $course->save();
-
-
-
-        return redirect()->back()
+        if ($course->course_type == 1) {
+            return redirect()->back()
+            ->with('success', 'Curso Editado com sucesso');
+        }
+        return redirect(route('user.panel')."#teach")
         ->with('success', 'Curso Editado com sucesso');
 	}
 
@@ -276,7 +277,6 @@ class AdminCourseController extends Controller
 
         $chapter             = CourseItemChapter::find($request->id);
         $course              = Course::find($chapter->course_id);
-        $course->avaliable   = 1;
         $chapter->name       = $request->name;
         $chapter->desc       = $request->desc;
         $chapter->course_id  = $chapter->course_id;
@@ -324,6 +324,7 @@ class AdminCourseController extends Controller
 
     public function storeItem(Request $request)
     {
+        // return dd($request->file);
         $this->validate($request, [
             'item_type_id'  => 'required',
             'name'          => 'required|max:200',
@@ -449,9 +450,10 @@ class AdminCourseController extends Controller
         $courses = $courses->orderBy('name', 'asc')->paginate(20);
         return view('admin.pages.course.analyze.index')->with('courses', $courses);
     }
-    public function show()
+    public function show($id)
     {
-        
+        $course = Course::find($id);
+     return view('admin.pages.course.show.class')->with('course', $course);   
     }
 
     public function student($id)
@@ -548,6 +550,7 @@ class AdminCourseController extends Controller
 
     public function strVideoGenerate(Request $request)
     {
+
         $arq = $request->file('file');
 
         if ($request->item_type_id == 1) {
@@ -564,22 +567,7 @@ class AdminCourseController extends Controller
             ]);
         }elseif ($request->item_type_id == 5) {
             $this->validate($request, [
-                'file'  => 'mimetypes:
-                            application/vnd.sealedmedia.softseal.pdf,
-                            application/msword,
-                            application/vnd.ms-excel,
-                            application/vnd.ms-powerpoint,
-                            application/vnd.openxmlformats-officedocument.presentationml.presentation,
-                            application/vnd.openxmlformats-officedocument.presentationml.slideshow,
-                            application/vnd.ms-powerpoint,
-                            application/vnd.oasis.opendocument.presentation-template,
-                            application/vnd.oasis.opendocument.presentation,
-                            application/vnd.oasis.opendocument.spreadsheet,
-                            application/vnd.oasis.opendocument.text,
-                            image/vnd.adobe.photoshop,
-                            application/x-rar-compressed,
-                            application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-                            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                'file'      => 'required|mimes:rar,pdf,xlsx,xls,ppt,pptx,doc,docx,otp,odp,ods,odt,pps,psd,jpeg,jpg,png'
             ]);
         }
         $attach_file = $request->file;
@@ -598,11 +586,11 @@ class AdminCourseController extends Controller
         }
         $attach_file_name = $str;
         $attach_file_name =  $attach_file_name.".".pathinfo($attach_file->getClientOriginalName(),PATHINFO_EXTENSION);
-        $attach_file->move('uploads/archives', $attach_file_name); 
-
+        $attachment = "uploads/archives/{$attach_file_name}";
+        $attach_file->move('uploads/archives', $attach_file_name);
         //Vimeo upload
         if($request->vimeo == 'on'){                
-            $vimeo_result = vimeo_tools::Upload_Video($attach_file_name,$item);                
+            $vimeo_result = vimeo_tools::Upload_Video($attachment, $attach_file_name);                
             $path = $vimeo_result;
         }
         else {                

@@ -20,6 +20,7 @@ class CreateDatabanksTable extends Migration
             $table->integer('agencia');
             $table->integer('agencia_dv')->nullable();
             $table->integer('conta');
+            $table->string('recipient_id');
             $table->integer('conta_dv')->nullable();
             $table->string('document_number');
             $table->integer('user_id');

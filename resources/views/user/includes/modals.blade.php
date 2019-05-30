@@ -45,6 +45,67 @@
 </div>
 <!--/.Confirmação-->
 
+
+<!--Soliticao banco-->
+<div class="modal fade" id="bankModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Dados Bancários</h4>
+      </div>
+      <form method="POST" action="{{route('bank-data')}}" enctype="multipart/form-data">
+          <div class="modal-body">
+              {{csrf_field()}}
+              
+              <div class="box-body">
+
+                <div class="form-group row">
+                  <div class="col-xs-4">
+                    <label for="bank_code">Cód. Banco</label>
+                    <input name="bank_code" placeholder="XXX" type="number" class="form-control">
+                  </div>
+                  <div class="col-xs-5">
+                    <label for="agencia">Agência</label>
+                    <input name="agencia" placeholder="XXXXX" type="number" class="form-control">
+                  </div>
+                  <div class="col-xs-3">
+                    <label for="agencia_dv">Dig. Agência</label>
+                    <input name="agencia_dv" placeholder="X" type="number" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+
+                  <div class="col-xs-4">
+                    <label for="conta">Conta (sem dígito)</label>
+                    <input name="conta" type="number" placeholder="Conta" class="form-control">
+                  </div>
+                  <div class="col-xs-3">
+                    <label for="conta_dv">Dig. conta</label>
+                    <input name="conta_dv" placeholder="XX" type="number"  class="form-control">
+                  </div>
+                  <div class="col-xs-5">
+                    <label for="cpf">CPF</label>
+                    <input name="cpf" type="text" placeholder="XXX.XXX.XXX-XX" class="form-control input-cpf">
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.Solicitacao Banco-->
+
+
 <!--Criar Capitulo-->
 <div class="modal fade" id="chapterModal">
   <div class="modal-dialog">

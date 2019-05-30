@@ -32,14 +32,14 @@
                       <td>{{$chapter->name}}</td>
                       <td>{{$chapter->desc}}</td>
                       <td>
-                        <a href="#" data-url="{{ route('user.course.item', ['id' => $chapter->id])}}" title="Incluir Aula" class="act-list course-item">item
+                        <a href="#" data-url="{{ route('user.course.item', ['id' => $chapter->id])}}" title="Incluir Aula" class="act-list course-item">
                           <i class="fa fa-bars" aria-hidden="true"></i>
                         </a>
                         <a href="#" title="Editar" class="act-list act-edit-chapter" data-name="{{$chapter->name}}" data-desc="{{$chapter->desc}}" data-id="{{$chapter->id}}">
-                          editar
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('teacher.course.chapter.delete', ['id' => $chapter->id])}}" title="Excluir" class="act-list act-delete">
-                          deletar
+                          <i class="fa fa-times" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
@@ -66,6 +66,7 @@
 </section>
 <form method="POST" action="{{route('teacher.course.update')}}" enctype="multipart/form-data">
 	{{csrf_field()}}
+	<input type="hidden" name="id" value="{{$course->id}}">
 	<div class="row form-group">
 		<div class="col-xs-8">
 			<label for="name">Nome</label>

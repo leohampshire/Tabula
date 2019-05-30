@@ -46,7 +46,7 @@
 				@else
 					@if($auth->courses()->count() == 0)
 					<div class="col-xs-3" >
-						<a href="#course-create" class="course-create" data-url="{{route('user.course.create')}}">
+						<a href="#course-create" class="course-create" data-databank="{{$auth->databank}}" data-url="{{route('user.course.create')}}">
 							<button class="btn-block btn-panel-menu btn-danger" type="button">Criar Curso</button>
 						</a>
 					</div>

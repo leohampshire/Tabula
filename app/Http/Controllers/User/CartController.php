@@ -23,6 +23,7 @@ class CartController extends Controller
             if ($cart) {
                 $course = Course::whereIn('id', $cart)->get();
                 $auth->cart = $course;
+                $auth->discount = 0;
             }
         }else{
             $auth->discount = $this->discount();
@@ -87,13 +88,15 @@ class CartController extends Controller
         foreach($items as $item)
             if($id == $item->course_id)
                 $double = true;
-
+                $course = Course::find($id);
         //se produto não  estiver no carrinho, então salva no banco
             if(!$double)
             {
                 $cart = new Cart;
                 $cart->user_id = $auth->id;
                 $cart->course_id = $id;
+                $cart->teacher_id = $course->user_id_owner;
+                $cart->type = $course->course_type;
                 $cart->save();
 
                 Session::flash('success', 'Curso adicionado ao carrinho!');

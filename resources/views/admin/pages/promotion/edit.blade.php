@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Adicionar SEO')
+@section('title', 'Editar Promoção')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Adicionar SEO</h1>
+          <h1>Editar Promoção</h1>
         </div>
       </div>
     </section>

@@ -17,6 +17,8 @@ class CreateCartsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('course_id');
+            $table->integer('teacher_id');
+            $table->integer('type');
             $table->string('coupon')->nullable();
             $table->double('discount')->nullable();
             $table->timestamps();

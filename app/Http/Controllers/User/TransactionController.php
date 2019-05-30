@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{CourseUser, Transaction, Order, OrderItem, Databank};
+use App\{CourseUser, Transaction, Order, OrderItem, Databank, Admin, User, Taxa};
 use Auth;
 
 class TransactionController extends Controller
@@ -15,14 +15,15 @@ class TransactionController extends Controller
         $auth = Auth::guard('user')->user();
 
         $payload = ([
+          'api_key'         => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
           'bank_code'       => $request->bank_code,
           'agencia'         => $request->agencia,
           'agencia_dv'      => $request->agencia_dv,
-          'api_key'         => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
           'conta'           => $request->conta,
           'conta_dv'        => $request->conta_dv,
           'document_number' => $request->cpf,
-          'legal_name'      => $auth->name
+          'legal_name'      => $auth->name,
+          'postback_url'    => 'https://enlcpucm8t45.x.pipedream.net/',
         ]);
 
         $payload = json_encode($payload);
@@ -37,21 +38,42 @@ class TransactionController extends Controller
         curl_close($ch);
         # Print response.
         $result = json_decode($result);
+        $account_id = $result->id;
+        $payload = ([
+          'api_key'         => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
+          'bank_account_id' => $result->id, 
+          'anticipatable_volume_percentage' => '100', 
+          'transfer_enabled' => 'false',
+          'postback_url'    => 'https://enlcpucm8t45.x.pipedream.net/',
+          'legal_name'      => $auth->name,
+        ]);
+        $payload = json_encode($payload);
+        $ch = curl_init('https://api.pagar.me/1/recipients');
 
-        return dd($result);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        # Return response instead of printing.
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        # Send request.
+        $result = curl_exec($ch);
+        curl_close($ch);
+        # Print response.
+        $result = json_decode($result);
         $data_bank = new Databank;
-        $data_bank->account_id      = $result->id;
+        $data_bank->account_id      = $account_id;
         $data_bank->bank_code       = $request->bank_code;
         $data_bank->agencia         = $request->agencia;
         $data_bank->agencia_dv      = $request->agencia_dv;
         $data_bank->conta           = $request->conta;
         $data_bank->conta_dv        = $request->conta_dv;
         $data_bank->document_number = $request->cpf;
+        $data_bank->recipient_id    = $result->id;
         $data_bank->user_id         = $auth->id;
         $data_bank->save();
 
         return redirect()->back()->with('succes', 'Dados Bancários salvos com sucesso');
     }
+
     public function statusTransaction(Request $request)
 	{  
 		$auth = Auth::guard('user')->user();
@@ -68,24 +90,80 @@ class TransactionController extends Controller
 
     }
 
+    public function rescuePagarMe(Request $request)
+    {
+        $auth = Auth::guard('user')->user();
+
+
+        $rescue = ([
+            'amount' => $request->value,
+            'recipient_id' => $auth->databank->account_id,
+        ]);
+    }
+
     public function pagarme(Request $request)
     {
-
     	$auth = Auth::guard('user')->user();
     	$amount = number_format(($auth->cart->sum('price') - $auth->discount), 2, '','');
     	$items = [];
+        $taxa = Taxa::first();
 
-    	foreach ($auth->cart as $key => $cart) {
-			$item[$key] = ([
-		        'id' => $cart->id,
-		        'title'=> $cart->name,
-		        'unit_price' => number_format($cart->price, 2, '', ''),
-		        'quantity' => 1,
-		        'tangible' => false,
-	      	]);
-			
-		}
+        $idUsers = $auth->cart()->where('course_type', 2)->pluck('user_id_owner');
+        $idAdmin = $auth->cart()->where('course_type', 1)->pluck('user_id_owner');
 
+        if (!count($idUsers)) {
+            $split_rules[0] = ([
+                [
+                  'amount' => $amount- $this->discount(),
+                  'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+                  'charge_processing_fee' => true,
+                  'liable' => true
+                ],
+            ]);
+            foreach ($auth->cart as $key => $cart) {
+
+                $item[$key] = ([
+                    'id' => $cart->id,
+                    'title'=> $cart->name,
+                    'unit_price' => number_format($cart->price, 2, '', ''),
+                    'quantity' => 1,
+                    'tangible' => false,
+                ]);
+                
+            }
+        }elseif (!count($idAdmin)) {
+            foreach ($idUsers as $key => $idUser) {
+                foreach ($auth->cart as $cart) {
+                    $discount = $cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount');
+                }
+
+                $split_rules[$key] = ([
+                [
+                  'amount' => $auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount,
+                  'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+                  'charge_processing_fee' => true,
+                  'liable' => true
+                ],
+            ]);
+
+            }
+        }else{
+            foreach ($idUsers as $key => $idUser) {
+                foreach ($auth->cart as $cart) {
+                    $discount = $cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount');
+                }
+
+                $split_rules[$key] = ([
+                [
+                  'amount' => $auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount,
+                  'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+                  'charge_processing_fee' => true,
+                  'liable' => true
+                ],
+            ]);
+
+            }
+        }
     	$amount 		= $request->pagarme['amount'];
     	$payment_method = $request->pagarme['payment_method'];
 
@@ -140,6 +218,7 @@ class TransactionController extends Controller
     		  	  	]
     		  	],
     		  	'items' => $item,
+                'split_rules' => $split_rules,
     		]);
     	}elseif ($payment_method == 'boleto') {
 
@@ -174,7 +253,8 @@ class TransactionController extends Controller
 	    		  	    'zipcode' => $zipcode
     		  	  	]
     		  	],
-    		  	'items' => $item,
+    		  	'items'       => $item,
+                'split_rules' => $split_rules,
     		]);
     	}
     	$payload = json_encode($payload);
@@ -226,5 +306,17 @@ class TransactionController extends Controller
 			return redirect()->route('transaction');
 		}
     }
+
+    private function discount()
+    {
+        $total = 0;
+        $auth = Auth::guard('user')->user();
+        foreach ($auth->cart as  $cart) {
+            $discount = $cart->pivot->discount;
+            $total = $total + $discount;
+        }
+        return $total;
+    }
+
 
 }

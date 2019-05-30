@@ -172,7 +172,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" id="featured">
                   <div class="col-xs-12">
                     <label for="featured">Destaque?</label>
                     <select name="featured" class="form-control">
