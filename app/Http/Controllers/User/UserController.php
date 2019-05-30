@@ -10,6 +10,7 @@ use App\CourseItemType;
 use App\Category;
 use App\Country;
 use App\Course;
+use App\Certificate;
 use App\Company;
 use App\State;
 use App\Order;
@@ -100,10 +101,17 @@ class UserController extends Controller
     public function contentOrders()
     {
         $auth = Auth::guard('user')->user();
-        $orders = Order::where('user_id', $auth->id);
-        $orders = Order::all();
+        $orders = Order::where('user_id', $auth->id)->get();
         return view('user.pages.userPanel.pedidos')
         ->with('orders', $orders);
+    }
+
+    public function contentCertificate()
+    {
+        $auth = Auth::guard('user')->user();
+        $certificates = Certificate::where('user_id', $auth->id)->get();
+        return view('user.pages.userPanel.certificados')
+        ->with('certificates', $certificates);
     }
     public function contentThisOrder($id)
     {
@@ -120,6 +128,13 @@ class UserController extends Controller
         return view('user.pages.userPanel.professor-empresa')
         ->with('auth', $auth)
         ->with('teachers', $teachers);
+    }
+
+    public function contentStudent($id)
+    {
+        $course = Course::find($id);
+        return view('user.pages.userPanel.alunos')
+        ->with('course', $course);
     }
     
      

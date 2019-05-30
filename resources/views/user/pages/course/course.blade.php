@@ -64,7 +64,7 @@
                   <div class="row">
                     <div class="col-xs-12">
                       <h5>{{$item->name}}</h5>
-                      <a href="#" class="act-free-item" data-name="{{$item->name}}" data-desc="{{$item->desc}}" data-path="{{$item->path}}" data-type= "{{$item->course_item_types_id}}" data-url="{{asset('uploads/archives')}}">Vizualizar</a>
+                      <a href="#" class="act-free-item" data-name="{{$item->name}}" data-desc="{{$item->desc}}" data-path="{{$item->path}}" data-type= "{{$item->course_item_types_id}}" data-url="{{asset('uploads/archives')}}">Grátis</a>
                     </div>
                   </div>
                 </div>
@@ -72,7 +72,20 @@
                 <div class="row-item">
                   <div class="row">
                     <div class="col-xs-12">
-                      <h5>{{$item->name}}</h5>
+                      <h5>
+                        @if($item->course_item_types_id == 3)
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                        @elseif($item->course_item_types_id == 2)
+                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                        @elseif($item->course_item_types_id == 6)
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        @elseif($item->course_item_types_id == 5)
+                        <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+                        @else
+                        <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                        @endif
+                        <span>{{$item->name}}</span>
+                      </h5>
                     </div>
                   </div>
                 </div>

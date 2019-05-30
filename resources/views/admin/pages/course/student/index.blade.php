@@ -73,8 +73,6 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.course.update')}}" enctype="multipart/form-data">
-              {{csrf_field()}}
               <div class="box-body table-responsive">
               <table class="table table-bordered table-hover">
                 <thead>
@@ -97,9 +95,9 @@
                       <td>{{$student->name}}</td>
                       <td>
                         <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: {{$progress}}%;" >{{$progress}}%</div>
+                          <div class="progress-bar bg-success" role="progressbar" style="width: {{$progress}}%;" >{{$progress}}%
+                          </div>
                         </div>
-                      </div>
                       </td>
                       <td>
                         <a href="{{ route('admin.course.student.restart', ['id' => $student->id, 'course_id' => $course->id])}}" title="Reiniciar" class="act-list act-delete">
@@ -125,7 +123,6 @@
                 </tfoot>   
               </table>
             </div>
-            </form>
           </div>
         </section>
         
@@ -133,7 +130,5 @@
       <!-- /.content -->
       </div>
       <!-- /.row (main row) -->
-
-  </div>
 
 @stop

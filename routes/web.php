@@ -24,13 +24,14 @@ Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
 });
 
 
-Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], function(){
   Route::get('/', 'User\UserController@userPanel')->name('panel');
   Route::post('/update', 'User\UserController@update')->name('update');
   Route::post('/rating', 'User\RatingController@rating')->name('rating');
 
   Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
   Route::get('/pedidos', 'User\UserController@contentOrders')->name('orders');
+  Route::get('/certificados', 'User\UserController@contentCertificate')->name('certificates');
   Route::get('/pedido/{id}', 'User\UserController@contentThisOrder')->name('order');
   //PAINEIS VIA AJAX
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');
@@ -39,6 +40,10 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::get('/criar', 'User\UserController@contentCreateCourse')->name('create');
     Route::get('/editar/{id}', 'User\UserController@contentCourseEdit')->name('edit');
+    Route::get('/alunos/{id}', 'User\UserController@contentStudent')->name('student');
+    Route::get('reiniciar/{course_id}/{user_id}', 'Admin\AdminCourseController@studentRestart')->name('restart');
+    Route::get('certificado/{student}/{course}', 'Admin\AdminCourseController@certificate')->name('student-certificate');
+    Route::post('incluir/', 'Admin\AdminCourseController@studentInclude')->name('include');
     Route::get('/liberar-empresa/{course}', 'Company\CompanyController@avaliable')->name('company');
     Route::get('/liberar/{id}', 'User\CourseController@avaliable')->name('avaliable');
     Route::get('/incluir-item/{id}', 'User\UserController@contentCourseItem')->name('item');
@@ -276,23 +281,10 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['prefix' => 'empresa', 'as' => 'company.'], function () {
   Route::get('/', 'User\UserController@userPanel')->name('panel');
   Route::get('/register', 'UserAuth\RegisterController@showRegistrationCompany')->name('register');
-  
 });
 
 
 
-Route::group(['prefix' => 'company'], function () {
-  Route::get('/login', 'CompanyAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'CompanyAuth\LoginController@login');
-  Route::post('/logout', 'CompanyAuth\LoginController@logout')->name('logout');
-
-  Route::post('/register', 'CompanyAuth\RegisterController@register');
-
-  Route::post('/password/email', 'CompanyAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'CompanyAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'CompanyAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'CompanyAuth\ResetPasswordController@showResetForm');
-});
 
 Route::get('/', 'User\HomeController@index')->name('home');
 Route::get('todos-professores', 'User\HomeController@allTeachers')->name('all-teachers');
@@ -306,12 +298,13 @@ Route::post('/transaction', 'User\TransactionController@statusTransaction')->nam
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('/{urn}', 'User\HomeController@pages')->name('page');
 
-Route::get('facebook', function () {
-    return view('facebook');
+Route::group(['prefix' => 'facebook'], function () {
+  Route::get('/', function () {
+      return view('facebook');
+  });
+  Route::get('auth', 'Admin\FacebookController@redirectToFacebook');
+  Route::get('auth/callback', 'Admin\FacebookController@handleFacebookCallback');
 });
-
-Route::get('auth/facebook', 'Admin\FacebookController@redirectToFacebook');
-Route::get('auth/facebook/callback', 'Admin\FacebookController@handleFacebookCallback');
 
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::get('transaction/callback', 'User\TransactionController@callback')->name('callback');

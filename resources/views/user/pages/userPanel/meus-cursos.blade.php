@@ -7,20 +7,22 @@
 </div>
 <div class="row">
 	@forelse($courses as $myCourse)
-	<div class="col-sm-3">
-		<div class="course-box">
-			<div class="course-thumb">
-				<img src="{{ asset('images/aulas')}}/{{$myCourse->thumb_img}}" alt="Curso">
-			</div>
-			<div class="course-desc">
-				<h3>{{$myCourse->name}}</h3>
-				<p>{{substr($myCourse->desc, 0, 30)}}</p>
-			</div>
-			<div class="course-access">
-				<a href="{{route('course.single', ['urn' =>$myCourse->urn])}}"><span>ACESSAR</span></a>
+	<a href="{{route('course.single', ['urn' =>$myCourse->urn])}}">
+		<div class="col-sm-3">
+			<div class="course-box">
+				<div class="course-thumb">
+					<img src="{{ asset('images/aulas')}}/{{$myCourse->thumb_img}}" alt="Curso">
+				</div>
+				<div class="course-desc">
+					<h3>{{$myCourse->name}}</h3>
+					<p>{{substr($myCourse->desc, 0, 30)}}</p>
+				</div>
+				<div class="course-access">
+					<span>ACESSAR</span>
+				</div>
 			</div>
 		</div>
-	</div>
+	</a>
 	@empty
 	<div class="col-xs-12">
 		<p>Não possui nenhum curso</p>

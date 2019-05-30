@@ -65,33 +65,7 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <section class="col-lg-12">
-          <div class="box">
-              <form id="filterForm" method="GET" autocomplete="off">
-              <div class="box-header">
-                <h3 class="box-title">Filtrar resultados</h3>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <label>Nome do Empresa</label>
-                    <input type="text" name="name" value="{{request('name')}}" class="form-control">
-                  </div>
-                  <div class="col-sm-6">
-                    <label>E-mail</label>
-                    <input type="text" name="email" value="{{request('email')}}" class="form-control">
-                  </div>
-                </div>
-              </div>
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-                <button type="submit" class="btn btn-default clear-filters">Limpar</button>
-              </div>
-            </form>
-        </section>
-      </div>
-
+      
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
@@ -122,7 +96,7 @@
                 
                   @forelse($companies as $company)
                     <tr>
-                      <td>{{$company->name}}</td>
+                      <td>{{$company->company->name}}</td>
                       <td>
                         <a href="{{ route('admin.company.edit', ['id' => $company->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

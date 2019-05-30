@@ -57,6 +57,11 @@ class Course extends Model
         return $this->belongsToMany('App\User', 'ratings', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'star', 'comment');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany('App\Rating');
+    }
+
     public function question()
     {
         return $this->hasMany('App\Forum');

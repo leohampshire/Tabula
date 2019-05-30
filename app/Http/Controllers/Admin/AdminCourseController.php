@@ -13,6 +13,7 @@ use App\CourseItem;
 use App\TestItem;
 use App\Category;
 use App\Course;
+use App\Certificate;
 use App\User;
 use Session;
 use Auth;
@@ -172,7 +173,7 @@ class AdminCourseController extends Controller
             'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
             'video'		  => 'mimes:mp4, mkv'	
         ]);
-
+        $admin = Auth::guard('admin')->check();
         //Chama o objeto
         $course = Course::find($request->id);
         //Vincula as variaveis 
@@ -189,8 +190,6 @@ class AdminCourseController extends Controller
         
         if($request->thumb_img != ''){
             $course->thumb_img      = $this->thumbImgValidate($request);
-        }else{
-            $course->thumb_img      = 'e-learning.jpg';
         }
 
         //Valida o video     
@@ -221,7 +220,7 @@ class AdminCourseController extends Controller
             $course->urn 				= $request->urn;
         }
         $course->save();
-        if ($course->course_type == 1) {
+        if ($admin) {
             return redirect()->back()
             ->with('success', 'Curso Editado com sucesso');
         }
@@ -466,17 +465,19 @@ class AdminCourseController extends Controller
     {
         $student = User::where('email', $request->email)->first();
         if($student){
-            CourseUser::create([
-                'user_id'   => $student->id,
-                'course_id' => $request->id,
-                'progress'  => 0,
-            ]);
-            return redirect()->back()->with('success', 'Aluno Incluso ao seu curso');
+            if (!$student->myCourses->where('id', $request->id)) {
+                CourseUser::create([
+                    'user_id'   => $student->id,
+                    'course_id' => $request->id,
+                    'progress'  => 0,
+                ]);
+                return redirect()->back()->with('success', 'Aluno Incluso ao seu curso');
+            }
         }
         return redirect()->back()->with('warning', 'Usuário já vinculado ao curso ou inexistente');
     }
 
-    public function studentRestart($user_id, $course_id)
+    public function studentRestart($course_id, $user_id)
     {
         CourseUser::where('course_id', $course_id)->where('user_id', $user_id)->update([
             'progress' => 0,
@@ -490,6 +491,15 @@ class AdminCourseController extends Controller
         if ($progress != $course->total_class) {
             return redirect()->back()->with('warning', 'Curso ainda não finalizado para gerar o certificado.');
         }
+        $path = public_path()."/uploads/archives/";
+        $certificate_name = "{$student->id}_{$course->id}_{$course->name}.pdf";
+        
+        Certificate::updateOrCreate(
+            ['path'      => $certificate_name],
+            ['user_id'   => $student->id,
+            'course_id' => $course->id]
+        );
+
         $teacher = User::find($course->user_id_owner);
         $now = date("Y-m-d H:i:s");
         $data = [
@@ -502,7 +512,9 @@ class AdminCourseController extends Controller
             'minute'    => $course->timeM,
             ];
         $pdf = PDF::loadView('admin.pages.course.student.certificate', $data);
-        return $pdf->stream('document.pdf');
+        $pdf->save("{$path}{$certificate_name}");
+
+        return redirect()->back()->with('success', 'Certificado gerado e enviado para o Aluno');
     }
 
     public function urnValidate(String $name)

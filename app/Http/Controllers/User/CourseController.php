@@ -25,7 +25,7 @@ class CourseController extends Controller
         if ($star == 0) {
             $course->star   = 0;
         }else{
-            $course->star   = $star / $course->rating->count();
+            $course->star   = $star / $course->ratings->count();
         }
         $allCourses         = Course::where('category_id', $course->category_id)->where('id','<>', $course->id)->get();
     	

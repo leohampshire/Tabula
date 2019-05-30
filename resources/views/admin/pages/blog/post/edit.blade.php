@@ -56,9 +56,16 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.post.blog.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.post.blog.update')}}" enctype="multipart/form-data">
               {{csrf_field()}}
+              <input type="hidden" name="id" value="{{$post->id}}">
               <div class="box-body">
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="cover">Capa</label>
+                    <input class="form-control" type="file" name="cover">
+                  </div>
+                </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="name">Titulo</label>

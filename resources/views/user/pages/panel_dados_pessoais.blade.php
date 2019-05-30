@@ -37,6 +37,11 @@
 						<button class="btn-block btn-panel-menu" type="button">Meus Pedidos</button>
 					</a>
 				</div>
+				<div class="col-xs-3">
+					<a href="#certificates"class="certificates" data-url="{{route('user.certificates')}}">
+						<button class="btn-block btn-panel-menu" type="button">Meus Certificados</button>
+					</a>
+				</div>
 				@if($auth->user_type_id == 3)
 				<div class="col-xs-3">
 					<a href="{{route('teacher.be')}}">

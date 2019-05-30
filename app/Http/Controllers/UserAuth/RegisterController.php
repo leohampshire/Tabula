@@ -83,7 +83,6 @@ class RegisterController extends Controller
                 'user_type_id'  => $user_type,
             ]);
              return Company::create([
-                'name'      => $data['name'],
                 'user_id'   => $user->id,
              ]);
 

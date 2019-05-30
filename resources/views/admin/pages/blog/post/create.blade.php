@@ -59,6 +59,12 @@
             <form method="POST" action="{{route('admin.post.blog.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
               <div class="box-body">
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="cover">Capa</label>
+                    <input class="form-control" type="file" name="cover">
+                  </div>
+                </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="name">Titulo</label>

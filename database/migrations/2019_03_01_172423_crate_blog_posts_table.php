@@ -23,7 +23,7 @@ class CrateBlogPostsTable extends Migration
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->longText('content')->nullable();
-            $table->string('thumbnail')->nullable();
+            $table->string('cover')->default('cover.jpg');
             $table->timestamps();
         });
     }

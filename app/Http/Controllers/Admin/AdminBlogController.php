@@ -111,7 +111,8 @@ class AdminBlogController extends Controller
             'meta_title' 		=> 'required',
             'category_id'		=> 'required',
             'content'			=> 'required',
-            'urn'				=> 'required|unique:blog_posts'
+            'urn'				=> 'required|unique:blog_posts',
+            'cover'		 		=> 'mimes:jpg,png,jpeg',
         ]);
 		$post = new BlogPost;
 		$auth = Auth::guard('admin')->user();
@@ -123,6 +124,11 @@ class AdminBlogController extends Controller
 		$post->urn 				= $request->urn;
 		$post->user_id 			= $auth->id;
 		$post->category_id 		= $request->category_id;
+		if($request->cover != ''){
+            $post->cover      = $this->thumbImgValidate($request);
+        }else{
+            $post->cover      = 'cover.jpg';
+        }
 		$post->save();
 		return redirect(route('admin.post.blog.index'))
         ->with('success', 'Post do blog criado com sucesso');
@@ -139,7 +145,7 @@ class AdminBlogController extends Controller
 		$this->validate($request, [  
 			'name'        => [
                 'required',
-                Rule::unique('blog_postsw')->ignore($request->id)
+                Rule::unique('blog_posts')->ignore($request->id)
             ],	
             'urn'        	=> [
                 'required',
@@ -148,6 +154,7 @@ class AdminBlogController extends Controller
             'meta_title' 	=> 'required',
             'category_id'	=> 'required',
             'content'		=> 'required',
+            'cover'		 		=> 'mimes:jpg,png,jpeg',
         ]);
 		$post = BlogPost::find($request->id);
 		$auth = Auth::guard('admin')->user();
@@ -159,6 +166,9 @@ class AdminBlogController extends Controller
 		$post->content 			= $request->content;
 		$post->user_id 			= $auth->id;
 		$post->category_id 		= $request->category_id;
+		if($request->cover != ''){
+            $post->cover      = $this->thumbImgValidate($request);
+        }
 		$post->save();
 		return redirect()->back()
         ->with('success', 'Post do blog editado com sucesso');
@@ -167,4 +177,28 @@ class AdminBlogController extends Controller
 	{
 
 	}
+
+	public function thumbImgValidate(Request $request)
+    {
+        $arq_img = $request->file('cover');
+        $name    = basename($arq_img->getClientOriginalName());
+        $type    = strtolower(pathinfo($name,PATHINFO_EXTENSION));
+        $count = 1;
+        //Gera string aleatória
+        while($count != 0){
+            $str            = "";
+            $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+            $max            = count($characters) - 1;
+
+            for ($i = 0; $i < 7; $i++) {
+                $rand   = mt_rand(0, $max);
+                $str   .= $characters[$rand];
+                $count  = BlogPost::where('cover', $str)->count();
+            }
+        }
+        $arq_img_name = $str.'.'.$type;
+        $arq_img->move('uploads/archives', $arq_img_name); 
+
+        return $arq_img_name;  
+    }
 }

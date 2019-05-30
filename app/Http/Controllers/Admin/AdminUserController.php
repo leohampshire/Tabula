@@ -36,7 +36,7 @@ class AdminUserController extends Controller
 	}
 	public function create()
 	{
-        $userTypes = UserType::where('id', '>', '2')->get();
+        $userTypes = UserType::whereIn('id', [3,4])->get();
 		return view('admin.pages.user.create')
 		->with('states', State::all())
         ->with('countries', Country::all())

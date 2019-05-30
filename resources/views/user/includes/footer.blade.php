@@ -228,6 +228,9 @@ $(document).on('click', '#scroll', function(event){
     }else if(url.indexOf("#orders") > 0){
       getContent("{{route('user.orders')}}");
 
+    }else if(url.indexOf("#certificates") > 0){
+      getContent("{{route('user.certificates')}}");
+
     }else if(url.indexOf("#course-create") > 0){
 
       getContent("{{route('user.course.create')}}");
@@ -275,7 +278,15 @@ $(document).on('click', '#scroll', function(event){
       $(this).find('button').addClass('btn-active');
       getContent(url);
     });
+
     $(document).on("click", '.orders', function(event){
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $(document).on("click", '.certificates', function(event){
       var url = $(this).data('url');
       $('.btn-panel-menu').removeClass('btn-active');
       $(this).find('button').addClass('btn-active');
@@ -450,6 +461,13 @@ function avaliar(estrela) {
       window.location.href=href;
     });
   });
+
+  $(document).on("click", '.act-student', function(e){
+    e.preventDefault();
+    $('#studentModal form input[name="id"]').val($(this).data('id'));
+    $('#studentModal').modal('show');
+  });
+  
   $(document).on("click", '.act-chapter', function(e) { 
     e.preventDefault();
     $('#chapterModal form input[name="course_id"]').val($(this).data('id'));
