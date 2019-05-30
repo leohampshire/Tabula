@@ -116,4 +116,8 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Databank');
     }
+    public function order()
+    {
+        return $this->hasMany('App\Order');
+    }
 }

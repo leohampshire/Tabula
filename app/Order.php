@@ -16,7 +16,9 @@ class Order extends Model
     	$order = $this->find($id);
     	if ($order->status == 'paid') {
     		return 'Pago';
-    	}
+    	}elseif($order->status == 'waiting_payment'){
+            return 'Aguardando Pagamento';
+        }
     }
 
     public function total($id)

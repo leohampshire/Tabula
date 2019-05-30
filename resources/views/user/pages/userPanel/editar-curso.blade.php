@@ -108,7 +108,7 @@
 		</div>
 		<div class="col-xs-4">
 			<label for="price">Preço</label>
-			<input  name="price" value="{{ $course->price }}" type="text" class="form-control input-money" placeholder="Preço">
+			<input  name="price" onclick="ajaxMoney()" value="{{ $course->price }}" type="text" class="form-control input-money" placeholder="Preço">
 		</div>
 	</div>
 	<div class="row form-group">

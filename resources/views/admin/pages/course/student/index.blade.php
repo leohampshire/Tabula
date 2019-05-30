@@ -15,6 +15,9 @@
         </div>
         <div class="col-sm-6">
           <button class="btn-header act-student" data-id="{{$course->id}}">INCLUIR ALUNO</button>
+          <a href="{{route('admin.course.index')}}">
+            <button class="btn-header-back">VOLTAR</button>
+          </a>
         </div>
       </div>
     </section>

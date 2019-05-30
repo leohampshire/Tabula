@@ -643,7 +643,18 @@ function avaliar(estrela) {
   });
 
   $('.input-cpf').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
-
+  
+  function ajaxCPF(){
+    $('.cpf-ajax').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
+  }
+  function ajaxMoney(){
+    $(".input-money").maskMoney({
+        thousands:'.', 
+        decimal:',', 
+        allowZero: true,
+        symbolStay: true
+    });
+  }
   $('.input-phone').focusout( function(){
     var phone = $(this).val().replace(/\D/g, '');
     if(phone.length > 10){

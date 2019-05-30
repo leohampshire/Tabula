@@ -140,7 +140,7 @@
 		</div>
 		<div class="col-xs-3">
 			<label for="cpf">CPF</label>
-			<input name="cpf" @if($auth->databank) value="{{$auth->databank->document_number}}" @endif type="text" class="form-control input-cpf">
+			<input name="cpf" onclick="ajaxCPF()" @if($auth->databank) value="{{$auth->databank->document_number}}" @endif type="text" class="form-control cpf-ajax">
 		</div>
 	</div>
 	<div class="row form-group">

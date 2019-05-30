@@ -23,7 +23,6 @@ class TransactionController extends Controller
           'conta_dv'        => $request->conta_dv,
           'document_number' => $request->cpf,
           'legal_name'      => $auth->name,
-          'postback_url'    => 'https://enlcpucm8t45.x.pipedream.net/',
         ]);
 
         $payload = json_encode($payload);
@@ -38,13 +37,16 @@ class TransactionController extends Controller
         curl_close($ch);
         # Print response.
         $result = json_decode($result);
+        if(isset($result->errors))
+        {
+            return redirect()->back()->with('warning', "Tivemos um problema técnico, pedimos para que entre em contato com um de nossos administradores. {$result->errors[0]->type}");
+        }
         $account_id = $result->id;
         $payload = ([
           'api_key'         => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
           'bank_account_id' => $result->id, 
           'anticipatable_volume_percentage' => '100', 
           'transfer_enabled' => 'false',
-          'postback_url'    => 'https://enlcpucm8t45.x.pipedream.net/',
           'legal_name'      => $auth->name,
         ]);
         $payload = json_encode($payload);
@@ -77,13 +79,13 @@ class TransactionController extends Controller
     public function statusTransaction(Request $request)
 	{  
 		$auth = Auth::guard('user')->user();
-		foreach ($auth->cart()->get() as $cart) {
+        $carts = $auth->order->where('transaction_id', '6458268')->first()->items;
+		foreach ($carts as $cart) {
 			CourseUser::create([
 				'user_id' 	=> $auth->id,
 				'course_id' => $cart->id,
 				'progress'	=> 0,
 			]);
-			$cart->pivot->delete();
 
 		}
         return redirect()->route('user.panel')->with('success', 'Obrigado por comprar no tabula');
@@ -107,62 +109,78 @@ class TransactionController extends Controller
     	$amount = number_format(($auth->cart->sum('price') - $auth->discount), 2, '','');
     	$items = [];
         $taxa = Taxa::first();
+        $idUsers = array_unique($auth->cart()->where('course_type', 2)->pluck('user_id_owner')->toArray());
+        $idAdmins = array_unique($auth->cart()->where('course_type', 1)->pluck('user_id_owner')->toArray());
 
-        $idUsers = $auth->cart()->where('course_type', 2)->pluck('user_id_owner');
-        $idAdmin = $auth->cart()->where('course_type', 1)->pluck('user_id_owner');
+        foreach ($auth->cart as $key => $cart) {
+            $item[$key] = ([
+                'id' => $cart->id,
+                'title'=> $cart->name,
+                'unit_price' => number_format($cart->price, 2, '', ''),
+                'quantity' => 1,
+                'tangible' => false,
+            ]);
+        }
 
         if (!count($idUsers)) {
             $split_rules[0] = ([
-                [
-                  'amount' => $amount- $this->discount(),
-                  'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
-                  'charge_processing_fee' => true,
-                  'liable' => true
-                ],
+              'amount' => $amount- $this->discount(),
+              'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+              'charge_processing_fee' => false,
+              'liable' => true
             ]);
-            foreach ($auth->cart as $key => $cart) {
-
-                $item[$key] = ([
-                    'id' => $cart->id,
-                    'title'=> $cart->name,
-                    'unit_price' => number_format($cart->price, 2, '', ''),
-                    'quantity' => 1,
-                    'tangible' => false,
-                ]);
-                
-            }
-        }elseif (!count($idAdmin)) {
+        }elseif (!count($idAdmins)) {
             foreach ($idUsers as $key => $idUser) {
                 foreach ($auth->cart as $cart) {
                     $discount = $cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount');
                 }
-
+                $databank = Databank::where('user_id', $idUser)->first();
+                $money = number_format(($auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount) * ($taxa->taxa_users/100),2,'','');
                 $split_rules[$key] = ([
-                [
-                  'amount' => $auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount,
-                  'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+                  'amount' => $money,
+                  'recipient_id' => $databank->recipient_id,
                   'charge_processing_fee' => true,
                   'liable' => true
-                ],
-            ]);
-
+                ]);
             }
+            $tmp = count($split_rules);
+            $money = number_format(($auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount) * ($taxa->taxa_tabula/100),2,'','');
+            $split_rules[$tmp] = ([
+              'amount' => $money,
+              'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+              'charge_processing_fee' => true,
+              'liable' => true,
+              'charge_remainder' => true
+            ]);
         }else{
             foreach ($idUsers as $key => $idUser) {
                 foreach ($auth->cart as $cart) {
                     $discount = $cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount');
                 }
-
+                $databank = Databank::where('user_id', $idUser)->first();
+                $money = number_format(($auth->cart->where('user_id_owner', $idUser)->where('course_type', 2)->sum('price') - $discount) * ($taxa->taxa_users/100),2,'','');
                 $split_rules[$key] = ([
-                [
-                  'amount' => $auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount,
+                  'amount' => $money,
+                  'recipient_id' => $databank->recipient_id,
+                  'charge_processing_fee' => true,
+                  'liable' => true
+                ]);
+            }
+            $tmp = count($split_rules);
+            foreach ($idAdmins as $key => $idAdmin) {
+                foreach ($auth->cart as $cart) {
+                    $discount = $cart->pivot->where('teacher_id', $idAdmin)->where('type', 2)->sum('discount');
+                }
+                $more = ($auth->cart->where('user_id_owner', $idUser)->where('course_type', 2)->sum('price') - $discount) * ($taxa->taxa_tabula/100);
+                $money = number_format($more +($auth->cart->where('user_id_owner', $idAdmin)->where('course_type', 1)->sum('price') - $discount),2,'','');
+                $split_rules[$key+ $tmp] = ([
+                  'amount' => $money,
                   'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
                   'charge_processing_fee' => true,
                   'liable' => true
-                ],
-            ]);
-
+                ]);
             }
+
         }
     	$amount 		= $request->pagarme['amount'];
     	$payment_method = $request->pagarme['payment_method'];
@@ -258,7 +276,6 @@ class TransactionController extends Controller
     		]);
     	}
     	$payload = json_encode($payload);
-
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		# Return response instead of printing.
@@ -269,7 +286,11 @@ class TransactionController extends Controller
 		# Print response.
 		$result = json_decode($result);
 
-
+        if(isset($result->errors))
+        {
+            return redirect()->back()->with('warning', 'Tivemos um problema técnico, pedimos para que entre em contato com um de nossos administradores.');
+        }
+        
 		$order = new Order;
         $order->user_id         = $auth->id;
 		$order->status 			= $result->status;
@@ -286,6 +307,7 @@ class TransactionController extends Controller
 			$orderItem->order_id 	= $order->id;
 			$orderItem->type 		= $cart->course_type;
 			$orderItem->save();
+            $cart->pivot->delete();
 		}
 		if ($result->status == 'paid') {
 			return redirect()->route('transaction');
