@@ -36,10 +36,16 @@ return [
     ],
 
 
-'facebook' => [
-    'client_id' => env('FACEBOOK_CLIENT_ID'),
-    'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-    'redirect' => env('FACEBOOK_REDIRECT'), 
-],
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT'), 
+    ],
+
+    'pagarme' => [
+        'api_key' => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
+        'encryption_key' =>'ek_test_BAungYpRc4WGgApTuLGEBBzrauSpcN',
+        'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+    ],
 
 ];

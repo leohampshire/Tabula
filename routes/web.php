@@ -12,7 +12,6 @@
 */
 
 
-
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::post('/checked', 'User\CourseController@classChecked')->name('checked');
   Route::post('pergunta', 'User\CourseController@question')->name('question');
@@ -32,6 +31,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
   Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
   Route::get('/pedidos', 'User\UserController@contentOrders')->name('orders');
   Route::get('/certificados', 'User\UserController@contentCertificate')->name('certificates');
+  Route::get('/saldos/', 'User\TransactionController@balance')->name('balance');
+  Route::post('sacar', 'User\TransactionController@loot')->name('loot');
   Route::get('/pedido/{id}', 'User\UserController@contentThisOrder')->name('order');
   //PAINEIS VIA AJAX
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');
@@ -247,6 +248,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/edit/{id}', 'Admin\AdminPageController@edit')->name('edit');
       Route::post('/update', 'Admin\AdminPageController@update')->name('update');
   });
+
+  Route::get('saldo', 'Admin\TransactionController@balance')->name('balance');
+  Route::post('sacar', 'Admin\TransactionController@loot')->name('loot');
+
 });
 //AUTH ADMIN
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

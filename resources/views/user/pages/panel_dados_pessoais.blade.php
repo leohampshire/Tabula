@@ -62,14 +62,24 @@
 						</a>
 					</div>
 					@endif
-					<!-- 
+					
+					
+			 	@endif
+			 	@if($auth->user_type_id == 5 || $auth->user_type_id == 4)
+			 		@if(isset($auth->databank))
 					<div class="col-xs-3">
-						<a href="#"class="my-course" data-url="#">
+						<a href="#balance"class="balance" data-url="{{route('user.balance')}}">
+							<button class="btn-block btn-panel-menu" type="button">Saldo</button>
+						</a>
+					</div>
+					@endif
+					<div class="col-xs-3">
+						<a href="#coupons"class="coupons" data-url="#">
 							<button class="btn-block btn-panel-menu" type="button">Cupons</button>
 						</a>
 					</div>
-					 -->
-			 	@endif
+
+				@endif
 			 	@if($auth->user_type_id == 5)
 			 	<div class="col-xs-3" >
 						<a href="#course-create" class="course-create" data-url="{{route('user.teacher.index')}}">

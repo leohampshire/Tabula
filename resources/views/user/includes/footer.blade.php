@@ -242,7 +242,10 @@ $(document).on('click', '#scroll', function(event){
 
     }else if(url.indexOf("#course-create") > 0){
       getContent("{{route('user.teacher.index')}}");
-    }  
+
+    }else if(url.indexOf("#balance") > 0){
+      getContent("{{route('user.balance')}}");
+    } 
   
 });
    
@@ -260,6 +263,7 @@ $(document).on('click', '#scroll', function(event){
       getContent(url);
     });
 
+
     $(document).on("click", '.course-create', function(event) { 
       var url = $(this).data('url');
       var databank = $(this).data('databank');
@@ -273,6 +277,13 @@ $(document).on('click', '#scroll', function(event){
     });
 
     $(document).on("click", '.this-order', function(event){
+       var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $(document).on("click", '.balance', function(event){
        var url = $(this).data('url');
       $('.btn-panel-menu').removeClass('btn-active');
       $(this).find('button').addClass('btn-active');
@@ -466,6 +477,12 @@ function avaliar(estrela) {
     e.preventDefault();
     $('#studentModal form input[name="id"]').val($(this).data('id'));
     $('#studentModal').modal('show');
+  });
+
+  $(document).on("click", '.act-loot', function(e){
+    e.preventDefault();
+    $('#lootModal #balance').html('Saldo Disponível: R$ '+ $(this).data('balance'));
+    $('#lootModal').modal('show');
   });
   
   $(document).on("click", '.act-chapter', function(e) { 

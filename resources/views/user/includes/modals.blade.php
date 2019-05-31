@@ -838,3 +838,37 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.fim Incluir aluno-->
+<!--Sacar-->
+<div class="modal fade" id="lootModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Incluir usuário</h4>
+      </div>
+      <form method="POST" action="{{route('user.loot')}}" enctype="multipart/form-data">
+        <div class="modal-body">
+            {{csrf_field()}}
+            <div class="box-body">
+              <h1 id="balance"></h1>
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="amount">Valor para sacar</label>
+                  <input type="text" name="amount" placeholder="Valor a sacar" class="form-control input-money" value="{{old('amount')}}">
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Confirmar</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.fim Sacar-->

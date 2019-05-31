@@ -92,6 +92,11 @@
             <i class="fa fa-tachometer"></i> <span>PÁGINAS</span>
           </a>
         </li>
+        <li {{ (Request::is('admin/saldo') ? 'class=active' : '') }} {{ (Request::is('admin/saldo/*') ? 'class=active' : '') }} >
+          <a href="{{route('admin.balance')}}">
+            <i class="fa fa-cogs"></i> <span>SALDO</span>
+          </a>
+        </li>
         <li {{ (Request::is('admin/configuracao') ? 'class=active' : '') }} {{ (Request::is('admin/configuracao/*') ? 'class=active' : '') }} >
           <a href="{{route('admin.configuration.index')}}">
             <i class="fa fa-cogs"></i> <span>CONFIGURAÇÕES</span>

@@ -15,7 +15,7 @@ class TransactionController extends Controller
         $auth = Auth::guard('user')->user();
 
         $payload = ([
-          'api_key'         => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
+          'api_key'         => config('services.pagarme.api_key'),
           'bank_code'       => $request->bank_code,
           'agencia'         => $request->agencia,
           'agencia_dv'      => $request->agencia_dv,
@@ -43,7 +43,7 @@ class TransactionController extends Controller
         }
         $account_id = $result->id;
         $payload = ([
-          'api_key'         => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
+          'api_key'         => config('services.pagarme.api_key'),
           'bank_account_id' => $result->id, 
           'anticipatable_volume_percentage' => '100', 
           'transfer_enabled' => 'false',
@@ -204,7 +204,7 @@ class TransactionController extends Controller
     		$card_hash = $request->pagarme['card_hash'];
 
     		$payload = ([
-    			'api_key' => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
+    			'api_key' => config('services.pagarme.api_key'),
     		  	'amount' => $amount,
     		  	'payment_method' => $payment_method,
     		  	'card_hash' => $card_hash,
@@ -241,7 +241,7 @@ class TransactionController extends Controller
     	}elseif ($payment_method == 'boleto') {
 
     		$payload = ([
-    			'api_key' => 'ak_test_EHrIO0g0eb60TqcuM2Sc1Tq5JQV5Hi',
+    			'api_key' => config('services.pagarme.api_key'),
     		  	'amount' => $amount,
     		  	'payment_method' => $payment_method,
     		  	'postback_url' => 'http://www.tabula.com.br/transaction/callback',
@@ -327,6 +327,70 @@ class TransactionController extends Controller
 		if ($request->current_status == 'paid') {
 			return redirect()->route('transaction');
 		}
+    }
+
+    // Mostra o saldo para o usuário
+    public function balance()
+    {
+        $auth = Auth::guard('user')->user();
+        $recipient_id = $auth->databank->recipient_id;
+        $api_key = config('services.pagarme.api_key');
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_URL, "https://api.pagar.me/1/balance?recipient_id={$recipient_id}&api_key={$api_key}");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        $output = curl_exec($ch); 
+        curl_close($ch);  
+        $result = json_decode($output);
+        $amounts = [];
+        $amounts['balance']  = number_format($this->insertInPosition($result->available->amount, ','),2,',','.');
+        $amounts['transfer'] = number_format($this->insertInPosition($result->transferred->amount, ','),2,',','.');
+        $amounts['waiting']  = number_format($this->insertInPosition($result->waiting_funds->amount, ','),2,',','.');
+
+        return view('user.pages.userPanel.balance')->with('amounts', $amounts);  
+        
+    }
+    //Realizar saque
+    public function loot(Request $request)
+    {
+        $auth = Auth::guard('user')->user();
+        $recipient_id = $auth->databank->recipient_id;
+        $amount = str_replace(',', '', str_replace('.', '', $request->amount));
+
+        $payload = ([
+          'api_key'         => config('services.pagarme.api_key'),
+          'amount'          => $amount,
+          'recipient_id'    => $recipient_id,
+        ]);
+        
+        $payload = json_encode($payload);
+
+        $ch = curl_init('https://api.pagar.me/1/transfers');
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        # Return response instead of printing.
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        # Send request.
+        $result = curl_exec($ch);
+        curl_close($ch);
+        # Print response.
+        $result = json_decode($result);
+        if (isset($result->errors)) {
+            return redirect()->back()->with('warning', 'Tivemos um problema com nossos servidores, contacte um Administrador.');
+        }
+        return redirect(route('user.panel').'#balance')->with('success', 'Saque realizado com sucesso');
+    }
+
+    private function insertInPosition($str, $c)
+    {
+        if ($str == 0 ) {
+            return 0.00;
+        }
+        $str2 = strlen($str)-2;
+
+        if ($str2 == 0) {
+            return (int)('0' . $c . substr($str, $str2));
+        }
+        return (int)(substr($str, 0, $str2) . $c . substr($str, $str2));
     }
 
     private function discount()

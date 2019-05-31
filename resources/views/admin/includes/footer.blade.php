@@ -315,6 +315,13 @@ function seoValidate()
     $('#includeModal form input[name="id"]').val($(this).data('id'));
     $('#includeModal').modal('show');
   });
+  $('.act-loot').on('click', function(e){
+    e.preventDefault();
+    $('#lootModal #balance').html('Saldo Disponível: R$ '+ $(this).data('balance'));
+    $('#lootModal form input[name="id"]').val($(this).data('id'));
+    $('#lootModal').modal('show');
+  });
+  
 
    $('.act-edit-item').on('click', function(e){
     e.preventDefault();
