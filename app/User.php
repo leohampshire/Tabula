@@ -60,19 +60,6 @@ class User extends Authenticatable
         $this->notify(new UserResetPassword($token));
     }
 
-    public function addNew($input)
-    {
-        $check = static::where('facebook_id',$input['facebook_id'])->first();
-
-
-        if(is_null($check)){
-            return static::create($input);
-        }
-
-
-        return $check;
-    }
-
     public function userTypes()
     {
         return $this->belongsTo('App\UserType', 'user_type_id');

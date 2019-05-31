@@ -277,6 +277,8 @@ Route::group(['prefix' => 'user'], function () {
   Route::get('/register', 'UserAuth\RegisterController@showRegistrationForm')->name('user.register');
   Route::post('/register', 'UserAuth\RegisterController@register');
 
+  
+
   Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'UserAuth\ResetPasswordController@reset')->name('password.email');
   Route::get('/password/reset', 'UserAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
@@ -301,16 +303,13 @@ Route::get('/carrinho', 'User\CartController@cart')->name('cart');
 Route::post('/carrinho/cupom', 'User\CartController@coupon')->name('coupon');
 Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
-Route::get('/{urn}', 'User\HomeController@pages')->name('page');
+Route::get('pagina/{urn}', 'User\HomeController@pages')->name('page');
 
 Route::group(['prefix' => 'facebook'], function () {
-  Route::get('/', function () {
-      return view('facebook');
-  });
-  Route::get('auth', 'Admin\FacebookController@redirectToFacebook');
-  Route::get('auth/callback', 'Admin\FacebookController@handleFacebookCallback');
+  Route::get('/', 'UserAuth\LoginController@redirectToProvider');
+  Route::get('/callback', 'UserAuth\LoginController@handleProviderCallback');
+  
 });
-
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::get('transaction/callback', 'User\TransactionController@callback')->name('callback');
 Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');

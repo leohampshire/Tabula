@@ -47,9 +47,10 @@
                 </div>
                 
             </div>
+            <!-- 
             <div class="row">
                 <div class="col-sm-offset-4 col-sm-2">
-                    <a href="{{ url('auth/facebook') }}">
+                    <a href="{{ url('facebook') }}">
                         <button class="btn-block btn-login-facebook" type="button">
                             <i class="fa fa-facebook" aria-hidden="true"></i> Facebook
                         </button>
@@ -60,7 +61,7 @@
                         <i class="fa fa-google" aria-hidden="true"></i> Google
                     </button>
                 </div>
-            </div>
+            </div> -->
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <a href="#" class="btn-forgot-password">Esqueceu a senha?</a>

@@ -34,12 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
-
     'facebook' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID'),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => env('FACEBOOK_REDIRECT'), 
+        'client_id' => '679193755843490',
+        'client_secret' => '78a8513ac6108ac98ad3b699de3b0957',
+        'redirect' => 'http://tabula.test/facebook/callback',
     ],
 
     'pagarme' => [
