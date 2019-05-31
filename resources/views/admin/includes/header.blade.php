@@ -1,7 +1,7 @@
 <div class="wrapper">
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{route('admin.dashboard')}}" class="logo">
       <span class="logo-lg"><b>TABULA</b></span>
       <span class="logo-mini"><b>TBL</b></span>
     </a>

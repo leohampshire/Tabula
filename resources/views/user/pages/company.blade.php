@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<img style="width: 100px; position: absolute; bottom: 0;" src="{{asset('images/profile')}}/{{$company->avatar}}">
-					<img height="200px" src="{{asset('images/cover')}}/{{$company->company->cover}}">
+					<img height="200px" style="width: 100%; object-fit: cover;" src="{{asset('images/cover')}}/{{$company->company->cover}}">
 				</div>
 				<div class="col-sm-12">
 					<nav class="navbar navbar-light bg-light " style="float: right;">

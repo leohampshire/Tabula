@@ -206,12 +206,13 @@
 <section>
 	<div class="container">
 		<div class="box-w-shadow">
+			<h2>Posts</h2>
 			<div class="container-carousel-courses">
 				<button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 				<div class="carousel-courses">
 					@forelse($posts as $post)
-					<a href="#">
+					<a href="{{route('post.the-post', ['urn' =>$post->urn])}}">
 					  	<div class="course-box">
 						  	<div class="course-thumb">
 						  		<img src="{{ asset('uploads/archives')}}/{{$post->cover}}" alt="Curso">

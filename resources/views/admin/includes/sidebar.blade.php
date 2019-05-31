@@ -94,7 +94,7 @@
         </li>
         <li {{ (Request::is('admin/saldo') ? 'class=active' : '') }} {{ (Request::is('admin/saldo/*') ? 'class=active' : '') }} >
           <a href="{{route('admin.balance')}}">
-            <i class="fa fa-cogs"></i> <span>SALDO</span>
+            <i class="fa fa-money" aria-hidden="true"></i><span>SALDO</span>
           </a>
         </li>
         <li {{ (Request::is('admin/configuracao') ? 'class=active' : '') }} {{ (Request::is('admin/configuracao/*') ? 'class=active' : '') }} >

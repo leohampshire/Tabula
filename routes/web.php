@@ -294,6 +294,7 @@ Route::group(['prefix' => 'empresa', 'as' => 'company.'], function () {
 
 
 Route::get('/', 'User\HomeController@index')->name('home');
+Route::get('/post/{urn}', 'User\HomeController@thePostpost')->name('post.the-post');
 Route::get('todos-professores', 'User\HomeController@allTeachers')->name('all-teachers');
 Route::get('todas-empresas', 'User\HomeController@allCompanies')->name('all-companies');
 Route::get('professor/{id}', 'User\HomeController@teacher')->name('teacher');
