@@ -62,7 +62,7 @@
                 <div class="form-group  row">
                   <div class="col-xs-12">
                     <label for="cover">Capa</label>
-                    <input class="form-control" type="file" name="cover">
+                    <input type="file" name="cover">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -73,8 +73,8 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="content">Meta Title</label>
-                    <textarea class="form-control" rows="6" name="content" placeholder="Escrever Conteúdo">{{ old('meta_title') }}</textarea>
+                    <label for="content">Conteúdo</label>
+                    <textarea class="form-control tinyeditor" rows="10" name="content" placeholder="Escrever Conteúdo">{{ old('content') }}</textarea>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-xs-6">
-                    <label for="keywords">KeyWord</label>
+                    <label for="keywords">Keyword</label>
                     <input class="form-control" type="text" name="keywords" placeholder="Definir KeyWord" value="{{ old('keywords') }}">
                   </div>
                   <div class="col-xs-6">
