@@ -89,7 +89,8 @@ class AdminPromotionController extends Controller
 
     private function type($file)
     {
-    	$type = basename($file->getClientOriginalName());
+    	$type = pathinfo($file->getClientOriginalName());
+    	$type = $type['extension'];
     	if ($type == 'png' || $type == 'jpg' || $type == 'jpeg' || $type == 'gif' || $type == 'svg') {
     		return 'image';
     	}
