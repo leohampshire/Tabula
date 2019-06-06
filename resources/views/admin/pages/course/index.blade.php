@@ -129,9 +129,13 @@
                         <a href="{{ route('admin.course.student', ['id' => $course->id])}}" title="Alunos" class="act-list">
                           <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                         </a>
+                        <a href="{{ route('admin.course.show', ['id' => $course->id])}}" title="Editar" class="act-list">
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
                         <a href="{{ route('admin.course.delete', ['id' => $course->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                         </a>
+
                       </td>
                     </tr>
                   @empty

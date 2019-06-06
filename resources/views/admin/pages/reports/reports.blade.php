@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Editar Página')
+@section('title', 'Relatórios')
 
 @section('description', 'Descrição')
 
@@ -11,7 +11,7 @@
     <section class="content-header">
       <div class="row">
         <div class="col-sm-6">
-          <h1>Editar Página</h1>
+          <h1>Relatórios</h1>
         </div>
       </div>
     </section>
@@ -48,53 +48,45 @@
 
     <!-- Main content -->
     <section class="content">
-      <!-- Main row -->
       <div class="row">
-        <!-- Left col -->
         <section class="col-lg-12">
           <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Dados</h3>
-            </div>
-            <form method="POST" action="{{route('admin.page.update')}}" enctype="multipart/form-data">
-              {{csrf_field()}}
-              <input type="hidden" name="id" value="{{$page->id}}">
+              <form method="POST" action="{{route('admin.report.export')}}" autocomplete="off">
+                {{csrf_field()}}
+              <div class="box-header">
+                <h3 class="box-title">Selecionar relatório</h3>
+              </div>
               <div class="box-body">
-                <div class="form-group row">
-                  <div class="col-xs-12">
-                    <h4><b>Nome</b></h4>
-                    <p>{{$page->name}}</p>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label for="type_report">Tipo de relatório</label>
+                    <select name="type_report" class="form-control">
+                      <option disabled selected>SELECIONE..</option>
+                      @forelse($reports as $report)
+                      <option value="{{$report->type}}" @if(old('type_report') == $report->type) selected @endif>{{$report->name}}</option>
+                      @empty
+                      @endforelse
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <label for="inicial">Período Inicial</label>
+                    <input type="text" name="initial" value="{{old('initial')}}" class="form-control input-date">
+                  </div>
+                  <div class="col-sm-3">
+                    <label for="final">Período Final</label>
+                    <input type="text" name="final" value="{{old('final')}}" class="form-control input-date">
                   </div>
                 </div>
-                <div class="form-group row box-nome" >
-                  <div class="col-xs-12">
-                    <label for="urn">URN</label>
-                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{$page->urn}}">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-12">
-                    <label for="desc">Descrição página</label>
-                    <textarea class="form-control tinyeditor" rows="6" name="desc" placeholder="Digite o texto">{{$page->desc}}</textarea>
-                  </div>
-                </div>
-                
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Atualizar</button>
-                <a href="{{route('admin.page.index')}}">
-                  <button type="button" class="btn btn-secondary">Voltar</button>
-                </a>
+                <button type="submit" class="btn btn-primary">Gerar</button>
               </div>
             </form>
-          </div>
         </section>
-        
-      </section>
-      <!-- /.content -->
       </div>
-      <!-- /.row (main row) -->
 
+    </section>
+    <!-- /.content -->
   </div>
 
 @stop

@@ -33,11 +33,19 @@ class CartController extends Controller
         return view('user.pages.cart')->with('auth', $auth);
 	}
 
-    public function insertCourseIntoFinish($id)
+    public function insertCourseIntoFinish($id, Request $request)
     {
+        $cart = $request->session()->get('cart');
         $auth = Auth::guard('user')->user();
         if (!$auth) {
-            return redirect(url('user/login'));
+            if ($cart) {
+                if (in_array($id, $cart)) {
+                    return redirect()->back()->with('warning', 'Curso já adicionado');
+                }                
+            }
+
+            $request->session()->push('cart', $id);
+            return redirect()->back()->with('success', 'Curso Adicionado ao Carrinho');
         }
 
         $items = Cart::where('user_id', $auth->id)->get();
@@ -48,21 +56,23 @@ class CartController extends Controller
         foreach($items as $item)
             if($id == $item->course_id)
                 $double = true;
-
+                $course = Course::find($id);
         //se produto não  estiver no carrinho, então salva no banco
             if(!$double)
             {
                 $cart = new Cart;
                 $cart->user_id = $auth->id;
                 $cart->course_id = $id;
+                $cart->teacher_id = $course->user_id_owner;
+                $cart->type = $course->course_type;
                 $cart->save();
 
                 Session::flash('success', 'Curso adicionado ao carrinho!');
             }
             else
-                Session::flash('success', 'Curso já existente no carrinho');
+                Session::flash('info', 'Curso já existente no carrinho');
 
-            return redirect()->back();
+            return redirect(route('cart'));
     }
 
     public function insertCourseIntoCart($id, Request $request)

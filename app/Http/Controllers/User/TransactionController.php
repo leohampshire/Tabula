@@ -106,6 +106,10 @@ class TransactionController extends Controller
     public function pagarme(Request $request)
     {
     	$auth = Auth::guard('user')->user();
+
+        if(!$auth){
+            return redirect(route('login'));
+        }
     	$amount = number_format(($auth->cart->sum('price') - $auth->discount), 2, '','');
     	$items = [];
         $taxa = Taxa::first();
@@ -121,12 +125,11 @@ class TransactionController extends Controller
                 'tangible' => false,
             ]);
         }
-
         if (!count($idUsers)) {
             $split_rules[0] = ([
               'amount' => $amount- $this->discount(),
               'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
-              'charge_processing_fee' => false,
+              'charge_processing_fee' => true,
               'liable' => true
             ]);
         }elseif (!count($idAdmins)) {

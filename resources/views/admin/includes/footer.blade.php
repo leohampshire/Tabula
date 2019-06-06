@@ -494,6 +494,7 @@ $('.dissertative').hide();
       autoclose: true
   });
 
+  $('.input-date').inputmask({"mask": "99/99/9999", "placeholder":"_"});
   $(".input-money").maskMoney({
       thousands:'.', 
       decimal:',', 

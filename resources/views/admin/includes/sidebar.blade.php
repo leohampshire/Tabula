@@ -92,6 +92,11 @@
             <i class="fa fa-tachometer"></i> <span>PÁGINAS</span>
           </a>
         </li>
+        <li {{ (Request::is('admin/relatorios') ? 'class=active' : '') }} {{ (Request::is('admin/relatorios/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.report.index')}}">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i> <span>RELATÓRIOS</span>
+          </a>
+        </li>
         <li {{ (Request::is('admin/saldo') ? 'class=active' : '') }} {{ (Request::is('admin/saldo/*') ? 'class=active' : '') }} >
           <a href="{{route('admin.balance')}}">
             <i class="fa fa-money" aria-hidden="true"></i><span>SALDO</span>

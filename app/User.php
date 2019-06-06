@@ -75,8 +75,23 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Course', 'course_user', 'user_id', 'course_id')->withPivot('progress');
     }
 
+    public function state()
+    {
+        return $this->belongsTo('App\State');
+    }
 
-    public function cart(){
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+
+    public function schooling()
+    {
+        return $this->belongsTo('App\Schooling');
+    }
+
+    public function cart()
+    {
         return $this->belongsToMany('App\Course', 'carts', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'coupon', 'discount');
     }
 
@@ -92,7 +107,7 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->hasOne('App\Company');
+        return $this->belongsTo('App\Company');
     }
     public function progress()
     {

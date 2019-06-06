@@ -449,7 +449,7 @@
                       @isset($item_types)
                         @foreach($item_types as $item)
                           @if($item->id > 6)
-                          <option value="{{$item->id}}" >{{$item->name}}</option>
+                          <option value="{{$item->id}}" >{{$item->value}}</option>
                           @endif
                         @endforeach
                       @endisset

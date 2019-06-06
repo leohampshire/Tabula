@@ -190,7 +190,7 @@
                 <div class="form-group  row">
                   <div class="col-xs-12">
                     <label for="requirements">Requisitos para o curso</label>
-                    <textarea name="requirements" placeholder="Requisitos para realizar o curso (opcional)" class="form-control" rows="4">{{$course->requirements}}</textarea>
+                    <textarea name="requirements" placeholder="Requisitos para realizar o curso (opcional)" class="form-control tinyeditor" rows="4">{{$course->requirements}}</textarea>
                   </div>
                 </div>
                 <div class="form-group  row">

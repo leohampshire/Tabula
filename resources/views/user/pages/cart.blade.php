@@ -95,10 +95,10 @@
 	                            data-amount="{{number_format(($auth->cart->sum('price') - $auth->discount), 2, '','')}}">
 	                        </script>
 	                    </form>
+	                    @else
 	                    <form action="{{url('transaction/pagarme/')}}" method="POST">
 	                    	{{csrf_field()}}
 	                    <button>Finalizar Compra</button>
-	                    </a>
 	                    	
 	                    </form>
 	                    @endif

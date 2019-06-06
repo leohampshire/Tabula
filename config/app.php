@@ -166,6 +166,7 @@ return [
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Vimeo\Laravel\VimeoServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
         /*
@@ -232,6 +233,7 @@ return [
         'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

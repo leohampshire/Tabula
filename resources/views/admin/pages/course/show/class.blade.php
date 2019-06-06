@@ -1,4 +1,4 @@
-@extends('user.templates.class')
+@extends('admin.templates.preview')
 
 @section('title', 'Tabula')
 

@@ -24,6 +24,7 @@ class Course extends Model
     	return $this->belongsTo('App\Category');
     }
 
+
     public function course_item_chapters()
     {
         return $this->hasMany('App\CourseItemChapter');

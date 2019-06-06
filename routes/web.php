@@ -157,6 +157,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/update', 'Admin\AdminSubcategoryController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminSubcategoryController@delete')->name('delete');
   });
+
+  Route::group(['prefix' => 'relatorios', 'as' => 'report.'], function (){
+    Route::get('/', 'Admin\ReportController@index')->name('index');
+    Route::post('/', 'Admin\ReportController@export')->name('export');
+  });
   Route::group(['prefix' =>'analise', 'as' => 'analyze.'], function(){
     Route::get('/', 'Admin\AdminCourseController@indexAnalyze')->name('index');
   });
@@ -289,9 +294,6 @@ Route::group(['prefix' => 'empresa', 'as' => 'company.'], function () {
   Route::get('/', 'User\UserController@userPanel')->name('panel');
   Route::get('/register', 'UserAuth\RegisterController@showRegistrationCompany')->name('register');
 });
-
-
-
 
 Route::get('/', 'User\HomeController@index')->name('home');
 Route::get('/post/{urn}', 'User\HomeController@thePostpost')->name('post.the-post');
