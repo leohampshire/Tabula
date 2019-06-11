@@ -42,6 +42,11 @@
             <i class="fa fa-cube" aria-hidden="true"></i> <span>SUBCATEGORIAS</span>
           </a>
         </li>
+        <li {{ (Request::is('admin/notificacao') ? 'class=active' : '') }} {{ (Request::is('admin/notificacao/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.notification.index')}}">
+            <i class="fa fa-cube" aria-hidden="true"></i> <span>NOTIFICAÇÕES</span>
+          </a>
+        </li>
         <li {{ (Request::is('admin/curso') ? 'class=active' : '') }} {{ (Request::is('admin/curso/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.course.index')}}">
             <i class="fa fa-university" aria-hidden="true"></i> <span>CURSOS</span>
@@ -90,6 +95,11 @@
         <li {{ (Request::is('admin/paginas') ? 'class=active' : '') }} {{ (Request::is('admin/paginas/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.page.index')}}">
             <i class="fa fa-tachometer"></i> <span>PÁGINAS</span>
+          </a>
+        </li>
+        <li {{ (Request::is('admin/newsletter') ? 'class=active' : '') }} {{ (Request::is('admin/newsletter/*') ? 'class=active' : '') }}>
+          <a href="{{route('admin.newsletter.index')}}">
+            <i class="fa fa-tachometer"></i> <span>NEWSLETTER</span>
           </a>
         </li>
         <li {{ (Request::is('admin/relatorios') ? 'class=active' : '') }} {{ (Request::is('admin/relatorios/*') ? 'class=active' : '') }}>

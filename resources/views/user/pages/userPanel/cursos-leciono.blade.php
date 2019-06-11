@@ -26,7 +26,7 @@
 			</div>
 			<div class="course-access">
 				<a href="#course-edit" title="Editar" class="course-edit" data-url="{{route('user.course.edit', ['id' => $course->id])}}"><span><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
-				<a href="#course-edit" class="course-edit" title="Visualizar" data-url="{{route('user.course.edit', ['id' => $course->id])}}"><span><i class="fa fa-eye" aria-hidden="true"></i></span></a>	
+				<a href="{{route('user.course.show', ['id' => $course->id])}}" title="Visualizar" ><span><i class="fa fa-eye" aria-hidden="true"></i></span></a>	
 				<a href="#course-edit" class="course-edit" title="Alunos" data-url="{{route('user.course.student', ['id' => $course->id])}}"><span><i class="fa fa-graduation-cap" aria-hidden="true"></i></span></a>		
 				@if($course->avaliable == 1)
 				<a href="{{route('user.course.avaliable', ['id' => $course->id])}}" title="Disponibilizar Aula" class="act-avaliable"><span><i class="fa fa-unlock" aria-hidden="true"></i></span></a>		

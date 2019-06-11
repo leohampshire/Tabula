@@ -337,6 +337,12 @@ function seoValidate()
     $('#chapterModal').modal('show');
   });
 
+  $('.act-increase').on('click', function(e){
+    e.preventDefault();
+    $('#increaseModal form input[name="id"]').val($(this).data('id'));
+    $('#increaseModal').modal('show');
+  });
+
    $('.act-student').on('click', function(e){
     e.preventDefault();
     $('#studentModal form input[name="id"]').val($(this).data('id'));

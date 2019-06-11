@@ -5,6 +5,7 @@ namespace App;
 use App\Notifications\UserResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\CourseUser;
 
 class User extends Authenticatable
 {
@@ -72,7 +73,7 @@ class User extends Authenticatable
 
     public function myCourses()
     {
-        return $this->belongsToMany('App\Course', 'course_user', 'user_id', 'course_id')->withPivot('progress');
+        return $this->belongsToMany('App\Course', 'course_user', 'user_id', 'course_id')->withPivot('progress', 'expired');
     }
 
     public function state()
@@ -122,4 +123,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Order');
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany('App\Order');
+    }
+
+    public function expired($id)
+    {
+        $expired = CourseUser::where('user_id', $this->id)->where('course_id', $id)->value('expired');
+        return $expired;
+    }
+
 }

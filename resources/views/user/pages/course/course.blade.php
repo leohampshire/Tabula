@@ -21,7 +21,7 @@
           <h4>Descrição</h4>
           <p>{{$course->desc}}</p>
           <br>
-            @if($hasCourse)
+            @if($hasCourse && $auth->expired($course->id) >=  date('Y-m-d'))
               <a href="{{route('course.class', ['id' => $course->id])}}">
                 <button>Iniciar Curso</button>
               </a>

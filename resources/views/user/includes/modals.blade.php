@@ -846,7 +846,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Incluir usuário</h4>
+        <h4 class="modal-title">Sacar</h4>
       </div>
       <form method="POST" action="{{route('user.loot')}}" enctype="multipart/form-data">
         <div class="modal-body">
@@ -872,3 +872,26 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.fim Sacar-->
+
+<!--Texto inicia curso-->
+<div class="modal fade" id="textModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Lorem ipsum dolor</h4>
+      </div>
+      <div class="modal-body">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend auctor neque, et mollis libero feugiat eu. Donec magna neque, vestibulum a orci eu, feugiat laoreet eros. In dignissim erat semper est tempus placerat. Nulla eros lorem, auctor non imperdiet non, convallis a libero. Etiam tristique et nunc eu cursus. Ut nec elementum metus. Morbi varius est mattis iaculis tempus. Aenean vel libero eget quam convallis luctus. Praesent pulvinar venenatis turpis id fermentum. Nulla eget lorem erat. Nullam tincidunt vitae diam eget blandit. Nunc ligula quam, pharetra vel ornare ac, elementum vel nisi. In eu porttitor sapien. Nam commodo imperdiet nulla at scelerisque.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

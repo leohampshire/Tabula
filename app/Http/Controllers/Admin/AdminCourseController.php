@@ -16,6 +16,7 @@ use App\Course;
 use App\Certificate;
 use App\User;
 use Session;
+use Image;
 use Auth;
 use PDF;
 class AdminCourseController extends Controller
@@ -464,12 +465,15 @@ class AdminCourseController extends Controller
     public function studentInclude(Request $request)
     {
         $student = User::where('email', $request->email)->first();
+
+        $date = date('Y-m-d', strtotime('+6 month'));
         if($student){
-            if (!$student->myCourses->where('id', $request->id)) {
+            if (count($student->myCourses->where('id', $request->id)) == 0) {
                 CourseUser::create([
                     'user_id'   => $student->id,
                     'course_id' => $request->id,
                     'progress'  => 0,
+                    'expired'   => $date
                 ]);
                 return redirect()->back()->with('success', 'Aluno Incluso ao seu curso');
             }
@@ -538,6 +542,7 @@ class AdminCourseController extends Controller
 
     public function thumbImgValidate(Request $request)
     {
+        $originalPath = public_path().'/images/aulas/';
         $arq_img = $request->file('thumb_img');
         $name    = basename($arq_img->getClientOriginalName());
         $type    = strtolower(pathinfo($name,PATHINFO_EXTENSION));
@@ -555,7 +560,11 @@ class AdminCourseController extends Controller
             }
         }
         $arq_img_name = $str.'.'.$type;
-        $arq_img->move('images/aulas', $arq_img_name); 
+        $image = Image::make($arq_img);
+        $image->resize(300, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image->save($originalPath.$arq_img_name); 
 
         return $arq_img_name;  
     }

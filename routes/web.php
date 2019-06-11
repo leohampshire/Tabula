@@ -41,6 +41,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::get('/criar', 'User\UserController@contentCreateCourse')->name('create');
     Route::get('/editar/{id}', 'User\UserController@contentCourseEdit')->name('edit');
+    Route::get('/visualizar/{id}', 'User\CourseController@show')->name('show');
+    
     Route::get('/alunos/{id}', 'User\UserController@contentStudent')->name('student');
     Route::get('reiniciar/{course_id}/{user_id}', 'Admin\AdminCourseController@studentRestart')->name('restart');
     Route::get('certificado/{student}/{course}', 'Admin\AdminCourseController@certificate')->name('student-certificate');
@@ -158,17 +160,28 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/delete/{id}', 'Admin\AdminSubcategoryController@delete')->name('delete');
   });
 
+  Route::group(['prefix' => 'notificacao', 'as' => 'notification.'], function (){
+    Route::get('/', 'Admin\NotificationController@index')->name('index');
+  });
+  //RELATORIOS ADMIN
   Route::group(['prefix' => 'relatorios', 'as' => 'report.'], function (){
     Route::get('/', 'Admin\ReportController@index')->name('index');
     Route::post('/', 'Admin\ReportController@export')->name('export');
   });
+  //ANALISE DE CURSOS ADMIN
   Route::group(['prefix' =>'analise', 'as' => 'analyze.'], function(){
     Route::get('/', 'Admin\AdminCourseController@indexAnalyze')->name('index');
   });
+  Route::group(['prefix' =>'newsletter', 'as' => 'newsletter.'], function(){
+    Route::get('/', 'Admin\NewsletterController@index')->name('index');
+    Route::get('/exportar', 'Admin\NewsletterController@export')->name('export');
+  });
+
   //CURSOS ADMIN
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
       Route::get('/', 'Admin\AdminCourseController@index')->name('index');
       Route::get('subcategoria-curso', 'Admin\AdminCourseController@SubCourse')->name('subcategory');
+      Route::post('aumenta-expiracao', 'Admin\NotificationController@increaseTime')->name('time-increase');
       Route::get('/create', 'Admin\AdminCourseController@create')->name('create');
       Route::post('/store', 'Admin\AdminCourseController@store')->name('store');
       Route::get('/editar/{id}', 'Admin\AdminCourseController@edit')->name('edit');
@@ -304,15 +317,15 @@ Route::get('empresa/{id}', 'User\HomeController@company')->name('company');
 
 Route::get('/carrinho', 'User\CartController@cart')->name('cart');
 Route::post('/carrinho/cupom', 'User\CartController@coupon')->name('coupon');
-Route::post('/transaction', 'User\TransactionController@statusTransaction')->name('transaction');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('pagina/{urn}', 'User\HomeController@pages')->name('page');
 
 Route::group(['prefix' => 'facebook'], function () {
   Route::get('/', 'UserAuth\LoginController@redirectToProvider');
   Route::get('/callback', 'UserAuth\LoginController@handleProviderCallback');
-  
 });
+
+Route::post('newsletter', 'Admin\NewsletterController@newsletter')->name('newsletter');
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::get('transaction/callback', 'User\TransactionController@callback')->name('callback');
 Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');

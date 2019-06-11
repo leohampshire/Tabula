@@ -20,20 +20,20 @@ class CourseController extends Controller
             $hasCourse      = true;
     	}
 
-        $star           = new Rating;
-        $star           = $star->totalStar($course->id);
+        $star       = new Rating;
+        $star       = $star->totalStar($course->id);
         if ($star == 0) {
             $course->star   = 0;
         }else{
             $course->star   = $star / $course->ratings->count();
         }
-        $allCourses         = Course::where('category_id', $course->category_id)->where('id','<>', $course->id)->get();
-    	
+        $allCourses     = Course::where('category_id', $course->category_id)->where('id','<>', $course->id)->get();
         return view('user.pages.course.course')
         ->with('auth', $auth)
         ->with('course', $course)
         ->with('allCourses', $allCourses)
         ->with('hasCourse', $hasCourse);
+
     }
 
     public function class($id)
@@ -264,6 +264,12 @@ class CourseController extends Controller
 
         }
         return $count;
+    }
+
+    public function show($id)
+    {
+        $course = Course::find($id);
+        return view('user.pages.course.show.class')->with('course', $course);   
     }
     
 }

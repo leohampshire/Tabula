@@ -103,6 +103,9 @@ $(document).on("click", '.check-class', function(event){
         }
       });
     }
+    $(document).ready(function(){
+      $('#textModal').modal('show');
+    });
 
 
 //--------Fim funções ajax-------------------------------------------------------------------------

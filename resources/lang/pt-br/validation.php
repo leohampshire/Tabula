@@ -115,22 +115,34 @@ return [
     */
 
     'attributes' => [
-        'bar_code' => 'código de barras',
-        'company_name' => 'razão social',
         'trade' => 'nome fantasia',
         'email' => 'e-mail',
         'cnpj' => 'CNPJ',
-        'state_registration' => 'inscrição estadual',
         'phone' => 'telefone',
         'zip_code' => 'CEP',
         'address' => 'endereço',
         'address_number' => 'número',
-        'district' => 'bairro',
         'city' => 'cidade',
         'state' => 'estado',
         'type' => 'tipo',
-        'date transaction' => 'data de transação',
-        'due_date' => 'data de vencimento'
+        'password' => 'senha',
+        'user_type_id' => 'tipo de usuário',
+        'category_id' => 'categoria',
+        'desc' => 'descrição',
+        'price' => 'preço',
+        'item_type_id' => 'tipo de aula',
+        'country_id' => 'país',
+        'type_discount' => 'tipo de desconto',
+        'type_coupon' => 'tipo de cupom',
+        'value_coupon' => 'valor do cupom',
+        'cod_coupon' => 'código cupom',
+        'metaDescription' => 'descrição meta',
+        'metaType' => 'tipo de meta',
+        'pageType' => 'tipo de página',
+        'file' => 'arquivo',
+        'amount' => 'valor',
+        'name' => 'nome',
+        'value' => 'valor'
     ],
 
 ];

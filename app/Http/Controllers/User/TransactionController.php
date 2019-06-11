@@ -9,7 +9,6 @@ use Auth;
 
 class TransactionController extends Controller
 {
-
     public function getRecipient(Request $request)
     {
         $auth = Auth::guard('user')->user();
@@ -74,22 +73,6 @@ class TransactionController extends Controller
         $data_bank->save();
 
         return redirect()->back()->with('succes', 'Dados Bancários salvos com sucesso');
-    }
-
-    public function statusTransaction(Request $request)
-	{  
-		$auth = Auth::guard('user')->user();
-        $carts = $auth->order->where('transaction_id', '6458268')->first()->items;
-		foreach ($carts as $cart) {
-			CourseUser::create([
-				'user_id' 	=> $auth->id,
-				'course_id' => $cart->id,
-				'progress'	=> 0,
-			]);
-
-		}
-        return redirect()->route('user.panel')->with('success', 'Obrigado por comprar no tabula');
-
     }
 
     public function rescuePagarMe(Request $request)
@@ -328,7 +311,7 @@ class TransactionController extends Controller
     		'boleto_url' => $boletoUrl
 		]);
 		if ($request->current_status == 'paid') {
-			return redirect()->route('transaction');
+			$this->addCourse($request->id);
 		}
     }
 
@@ -405,6 +388,22 @@ class TransactionController extends Controller
             $total = $total + $discount;
         }
         return $total;
+    }
+
+    private function addCourse($transaction)
+    {  
+        $auth = Auth::guard('user')->user();
+        $date = date('d-m-Y', strtotime('+6 month')); 
+        $carts = $auth->order->where('transaction_id', $transaction)->first()->items;
+        foreach ($carts as $cart) {
+            CourseUser::create([
+                'user_id'   => $auth->id,
+                'course_id' => $cart->id,
+                'progress'  => 0,
+                'expired'   => $date
+            ]);
+        }
+        return redirect()->route('user.panel')->with('success', 'Obrigado por comprar no tabula');
     }
 
 

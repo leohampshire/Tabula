@@ -31,6 +31,9 @@ class TransactionController extends Controller
     //Realizar saque
     public function loot(Request $request)
     {
+        $request->validate([
+            'amount' => 'required',
+        ]);
     	$payload = ([
           'api_key'         => config('services.pagarme.api_key'),
           'amount' 			=> str_replace(',', '', str_replace('.', '', $request->amount)),

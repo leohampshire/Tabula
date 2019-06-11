@@ -668,7 +668,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Incluir usuário</h4>
+        <h4 class="modal-title">Sacar</h4>
       </div>
       <form method="POST" action="{{route('admin.loot')}}" enctype="multipart/form-data">
         <div class="modal-body">
@@ -694,3 +694,45 @@
   <!-- /.modal-dialog -->
 </div>
 <!--/.fim Sacar-->
+
+<!--aumentar prazo curso-->
+<div class="modal fade" id="increaseModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Aumentar prazo curso</h4>
+      </div>
+      <form method="POST" action="{{ route('admin.course.time-increase')}}" enctype="multipart/form-data">
+        <div class="modal-body">
+            {{csrf_field()}}
+            <input type="hidden" name="id" value="">
+            <div class="box-body">
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="increase">Informar prazo que deseja aumentar</label>
+                  <select class="form-control" name="increase">
+                    <option value="1">1 Meses</option>
+                    <option value="2">2 Meses</option>
+                    <option value="3">3 Meses</option>
+                    <option value="4">4 Meses</option>
+                    <option value="5">5 Meses</option>
+                    <option value="6">6 Meses</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Confirmar</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.fim aumentar prazo curso-->

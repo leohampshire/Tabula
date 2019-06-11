@@ -28,4 +28,9 @@ class OrderItem extends Model
 		}return $this->belongsTo('App\Admin', 'author_id');
 	}
 
+	public function order()
+	{
+		return $this->belongsTo('App\Order');
+	}
+
 }
