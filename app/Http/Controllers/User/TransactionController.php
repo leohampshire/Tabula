@@ -313,7 +313,7 @@ class TransactionController extends Controller
     		'boleto_url' => $boletoUrl
 		]);
 		if ($request->current_status == 'paid') {
-			$this->addCourse($transaction_id, $order->id);
+			$this->addCourse($transaction_id, $order->user_id);
 		}
     }
 
