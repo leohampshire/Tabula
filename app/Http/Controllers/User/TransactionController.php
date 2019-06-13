@@ -313,7 +313,16 @@ class TransactionController extends Controller
     		'boleto_url' => $boletoUrl
 		]);
 		// if ($current_status == 'paid') {
-			$this->addCourse($transaction_id);
+            $date = date('d-m-Y', strtotime('+6 month')); 
+            $carts = $order->items;
+            foreach ($carts as $cart) {
+                CourseUser::create([
+                    'user_id'   => $order->user_id,
+                    'course_id' => $cart->id,
+                    'progress'  => 0,
+                    'expired'   => $date
+                ]);
+            }
 		// }
     }
 
