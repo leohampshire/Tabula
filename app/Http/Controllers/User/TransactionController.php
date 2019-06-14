@@ -312,18 +312,9 @@ class TransactionController extends Controller
     		'status' => $current_status,
     		'boleto_url' => $boletoUrl
 		]);
-		// if ($current_status == 'paid') {
-            $date = date('d-m-Y', strtotime('+6 month')); 
-            $carts = $order->items;
-            foreach ($carts as $cart) {
-                CourseUser::create([
-                    'user_id'   => $order->user_id,
-                    'course_id' => $cart->id,
-                    'progress'  => 0,
-                    'expired'   => $date
-                ]);
-            }
-		// }
+		if ($current_status == 'paid') {
+            $this->addCourse($transaction);
+		}
     }
 
     // Mostra o saldo para o usuário
@@ -406,7 +397,7 @@ class TransactionController extends Controller
         $order = Order::where('transaction_id', $transaction)->first();
         $auth = User::find($order->user_id);
 
-        $date = date('d-m-Y', strtotime('+6 month')); 
+        $date = date('Y-m-d', strtotime('+6 month')); 
         $carts = $order->items;
         foreach ($carts as $cart) {
             CourseUser::create([
