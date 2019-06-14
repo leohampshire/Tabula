@@ -313,7 +313,7 @@ class TransactionController extends Controller
     		'boleto_url' => $boletoUrl
 		]);
 		if ($current_status == 'paid') {
-            $this->addCourse($transaction);
+            $this->addCourse($transaction_id);
 		}
     }
 
@@ -395,17 +395,19 @@ class TransactionController extends Controller
     private function addCourse($transaction)
     {  
         $order = Order::where('transaction_id', $transaction)->first();
-        $auth = User::find($order->user_id);
 
         $date = date('Y-m-d', strtotime('+6 month')); 
         $carts = $order->items;
         foreach ($carts as $cart) {
-            CourseUser::create([
-                'user_id'   => $auth->id,
-                'course_id' => $cart->id,
-                'progress'  => 0,
-                'expired'   => $date
-            ]);
+            $item = CourseUser::where('user_id',$cart->user_id)->where('course_id', $cart->course_id)->count();
+            if($item != 0){
+                CourseUser::create([
+                    'user_id'   => $cart->user_id,
+                    'course_id' => $cart->course_id,
+                    'progress'  => 0,
+                    'expired'   => $date
+                    ]);
+            }
         }
         return redirect()->route('user.panel')->with('success', 'Obrigado por comprar no tabula');
     }
