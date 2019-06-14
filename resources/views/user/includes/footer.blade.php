@@ -1,25 +1,30 @@
 <?php
   $pages = DB::table('pages')->get();
 ?>
+
 <footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6">
-        <h4>Cadastre-se e receba mensalmente novidaddes</h4>
+  <div class="footer-news">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <h4>Receba novidaddes</h4>
+        </div>
+        <form class="form-group" action="{{route('newsletter')}}" method="POST">
+          {{csrf_field()}}
+          <div class="col-sm-3">
+            <input type="text" name="name" class="form-control" placeholder="Nome">
+          </div>
+          <div class="col-sm-3">
+            <input type="email" name="email" class="form-control" placeholder="E-mail">
+          </div>
+          <div class="col-sm-2">
+            <button class="btn-primary" type="submit">RECEBER</button>
+          </div>
+        </form>
       </div>
-      <form class="form-group" action="{{route('newsletter')}}" method="POST">
-      {{csrf_field()}}
-        <div class="col-sm-2">
-          <input type="text" name="name" class="form-control" placeholder="NOME">
-        </div>
-        <div class="col-sm-3">
-          <input type="email" name="email" class="form-control" placeholder="E-MAIL">
-        </div>
-        <div class="col-sm-1">
-          <button class="btn-primary" type="submit">ENVIAR</button>
-        </div>
-      </form>
     </div>
+  </div>
+  <div class="container">
     <div class="row">
       <div class="col-sm-4">
         <h4>O tabula</h4>
