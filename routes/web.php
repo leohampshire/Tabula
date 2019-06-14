@@ -327,5 +327,5 @@ Route::group(['prefix' => 'facebook'], function () {
 
 Route::post('newsletter', 'Admin\NewsletterController@newsletter')->name('newsletter');
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
-Route::get('transaction/callback', 'User\TransactionController@callback')->name('callback');
+Route::post('transaction/callback', 'User\TransactionController@callback')->name('callback');
 Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');

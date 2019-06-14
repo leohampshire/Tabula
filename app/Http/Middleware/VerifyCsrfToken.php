@@ -15,5 +15,6 @@ class VerifyCsrfToken extends Middleware
         'admin/cupom/pesquisar',
         'curso/checked',
         'curso/item',
+        'transaction/callback',
     ];
 }
