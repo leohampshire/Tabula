@@ -23,6 +23,7 @@ class TransactionController extends Controller
           'document_number' => $request->cpf,
           'legal_name'      => $auth->name,
         ]);
+        return dd($payload);
 
         $payload = json_encode($payload);
         $ch = curl_init('https://api.pagar.me/1/bank_accounts');
@@ -400,13 +401,13 @@ class TransactionController extends Controller
         $carts = $order->items;
         foreach ($carts as $cart) {
             $item = CourseUser::where('user_id',$cart->user_id)->where('course_id', $cart->course_id)->count();
-            if($item != 0){
+            if($item == 0){
                 CourseUser::create([
                     'user_id'   => $cart->user_id,
                     'course_id' => $cart->course_id,
                     'progress'  => 0,
                     'expired'   => $date
-                    ]);
+                ]);
             }
         }
         return redirect()->route('user.panel')->with('success', 'Obrigado por comprar no tabula');
