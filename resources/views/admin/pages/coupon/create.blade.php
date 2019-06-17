@@ -96,7 +96,7 @@
 
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="desc_coupon">Limite</label>
+                    <label for="limit">Limite</label>
                     <input class="form-control" name="limit" type="number" placeholder="Limite (opcional)" value="{{ old('limit') }}">
                   </div>
                 </div>     

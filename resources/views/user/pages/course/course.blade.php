@@ -32,12 +32,18 @@
                 <button>Avaliar</button>
               </a>
             @else
-              <a href="{{route('cart.finish', ['id' => $course->id])}}">
-                <button>Comprar</button>
-              </a>
-              <a href="{{route('cart.insert', ['id' => $course->id])}}">
-                <button>Adicionar ao Carrinho</button>
-              </a>
+              @if(Auth::guard('user')->check() && $course->user_id_owner == $auth->id)
+                <a href="{{route('user.course.show', ['id' => $course->id])}}">
+                  <button>Visualizar</button>
+                </a>
+              @else
+                <a href="{{route('cart.finish', ['id' => $course->id])}}">
+                  <button>Comprar</button>
+                </a>
+                <a href="{{route('cart.insert', ['id' => $course->id])}}">
+                  <button>Adicionar ao Carrinho</button>
+                </a>
+              @endif
             @endif
         </div>
         <div class="col-sm-6">
@@ -129,20 +135,22 @@
         <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
         <div class="carousel-courses">
           @forelse($allCourses as $recommended)
-          <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
-              <div class="course-box">
-                <div class="course-thumb">
-                  <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
+            @if($recommended->avaliable == 2)
+            <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
+                <div class="course-box">
+                  <div class="course-thumb">
+                    <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
+                  </div>
+                  <div class="course-desc">
+                    <h3>{{substr($recommended->name,0, 14)}}</h3>
+                    <p>{{substr($recommended->desc, 0, 55)}}</p>
+                  </div>
+                  <div class="course-value">
+                    <span>R$ {{number_format($recommended->price, 2, ',', '.')}}</span>
+                  </div>
                 </div>
-                <div class="course-desc">
-                  <h3>{{substr($recommended->name,0, 14)}}</h3>
-                  <p>{{substr($recommended->desc, 0, 55)}}</p>
-                </div>
-                <div class="course-value">
-                  <span>R$ {{number_format($recommended->price, 2, ',', '.')}}</span>
-                </div>
-              </div>
-          </a>
+            </a>
+            @endif
           @empty
           @endforelse
         </div>

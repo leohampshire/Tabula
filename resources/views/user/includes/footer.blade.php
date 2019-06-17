@@ -76,6 +76,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript">
 
 $('.carousel-courses').slick({
@@ -113,7 +114,7 @@ $('.carousel-courses').slick({
   ]
 });
 
-$(document).on('click', '#scroll', function(event){
+$(document).on('click', '.scroll', function(event){
     var tela = $(window).width();
     if(tela < 768){
         event.preventDefault(); 
@@ -262,12 +263,16 @@ $(document).on('click', '#scroll', function(event){
     }else if(url.indexOf("#teach") > 0){
       getContent("{{route('user.teach')}}");
 
-    }else if(url.indexOf("#course-create") > 0){
-      getContent("{{route('user.teacher.index')}}");
-
     }else if(url.indexOf("#balance") > 0){
       getContent("{{route('user.balance')}}");
-    } 
+    
+    }else if(url.indexOf("#my-teacher")>0){
+      getContent("{{route('user.teacher.index')}}");
+
+    }else if(url.indexOf("#coupons")>0){
+      getContent("{{route('user.coupon.index')}}");
+
+    }
   
 });
    
@@ -284,6 +289,7 @@ $(document).on('click', '#scroll', function(event){
       $(this).find('button').addClass('btn-active');
       getContent(url);
     });
+    
 
 
     $(document).on("click", '.course-create', function(event) { 
@@ -296,6 +302,29 @@ $(document).on('click', '#scroll', function(event){
         $(this).find('button').addClass('btn-active');
         getContent(url);
       }
+    });
+
+    $(document).on("click", '.my-teacher', function(event) { 
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $(document).on("click", '.coupons', function(event) { 
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $(document).on("click", '.new-coupon', function(e) { 
+      e.preventDefault();
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      $('#couponModal form input[name="user_id"]').val($(this).data('id'));
+      $('#couponModal').modal('show');
     });
 
     $(document).on("click", '.this-order', function(event){
@@ -631,16 +660,41 @@ function avaliar(estrela) {
         url: url,
         type: 'GET',
         beforeSend: function(){
-          $('#content').html('Carregando...');
+          $('#content').html('<div class="box-w-shadow"><p>Carregando...</p></div>');
         },
         success: function(data){
           $('#content').html(data);
         },
         error: function(e){
+          $('#content').html('<div class="box-w-shadow"><p>Ops, tivemos um problema, entre em contato com nossos administradores.</p></div>');
           console.log(e);
         }
       });
     }
+  $(document).ready(function() {
+    $(".multiple").select2({
+      ajax: { 
+       url: "{{route('user.coupon.search')}}",
+       type: "post",
+       dataType: 'json',
+       delay: 250,
+       
+       data: function (params) {
+        return {
+          searchTerm: params.term,
+        };
+       },
+       processResults: function (response) {
+        console.log(response);
+         return {
+            results: response
+         };
+       },
+       cache: true
+      },
+      minimumInputLength: 3
+    });  
+  });  
 
     function categAjax(url, categId){
       $.ajax({

@@ -142,7 +142,12 @@ return [
         'file' => 'arquivo',
         'amount' => 'valor',
         'name' => 'nome',
-        'value' => 'valor'
+        'state_id' => 'estado',
+        'bank_code' => 'código do banco',
+        'agencia' => 'agência',
+        'conta_dv' => 'dígito da conta',
+        'document_number' => 'número do documento',
+        'legal_name' => 'nome legal',
     ],
 
 ];

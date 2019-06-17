@@ -23,6 +23,7 @@ class CreateDatabanksTable extends Migration
             $table->string('recipient_id');
             $table->integer('conta_dv')->nullable();
             $table->string('document_number');
+            $table->string('legal_name');
             $table->integer('user_id');
             $table->timestamps();
         });

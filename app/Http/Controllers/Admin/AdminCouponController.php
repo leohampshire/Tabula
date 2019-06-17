@@ -24,11 +24,11 @@ class AdminCouponController extends Controller
         if ($request->type == 'produto') {
             $searchs = Course::where('name', 'like', '%'.$request->searchTerm.'%');
            
-         }elseif ($request->type == 'macrotema') {
+        }elseif ($request->type == 'macrotema') {
             $searchs = Category::where('name', 'like', '%'.$request->searchTerm.'%')->whereNull('category_id');
-         }else{
+        }else{
             $searchs = Category::where('name', 'like', '%'.$request->searchTerm.'%')->where('category_id', '<>', '');
-         }
+        }
 
         if ($searchs->count() != 0) {
             foreach ($searchs->get() as $sch) {

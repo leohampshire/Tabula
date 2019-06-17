@@ -75,7 +75,7 @@
 						</div>
 						@endif
 						<div class="box-button-panel">
-							<a href="#coupons"class="coupons" data-url="#">
+							<a href="#coupons"class="coupons" data-url="{{route('user.coupon.index')}}">
 								<button class="btn-block btn-panel-menu" type="button">Cupons</button>
 							</a>
 						</div>
@@ -83,7 +83,7 @@
 					@endif
 				 	@if($auth->user_type_id == 5)
 				 	<div class="box-button-panel" >
-							<a href="#course-create" class="course-create" data-url="{{route('user.teacher.index')}}">
+							<a href="#my-teacher" class="my-teacher" data-url="{{route('user.teacher.index')}}">
 								<button class="btn-block btn-panel-menu" type="button">Professores </button>
 							</a>
 						</div>
@@ -91,7 +91,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="box-w-shadow" id="content">
+		<div id="content">
 			
 		</div>
 	</div>

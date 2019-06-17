@@ -16,8 +16,8 @@
 				</div>
 				<div class="col-sm-12">
 					<nav class="navbar navbar-light bg-light " style="float: right;">
-					  <a href="#about" class="navbar-brand" id="scroll">Sobre</a>
-					  <a href="#courses" class="navbar-brand" id="scroll">Cursos</a>
+					  <a href="#about" class="navbar-brand scroll" >Sobre</a>
+					  <a href="#courses" class="navbar-brand scroll" >Cursos</a>
 					</nav>
 				</div>
 			</div>

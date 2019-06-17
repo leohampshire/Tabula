@@ -6,15 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\CourseItemChapter;
-use App\CourseItemType;
-use App\Category;
-use App\Country;
-use App\Course;
-use App\Certificate;
-use App\Company;
-use App\State;
-use App\Order;
-use App\User;
+use App\{CourseItemType,Category,Country,Course,Certificate,Company,State,Coupon,User,Order};
 use Auth;
 
 
@@ -39,7 +31,8 @@ class UserController extends Controller
     	->with('states', State::all())
     	->with('auth', $auth);
     }
-//Cursos que leciono
+
+    //Cursos que leciono
     public function contentTeachCourse()
     {
         $auth = Auth::guard('user')->user();
@@ -61,12 +54,14 @@ class UserController extends Controller
         ->with('interests', Category::all())
         ->with('auth', $auth);
     }   
+
     //Criar Curso professor
     public function contentCreateCourse()
     {
         return view('user.pages.userPanel.criar-curso')
         ->with('categories', Category::all());
     }
+
     //Editar Curso Professor
     public function contentCourseEdit($id)
     {
@@ -123,11 +118,18 @@ class UserController extends Controller
     public function contentTeacher()
     {
         $auth = Auth::guard('user')->user();
-
         $teachers = User::where('company_id', $auth->company->id)->get();
         return view('user.pages.userPanel.professor-empresa')
         ->with('auth', $auth)
         ->with('teachers', $teachers);
+    }
+    public function contentCoupons()
+    {
+        $auth = Auth::guard('user')->user();
+        $coupons = Coupon::where('user_id', $auth->id)->get();
+        return view('user.pages.userPanel.cupom')
+        ->with('auth', $auth)
+        ->with('coupons', $coupons);
     }
 
     public function contentStudent($id)
@@ -149,6 +151,13 @@ class UserController extends Controller
             'bio'           => 'max:10000',
 	        'img_avatar' 	=> 'mimes:jpeg,bmp,png'
         ]);
+        if($request->country_id == 1){
+            $this->validate($request, [
+                'state_id' 	        => 'required',
+            ]);
+        }else{
+            $request['state_id'] = NULL;
+        }
 
         $user = User::find($request->id);
         if ($request->img_avatar != '') {

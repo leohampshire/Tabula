@@ -63,32 +63,38 @@
               <div class="box-body">
 
                 <div class="form-group row">
-                  <div class="col-xs-4">
-                    <label for="bank_code">Cód. Banco</label>
-                    <input name="bank_code" placeholder="XXX" type="number" class="form-control">
-                  </div>
-                  <div class="col-xs-5">
-                    <label for="agencia">Agência</label>
-                    <input name="agencia" placeholder="XXXXX" type="number" class="form-control">
-                  </div>
-                  <div class="col-xs-3">
-                    <label for="agencia_dv">Dig. Agência</label>
-                    <input name="agencia_dv" placeholder="X" type="number" class="form-control">
+                  
+                  <div class="col-xs-12">
+                    <label for="legal_name">Nome</label>
+                    <input name="legal_name" type="text" placeholder="Nome" class="form-control">
                   </div>
                 </div>
                 <div class="form-group row">
-
+                  <div class="col-xs-5">
+                    <label for="cpf">CPF</label>
+                    <input name="cpf" type="text" placeholder="XXX.XXX.XXX-XX" class="form-control input-cpf">
+                  </div>
+                  <div class="col-xs-3">
+                    <label for="bank_code">Cód. Banco</label>
+                    <input name="bank_code" placeholder="XXX" type="number" class="form-control">
+                  </div>
                   <div class="col-xs-4">
+                    <label for="agencia">Agência</label>
+                    <input name="agencia" placeholder="XXXXX" type="number" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-3">
+                    <label for="agencia_dv">Dig. Agência</label>
+                    <input name="agencia_dv" placeholder="(Opcional)" type="number" class="form-control">
+                  </div>
+                  <div class="col-xs-6">
                     <label for="conta">Conta (sem dígito)</label>
                     <input name="conta" type="number" placeholder="Conta" class="form-control">
                   </div>
                   <div class="col-xs-3">
                     <label for="conta_dv">Dig. conta</label>
                     <input name="conta_dv" placeholder="XX" type="number"  class="form-control">
-                  </div>
-                  <div class="col-xs-5">
-                    <label for="cpf">CPF</label>
-                    <input name="cpf" type="text" placeholder="XXX.XXX.XXX-XX" class="form-control input-cpf">
                   </div>
                 </div>
               </div>
@@ -895,3 +901,74 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+<!--Novo Cupom-->
+<div class="modal fade" id="couponModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Novo Cupom</h4>
+      </div>
+      <form method="POST" action="{{route('user.coupon.store')}}" enctype="multipart/form-data">
+          <div class="modal-body">
+              {{csrf_field()}}
+              
+              <div class="box-body">
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="type_discount">Tipo de desconto</label>
+                    <select class="form-control" id="type_discount"  name="type_discount">
+                      <option selected disabled hidden>Escolha uma...</option>
+                      <option value="porcentagem" @if(old('type_discount') == 'porcentagem') selected @endif>Desconto Porcentagem</option>
+                      <option value="dinheiro" @if(old('type_discount') == 'dinheiro') selected @endif>Desconto  Monetário</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="cod_coupon">Código cupom</label>
+                    <input name="cod_coupon" type="text" placeholder="Código cupom" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="desc_coupon">Descrição cupom</label>
+                    <input name="desc_coupon" type="text" placeholder="Descrição cupom" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="limit">Limite cupom</label>
+                    <input name="limit" type="text" placeholder="Limite cupom" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <label for="value_coupon">Valor cupom</label>
+                    <input name="value_coupon" type="text" placeholder="Valor cupom" class="form-control input-money">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12 course">
+                      <label for="type_id">Curso</label>
+                      <select class="form-control multiple select2" style='width: 100%;' name="type_id[]"  multiple="multiple">
+                        <option value='0'>- Digite o Curso -</option>
+                      </select>
+                    </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--/.Novo Cupom-->

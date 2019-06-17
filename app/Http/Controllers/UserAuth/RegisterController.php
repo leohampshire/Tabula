@@ -54,7 +54,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         if(!array_key_exists("user_type", $data)){
-            Validator::make($data, [
+            return Validator::make($data, [
+                'name'          => 'required|max:255',
+                'email'         => 'required|email|max:255|unique:users',
+                'password'      => 'required|min:6|confirmed',
                 'sex'        => 'required'
             ]);
         }
@@ -82,9 +85,10 @@ class RegisterController extends Controller
                 'password'      => bcrypt($data['password']),
                 'user_type_id'  => $user_type,
             ]);
-             return Company::create([
+            Company::create([
                 'user_id'   => $user->id,
-             ]);
+            ]);
+            return $user;
 
         }else{
             return User::create([

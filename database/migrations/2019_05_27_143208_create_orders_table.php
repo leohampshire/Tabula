@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('user_id');
             $table->string('status');
             $table->string('transaction_id');
+            $table->string('payment_method');
             $table->string('boleto_url')->nullable();
             $table->timestamps();
         });

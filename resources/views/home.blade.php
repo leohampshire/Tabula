@@ -114,21 +114,26 @@
 				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 				<div class="carousel-courses">
 					@forelse($featured_courses1 as $course)
-					<a href="{{route('course.single', ['urn' =>$course->urn])}}">
-					  	<div class="course-box">
-						  	<div class="course-thumb">
-						  		<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
-						  	</div>
-						  	<div class="course-desc">
-						  		<h3>{{$course->name}}</h3>
-						  		<p>{{substr($course->desc, 0, 50)}}</p>
-						  	</div>
-						  	<div class="course-value">
-						  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
-						  	</div>
-					  	</div>
-					</a>
+						@if($course->avaliable == 2)
+						<a href="{{route('course.single', ['urn' =>$course->urn])}}">
+							<div class="course-box">
+								<div class="course-thumb">
+									<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
+								</div>
+								<div class="course-desc">
+									<h3>{{$course->name}}</h3>
+									<p>{{substr($course->desc, 0, 50)}}</p>
+								</div>
+								<div class="course-value">
+									<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
+								</div>
+							</div>
+						</a>
+						@endif
 				  	@empty
+					  	<div>
+					  		<p>Não existem cursos cadastrados</p>
+					  	</div>
 				  	@endforelse
 				</div>
 			</div>
@@ -146,21 +151,26 @@
 				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 				<div class="carousel-courses">
 					@forelse($featured_courses2 as $course)
-					<a href="{{route('course.single', ['urn' =>$course->urn])}}">
-					  	<div class="course-box">
-						  	<div class="course-thumb">
-						  		<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
-						  	</div>
-						  	<div class="course-desc">
-						  		<h3>{{$course->name}}</h3>
-						  		<p>{{substr($course->desc, 0, 50)}}</p>
-						  	</div>
-						  	<div class="course-value">
-						  		<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
-						  	</div>
-					  	</div>
-					</a>
+						@if($course->avaliable == 2)
+						<a href="{{route('course.single', ['urn' =>$course->urn])}}">
+							<div class="course-box">
+								<div class="course-thumb">
+									<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
+								</div>
+								<div class="course-desc">
+									<h3>{{$course->name}}</h3>
+									<p>{{substr($course->desc, 0, 50)}}</p>
+								</div>
+								<div class="course-value">
+									<span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
+								</div>
+							</div>
+						</a>
+						@endif
 				  	@empty
+					  	<div>
+					  		<p>Não existem cursos cadastrados</p>
+					  	</div>
 				  	@endforelse
 				</div>
 			</div>

@@ -45,7 +45,7 @@ class CartController extends Controller
             }
 
             $request->session()->push('cart', $id);
-            return redirect()->back()->with('success', 'Curso Adicionado ao Carrinho');
+            return redirect(route('cart'));
         }
 
         $items = Cart::where('user_id', $auth->id)->get();
@@ -148,9 +148,12 @@ class CartController extends Controller
                     $exist = Cart::where('course_id', $cart)->where('user_id', $auth->id)->count();
                     $myCourse = CourseUser::where('user_id', $auth->id)->where('course_id', $cart)->count();
                     if ($exist == 0 && $myCourse == 0) {
+                        $course = Course::find($cart);
                         $crt = new Cart;
                         $crt->user_id = $auth->id;
-                        $crt->course_id = $cart;
+                        $crt->course_id = $course->id;
+                        $crt->teacher_id = $course->user_id_owner;
+                        $crt->type = $course->course_type;
                         $crt->save();
                     }
                 }

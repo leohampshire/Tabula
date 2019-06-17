@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-    	'status','transaction_id', 'boleto_url'
+    	'status','transaction_id', 'boleto_url', 'payment_method'
     ];
 
     public function statusOrder($id)

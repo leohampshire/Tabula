@@ -38,6 +38,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');
   Route::get('/leciono', 'User\UserController@contentTeachCourse')->name('teach');
 
+  Route::group(['prefix' => 'cupom', 'as' => 'coupon.'], function(){
+    Route::get('/index', 'User\UserController@contentCoupons')->name('index');
+    Route::post('/pesquisar', 'User\CouponController@search')->name('search');
+    Route::post('/store', 'User\CouponController@store')->name('store');
+    Route::post('/update', 'User\CouponController@update')->name('update');
+    Route::get('/delete/{id}', 'User\CouponController@delete')->name('delete');
+  });
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::get('/criar', 'User\UserController@contentCreateCourse')->name('create');
     Route::get('/editar/{id}', 'User\UserController@contentCourseEdit')->name('edit');

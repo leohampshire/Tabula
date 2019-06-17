@@ -12,6 +12,14 @@ class TransactionController extends Controller
     public function getRecipient(Request $request)
     {
         $auth = Auth::guard('user')->user();
+        $request->validate([
+            'bank_code'         => 'required',
+            'agencia'           => 'required',
+            'conta'             => 'required',
+            'conta_dv'          => 'required',
+            'cpf'               => 'required',
+            'legal_name'        => 'required|max:200',
+        ]);
 
         $payload = ([
           'api_key'         => config('services.pagarme.api_key'),
@@ -21,7 +29,7 @@ class TransactionController extends Controller
           'conta'           => $request->conta,
           'conta_dv'        => $request->conta_dv,
           'document_number' => $request->cpf,
-          'legal_name'      => $auth->name,
+          'legal_name'      => $request->legal_name,
         ]);
 
         $payload = json_encode($payload);
@@ -46,7 +54,7 @@ class TransactionController extends Controller
           'bank_account_id' => $result->id, 
           'anticipatable_volume_percentage' => '100', 
           'transfer_enabled' => 'false',
-          'legal_name'      => $auth->name,
+          'legal_name'      => $request->legal_name,
         ]);
         $payload = json_encode($payload);
         $ch = curl_init('https://api.pagar.me/1/recipients');
@@ -63,6 +71,7 @@ class TransactionController extends Controller
         $data_bank = new Databank;
         $data_bank->account_id      = $account_id;
         $data_bank->bank_code       = $request->bank_code;
+        $data_bank->legal_name       = $request->legal_name;
         $data_bank->agencia         = $request->agencia;
         $data_bank->agencia_dv      = $request->agencia_dv;
         $data_bank->conta           = $request->conta;
@@ -271,7 +280,6 @@ class TransactionController extends Controller
 		curl_close($ch);
 		# Print response.
 		$result = json_decode($result);
-
         if(isset($result->errors))
         {
             return redirect()->back()->with('warning', 'Tivemos um problema técnico, pedimos para que entre em contato com um de nossos administradores.');
@@ -280,7 +288,11 @@ class TransactionController extends Controller
 		$order = new Order;
         $order->user_id         = $auth->id;
 		$order->status 			= $result->status;
-		$order->transaction_id 	= $result->id;
+        $order->transaction_id 	= $result->id;
+        $order->payment_method  = $result->payment_method;
+        if(isset($result->boleto_url)){
+            $order->boleto_url  = $result->boleto_url;
+        }
 		$order->save();
 
 		foreach ($auth->cart as $cart) {
@@ -298,7 +310,7 @@ class TransactionController extends Controller
 		if ($result->status == 'paid') {
 			return redirect()->route('transaction');
 		}
-		return redirect()->back()->with('success', 'Obrigado por comprar no Tabula, estamos aguardando seu pedido ser aprovado');
+		return redirect()->back()->with('success', 'Obrigado por comprar no Tabula, estamos aguardando seu pedido ser aprovado, acesse o painel para ter mais detalhes.');
 		
     }
 
@@ -324,7 +336,7 @@ class TransactionController extends Controller
         $recipient_id = $auth->databank->recipient_id;
         $api_key = config('services.pagarme.api_key');
         $ch = curl_init(); 
-        curl_setopt($ch, CURLOPT_URL, "https://api.pagar.me/1/balance?recipient_id={$recipient_id}&api_key={$api_key}");
+        curl_setopt($ch, CURLOPT_URL, "https://api.pagar.me/1/recipients/{$recipient_id}/balance?api_key={$api_key}");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
         $output = curl_exec($ch); 
         curl_close($ch);  
@@ -340,6 +352,10 @@ class TransactionController extends Controller
     //Realizar saque
     public function loot(Request $request)
     {
+        $request->validate([
+            'amount' => 'required',
+        ]);
+        
         $auth = Auth::guard('user')->user();
         $recipient_id = $auth->databank->recipient_id;
         $amount = str_replace(',', '', str_replace('.', '', $request->amount));

@@ -527,13 +527,14 @@ class AdminCourseController extends Controller
         $i   = 0;
         $urnCourse = 1;
         while ($urnCourse > 0) {
-            $urnCourse = Course::where('urn', $urn)->count();
             $urn = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
             $urn = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $urn);
             $urn = strtolower(trim($urn, '-'));
             $urn = preg_replace("/[\/_| -]+/", '-', $urn);
-            if ($i != 0) {
+            $urnCourse = Course::where('urn', $urn)->count();
+            if ($urnCourse != 0) {
                 $urn = "{$urn}-{$i}";
+                $urnCourse = Course::where('urn', $urn)->count();
             }
             $i++;
         }
