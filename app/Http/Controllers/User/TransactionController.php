@@ -23,7 +23,6 @@ class TransactionController extends Controller
           'document_number' => $request->cpf,
           'legal_name'      => $auth->name,
         ]);
-        return dd($payload);
 
         $payload = json_encode($payload);
         $ch = curl_init('https://api.pagar.me/1/bank_accounts');

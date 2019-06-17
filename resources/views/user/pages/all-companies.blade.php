@@ -10,10 +10,9 @@
 	<div class="container">
 		<div class="box-w-shadow">
 			<?php
-			//Columns must be a factor of 12 (1,2,3,4,6,12)
-			$numOfCols = 4;
-			$rowCount = 0;
-			$bootstrapColWidth = 12 / $numOfCols;
+				$numOfCols = 4;
+				$rowCount = 0;
+				$bootstrapColWidth = 12 / $numOfCols;
 			?>
 			<div class="row">
 			@forelse ($companies as $row)
@@ -36,7 +35,7 @@
 			?>
 			@empty
 			<div class="col-sm-12">
-				Não existem cursos nesta categoria.
+				Não existem Empresas matriculadas.
 			</div>
 			@endforelse
 		</div>

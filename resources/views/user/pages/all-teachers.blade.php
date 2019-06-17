@@ -9,16 +9,14 @@
 <section id="teacher-questions">
 	<div class="container">
 		<div class="box-w-shadow">
-			
-			<?php
-		//Columns must be a factor of 12 (1,2,3,4,6,12)
-		$numOfCols = 4;
-		$rowCount = 0;
-		$bootstrapColWidth = 12 / $numOfCols;
+		<?php
+			$numOfCols = 4;
+			$rowCount = 0;
+			$bootstrapColWidth = 12 / $numOfCols;
 		?>
 		<div class="row">
 		@forelse ($teachers as $row)
-			@if(count($row->courses) >0)
+			@if(count($row->courses) > 0)
 		        <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
 		        	<a href="{{route('teacher', ['id' => $row->id])}}">
 			            <div class="course-box">
@@ -33,9 +31,6 @@
 		        	</a>
 		        </div>
 	        @else
-				<div class="col-sm-12">
-					Não existem professores matriculados.
-				</div>
 	        @endif
 		<?php
 		    $rowCount++;
