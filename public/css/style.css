@@ -670,13 +670,16 @@ label.interest-label input{
 .container-buttons-panel {
   display: flex;
   overflow-x: scroll;
+  justify-content: center;
 }
 
 .box-button-panel {
-  min-width: 150px;
-  flex: 1;
   padding: 3px;
+}
 
+.box-button-panel a button {
+  padding: 10px 10px;
+  white-space: nowrap;
 }
 
 /* HEXS MACROTEMAS */

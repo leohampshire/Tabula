@@ -13,12 +13,16 @@
 			<input name="name" value="{{ old('name') }}" type="text" class="form-control" placeholder="Nome">
 		</div>
 
-		<label>Tempo do curso em horas</label>
-		<div class="col-xs-2">
-			<input name="timeH" value="{{ old('timeH') }}" type="number" class="form-control" placeholder="Horas">
-		</div>
-		<div class="col-xs-2">
-			<input name="timeM" value="{{ old('timeM') }}" type="number" class="form-control" placeholder="Minutos">
+		<div class="col-xs-4">
+			<label>Tempo do curso em horas</label>
+			<div class="row">
+				<div class="col-xs-6">
+					<input name="timeH" maxlength="2" value="{{ old('timeH') }}" type="number" class="form-control" placeholder="Horas">
+				</div>
+				<div class="col-xs-6">
+					<input name="timeM" value="{{ old('timeM') }}" type="number" class="form-control" placeholder="Minutos">
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="row form-group">
