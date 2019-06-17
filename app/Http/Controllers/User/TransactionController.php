@@ -89,10 +89,10 @@ class TransactionController extends Controller
     public function pagarme(Request $request)
     {
     	$auth = Auth::guard('user')->user();
-
         if(!$auth){
             return redirect(route('login'));
         }
+        $id = $auth->id;
     	$amount = number_format(($auth->cart->sum('price') - $auth->discount), 2, '','');
     	$items = [];
         $taxa = Taxa::first();
@@ -110,7 +110,7 @@ class TransactionController extends Controller
         }
         if (!count($idUsers)) {
             $split_rules[0] = ([
-              'amount' => $amount- $this->discount(),
+              'amount' => $amount - $this->discount(),
               'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
               'charge_processing_fee' => true,
               'liable' => true
@@ -196,7 +196,7 @@ class TransactionController extends Controller
     		  	'card_hash' => $card_hash,
     		  	'postback_url' => 'http://www.tabula.com.br/transaction/callback',
     		  	'customer' => [
-    		    	'external_id' => '1',
+    		    	'external_id' => $id,
     		    	'name' => $name, 
     		    	'type' => 'individual',
     		    	'country' => 'br',
@@ -304,14 +304,16 @@ class TransactionController extends Controller
 
     public function callback(Request $request)
     {
-    	$boletoUrl = $request->input('transaction.boleto_url');
+        $boletoUrl = $request->input('transaction.boleto_url');
+        $transaction_id = $request->input('transaction.id');
+        $current_status = $request->input('current_status');
 
-    	Order::where('transaction_id', $request->id)->update([
-    		'status' => $request->current_status,
+    	$order = Order::where('transaction_id', $transaction_id)->update([
+    		'status' => $current_status,
     		'boleto_url' => $boletoUrl
 		]);
-		if ($request->current_status == 'paid') {
-			$this->addCourse($request->id);
+		if ($current_status == 'paid') {
+            $this->addCourse($transaction_id);
 		}
     }
 
@@ -392,16 +394,20 @@ class TransactionController extends Controller
 
     private function addCourse($transaction)
     {  
-        $auth = Auth::guard('user')->user();
-        $date = date('d-m-Y', strtotime('+6 month')); 
-        $carts = $auth->order->where('transaction_id', $transaction)->first()->items;
+        $order = Order::where('transaction_id', $transaction)->first();
+
+        $date = date('Y-m-d', strtotime('+6 month')); 
+        $carts = $order->items;
         foreach ($carts as $cart) {
-            CourseUser::create([
-                'user_id'   => $auth->id,
-                'course_id' => $cart->id,
-                'progress'  => 0,
-                'expired'   => $date
-            ]);
+            $item = CourseUser::where('user_id',$cart->user_id)->where('course_id', $cart->course_id)->count();
+            if($item == 0){
+                CourseUser::create([
+                    'user_id'   => $cart->user_id,
+                    'course_id' => $cart->course_id,
+                    'progress'  => 0,
+                    'expired'   => $date
+                ]);
+            }
         }
         return redirect()->route('user.panel')->with('success', 'Obrigado por comprar no tabula');
     }
