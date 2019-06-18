@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{CourseUser, Transaction, Order, OrderItem, Databank, Admin, User, Taxa};
+use App\{CourseUser, Transaction, Order, OrderItem, Databank, Admin, User, Taxa, Notification};
 use Auth;
 
 class TransactionController extends Controller
@@ -120,7 +120,7 @@ class TransactionController extends Controller
         if (!count($idUsers)) {
             $split_rules[0] = ([
               'amount' => $amount - $this->discount(),
-              'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+              'recipient_id' => config('services.pagarme.recipient_id'),
               'charge_processing_fee' => true,
               'liable' => true
             ]);
@@ -142,7 +142,7 @@ class TransactionController extends Controller
             $money = number_format(($auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount) * ($taxa->taxa_tabula/100),2,'','');
             $split_rules[$tmp] = ([
               'amount' => $money,
-              'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+              'recipient_id' => config('services.pagarme.recipient_id'),
               'charge_processing_fee' => true,
               'liable' => true,
               'charge_remainder' => true
@@ -170,7 +170,7 @@ class TransactionController extends Controller
                 $money = number_format($more +($auth->cart->where('user_id_owner', $idAdmin)->where('course_type', 1)->sum('price') - $discount),2,'','');
                 $split_rules[$key+ $tmp] = ([
                   'amount' => $money,
-                  'recipient_id' => 're_cj2tbe8f103ewt66d6l8tgs37',
+                  'recipient_id' => config('services.pagarme.recipient_id'),
                   'charge_processing_fee' => true,
                   'liable' => true
                 ]);
@@ -293,10 +293,10 @@ class TransactionController extends Controller
         if(isset($result->boleto_url)){
             $order->boleto_url  = $result->boleto_url;
         }
-		$order->save();
-
+        $order->save();
+        
 		foreach ($auth->cart as $cart) {
-			$orderItem = new OrderItem;
+            $orderItem = new OrderItem;
 			$orderItem->value 		= $cart->price;
 			$orderItem->discount 	= $cart->pivot->discount;
 			$orderItem->author_id 	= $cart->user_id_owner;
@@ -304,7 +304,13 @@ class TransactionController extends Controller
             $orderItem->course_id   = $cart->id;
 			$orderItem->order_id 	= $order->id;
 			$orderItem->type 		= $cart->course_type;
-			$orderItem->save();
+            $orderItem->save();
+            
+            $notification = new Notification;
+            $notification->type_notification = "Compra de Curso";
+            $notification->desc_notification = "O aluno {$auth->name} comprou o curso {$cart->name}, do professor {$cart->author->name}";
+            $notification->status = 1;
+            $notification->save();
             $cart->pivot->delete();
 		}
 		if ($result->status == 'paid') {

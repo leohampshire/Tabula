@@ -37,7 +37,7 @@ class TransactionController extends Controller
     	$payload = ([
           'api_key'         => config('services.pagarme.api_key'),
           'amount' 			=> str_replace(',', '', str_replace('.', '', $request->amount)),
-          'recipient_id'    => 're_cj2tbe8f103ewt66d6l8tgs37',
+          'recipient_id'    => config('services.pagarme.recipient_id'),
         ]);
         $payload = json_encode($payload);
 

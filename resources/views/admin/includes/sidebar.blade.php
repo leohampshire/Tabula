@@ -44,6 +44,7 @@
         </li>
         <li {{ (Request::is('admin/notificacao') ? 'class=active' : '') }} {{ (Request::is('admin/notificacao/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.notification.index')}}">
+          <span class="label label-primary pull-right">{{DB::table('notifications')->where('status', 1)->count()}}</span>
             <i class="fa fa-cube" aria-hidden="true"></i> <span>NOTIFICAÇÕES</span>
           </a>
         </li>

@@ -69,7 +69,6 @@ Route::get('/pesquisar/{id}', 'User\SearchController@search')->name('search.sing
 Route::get('searchcat', 'User\SearchController@searchCat')->name('search.category');
 
 
-
 Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
   Route::get('seja-professor', 'User\TeacherController@beTeacher')->name('be');
   Route::post('store', 'User\TeacherController@storeAnswer')->name('store');
@@ -168,6 +167,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
   });
 
   Route::group(['prefix' => 'notificacao', 'as' => 'notification.'], function (){
+    Route::get('/visualizar/{id}', 'Admin\NotificationController@show')->name('show');
+    Route::get('/status/{id}', 'Admin\NotificationController@changeStatus')->name('status');
     Route::get('/', 'Admin\NotificationController@index')->name('index');
   });
   //RELATORIOS ADMIN

@@ -8,6 +8,7 @@ use App\State;
 use App\Country;
 use App\Schooling;
 use App\Category;
+use App\Notification;
 use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -88,17 +89,31 @@ class RegisterController extends Controller
             Company::create([
                 'user_id'   => $user->id,
             ]);
-            return $user;
-
+            $notification = "O usuário {$user->name}, se registrou na plataforma com o e-mail {$user->email}</br>".
+                            "Tipo usuário: {$user->userTypes->name}.";
+            Notification::create([
+                'type_notification' => 'Cadastro Usuário',
+                'desc_notification' => $notification,
+                'status'            => '1'
+            ]);
         }else{
-            return User::create([
+            
+            $user = User::create([
                 'name'          => $data['name'],
                 'email'         => $data['email'],
                 'password'      => bcrypt($data['password']),
                 'sex'           => $data['sex'],
                 'user_type_id'  => $user_type,
             ]);
+            $notification = "O usuário {$user->name}, se registrou na plataforma com o e-mail {$user->email}.".
+                            " Tipo usuário: {$user->userTypes->name}.";
+            Notification::create([
+                'type_notification' => 'Cadastro Usuário',
+                'desc_notification' => $notification,
+                'status'            => '1'
+            ]);
         }
+        return $user;
     }
 
     /**

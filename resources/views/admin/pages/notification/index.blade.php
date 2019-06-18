@@ -54,46 +54,42 @@
         <section class="col-lg-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Lista de Cursos</h3>
-              <div class="box-tools">
-                <?php
-
-                $paginate = $courses;
-
-                $link_limit = 7;
-
-                $filters = '&name='.request('name');
-                ?>
-              </div>
+              <h3 class="box-title">Lista de Notificações</h3>
             </div>
             <div class="box-body table-responsive">
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Curso</th>
-                    <th>Aluno</th>
-                    <th>Data Expiração</th>
+                    <th>Tipo de Notificação</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($courses as $course)
-                    @if(date('Y-m-d', strtotime('+1 month')) >= $course->user->expired($course->course_id))
+                  @forelse($notifications as $notification)
                     <tr>
-                      <td>{{$course->course->name}}</td>
-                      <td>{{$course->user->name}}</td>
-                        @if(date('Y-m-d') >= $course->user->expired($course->course_id))
-                          <td>Expirado em {{$course->expired}} </td>
-                        @else
-                          <td>Expira em {{$course->expired}} </td>
-                        @endif
+                      <td>{{$notification->type_notification}}</td>
+                      <td>{{substr($notification->desc_notification,0,50)}}...</td>
+                      <td>{{$notification->created_at}} </td>
                       <td>
-                        <a href="#" title="Aumentar Prazo" data-id="{{$course->id}}" class="act-list act-increase">
-                          <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                        <a href="{{route('admin.notification.show', ['id' => $notification->id])}}" title="Visualizar" class="act-list">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                        @if($notification->status == 1)
+                          <a href="{{route('admin.notification.status', ['id' => $notification->id])}}" title="Marcar como lida" class="act-list">
+                          <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+                          </a>
+                        @else
+                          <a href="{{route('admin.notification.status', ['id' => $notification->id])}}" title="Marcar como não lida" class="act-list">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                          </a>
+                        @endif
+                        <a href="#" title="Visualizar" data-id="{{$notification->id}}" class="act-list act-increase">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
-                    @endif
                   @empty
                     <tr>
                       <td colspan="7y">Nenhum resultado encontrado</td>
@@ -102,9 +98,9 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Curso</th>
-                    <th>Aluno</th>
-                    <th>Disponibilidade</th>
+                    <th>Tipo de Notificação</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
                     <th>Ações</th>
                   </tr>
                 </tfoot>   

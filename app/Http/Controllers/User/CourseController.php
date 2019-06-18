@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Course, Rating, Forum, CourseItem, CourseItemChapter, CourseItemUser, TestItem, TestUser, Test};
+use App\{Course, Rating, Forum, CourseItem, CourseItemChapter, CourseItemUser, TestItem, TestUser, Test, Notification};
 use Auth;
 
 class CourseController extends Controller
@@ -222,6 +222,11 @@ class CourseController extends Controller
         $course = Course::find($id);
         $course->avaliable = 3;
         $course->save();
+        $notification = new Notification;
+        $notification->type_notification = "Análise de Curso";
+        $notification->desc_notification = "O professor/empresa {$course->author->name} enviou o curso {$course->name} para análise.";
+        $notification->status = 1;
+        $notification->save();
         return redirect(route('user.panel')."#teach")->with('success', 'Enviado para análise');
     }
 

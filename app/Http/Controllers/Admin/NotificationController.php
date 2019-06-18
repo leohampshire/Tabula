@@ -5,18 +5,17 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\CourseUser;
+use App\Notification;
 use DateTime;
 
 class NotificationController extends Controller
 {
     public function index()
     {
-    	$courses = CourseUser::all(); 
-    	foreach ($courses as $course) {
-    		$course->expired = implode("/", array_reverse(explode("-", $course->user->expired($course->course_id))));
-    	}
+    	$notifications = Notification::all(); 
+    	
     	return view('admin.pages.notification.index')
-    	->with('courses', $courses);
+    	->with('notifications', $notifications);
     }
 
     public function increaseTime(Request $request){
@@ -28,5 +27,25 @@ class NotificationController extends Controller
 	    $course->expired =  $data->format('Y-m-d');
 	    $course->save();
 	    return redirect()->back()->with('success', 'Curso extendido para o usuário');
-    }
+	}
+	
+	public function changeStatus($id)
+	{
+		$notification = Notification::find($id);
+		if($notification->status == 1){
+			$notification->status = 2;
+		}else{
+			$notification->status = 1;
+		}
+		$notification->save();
+		return redirect()->back();
+	}
+
+	public function show($id)
+	{
+		$notification = Notification::find($id);
+		$notification->status = 2;
+		$notification->save();
+		return view('admin.pages.notification.show')->with('notification', $notification);
+	}
 }
