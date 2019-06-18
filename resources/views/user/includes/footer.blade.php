@@ -272,11 +272,13 @@ $(document).on('click', '.scroll', function(event){
     }else if(url.indexOf("#coupons")>0){
       getContent("{{route('user.coupon.index')}}");
 
+    }else if(url.indexOf("#notification")>0){
+      getContent("{{route('user.notification')}}");
+
     }
   
 });
    
-
     $('.personal').on('click', function(){
       var url = $(this).data('url');
       $('.btn-panel-menu').removeClass('btn-active');
@@ -284,6 +286,13 @@ $(document).on('click', '.scroll', function(event){
       getContent(url);
     });
     $('.teach').on('click', function(){
+      var url = $(this).data('url');
+      $('.btn-panel-menu').removeClass('btn-active');
+      $(this).find('button').addClass('btn-active');
+      getContent(url);
+    });
+
+    $('.notification').on('click', function(){
       var url = $(this).data('url');
       $('.btn-panel-menu').removeClass('btn-active');
       $(this).find('button').addClass('btn-active');

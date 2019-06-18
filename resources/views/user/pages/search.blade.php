@@ -7,18 +7,21 @@
 @section('content')
 
 <section class="p-top">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4">
-				<ul class="macro-main">
-					@forelse($categories as $category)
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <ul class="macro-main">
+                    @forelse($categories as $category)
                     <li class="macro-main__item">
-                        <input type="checkbox" class="macro-main__checkbox--category" id="{{$category->id}}" value="{{$category->id}}" name="macrotema">
+                        <input type="checkbox" class="macro-main__checkbox--category" id="{{$category->id}}"
+                            value="{{$category->id}}" name="macrotema">
                         <label for="{{$category->id}}" class="macro-main-label">{{$category->name}}</label>
                         <ul class="macro-sub--category">
                             @forelse($category->parent_categories as $parent_category)
                             <li class="macro-sub__item">
-                                <input type="checkbox" name="subtema" class="macro-main__checkbox" id="{{$parent_category->id}}" value="{{$parent_category->id}}" data-macro-main="{{$parent_category->category_id}}">
+                                <input type="checkbox" name="subtema" class="macro-main__checkbox"
+                                    id="{{$parent_category->id}}" value="{{$parent_category->id}}"
+                                    data-macro-main="{{$parent_category->category_id}}">
                                 <label for="{{$parent_category->id}}">{{$parent_category->name}}</label>
                             </li>
                             @empty
@@ -27,9 +30,10 @@
                     </li>
                     @empty
                     @endforelse
-				</ul>
-			</div>
-			<form action="{{ route('search.single', ['id' => -1]) }}" method="get" enctype="multipart/form-data" style="display: none;">
+                </ul>
+            </div>
+            <form action="{{ route('search.single', ['id' => -1]) }}" method="get" enctype="multipart/form-data"
+                style="display: none;">
                 <?php
                 if(isset($_GET['search_string'])){
                     $search_string = $_GET['search_string'];
@@ -37,40 +41,41 @@
                     $search_string = '';
                 }
                 ?>
-                <input id="search_string" class="input-tabula-white" name="search_string" type="text" placeholder="Digite sua busca." value="{{$search_string}}">
+                <input id="search_string" class="input-tabula-white" name="search_string" type="text"
+                    placeholder="Digite sua busca." value="{{$search_string}}">
                 <button class="button-tabula-gray" type="submit">Buscar</button>
             </form>
-			<div class="col-sm-8">
-				<div class="row" id="search-results">   
-                    @forelse($courses as $course)    
-                    	@if($course->avaliable == 2)
-                    	<a href="{{route('course.single', ['id' => $course->urn])}}">
-							<div class="col-sm-4">
-								<div class="course-box">
-									<div class="course-thumb">
-										<img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
-									</div>
-									<div class="course-desc">
-										<h3>{{$course->name}}</h3>
-										<p>{{substr($course->desc, 0, 50)}}</p>
-									</div>
-									<div class="course-value">
-										<span>R$ {{number_format($course->price, 2, ',', '.')}}</span>
-									</div>
-								</div>
-							</div>
-                    	</a>       
-						@endif
-					@empty
-					<div class="col-sm-6">
-						Não existem cursos das opções selecionadas.
-					</div>
-					@endforelse
-					
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="col-sm-8">
+                <div class="row" id="search-results">
+                    @forelse($courses as $course)
+                    @if($course->avaliable == 2)
+                    <a href="{{route('course.single', ['id' => $course->urn])}}">
+                        <div class="col-sm-4">
+                            <div class="course-box">
+                                <div class="course-thumb">
+                                    <img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
+                                </div>
+                                <div class="course-desc">
+                                    <h3>{{$course->name}}</h3>
+                                    <p>{{substr($course->desc, 0, 50)}}</p>
+                                </div>
+                                <div class="course-value">
+                                    <span>R$ {{number_format($course->price, 2, ',', '.')}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    @endif
+                    @empty
+                    <div class="col-sm-6">
+                        Não existem cursos das opções selecionadas.
+                    </div>
+                    @endforelse
+
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 @stop

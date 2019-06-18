@@ -131,6 +131,13 @@ class CourseController extends Controller
             {
                 $value->pivot->progress = $progress;
                 $value->pivot->save();
+                if($value->total_class == $value->pivot->progress){
+                    $notification = new Notification;
+                    $notification->type_notification = "Curso Finalizado";
+                    $notification->desc_notification = "O usuário {$auth->name} finalizou o curso {$value->name}.";
+                    $notification->status = 1;
+                    $notification->save();
+                }
             }
         };
 

@@ -4,12 +4,11 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\CourseItemChapter;
+use App\{Course,Notification, CourseItemChapter};
 use App\CourseItemType;
 use App\CourseItem;
 use App\Category;
 use App\Teacher;
-use App\Course;
 use Session;
 use Auth;
 
@@ -73,7 +72,12 @@ class TeacherController extends Controller
 		if (Auth::guard('user')->user()) {
 			$auth = Auth::guard('user')->user();
 	        $auth->user_type_id = 4;
-	        $auth->save();
+			$auth->save();
+			$notification = new Notification;
+			$notification->type_notification = "Novo Professor";
+			$notification->desc_notification = "O usuário {$auth->name} acabou de se cadastrar na plataforma como professor.";
+			$notification->status = 1;
+			$notification->save();
 	        Session::flash('success', 'Parabéns, você é o mais novo professor no Tabula, crie um curso agora mesmo');
 	        return redirect()->route('user.panel');
        }

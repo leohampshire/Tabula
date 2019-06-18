@@ -32,7 +32,7 @@
                 <button>Avaliar</button>
               </a>
             @else
-              @if(Auth::guard('user')->check() && $course->user_id_owner == $auth->id)
+              @if(Auth::guard('user')->check() && $course->user_id_owner == $auth->id && $course->course_type >= 2 )
                 <a href="{{route('user.course.show', ['id' => $course->id])}}">
                   <button>Visualizar</button>
                 </a>

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\CourseItemChapter;
-use App\{CourseItemType,Category,Country,Course,Certificate,Company,State,Coupon,User,Order};
+use App\{CourseItemType,Category,Country,Course,Certificate,Company,State,Coupon,User,Order, Notification};
 use Auth;
 
 
@@ -53,7 +53,20 @@ class UserController extends Controller
         ->with('states', State::all())
         ->with('interests', Category::all())
         ->with('auth', $auth);
-    }   
+    } 
+    
+    public function contentNotification()
+    {
+        $auth = Auth::guard('user')->user();
+
+        $notifications = Notification::where('user_id', $auth->id)->orderBy('id', 'desc')->get();
+        foreach ($notifications as $notification) {
+            $notification->status = 2;
+            $notification->save();
+        }
+        return view('user.pages.UserPanel.notificacoes')
+        ->with('notifications', $notifications);
+    }
 
     //Criar Curso professor
     public function contentCreateCourse()

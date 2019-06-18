@@ -8,12 +8,13 @@ use App\Http\Controllers\Controller;
 use App\CustomClasses\vimeo_tools;
 use App\CourseItemChapter;
 use App\CourseItemType;
-use App\CourseUser;
+use App\Notification;
+use App\Certificate;
 use App\CourseItem;
+use App\CourseUser;
 use App\TestItem;
 use App\Category;
 use App\Course;
-use App\Certificate;
 use App\User;
 use Session;
 use Image;
@@ -44,12 +45,22 @@ class AdminCourseController extends Controller
     public function avaliable($id)
     {
         $course = Course::find($id);
+        $avaliable = $course->avaliable;
         if ($course->avaliable == 1 || $course->avaliable == 3) {
             $course->avaliable = 2;
             Session::flash('success', 'Curso disponibilizado');
         }else{
             $course->avaliable = 1;
             Session::flash('success', 'Curso Removido');
+        }
+
+        if($avaliable >2 && $course->course_type == 2){
+            $notification = new Notification;
+            $notification->type_notification = "Curso disponibilizado";
+            $notification->desc_notification = "Curso liberado pelos nossos adminstradores.";
+            $notification->status = 1;
+            $notification->user_id = $course->user_id_owner;
+            $notification->save();
         }
         $course->save();
 

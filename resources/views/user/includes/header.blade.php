@@ -1,6 +1,8 @@
 <?php
   $auth = Auth::guard('user')->user();
+  $notification = 0;
   if ($auth) {
+    $notification = DB::table('notifications')->where('status', 1)->where('user_id', $auth->id)->count();
     $count = count($auth->cart);
   } else {
     if(session('cart')){
@@ -45,7 +47,16 @@
           <li><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
           
           @endif
-          <li class="menu-cart"><a href="{{route('cart')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="menu-cart-count">{{$count}}</span></a></li>
+          @if($auth)
+          <li class="menu-cart">
+            <a href="#">
+              <i class="fa fa-bell-o" aria-hidden="true"></i><span class="menu-cart-count">{{$notification}}</span>
+            </a>
+          </li>
+          @endif
+          <li class="menu-cart">
+            <a href="{{route('cart')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="menu-cart-count">{{$count}}</span></a>
+          </li>
         </ul>
       </div>
     </div>

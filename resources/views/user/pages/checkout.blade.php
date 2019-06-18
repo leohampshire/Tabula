@@ -6,25 +6,26 @@
 
 @section('content')
 
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="row">
-        @if(count($auth->cart) == 0)
+            @if(count($auth->cart) == 0)
             <div class="col-sm-12">
-              <h1>Não possuem cursos</h1>
+                <h1>Não possuem cursos</h1>
             </div>
-        @else
+            @else
             <div class="col-sm-4">
                 @foreach($auth->cart as $courses)
                 <div class="row box-w-shadow">
                     <div class=" col-xs-12">
-                        <p><b>{{ $courses['name'] }}</b><p/>
-                        <p>{{ $courses['desc'] }}</p><br/>
-                        <p>R$ {{ $courses['price'] }}</p>                                                
+                        <p><b>{{ $courses['name'] }}</b>
+                            <p />
+                            <p>{{ $courses['desc'] }}</p><br />
+                            <p>R$ {{ $courses['price'] }}</p>
                     </div>
                 </div>
-                @endforeach                                    
+                @endforeach
             </div>
             <div class="col-sm-8">
                 <div class="box-w-shadow">
@@ -43,7 +44,8 @@
                         <div class="row form-group">
                             <div class="col-xs-12">
                                 <label for="card_number">Número do Cartão</label>
-                                <input name="card_number" id="card_number" type="text" class="form-control" placeholder="Número do Cartão">
+                                <input name="card_number" id="card_number" type="text" class="form-control"
+                                    placeholder="Número do Cartão">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -70,20 +72,21 @@
                             <div class="col-xs-4">
                                 <label for="card_expiration_year">MM</label>
                                 <select name="card_expiration_year" id="card_expiration_year" class="form-control">
-                                    @for($i = 0; $i < 20; $i++)
-                                    <option value="{{$year+$i}}">{{$year+$i}}</option>
-                                    @endfor
+                                    @for($i = 0; $i < 20; $i++) <option value="{{$year+$i}}">{{$year+$i}}</option>
+                                        @endfor
                                 </select>
                             </div>
                             <div class="col-xs-4">
                                 <label for="card_cvv">Código de Segurançao</label>
-                                <input name="card_cvv" id="card_cvv" type="text" class="form-control" placeholder="Número">
+                                <input name="card_cvv" id="card_cvv" type="text" class="form-control"
+                                    placeholder="Número">
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-xs-8">
                                 <label for="card_holder_name">Nome no Cartão</label>
-                                <input name="card_holder_name" id="" type="text" class="form-control" placeholder="Número">
+                                <input name="card_holder_name" id="" type="text" class="form-control"
+                                    placeholder="Número">
                             </div>
                             <div class="col-xs-4">
                                 <label>CPF</label>
@@ -92,16 +95,16 @@
                         </div>
                         <div id="field_errors">
                         </div>
-                        
-                    <button type="submit">Finalizar Compra</button>
+
+                        <button type="submit">Finalizar Compra</button>
                     </form>
 
                 </div>
-            </div>                                           
-        @endif
+            </div>
+            @endif
 
         </div>
     </section>
-  </div>
+</div>
 
 @stop

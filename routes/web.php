@@ -36,8 +36,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
   Route::get('/pedido/{id}', 'User\UserController@contentThisOrder')->name('order');
   //PAINEIS VIA AJAX
   Route::get('/pessoais', 'User\UserController@contentPersonal')->name('personal');
+  Route::get('/notificacoes', 'User\UserController@contentNotification')->name('notification');
   Route::get('/leciono', 'User\UserController@contentTeachCourse')->name('teach');
-
   Route::group(['prefix' => 'cupom', 'as' => 'coupon.'], function(){
     Route::get('/index', 'User\UserController@contentCoupons')->name('index');
     Route::post('/pesquisar', 'User\CouponController@search')->name('search');

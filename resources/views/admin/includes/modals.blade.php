@@ -193,55 +193,54 @@
       </div>
       <form method="POST" action="{{route('admin.course.item.update')}}" enctype="multipart/form-data">
           <div class="modal-body">
-              {{csrf_field()}}
-              @isset($chapter)
-                <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
-              @endisset
-              @isset($course)
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-              @endisset
-              <div class="box-body">
+            {{csrf_field()}}
+            @isset($chapter)
+              <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
+            @endisset
+            @isset($course)
+              <input type="hidden" name="course_id" value="{{$course->id}}">
+            @endisset
+            <div class="box-body">
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="item_type_id" >Tipo de Aula</label>
+                  <select class="form-control item_type_id" name="item_type_id">
+                    <option selected disabled="">SELECIONE...</option>
+                    @isset($item_types)
+                      @foreach($item_types as $item)
+                        @if($item->id < 5)
+                        <option value="{{$item->id}}" @if($item->id == old('item_type_id')) selected @endif>{{$item->name}}</option>
+                        @endif
+                      @endforeach
+                    @endisset
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="name">Nome</label>
+                  <input type="text" name="name" placeholder="Nome" class="form-control" id="name" value="{{old('name')}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-xs-12">
+                  <label for="desc">Descrição</label>
+                  <textarea class="form-control" rows="4" placeholder="Descrição" id="desc" name="desc">{{old('desc')}}</textarea>
+                  
+                </div>
+              </div>
+              <div class="file">
                 <div class="form-group row">
                   <div class="col-xs-12">
-                    <label for="item_type_id" >Tipo de Aula</label>
-                    <select class="form-control item_type_id" name="item_type_id">
-                      <option selected disabled="">SELECIONE...</option>
-                      @isset($item_types)
-                        @foreach($item_types as $item)
-                          @if($item->id < 5)
-                          <option value="{{$item->id}}" @if($item->id == old('item_type_id')) selected @endif>{{$item->name}}</option>
-                          @endif
-                        @endforeach
-                      @endisset
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-xs-12">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" placeholder="Nome" class="form-control" id="name" value="{{old('name')}}">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-xs-12">
-                    <label for="desc">Descrição</label>
-                    <textarea class="form-control" rows="4" placeholder="Descrição" id="desc" name="desc">{{old('desc')}}</textarea>
-                    
-                  </div>
-                </div>
-                <div class="file">
-                  <div class="form-group row">
+                    <label for="file">Arquivo</label>
+                    <input class="form-control" type="file" name="file">
                     <div class="col-xs-12">
-                      <label for="file">Arquivo</label>
-                      <input class="form-control" type="file" name="file">
-                      <div class="col-xs-12">
-                        <label for="vimeo"><input type="checkbox" id="vimeo" name="vimeo"> Upload Vimeo</label>
-                      </div>
+                      <label for="vimeo"><input type="checkbox" id="vimeo" name="vimeo"> Upload Vimeo</label>
                     </div>
-                    <div class="row">
-                      <div class="col-xs-12 path">
-                        
-                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 path">
+                      
                     </div>
                   </div>
                 </div>

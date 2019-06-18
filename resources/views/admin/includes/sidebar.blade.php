@@ -45,7 +45,7 @@
         <li {{ (Request::is('admin/notificacao') ? 'class=active' : '') }} {{ (Request::is('admin/notificacao/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.notification.index')}}">
           <span class="label label-primary pull-right">{{DB::table('notifications')->where('status', 1)->count()}}</span>
-            <i class="fa fa-cube" aria-hidden="true"></i> <span>NOTIFICAÇÕES</span>
+          <i class="fa fa-bookmark-o" aria-hidden="true"></i> <span>NOTIFICAÇÕES</span>
           </a>
         </li>
         <li {{ (Request::is('admin/curso') ? 'class=active' : '') }} {{ (Request::is('admin/curso/*') ? 'class=active' : '') }}>
@@ -95,7 +95,7 @@
         </li>
         <li {{ (Request::is('admin/paginas') ? 'class=active' : '') }} {{ (Request::is('admin/paginas/*') ? 'class=active' : '') }}>
           <a href="{{route('admin.page.index')}}">
-            <i class="fa fa-tachometer"></i> <span>PÁGINAS</span>
+            <i class="fa fa-file-text" aria-hidden="true"></i> <span>PÁGINAS</span>
           </a>
         </li>
         <li {{ (Request::is('admin/newsletter') ? 'class=active' : '') }} {{ (Request::is('admin/newsletter/*') ? 'class=active' : '') }}>

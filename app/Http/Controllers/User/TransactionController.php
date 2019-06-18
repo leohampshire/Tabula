@@ -81,7 +81,7 @@ class TransactionController extends Controller
         $data_bank->user_id         = $auth->id;
         $data_bank->save();
 
-        return redirect()->back()->with('succes', 'Dados Bancários salvos com sucesso');
+        return redirect()->back()->with('success', 'Dados Bancários salvos com sucesso');
     }
 
     public function rescuePagarMe(Request $request)
@@ -282,6 +282,11 @@ class TransactionController extends Controller
 		$result = json_decode($result);
         if(isset($result->errors))
         {
+            $notification = new Notification;
+            $notification->type_notification = "Erro de sistema";
+            $notification->desc_notification = "O usuário {$auth->name} teve problemas ao finalizar a compra no sitema";
+            $notification->status = 1;
+            $notification->save();
             return redirect()->back()->with('warning', 'Tivemos um problema técnico, pedimos para que entre em contato com um de nossos administradores.');
         }
         

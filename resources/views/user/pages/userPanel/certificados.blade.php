@@ -8,9 +8,9 @@
 	</div>
 	<div class="row">
 		<div class="box">
-		<div class="box-header with-border">
-			<h3 class="box-title">Dados</h3>
-		</div>
+			<div class="box-header with-border">
+				<h3 class="box-title">Dados</h3>
+			</div>
 			<div class="box-body table-responsive">
 			<table class="table table-bordered table-hover">
 			<thead>
