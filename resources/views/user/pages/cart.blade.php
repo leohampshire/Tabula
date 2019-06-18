@@ -88,7 +88,7 @@
                     		{{csrf_field()}}
 	                        <script type="text/javascript"
 	                            src="https://assets.pagar.me/checkout/checkout.js"
-	                            data-encryption-key="ek_test_BAungYpRc4WGgApTuLGEBBzrauSpcN"
+	                            data-encryption-key="{{config('services.pagarme.encryption_key')}}"
 	                            data-customer-data="true"
 	                            data-create-token="false"
 						        data-button-text="Finalizar Compra"
