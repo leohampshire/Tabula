@@ -19,7 +19,6 @@ Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::post('/test/', 'User\CourseController@testValidate')->name('test');
   Route::get('/aula/{id}', 'User\CourseController@class')->name('class');
   Route::get('/forum/{id}', 'User\CourseController@forum')->name('forum');
-  Route::get('/{urn}', 'User\CourseController@course')->name('single');
 });
 
 
@@ -337,3 +336,7 @@ Route::post('newsletter', 'Admin\NewsletterController@newsletter')->name('newsle
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::post('transaction/callback', 'User\TransactionController@callback')->name('callback');
 Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');
+
+Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
+  Route::get('/{urn}', 'User\CourseController@course')->name('single');
+});

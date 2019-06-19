@@ -29,4 +29,10 @@ class CourseItem extends Model
         return $this->hasMany('App\TestItem', 'course_item_id');
     }
 
+    public function item_checked()
+    {
+        return $this->belongsToMany('App\User', 'course_item_user', 'course_item_id', 'user_id')
+        ->withPivot('course_item_status_id');
+    }
+
 }

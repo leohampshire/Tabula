@@ -4,8 +4,9 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Course, Rating, Forum, CourseItem, CourseItemChapter, CourseItemUser, TestItem, TestUser, Test, Notification};
+use App\{Course, Rating, Forum, Certificate, CourseItem, CourseItemChapter, CourseItemUser, TestItem, TestUser, Test, Notification, User};
 use Auth;
+use PDF;
 
 class CourseController extends Controller
 {
@@ -39,7 +40,7 @@ class CourseController extends Controller
     public function class($id)
     {
         $auth = Auth::guard('user')->user();
-        $course = Course::find($id);        
+        $course = Course::find($id);
 
         return view('user.pages.course.class')
         ->with('auth', $auth)
@@ -127,8 +128,7 @@ class CourseController extends Controller
         //Percorre todos os cursos
         $course = $auth->myCourses()->where('course_id', $request->course_id)->first();
         foreach ($auth->myCourses as $value) {
-            if($value->id == $request->course_id)
-            {
+            if($value->id == $request->course_id){
                 $value->pivot->progress = $progress;
                 $value->pivot->save();
                 if($value->total_class == $value->pivot->progress){
@@ -137,12 +137,42 @@ class CourseController extends Controller
                     $notification->desc_notification = "O usuário {$auth->name} finalizou o curso {$value->name}.";
                     $notification->status = 1;
                     $notification->save();
+                    $this->certificate($auth, $course);
                 }
             }
         };
 
         return json_encode($item);
 
+    }
+
+    private function certificate(User $student, Course $course)
+    {
+        $progress = $student->progress()->find($course->id)->pivot->progress; 
+        $path = public_path()."/uploads/archives/";
+        $certificate_name = "{$student->id}_{$course->id}_{$course->name}.pdf";
+        
+        Certificate::updateOrCreate(
+            ['path'      => $certificate_name],
+            ['user_id'   => $student->id,
+            'course_id' => $course->id]
+        );
+
+        $teacher = User::find($course->user_id_owner);
+        $now = date("Y-m-d H:i:s");
+        $data = [
+            'date'      => $now,
+            'student'   => $student,
+            'course'    => $course,
+            'teacher'   => $teacher,
+            'company'   => $teacher->company,
+            'hour'      => $course->timeH,
+            'minute'    => $course->timeM,
+            ];
+        $pdf = PDF::loadView('admin.pages.course.student.certificate', $data);
+        $pdf->save("{$path}{$certificate_name}");
+
+        return redirect()->back()->with('success', 'Certificado gerado e enviado para o Aluno');
     }
 
     public function getClass(Request $request)
