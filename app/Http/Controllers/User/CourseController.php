@@ -138,6 +138,7 @@ class CourseController extends Controller
                     $notification->status = 1;
                     $notification->save();
                     $this->certificate($auth, $course);
+                    return json_encode("true");
                 }
             }
         };
@@ -172,7 +173,7 @@ class CourseController extends Controller
         $pdf = PDF::loadView('admin.pages.course.student.certificate', $data);
         $pdf->save("{$path}{$certificate_name}");
 
-        return redirect()->back()->with('success', 'Certificado gerado e enviado para o Aluno');
+        return redirect()->back();
     }
 
     public function getClass(Request $request)
