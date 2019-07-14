@@ -90,6 +90,22 @@
     </div>
   </section>
 @endisset
+@if(isset($_GET['course']))
+  @if($_GET['course'] == 'completed')
+  <section class="container" style="margin-top: 30px;">
+    <!-- Main row --> 
+    <div class="row">
+      <!-- Left col -->
+      <section class="col-sm-12">
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          Parabéns por finalizar curso, baixe agora o seu certificado!
+        </div>
+      </section>
+    </div>
+  </section>
+  @endif
+@endisset
 
 @if(session()->has('warning'))
   <section class="container" style="margin-top: 30px;">

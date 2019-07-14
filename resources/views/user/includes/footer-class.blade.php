@@ -97,9 +97,12 @@ $(document).on("click", '.check-class', function(event){
             course_id: course_id,
         },
         beforeSend: function(){
-          console.log(course_id)
         },
         success: function(data){
+          var result = JSON.parse(data);
+          if(result == 'true'){
+            window.location.href = "{{route('user.panel')}}?course=completed#certificates";
+          }
         }
       });
     }
