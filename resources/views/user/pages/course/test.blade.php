@@ -11,7 +11,7 @@
 			</div>
 		</div>
 			@forelse($itm->test as $question)
-			<div class="row">
+			<div class="row row-item-question">
 				<div class="col-sm-12">
 					<div class="input-group">
 	                    <span class="input-group-addon">
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 			@forelse($itm->test as $question)
-			<div class="row">
+			<div class="row row-item-question">
 				<div class="col-sm-12">
 					<div class="input-group">
 	                    <span class="input-group-addon">

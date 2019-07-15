@@ -223,7 +223,7 @@
                             <div class="col-xs-12">
                                 <label for="item_type_id">Tipo de Aula</label>
                                 <select class="form-control item_type_id" name="item_type_id">
-                                    <option selected disabled="">SELECIONE...</option>
+                                    <option selected disabled="">Selecione...</option>
                                     @isset($item_types)
                                     @foreach($item_types as $item)
                                     @if($item->id < 5) <option value="{{$item->id}}" @if($item->id ==
@@ -252,11 +252,11 @@
                         <div class="form-group row file">
                             <div class="col-xs-12">
                                 <label for="file">Arquivo</label>
-                                <input class="form-control" type="file" name="file">
-                                <div class="col-xs-12">
-                                    <label for="vimeo"><input type="checkbox" id="vimeo" name="vimeo"> Upload
-                                        Vimeo</label>
-                                </div>
+                                <input type="file" name="file">
+                                <label for="vimeo" class="label-upload-vimeo">
+                                    <input type="checkbox" id="vimeo" name="vimeo">
+                                    Upload Vimeo
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -293,7 +293,7 @@
                             <div class="col-xs-12">
                                 <label for="item_type_id">Tipo de Aula</label>
                                 <select class="form-control item_type_id" name="item_type_id">
-                                    <option selected disabled="">SELECIONE...</option>
+                                    <option selected disabled="">Selecione...</option>
                                     @isset($item_types)
                                     @foreach($item_types as $item)
                                     @if($item->id < 5) <option value="{{$item->id}}" @if($item->id ==
@@ -324,10 +324,10 @@
                                 <div class="col-xs-12">
                                     <label for="file">Arquivo</label>
                                     <input class="form-control" type="file" name="file">
-                                    <div class="col-xs-12">
-                                        <label for="vimeo"><input type="checkbox" id="vimeo" name="vimeo"> Upload
-                                            Vimeo</label>
-                                    </div>
+                                    <label for="vimeo" class="label-upload-vimeo">
+                                        <input type="checkbox" id="vimeo" name="vimeo">
+                                        Upload Vimeo
+                                    </label>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 path">
@@ -386,7 +386,7 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="file">Arquivo</label>
-                                <input class="form-control" type="file" name="file">
+                                <input type="file" name="file">
                             </div>
                         </div>
                     </div>
@@ -524,7 +524,7 @@
                             <div class="col-xs-12">
                                 <label for="item_type_id">Tipo de Pergunta</label>
                                 <select class="form-control item_type_id" name="item_type_id">
-                                    <option selected disabled="">SELECIONE...</option>
+                                    <option selected disabled="">Selecione...</option>
                                     @isset($item_types)
                                     @foreach($item_types as $item)
                                     @if($item->id > 6)
@@ -553,50 +553,60 @@
                         <div class="form-group row alternative">
                             <div class="col-xs-12">
                                 <label for="desc">Alternativas</label>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="0">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="0">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="1">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="1">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="2">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="2">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="3">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="3">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="4">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="4">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
                             </div>
                         </div>
@@ -611,52 +621,61 @@
                         <div class="form-group row multiple">
                             <div class="col-xs-12">
                                 <label for="verdadeira">Multipla Escolha</label><br>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="0">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="0">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="1">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="1">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="2">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="2">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="3">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="3">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="4">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row row-item-question">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="4">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-
                             </div>
                         </div>
                     </div>

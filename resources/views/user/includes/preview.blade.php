@@ -14,27 +14,9 @@
   <p>Este site ainda é uma versão de testes. Favor não realizar nenhum pedido.</p>
 </div>
 <header>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-3">
-        <a href="{{ url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
-      </div>
-      <div class="col-xs-4">
-       
-      </div>
-      <div class="col-xs-5">
-        <ul>
-          <li>
-            <a href="#course-edit" class="course-edit" title="Visualizar" data-url="{{route('user.course.edit', ['id' => $course->id])}}">Editar</a> 
-          </li>
-          <li>
-            <a href="#teach" class="teach" data-url="{{route('user.teach')}}">
-              <button class="btn-block btn-panel-menu" type="button">Voltar</button>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-  </div>
+
+  <a href="{{ url('/')}}" style="margin-left: 12px;"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
+  <button class="btn" type="button" style="width: auto; float: right; margin-left: 8px; margin-right: 12px;">Voltar</button>
+  <button href="#course-edit" class="btn btn-default" data-url="{{route('user.course.edit', ['id' => $course->id])}}" style="width: auto; float: right;">Editar</button> 
+
 </header>

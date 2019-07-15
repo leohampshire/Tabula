@@ -23,7 +23,7 @@
                 </div>
                 <div class="course-desc">
                     <h3>{{$course->name}}</h3>
-                    <p>{{substr($course->desc, 0, 59)}}</p>
+                    <p>{{substr($course->desc, 0, 59)}} ...</p>
                 </div>
                 <div class="course-access">
                     <a href="#course-edit" title="Editar" class="course-edit"

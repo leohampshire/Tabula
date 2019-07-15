@@ -3,10 +3,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-xs-12">
                     <h1>Cupons</h1>
                 </div>
-                <div class="col-sm-6">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
                     <button class="btn-header new-coupon">Novo</button>
                 </div>
             </div>

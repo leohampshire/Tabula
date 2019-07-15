@@ -11,9 +11,9 @@
         <div class="box-w-shadow">
             <div class="row">
                 <div class="col-sm-12">
-                    <img style="width: 100px; position: absolute; bottom: 0;"
+                    <img class="img-profile-teacher"
                         src="{{asset('images/profile')}}/{{$teacher->avatar}}">
-                    <img height="200px" style="width: 100%; object-fit: cover;"
+                    <img style="width: 100%; height: 280px; object-fit: cover;"
                         src="{{asset('images/cover')}}/{{$teacher->cover}}">
                 </div>
                 <div class="col-sm-12">
@@ -23,7 +23,7 @@
                     </nav>
                 </div>
             </div>
-            <hr id="courses">
+            
             <div class="row" id="about">
                 <div class="col-sm-12">
                     <h1>Sobre {{$teacher->name}}</h1>
@@ -32,13 +32,13 @@
                     <p>{{$teacher->bio}}</p>
                 </div>
             </div>
-            <hr>
             <?php
 				//Columns must be a factor of 12 (1,2,3,4,6,12)
-				$numOfCols = 4;
-				$rowCount = 0;
-				$bootstrapColWidth = 12 / $numOfCols;
-				?>
+            $numOfCols = 4;
+            $rowCount = 0;
+            $bootstrapColWidth = 12 / $numOfCols;
+            ?>
+            <hr id="courses">
             <div class="row">
                 <div class="col-sm-12">
                     <h1>Cursos {{$teacher->name}}</h1>
