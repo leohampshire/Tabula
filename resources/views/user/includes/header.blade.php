@@ -18,10 +18,10 @@
 <header>
   <div class="container">
     <div class="row">
-      <div class="col-xs-3">
+      <div class="col-xs-6 col-sm-3">
         <a href="{{ url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
       </div>
-      <div class="col-xs-4">
+      <div class="col-sm-4 hidden-xs">
         <form autocomplete="off" action="{{ route('search.single', ['id' => -1]) }}" method="get">
           <input type="text" name="search_string" placeholder="O que você quer aprender hoje?">
           <button class="btn-search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -29,7 +29,7 @@
        
       </div>
 
-      <div class="col-xs-5">
+      <div class="col-xs-6 col-sm-5">
         <ul>
           @if($auth)
           <li class="menu-profile">
@@ -40,11 +40,11 @@
             @if($auth->user_type_id == 3)
             <li><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
             @endif
-            <li><a href="{{route('user.logout')}}">Sair</a></li>
+            <li class="hidden-xs"><a href="{{route('user.logout')}}">Sair</a></li>
           @else
           
           <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>
-          <li><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
+          <li class="hidden-xs"><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
           
           @endif
           @if($auth)

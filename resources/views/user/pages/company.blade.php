@@ -11,9 +11,9 @@
         <div class="box-w-shadow">
             <div class="row">
                 <div class="col-sm-12">
-                    <img style="width: 100px; position: absolute; bottom: 0;"
+                    <img class="img-profile-company"
                         src="{{asset('images/profile')}}/{{$company->avatar}}">
-                    <img height="200px" style="width: 100%; object-fit: cover;"
+                    <img style="width: 100%; height: 280px; object-fit: cover;"
                         src="{{asset('images/cover')}}/{{$company->company->cover}}">
                 </div>
                 <div class="col-sm-12">

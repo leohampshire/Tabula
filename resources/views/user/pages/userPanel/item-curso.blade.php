@@ -2,10 +2,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-xs-12">
                 <h1>Capítulo: {{$chapter->name}}</h1>
             </div>
-            <div class="col-sm-8">
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
                 <button class="btn btn-header act-complement" data-course_id="{{$chapter->course->id}}"
                     data-chapter_id="{{$chapter->id}}">MATERIAL COMPLEMENTAR</button>
                 <button class="btn btn-header act-test" data-course_id="{{$chapter->course->id}}"

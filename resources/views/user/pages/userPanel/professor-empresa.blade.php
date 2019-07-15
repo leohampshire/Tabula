@@ -10,7 +10,7 @@
 
         <div class="col-sm-3">
             <a href="#" class="teacher-include" data-id="{{$auth->company->id}}">
-                <div class="add-course-box">
+                <div class="add-teacher-box">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </div>
             </a>

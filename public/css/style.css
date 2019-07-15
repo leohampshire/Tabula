@@ -43,6 +43,10 @@ button {
   color: #fff;
 }
 
+button:hover {
+  color: #fff;
+}
+
 button[type="submit"] {
   padding: 10px 20px;
 }
@@ -85,6 +89,19 @@ button.btn-login-google {
 button.btn-login-facebook i,
 button.btn-login-facebook i {
   margin-right: 5px;
+}
+
+.table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+  border-bottom-width: 1px;
+}
+
+td a, td a:hover, td a:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+tbody>tr>td, tbody>tr>th, tfoot>tr>td, tfoot>tr>th, thead>tr>td, thead>tr>th {
+  vertical-align: middle;
 }
 
 input.form-control, select.form-control, textarea.form-control {
@@ -168,6 +185,7 @@ li.menu-profile a img {
   border-radius: 50%;
 }
 
+
 header input {
 	padding: 8px;
 	background: #fff;
@@ -212,6 +230,44 @@ header ul li a.btn-register {
 	border: solid 1px #000;
 	background: #000;
 	color: #fff;
+}
+
+@media(max-width: 767px){
+  header .logo {
+    height: 36px;
+    margin: 2px 0;
+  }
+
+  li.menu-profile a img {
+    width: 36px;
+    height: 36px;
+  }
+
+  li.menu-cart a i {
+    font-size: 26px;
+  }
+
+  header ul li a {
+    padding: 3px 8px;
+  }
+
+  li.menu-cart a {
+    padding: 6px 14px 0 0;
+  }
+
+  li.menu-cart a span.menu-cart-count {
+    top: -8px;
+  }
+}
+
+ul.macro-main {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.macro-main li {
+  cursor: pointer;
 }
 
 .box-w-shadow {
@@ -270,13 +326,24 @@ header ul li a.btn-register {
   margin-bottom: 25px;
 }
 
+.course-box h3 {
+  color: #fff;
+  height: 52px;
+  overflow-y: hidden;
+}
+
+.course-box p {
+  height: 60px;
+  overflow-y: hidden;
+}
+
 .add-course-box {
   position: relative;
   box-shadow: 0 0 5px #ccc;
   outline: none;
   background: #303030;
   margin-bottom: 25px;
-  min-height: 383px;
+  min-height: 410px;
 }
 
 .add-course-box i {
@@ -291,6 +358,61 @@ header ul li a.btn-register {
   text-align: center;
   width: 100%;
   font-size: 65px;
+}
+
+.add-teacher-box {
+  position: relative;
+  box-shadow: 0 0 5px #ccc;
+  outline: none;
+  background: #303030;
+  margin-bottom: 25px;
+  min-height: 383px;
+}
+
+.add-teacher-box i {
+  color: #5fd22f;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 159px auto;
+  display: table;
+  text-align: center;
+  width: 100%;
+  font-size: 65px;
+}
+
+.img-profile-teacher {
+  display: table;
+  width: 130px !important;
+  height: 130px;
+  position: absolute;
+  bottom: -55px;
+  object-fit: cover;
+  display: table;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border-radius: 100%;
+  border: solid 4px #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
+}
+
+.img-profile-company {
+  display: table;
+  width: 130px !important;
+  height: 130px;
+  position: absolute;
+  bottom: -55px;
+  object-fit: cover;
+  display: table;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border-radius: 100%;
+  border: solid 4px #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
 }
 
 .carousel-courses .course-box {
@@ -331,8 +453,13 @@ header ul li a.btn-register {
 }
 
 .course-access {
-  display: table;
-  width: 100%;
+  display: flex;
+}
+
+.course-access a {
+  background: #5fd22f;
+  flex: 1;
+  text-align: center;
 }
 
 .course-access span {
@@ -365,6 +492,26 @@ header ul li a.btn-register {
 
 #teacher-questions button {
   margin-top: 20px;
+}
+
+.label-upload-vimeo {
+  margin-top: 12px;
+}
+
+.row-item-question {
+  margin-bottom: 8px;
+}
+
+.row-item-question label.form-control {
+    border: solid 1px #000;
+}
+
+.progress {
+  margin-bottom: 0;
+}
+
+.input-group-addon {
+  border-color: #000;
 }
 
 .footer-news {
@@ -449,6 +596,21 @@ footer ul li a:hover {
   padding: 22px 0 0;
 }
 
+.btn {
+  border-radius: 0;
+  padding: 10px 20px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #000;
+  border: none;
+}
+
+.btn-primary:focus, .btn-primary:hover, .btn:focus, .btn:hover {
+  color: #fff;
+}
+
 .btn-cart-delete {
   position: absolute;
   width: 40px;
@@ -464,6 +626,15 @@ footer ul li a:hover {
 
 .btn-cart-delete:hover, .btn-cart-delete:focus {
   color: #fff;
+}
+
+.act-chapter, .act-question, .new-coupon {
+  margin-bottom: 12px;
+}
+
+a.act-list {
+    font-size: 16px;
+    margin-right: 6px;
 }
 
 .btn-cart-delete i {
@@ -611,7 +782,7 @@ h1.course-name {
 }
 
 .class-chapter p.active, .class-item p.active {
-  color: #5fd22f;
+  color: #4bff00;
 }
 
 .class-chapter p {

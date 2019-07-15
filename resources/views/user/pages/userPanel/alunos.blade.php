@@ -1,9 +1,11 @@
 <div class="box-w-shadow">
     <div class="box-title">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <h2>Alunos</h2>
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-6">
                 <button class="btn-header act-student" data-id="{{$course->id}}">INCLUIR ALUNO</button>
             </div>
@@ -32,12 +34,12 @@
                             <tbody>
                                 @forelse($course->students as $student)
                                 <?php
-                if($course->total_class != 0){
-                  $progress = ($student->pivot->progress / $course->total_class)*100;
-                }else{
-                  $progress = 0;
-                }
-                ?>
+                                if($course->total_class != 0){
+                                  $progress = ($student->pivot->progress / $course->total_class)*100;
+                                }else{
+                                  $progress = 0;
+                                }
+                                ?>
                                 <tr>
                                     <td>{{$student->name}}</td>
                                     <td>

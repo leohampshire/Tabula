@@ -64,6 +64,11 @@
             </div> -->
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
+                    <a href="{{ route('user.register')}}" class="btn-forgot-password">Cadastre-se</a>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-offset-4 col-sm-4">
                     <a href="#" class="btn-forgot-password">Esqueceu a senha?</a>
                 </div>
             </div>

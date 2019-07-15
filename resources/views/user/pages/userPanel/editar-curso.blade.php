@@ -17,8 +17,9 @@
                         <div class="box-tools">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary act-chapter" data-id="{{$course->id}}">Novo
-                        capitulo</button>
+                    <button type="button" class="act-chapter" data-id="{{$course->id}}">
+                        Novo capitulo
+                    </button>
                     <div class="box-body table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -141,7 +142,7 @@
         </div>
         <div class="row form-group">
             <div class="col-xs-4">
-                <button type="submit">Editar</button>
+                <button type="submit">Atualizar</button>
             </div>
         </div>
     </form>
