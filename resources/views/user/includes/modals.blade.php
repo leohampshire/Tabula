@@ -758,7 +758,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!--/.Aula gratis-->
+<!--/.Avaliação-->
 
 <!--Incluir Professor-->
 <div class="modal fade" id="teacherModal">

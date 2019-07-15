@@ -29,7 +29,6 @@ class SearchController extends Controller
         {
 
             $search_string = Input::get('search_string');
-
             // se houver string, busca a string e manda a $search_string para ser escrita automaticamente no campo
             // se não houver, busca todos os cursos
             if($search_string != "")

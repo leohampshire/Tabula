@@ -37,7 +37,7 @@
         <div class="row form-group">
             <div class="col-sm-4" id="categ">
                 <label for="category_id">Categoria</label>
-                <select name="category_id" class="form-control">
+                <select name="category_id" class="form-control" id="category_id" onchange="categAjax()">
                     <option value="" selected disabled hidden>Escolha</option>
                     @foreach($categories as $category)
                     @if($category->category_id === NULL)

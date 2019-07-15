@@ -219,26 +219,6 @@ $(document).on('click', '.scroll', function(event){
   $(document).on("change", '#country', function(event){
     states();
   });
-
-var url = "{{route('teacher.course.subcategory')}}";
-@isset($course)
-var id = '{{$course->category_id}}';
-categAjax(url, id);
-@endisset
-
-$('#sub_categ').hide();
-$(document).on("change", '#categ', function(event) {
-    var categId = $('#categ option:selected').val();
-    categAjax(url, categId);
-});
-$(document).on("change", '#category_id', function(event) {
-    var url = "{{route('teacher.course.subcategory')}}";
-    var categId = $('#category_id option:selected').val();
-    categAjax(url, categId);
-});
-
-
-
   $(document).ready( function(){
 
     url = window.location.href;
@@ -750,6 +730,33 @@ $(document).ready(function() {
   function ajaxCPF(){
     $('.cpf-ajax').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
   }
+
+  function categAjax(){
+      categId = $('#category_id').val();
+      $.ajax({
+        type: 'GET',
+        url: "{{route('teacher.course.subcategory')}}",
+        data:{
+            categId: categId,
+        },
+        beforeSend: function(){
+        },
+        success: function(data){
+            var result = $.parseJSON(data);
+            var i = 0;
+            $('#subcategory_id').html('');
+            if (result.length != 0) {
+              for (i =0; i < result.length; ++i){
+                  $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
+              }
+              $('#sub_categ').show();
+
+            }else{
+              $('#sub_categ').hide();
+            }
+        }
+      });
+    }
   function ajaxMoney(){
     $(".input-money").maskMoney({
         thousands:'.', 

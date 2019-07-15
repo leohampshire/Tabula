@@ -73,7 +73,7 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
   Route::post('store', 'User\TeacherController@storeAnswer')->name('store');
   Route::get('delete/{id}', 'User\TeacherController@deleteAnswer')->name('delete');
   Route::get('ver-professor', 'User\TeacherController@seeTeacher')->name('see');
-
+  
   //CURSOS
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::post('/store', 'Admin\AdminCourseController@store')->name('store');
