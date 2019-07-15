@@ -31,6 +31,7 @@ class User extends Authenticatable
         'google_plus',
         'linkedin',
         'youtube',
+        'cover',
         'country_id', 
         'state_id', 
         'schooling_id',
