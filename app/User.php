@@ -136,4 +136,9 @@ class User extends Authenticatable
         return $expired;
     }
 
+    public function tests()
+    {
+        return $this->hasMany('App\Test');
+    }
+
 }

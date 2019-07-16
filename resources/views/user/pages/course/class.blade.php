@@ -19,14 +19,14 @@
 				@if($item->course_items_parent == null)
 					@if($item->course_item_types_id == 5)
 					<a href="{{asset('uploads/archives')}}/{{$item->path}}" download="{{$item->name}}" class="btn-class-item">
-						<div class="class-item-complementar">
-							<p class="active">{{$item->name}}</p>
+						<div class="class-item class-item-complementar">
+							<p>{{$item->name}}</p>
 						</div>
 					</a>
 					@else
 					<a href="#" class="btn-class-item" data-item="{{$item->id}}" data-url="{{route('course.getclass')}}">
 						<div class="class-item">
-							<p class="active">{{$item->name}}</p>
+							<p class="">{{$item->name}}</p>
 							<input id="{{$chapter->id}}-{{$item->id}}" class="check-class" data-user_id="{{$auth->id}}"
 								data-url="{{route('course.checked')}}" data-course_id="{{$course->id}}" type="checkbox"
 								name="check" 

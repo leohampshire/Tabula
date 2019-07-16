@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('title', 'Aluno')
+@section('title', 'Provas')
 
 @section('description', 'Descrição')
 
@@ -14,7 +14,6 @@
                 <h1>Alunos</h1>
             </div>
             <div class="col-sm-6">
-                <button class="btn-header act-student" data-id="{{$course->id}}">INCLUIR ALUNO</button>
                 <a href="{{route('admin.course.index')}}">
                     <button class="btn-header-back">VOLTAR</button>
                 </a>
@@ -71,7 +70,7 @@
         <!-- Main row -->
         <div class="row">
             <!-- Left col -->
-            <section class="col-lg-12">
+            <section class="col-lg-6">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Dados</h3>
@@ -80,43 +79,15 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Nome</th>
-                                    <th>Progesso</th>
-                                    <th>Ações</th>
+                                    <th>Perguntas</th>
+                                    <th>Respostas corretas</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($course->students as $student)
-                                <?php
-                                if($course->total_class != 0){
-                                  $progress = ($student->pivot->progress / $course->total_class)*100;
-                                }else{
-                                  $progress = 0;
-                                }
-                                ?>
+                                @forelse($tests as $test)
                                 <tr>
-                                    <td>{{$student->name}}</td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar"
-                                                style="width: {{$progress}}%;">{{$progress}}%
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.course.student.test', ['student' => $student->id, 'course_id' => $course->id])}}"
-                                            title="Reiniciar" class="act-list">
-                                            <i class="fa fa-file-text" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="{{ route('admin.course.student.restart', ['id' => $student->id, 'course_id' => $course->id])}}"
-                                            title="Reiniciar" class="act-list act-delete">
-                                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="{{ route('admin.course.student.certificate', ['id' => $student->id, 'course_id' => $course->id])}}"
-                                            title="Gerar Certificado" class="act-list">
-                                            <i class="fa fa-certificate" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
+                                    <td>{{$test->answers}}</td>
+                                    <td>{{$test->correct}}</td>
                                 </tr>
                                 @empty
                                 <tr>
@@ -124,13 +95,7 @@
                                 </tr>
                                 @endforelse
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Progesso</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </tfoot>
+                           
                         </table>
                     </div>
                 </div>
@@ -142,3 +107,61 @@
 <!-- /.row (main row) -->
 
 @stop
+@section('modals')
+<!--Editar Complemento-->
+<div class="modal fade" id="dissertatives">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Editar Material Complementar</h4>
+            </div>
+            <form method="POST" action="{{route('admin.course.item.update')}}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {{csrf_field()}}
+                    <input type="hidden" name="id">
+                    @isset($chapter)
+                    <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
+                    @endisset
+                    @isset($course)
+                    <input type="hidden" name="course_id" value="{{$course->id}}">
+                    @endisset
+                    <input type="hidden" name="item_type_id" value="5">
+                    <div class="box-body">
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="name">Nome</label>
+                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                    value="{{old('name')}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="desc">Descrição</label>
+                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                    name="desc">{{old('desc')}}</textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="file">Arquivo</label>
+                                <input type="file" name="file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--/.Editar Complemento-->
+@endsection

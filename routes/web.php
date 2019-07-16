@@ -15,8 +15,8 @@
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::post('/checked', 'User\CourseController@classChecked')->name('checked');
   Route::post('pergunta', 'User\CourseController@question')->name('question');
-  Route::get('/item/', 'User\CourseController@getClass')->name('getclass');
-  Route::post('/test/', 'User\CourseController@testValidate')->name('test');
+  Route::get('item/', 'User\CourseController@getClass')->name('getclass');
+  Route::post('test/', 'User\CourseController@testValidate')->name('test');
   Route::get('/aula/{id}', 'User\CourseController@class')->name('class');
   Route::get('/forum/{id}', 'User\CourseController@forum')->name('forum');
 });
@@ -30,7 +30,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
   Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
   Route::get('/pedidos', 'User\UserController@contentOrders')->name('orders');
   Route::get('/certificados', 'User\UserController@contentCertificate')->name('certificates');
-  Route::get('/saldos/', 'User\TransactionController@balance')->name('balance');
+  Route::get('saldos/', 'User\TransactionController@balance')->name('balance');
   Route::post('sacar', 'User\TransactionController@loot')->name('loot');
   Route::get('/pedido/{id}', 'User\UserController@contentThisOrder')->name('order');
   //PAINEIS VIA AJAX
@@ -50,9 +50,9 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
     Route::get('/visualizar/{id}', 'User\CourseController@show')->name('show');
     
     Route::get('/alunos/{id}', 'User\UserController@contentStudent')->name('student');
-    Route::get('reiniciar/{course_id}/{user_id}', 'Admin\AdminCourseController@studentRestart')->name('restart');
-    Route::get('certificado/{student}/{course}', 'Admin\AdminCourseController@certificate')->name('student-certificate');
-    Route::post('incluir/', 'Admin\AdminCourseController@studentInclude')->name('include');
+    Route::get('reiniciar/{course_id}/{user_id}', 'Admin\StudentController@studentRestart')->name('restart');
+    Route::get('certificado/{student}/{course}', 'Admin\StudentController@certificate')->name('student-certificate');
+    Route::post('incluir/', 'Admin\StudentController@studentInclude')->name('include');
     Route::get('/liberar-empresa/{course}', 'Company\CompanyController@avaliable')->name('company');
     Route::get('/liberar/{id}', 'User\CourseController@avaliable')->name('avaliable');
     Route::get('/incluir-item/{id}', 'User\UserController@contentCourseItem')->name('item');
@@ -196,11 +196,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/visualizar/{id}', 'Admin\AdminCourseController@show')->name('show');
       Route::post('/update', 'Admin\AdminCourseController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCourseController@delete')->name('delete');
-      Route::get('/aluno/{id}', 'Admin\AdminCourseController@student')->name('student');
+      Route::get('/aluno/{id}', 'Admin\StudentController@student')->name('student');
       Route::group(['prefix'=> 'aluno', 'as' => 'student.'], function(){
-        Route::post('incluir/', 'Admin\AdminCourseController@studentInclude')->name('include');
-        Route::get('certificado/{student}/{course}', 'Admin\AdminCourseController@certificate')->name('certificate');
-        Route::get('reiniciar/{course_id}/{user_id}', 'Admin\AdminCourseController@studentRestart')->name('restart');
+        Route::post('incluir/', 'Admin\StudentController@studentInclude')->name('include');
+        Route::get('certificado/{student}/{course}', 'Admin\StudentController@certificate')->name('certificate');
+        Route::get('reiniciar/{course_id}/{user_id}', 'Admin\StudentController@studentRestart')->name('restart');
+        Route::get('provas/{student}/{course_id}', 'Admin\StudentController@test')->name('test');
       });
       //CAPITULOS CURSO ADMIN
       Route::group(['prefix'=> 'capitulo', 'as' => 'chapter.'], function(){
@@ -216,6 +217,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
         Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
         Route::post('/update', 'Admin\ItemCourseController@update')->name('update');
         Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
+      });
+      Route::group(['prefix'=> 'test', 'as' => 'test.'], function(){
+        Route::post('/store', 'Admin\TestCourseController@store')->name('store');
+        Route::post('/update', 'Admin\TestCourseController@update')->name('update');
+        Route::get('/delete/{id}', 'Admin\TestCourseController@delete')->name('delete');
       });
   });
   //CUPONS ADMIN
@@ -334,7 +340,7 @@ Route::post('newsletter', 'Admin\NewsletterController@newsletter')->name('newsle
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::post('transaction/callback', 'User\TransactionController@callback')->name('callback');
 Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');
-
+Route::get('/edit-item', 'Admin\TestCourseController@edit')->name('edit-item');
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::get('/{urn}', 'User\CourseController@course')->name('single');
 });

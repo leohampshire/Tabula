@@ -335,11 +335,10 @@ class AdminCourseController extends Controller
 
     public function storeItem(Request $request)
     {
-        // return dd($request->file);
         $this->validate($request, [
             'item_type_id'  => 'required',
             'name'          => 'required|max:200',
-            'desc'          => 'max:500'
+            'desc'          => 'nullable|max:500'
         ]);
         $total_class = 0;
         $item = new CourseItem;
@@ -362,6 +361,7 @@ class AdminCourseController extends Controller
         }
         
         $item->save();
+
         if ($request->item_type_id == 8) {
             $itemTest                   = new TestItem;
             $itemTest->course_item_id   = $item->id;
@@ -426,10 +426,6 @@ class AdminCourseController extends Controller
         ->with('chapter', $chapter)
         ->with('course', $course);
     }
-
-    public function updateItem(Request $request)
-    {
-    }
     public function deleteItem($id)
     {
         $item = CourseItem::find($id);
@@ -464,71 +460,6 @@ class AdminCourseController extends Controller
     {
         $course = Course::find($id);
      return view('admin.pages.course.show.class')->with('course', $course);   
-    }
-
-    public function student($id)
-    {
-        $course = Course::find($id);
-        return view('admin.pages.course.student.index')
-        ->with('course', $course);
-    }
-    public function studentInclude(Request $request)
-    {
-        $student = User::where('email', $request->email)->first();
-
-        $date = date('Y-m-d', strtotime('+6 month'));
-        if($student){
-            if (count($student->myCourses->where('id', $request->id)) == 0) {
-                CourseUser::create([
-                    'user_id'   => $student->id,
-                    'course_id' => $request->id,
-                    'progress'  => 0,
-                    'expired'   => $date
-                ]);
-                return redirect()->back()->with('success', 'Aluno Incluso ao seu curso');
-            }
-        }
-        return redirect()->back()->with('warning', 'Usuário já vinculado ao curso ou inexistente');
-    }
-
-    public function studentRestart($course_id, $user_id)
-    {
-        CourseUser::where('course_id', $course_id)->where('user_id', $user_id)->update([
-            'progress' => 0,
-        ]);
-        return redirect()->back()->with('success', 'Progresso Reiniciado');
-    }
-
-    public function certificate(User $student, Course $course)
-    {
-        $progress = $student->progress()->find($course->id)->pivot->progress; 
-        if ($progress != $course->total_class) {
-            return redirect()->back()->with('warning', 'Curso ainda não finalizado para gerar o certificado.');
-        }
-        $path = public_path()."/uploads/archives/";
-        $certificate_name = "{$student->id}_{$course->id}_{$course->name}.pdf";
-        
-        Certificate::updateOrCreate(
-            ['path'      => $certificate_name],
-            ['user_id'   => $student->id,
-            'course_id' => $course->id]
-        );
-
-        $teacher = User::find($course->user_id_owner);
-        $now = date("Y-m-d H:i:s");
-        $data = [
-            'date'      => $now,
-            'student'   => $student,
-            'course'    => $course,
-            'teacher'   => $teacher,
-            'company'   => $teacher->company,
-            'hour'      => $course->timeH,
-            'minute'    => $course->timeM,
-            ];
-        $pdf = PDF::loadView('admin.pages.course.student.certificate', $data);
-        $pdf->save("{$path}{$certificate_name}");
-
-        return redirect()->back()->with('success', 'Certificado gerado e enviado para o Aluno');
     }
 
     public function urnValidate(String $name)

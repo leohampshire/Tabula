@@ -19,6 +19,7 @@ class CreateTestUsersTable extends Migration
             $table->integer('answer')->nullable();
             $table->integer('course_item_id');
             $table->integer('user_id');
+            $table->integer('test_id');
             $table->timestamps();
         });
     }

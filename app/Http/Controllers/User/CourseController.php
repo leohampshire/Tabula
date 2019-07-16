@@ -203,54 +203,57 @@ class CourseController extends Controller
 
         $auth = Auth::guard('user')->user();
         $itm = CourseItem::find($request->item_id);
-        
+
+        $test                   = new Test;
+        $test->user_id          = $auth->id;
+        $test->course_item_id   = $request->item_id;
+        $test->answers          = $itm->course_item_parent()->count();
+        $test->save();
+
         if (isset($request->true_false)) {
             foreach ($request->true_false as $key => $answer) {
-                $item = TestItem::where('id', $key)->first();
+                $item = CourseItem::where('id', $key)->first();
                 if ($key = $item->id) {
-                    $this->userTest($auth->id, $key, $answer);
+                    $this->userTest($auth->id, $key, $answer, $test->id);
                 }
             }
         }
-        
         if(isset($request->alternative)){
             foreach ($request->alternative as $key => $answer) {
-                $item = TestItem::where('id', $key)->first();
+                $item = CourseItem::where('id', $key)->first();
                 if ($key = $item->id) {
-                    $this->userTest($auth->id, $key, $answer);
+                    $this->userTest($auth->id, $key, $answer, $test->id);
                 }
             }
         }
 
         if(isset($request->alt_mult)){
             foreach ($request->alt_mult as $key => $answer) {
-                $item = TestItem::where('id', $key)->first();
+                $item = CourseItem::where('id', $key)->first();
                 if ($key = $item->id) {
                     foreach ($answer as $answers) {
-                        $this->userTest($auth->id, $key, $answers);
+                        $this->userTest($auth->id, $key, $answers, $test->id);
                     }
                 }
             }
         }
         if(isset($request->dissertative)){
             foreach ($request->dissertative as $key => $answer) {
-                $item = TestItem::where('id', $key)->first();
+                $item = CourseItem::where('id', $key)->first();
                 if ($key = $item->id) {
                     $testUser                   = new TestUser;
                     $testUser->user_id          = $auth->id;
                     $testUser->course_item_id   = $key;
                     $testUser->answer           = 2;
                     $testUser->desc             = $answer;
+                    $testUser->test_id          = $test->id;
                     $testUser->save();
                 }
             }
         }
-        $test                   = new Test;
-        $test->user_id          = $auth->id;
-        $test->course_item_id   = $request->item_id;
-        $test->answers          = $itm->course_item_parent()->count();
         $test->correct          = $this->correctAnswer($itm);
         $test->save();
+        
 
         return redirect()->back();
     }
@@ -268,10 +271,11 @@ class CourseController extends Controller
         return redirect(route('user.panel')."#teach")->with('success', 'Enviado para análise');
     }
 
-    private function userTest($id, $key, $answer)
+    private function userTest($id, $key, $answer, $test_id)
     {
         $testUser                   = new TestUser;
         $testUser->user_id          = $id;
+        $testUser->test_id          = $test_id;
         $testUser->course_item_id   = $key;
         $testUser->answer           = $answer;
         $testUser->save();

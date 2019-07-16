@@ -286,22 +286,6 @@ function seoValidate()
         },
         success: function(data){
             var result = $.parseJSON(data);
-            var i = 0;
-            $('#subcategory_id').html('');
-            if (result.length != 0) {
-              for (i =0; i < result.length; ++i){
-            console.log(result[i].id);
-                  $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
-              }
-              $('#categ').removeClass('col-xs-12');
-              $('#categ').addClass('col-xs-6');
-              $('#sub_categ').show();
-
-            }else{
-              $('#categ').removeClass('col-xs-6');
-              $('#categ').addClass('col-xs-12');
-              $('#sub_categ').hide();
-            }
         }
       });
     }
@@ -397,6 +381,13 @@ function seoValidate()
       $('#editComplementModal form textarea[name="desc"]').val($(this).data('desc'));
       $('#editComplementModal form select[name="item_type_id"]').val($(this).data('type'));
       $('#editComplementModal').modal('show');
+    }else if(type == 6){
+      $('#classEditModal form input[name="id"]').val($(this).data('id'));
+      $('#classEditModal form input[name="name"]').val($(this).data('name'));
+      $('#classEditModal form textarea[name="desc"]').val($(this).data('desc'));
+      $('#classEditModal form select[name="item_type_id"]').val($(this).data('type'));
+      $('#classEditModal').modal('show');
+      
     }
   });
 
@@ -515,4 +506,5 @@ $('.dissertative').hide();
 
 //Fim mascaras
 </script>
+@yield('scripts')
 

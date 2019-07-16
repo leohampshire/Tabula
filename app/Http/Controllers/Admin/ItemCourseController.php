@@ -22,9 +22,7 @@ class ItemCourseController extends Controller
         $item->name                     = $request->name;
         $item->course_item_chapter_id   = $request->chapter_id;
         $item->course_item_types_id     = $request->item_type_id;
-        if ($request->item_type_id < 6) {
-                $item->desc             = $request->desc;
-        }
+        $item->desc             = $request->desc;
         if(isset($request->file)){
             $item->path = $this->strVideoGenerate($request);
         }
@@ -94,9 +92,8 @@ class ItemCourseController extends Controller
         $item = CourseItem::find($request->id);
         $item->name                     = $request->name;
         $item->course_item_types_id     = $request->item_type_id;
-        if ($request->item_type_id < 6) {
-                $item->desc             = $request->desc;
-        }
+        $item->desc             = $request->desc;
+        
         if(isset($request->file)){
             $item->path = fileGenerate($request);
         }
@@ -108,7 +105,9 @@ class ItemCourseController extends Controller
         if ($request->item_type_id >6 ) {
             $item->course_items_parent  = $request->item_parent;
         }
-        
+        if($request->item_type_id == 3){
+            $item->path = NULL;
+        }
         $item->save();
         $course = $item->course_item_chapter->course;
         foreach ($course->course_item_chapters as $chapter) {

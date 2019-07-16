@@ -377,7 +377,56 @@
 <!--/.Editar Complemento-->
 
 
-<!--Criar Avaliacao-->
+<!--Editar Avaliacao-->
+<div class="modal fade" id="classEditModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Editar Prova</h4>
+            </div>
+            <form method="POST" action="{{route('admin.course.item.update')}}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {{csrf_field()}}
+                    <input type="hidden" name="id">
+                    @isset($chapter)
+                    <input type="hidden" name="chapter_id" value="{{$chapter->id}}">
+                    @endisset
+                    @isset($course)
+                    <input type="hidden" name="course_id" value="{{$course->id}}">
+                    @endisset
+                    <input type="hidden" name="item_type_id" value="6">
+                    <div class="box-body">
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="name">Nome</label>
+                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                    value="{{old('name')}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="desc">Descrição</label>
+                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                    name="desc">{{old('desc')}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--/.Editar Avaliacao-->
+<!--Avaliacao-->
 <div class="modal fade" id="classModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -424,7 +473,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!--/.Criar Avaliacao-->
+<!--/.Avaliacao-->
 
 
 <!--Incluir questão-->
@@ -437,7 +486,7 @@
                 </button>
                 <h4 class="modal-title">Incluir Questão</h4>
             </div>
-            <form method="POST" action="{{route('admin.course.item.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.course.test.store')}}" enctype="multipart/form-data">
                 <div class="modal-body">
                     {{csrf_field()}}
                     @isset($chapter)
@@ -482,50 +531,60 @@
                         <div class="form-group row alternative">
                             <div class="col-xs-12">
                                 <label for="desc">Alternativas</label>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="0">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="0">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="1">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="1">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="2">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="2">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="3">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="3">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="verdadeira" value="4">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirma[]">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="radio" name="verdadeira" value="4">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirma[]">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
                             </div>
                         </div>
@@ -540,52 +599,60 @@
                         <div class="form-group row alt_mult">
                             <div class="col-xs-12">
                                 <label for="verdadeira">Multipla Escolha</label><br>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="0">
-                                        </span>
-                                        <input type="text" class="form-control" name="afirmacao[]">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="0">
+                                            </span>
+                                            <input type="text" class="form-control" name="afirmacao[]">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="1">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row">                                    
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="1">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="2">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="2">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="3">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="3">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="verdadeira[]" value="4">
-                                        </span>
-                                        <input type="text" name="afirmacao[]" class="form-control">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="verdadeira[]" value="4">
+                                            </span>
+                                            <input type="text" name="afirmacao[]" class="form-control">
+                                        </div>
+                                        <!-- /input-group -->
                                     </div>
-                                    <!-- /input-group -->
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -600,7 +667,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!--/.Criar Capitulo-->
+<!--/.Incluir questão-->
 
 <!--Incluir na empresa-->
 <div class="modal fade" id="includeModal">
@@ -751,3 +818,4 @@
     <!-- /.modal-dialog -->
 </div>
 <!--/.fim aumentar prazo curso-->
+@yield('modals')
