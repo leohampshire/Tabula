@@ -73,7 +73,7 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
   Route::post('store', 'User\TeacherController@storeAnswer')->name('store');
   Route::get('delete/{id}', 'User\TeacherController@deleteAnswer')->name('delete');
   Route::get('ver-professor', 'User\TeacherController@seeTeacher')->name('see');
-
+  
   //CURSOS
   Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
     Route::post('/store', 'Admin\AdminCourseController@store')->name('store');
@@ -89,7 +89,7 @@ Route::group(['prefix' => 'professor', 'as' => 'teacher.'], function(){
       Route::get('/prova/{id}', 'User\TeacherController@createTest')->name('test');
       Route::get('/gratis/{id}', 'Admin\AdminCourseController@free')->name('free');
       Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
-      Route::post('/update', 'Admin\AdminCourseController@updateitem')->name('update');
+      Route::post('/update', 'Admin\ItemCourseController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
     });
   });
@@ -214,7 +214,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
         Route::get('/prova/{id}', 'Admin\AdminCourseController@createTest')->name('test');
         Route::get('/gratis/{id}', 'Admin\AdminCourseController@free')->name('free');
         Route::post('/store', 'Admin\AdminCourseController@storeItem')->name('store');
-        Route::post('/update', 'Admin\AdminCourseController@updateitem')->name('update');
+        Route::post('/update', 'Admin\ItemCourseController@update')->name('update');
         Route::get('/delete/{id}', 'Admin\AdminCourseController@deleteItem')->name('delete');
       });
   });
@@ -301,8 +301,6 @@ Route::group(['prefix' => 'user'], function () {
 
   Route::get('/register', 'UserAuth\RegisterController@showRegistrationForm')->name('user.register');
   Route::post('/register', 'UserAuth\RegisterController@register');
-
-  
 
   Route::post('/password/email', 'UserAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
   Route::post('/password/reset', 'UserAuth\ResetPasswordController@reset')->name('password.email');

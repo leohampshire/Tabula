@@ -720,6 +720,10 @@ h1.course-name {
   font-size: 18px;
 }
 
+.rating-style {
+  width: 15px;
+}
+
 .row-chapter {
   background: #f0f0f0;
   padding: 5px 15px;

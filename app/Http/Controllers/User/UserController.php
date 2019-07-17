@@ -180,11 +180,19 @@ class UserController extends Controller
         if (isset($request->interest)) {
             $request['interest'] = serialize($request->interest);
         }
-        if ($user->user_type_id == 5) {
-            Company::where('user_id', $user->id)->update([
-                'about' => $request->bio,
-                'cover' => $this->coverValidate($request),
-            ]);
+        if($request->file('cover')){
+            
+            if ($user->user_type_id == 5) {
+                Company::where('user_id', $user->id)->update([
+                    'about' => $request->bio,
+                    'cover' => $this->coverValidate($request, 'company'),
+                ]);
+            }else{
+                $cover = $this->coverValidate($request, 'teacher');
+                $user->update([
+                    'cover' => $cover, 
+                ]);
+            }
         }
         $user->update($request->all());
         return redirect()->back()->with('success', 'Cadastro alterado');
@@ -223,7 +231,7 @@ class UserController extends Controller
  
     }
     
-    public function coverValidate(Request $thumb)
+    public function coverValidate(Request $thumb, $type)
     {
         if($thumb->cover != '')
         {
@@ -240,7 +248,12 @@ class UserController extends Controller
                 for ($i = 0; $i < 7; $i++) {
                     $rand   = mt_rand(0, $max);
                     $str   .= $characters[$rand];
-                    $count  = Company::where('cover', "{$str}.{$type}")->count();
+                    if($type == 'company'){
+
+                        $count  = Company::where('cover', "{$str}.{$type}")->count();
+                    }else{
+                        $count  = User::where('cover', "{$str}.{$type}")->count();
+                    }
                 }
             }
             $arq_img_name ="{$str}.{$type}";

@@ -29,7 +29,7 @@
             <div class="col-sm-4">
                 <h4>O tabula</h4>
                 <ul>
-                    <li><a href="#">Institucional</a></li>
+                    <!-- <li><a href="#">Institucional</a></li> -->
                     <li><a href="#">Blog</a></li>
                     <li><a href="{{route('company.register')}}">Tabula para Empresas</a></li>
                 </ul>
@@ -45,7 +45,7 @@
             <div class="col-sm-4">
                 <h4>Comunidade</h4>
                 <ul>
-                    <li><a href="#">Parceiros</a></li>
+                    <!-- <li><a href="#">Parceiros</a></li> -->
                     <li><a href="{{route('all-companies')}}">Empresas</a></li>
                     <li><a href="{{route('all-teachers')}}">Professores</a></li>
                 </ul>
@@ -219,26 +219,6 @@ $(document).on('click', '.scroll', function(event){
   $(document).on("change", '#country', function(event){
     states();
   });
-
-var url = "{{route('teacher.course.subcategory')}}";
-@isset($course)
-var id = '{{$course->category_id}}';
-categAjax(url, id);
-@endisset
-
-$('#sub_categ').hide();
-$(document).on("change", '#categ', function(event) {
-    var categId = $('#categ option:selected').val();
-    categAjax(url, categId);
-});
-$(document).on("change", '#category_id', function(event) {
-    var url = "{{route('teacher.course.subcategory')}}";
-    var categId = $('#category_id option:selected').val();
-    categAjax(url, categId);
-});
-
-
-
   $(document).ready( function(){
 
     url = window.location.href;
@@ -519,7 +499,7 @@ function avaliar(estrela) {
 $(document).on("click", '.act-delete', function(e) {
     e.preventDefault();
     $('#confirmationModal .modal-title').html('Confirmação');
-    $('#confirmationModal .modal-body p').html('Tem certeza que deseja realizar esta exclusão?');
+    $('#confirmationModal .modal-body p').html('Tem certeza que deseja realizar esta ação?');
     var href = $(this).attr('href');
     $('#confirmationModal').modal('show').on('click', '#confirm', function() {
       window.location.href=href;
@@ -604,19 +584,19 @@ $(document).on("click", '.act-edit-item', function(e) {
     var url = $(this).attr('data-url');
     var file = $(this).attr('data-file');
     var type = $(this).attr('data-type');
-    $('#itemEditModal form input[name="id"]').val($(this).data('type'));
+    $('#itemEditModal form input[name="id"]').val($(this).data('id'));
     $('#itemEditModal form input[name="name"]').val($(this).data('name'));
     $('#itemEditModal form textarea[name="desc"]').val($(this).data('desc'));
     if(type < 5){
-    $('#itemEditModal form select[name="item_type_id"]').val($(this).data('id'));
+    $('#itemEditModal form select[name="item_type_id"]').val($(this).data('type'));
       if (type == 3) {
         $('.file').slideUp();
       }else{
         $('.file').slideDown();
         if(type != 1){
-          $(".path").html('<img src="'+url+'/'+file+'" height="400px"">');
+          $(".path").html('<img src="'+url+'/'+file+'" style="max-width: 100%;">');
         }else{
-          $(".path").html('<video  height="400px" controls><source src="'+url+'/'+file+'"></video>');
+          $(".path").html('<video style="max-width: 100%;" controls><source src="'+url+'/'+file+'"></video>');
         }
       }
     }else if(type == 5){
@@ -750,6 +730,33 @@ $(document).ready(function() {
   function ajaxCPF(){
     $('.cpf-ajax').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
   }
+
+  function categAjax(){
+      categId = $('#category_id').val();
+      $.ajax({
+        type: 'GET',
+        url: "{{route('teacher.course.subcategory')}}",
+        data:{
+            categId: categId,
+        },
+        beforeSend: function(){
+        },
+        success: function(data){
+            var result = $.parseJSON(data);
+            var i = 0;
+            $('#subcategory_id').html('');
+            if (result.length != 0) {
+              for (i =0; i < result.length; ++i){
+                  $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
+              }
+              $('#sub_categ').show();
+
+            }else{
+              $('#sub_categ').hide();
+            }
+        }
+      });
+    }
   function ajaxMoney(){
     $(".input-money").maskMoney({
         thousands:'.', 

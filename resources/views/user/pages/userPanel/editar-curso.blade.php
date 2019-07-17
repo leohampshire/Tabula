@@ -109,14 +109,15 @@
                 <div class="form-group">
                     <label for="category_id">Categoria</label>
                     <select name="category_id" class="form-control">
-                        <option value="" selected disabled hidden>Escolha</option>
-                        @foreach($categories as $category)
-                        @if($category->category_id === NULL)
-                        <option value="{{$category->id}}" @if($category->id == $course->category_id) selected
-                            @endif>{{$category->name}}</option>
-                        @endif
-                        @endforeach
-                    </select>
+                <select name="category_id" class="form-control" id="category_id" onchange="categAjax()">
+                    <option value="" selected disabled hidden>Escolha</option>
+                    @foreach($categories as $category)
+                    @if($category->category_id === NULL)
+                    <option value="{{$category->id}}" @if($category->id == $course->category_id) selected
+                        @endif>{{$category->name}}</option>
+                    @endif
+                    @endforeach
+                </select>
                 </div>
             </div>
             <div class="col-sm-4" id="sub_categ">

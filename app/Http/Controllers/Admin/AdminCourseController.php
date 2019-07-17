@@ -429,7 +429,6 @@ class AdminCourseController extends Controller
 
     public function updateItem(Request $request)
     {
-
     }
     public function deleteItem($id)
     {

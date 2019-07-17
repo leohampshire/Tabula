@@ -265,10 +265,6 @@
                             <div class="col-xs-12">
                                 <label for="file">Arquivo</label>
                                 <input type="file" name="file">
-                                <label for="vimeo" class="label-upload-vimeo">
-                                    <input type="checkbox" id="vimeo" name="vimeo">
-                                    Upload Vimeo
-                                </label>
                             </div>
                         </div>
                     </div>
@@ -293,13 +289,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Novo Item</h4>
+                <h4 class="modal-title">Editar Item</h4>
             </div>
             <form method="POST" action="{{route('teacher.course.item.update')}}" enctype="multipart/form-data">
+            <input type="hidden" name="id">
                 <div class="modal-body">
                     {{csrf_field()}}
-                    <input type="hidden" name="chapter_id" value="">
-                    <input type="hidden" name="course_id" value="">
                     <div class="box-body">
                         <div class="form-group row">
                             <div class="col-xs-12">
@@ -335,27 +330,23 @@
                             <div class="form-group row">
                                 <div class="col-xs-12">
                                     <label for="file">Arquivo</label>
-                                    <input class="form-control" type="file" name="file">
-                                    <label for="vimeo" class="label-upload-vimeo">
-                                        <input type="checkbox" id="vimeo" name="vimeo">
-                                        Upload Vimeo
-                                    </label>
+                                    <input type="file" name="file">
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-12 path">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 path">
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Confirmar</button>
-        </div>
-        </form>
     </div>
     <!-- /.modal-content -->
 </div>
@@ -713,7 +704,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="nome">
-                    <h4 class="modal-title">Novo Item</h4>
+                    <h4 class="modal-title">Item</h4>
                 </div>
             </div>
             <div class="modal-body">
@@ -757,22 +748,25 @@
                     <div class="form-group row">
                         <div class="col-xs-12">
                             <label for="rating">Avaliação</label>
-
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12">
                             <a href="javascript:void(0)" onclick="avaliar(1)">
-                                <img src="{{asset('images/img/star0.png')}}" id="s1"></a>
+                                <img src="{{asset('images/img/star0.png')}}" id="s1" class="rating-style"></a>
 
                             <a href="javascript:void(0)" onclick="avaliar(2)">
-                                <img src="{{asset('images/img/star0.png')}}" id="s2"></a>
+                                <img src="{{asset('images/img/star0.png')}}" id="s2" class="rating-style"></a>
 
                             <a href="javascript:void(0)" onclick="avaliar(3)">
-                                <img src="{{asset('images/img/star0.png')}}" id="s3"></a>
+                                <img src="{{asset('images/img/star0.png')}}" id="s3" class="rating-style"></a>
 
                             <a href="javascript:void(0)" onclick="avaliar(4)">
-                                <img src="{{asset('images/img/star0.png')}}" id="s4"></a>
+                                <img src="{{asset('images/img/star0.png')}}" id="s4" class="rating-style"></a>
 
                             <a href="javascript:void(0)" onclick="avaliar(5)">
-                                <img src="{{asset('images/img/star0.png')}}" id="s5"></a>
-                            <p id="rating">0</p>
+                                <img src="{{asset('images/img/star0.png')}}" id="s5" class="rating-style"></a>
+                            <p id="rating" hidden></p>
                             <input type="hidden" name="user_id" value="">
                             <input type="hidden" name="course_id" value="">
                             <input type="hidden" name="star" id="ratings" value="">
@@ -789,7 +783,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!--/.Aula gratis-->
+<!--/.Avaliação-->
 
 <!--Incluir Professor-->
 <div class="modal fade" id="teacherModal">
