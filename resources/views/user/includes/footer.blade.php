@@ -29,8 +29,8 @@
             <div class="col-sm-4">
                 <h4>O tabula</h4>
                 <ul>
-                    <!-- <li><a href="#">Institucional</a></li> -->
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="{{route('institucional')}}">Institucional</a></li>
+                    <li><a href="{{route('blog.index')}}">Blog</a></li>
                     <li><a href="{{route('company.register')}}">Tabula para Empresas</a></li>
                 </ul>
             </div>
@@ -45,7 +45,7 @@
             <div class="col-sm-4">
                 <h4>Comunidade</h4>
                 <ul>
-                    <!-- <li><a href="#">Parceiros</a></li> -->
+                    <li><a href="{{route('parceiros')}}">Parceiros</a></li>
                     <li><a href="{{route('all-companies')}}">Empresas</a></li>
                     <li><a href="{{route('all-teachers')}}">Professores</a></li>
                 </ul>
@@ -225,38 +225,39 @@ $(document).on('click', '.scroll', function(event){
     if(url.indexOf("#personal") > 0){
       getContent("{{route('user.personal')}}");
 
-    }else if(url.indexOf("#my-course") > 0){
+    }
+    else if(url.indexOf("#my-course") > 0){
       getContent("{{route('user.my.course')}}");
 
-    }else if(url.indexOf("#orders") > 0){
+    }
+    else if(url.indexOf("#orders") > 0){
       getContent("{{route('user.orders')}}");
 
-    }else if(url.indexOf("#certificates") > 0){
-      getContent("{{route('user.certificates')}}");
-
-    }else if(url.indexOf("#course-create") > 0){
-
-      getContent("{{route('user.course.create')}}");
-
-    }else if(url.indexOf("#course-edit") > 0){
-      getContent("{{route('user.teach')}}");
-    }else if(url.indexOf("#teach") > 0){
-      getContent("{{route('user.teach')}}");
-
-    }else if(url.indexOf("#balance") > 0){
-      getContent("{{route('user.balance')}}");
-    
-    }else if(url.indexOf("#my-teacher")>0){
-      getContent("{{route('user.teacher.index')}}");
-
-    }else if(url.indexOf("#coupons")>0){
-      getContent("{{route('user.coupon.index')}}");
-
-    }else if(url.indexOf("#notification")>0){
-      getContent("{{route('user.notification')}}");
-
     }
-  
+    else if(url.indexOf("#certificates") > 0){
+      getContent("{{route('user.certificates')}}");
+    }
+    else if(url.indexOf("#course-create") > 0){
+      getContent("{{route('user.course.create')}}");
+    }
+    else if(url.indexOf("#course-edit") > 0){
+      getContent("{{route('user.teach')}}");
+    }
+    else if(url.indexOf("#teach") > 0){
+      getContent("{{route('user.teach')}}");
+    }
+    else if(url.indexOf("#balance") > 0){
+      getContent("{{route('user.balance')}}");
+    }
+    else if(url.indexOf("#my-teacher")>0){
+      getContent("{{route('user.teacher.index')}}");
+    }
+    else if(url.indexOf("#coupons")>0){
+      getContent("{{route('user.coupon.index')}}");
+    }
+    else if(url.indexOf("#notification")>0){
+      getContent("{{route('user.notification')}}");
+    }
 });
    
     $('.personal').on('click', function(){
@@ -661,6 +662,9 @@ $(document).on("click", '.act-rating', function(e) {
         }
       });
 }
+$(document).bind("ajaxComplete", function(){
+  categAjax(); 
+}); 
 $(document).ready(function() {
     $(".multiple").select2({
         ajax: {
@@ -686,7 +690,7 @@ $(document).ready(function() {
     });  
   });  
 
-    function categAjax(url, categId){
+    function getCateg(url, categId){
       $.ajax({
         type: 'GET',
         url: url,
@@ -700,7 +704,7 @@ $(document).ready(function() {
             var i = 0;
             $('#subcategory_id').html('');
             if (result.length != 0) {
-              for (i =0; i < result.length; ++i){
+              for (i = 0; i < result.length; ++i){
                   $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
               }
               $('#sub_categ').show();
@@ -711,6 +715,16 @@ $(document).ready(function() {
         }
     });
 }
+function categAjax(){
+    var categId = $('#category_id').val();
+    var url = "{{route('teacher.course.subcategory')}}";
+    if (categId == null){
+      $('#subcategory_id').html('');
+      $('#sub_categ').hide();
+    }else{
+      getCateg(url, categId)
+    }
+  }
 
 //--------Fim funções ajax ---------------------------------------------------------------
 // Mask
@@ -731,32 +745,7 @@ $(document).ready(function() {
     $('.cpf-ajax').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
   }
 
-  function categAjax(){
-      categId = $('#category_id').val();
-      $.ajax({
-        type: 'GET',
-        url: "{{route('teacher.course.subcategory')}}",
-        data:{
-            categId: categId,
-        },
-        beforeSend: function(){
-        },
-        success: function(data){
-            var result = $.parseJSON(data);
-            var i = 0;
-            $('#subcategory_id').html('');
-            if (result.length != 0) {
-              for (i =0; i < result.length; ++i){
-                  $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
-              }
-              $('#sub_categ').show();
-
-            }else{
-              $('#sub_categ').hide();
-            }
-        }
-      });
-    }
+ 
   function ajaxMoney(){
     $(".input-money").maskMoney({
         thousands:'.', 
@@ -793,3 +782,4 @@ $('.input-date').datepicker({
   });
 //Fim mascaras
 </script>
+@yield('scripts')

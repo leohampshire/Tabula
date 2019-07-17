@@ -16,7 +16,7 @@
 <header>
 
   <a href="{{ url('/')}}" style="margin-left: 12px;"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
-  <button class="btn" type="button" style="width: auto; float: right; margin-left: 8px; margin-right: 12px;">Voltar</button>
+  <button class="btn" type="button" style="width: auto; float: right; margin-left: 8px; margin-right: 12px;"><a style="color:#FFF;" href="{{route('user.panel')}}#teach"> Voltar</a></button>
   <button href="#course-edit" class="btn btn-default" data-url="{{route('user.course.edit', ['id' => $course->id])}}" style="width: auto; float: right;">Editar</button> 
 
 </header>

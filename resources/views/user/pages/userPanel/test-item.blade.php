@@ -35,12 +35,8 @@
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->course_item_type->name}}</td>
                                     <td>
-                                        <a href="#" title="Editar" class="act-list act-edit-chapter"
-                                            data-name="{{$item->name}}" data-desc="{{$item->desc}}"
-                                            data-id="{{$item->id}}">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="{{ route('admin.course.item.delete', ['id' => $item->id])}}"
+                                        
+                                        <a href="{{ route('teacher.course.item.delete', ['id' => $item->id])}}"
                                             title="Excluir" class="act-list act-delete">
                                             <i class="fa fa-ban" aria-hidden="true"></i>
                                         </a>

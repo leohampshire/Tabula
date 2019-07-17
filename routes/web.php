@@ -320,7 +320,6 @@ Route::group(['prefix' => 'empresa', 'as' => 'company.'], function () {
 });
 
 Route::get('/', 'User\HomeController@index')->name('home');
-Route::get('/post/{urn}', 'User\HomeController@thePostpost')->name('post.the-post');
 Route::get('todos-professores', 'User\HomeController@allTeachers')->name('all-teachers');
 Route::get('todas-empresas', 'User\HomeController@allCompanies')->name('all-companies');
 Route::get('professor/{id}', 'User\HomeController@teacher')->name('teacher');
@@ -336,7 +335,19 @@ Route::group(['prefix' => 'facebook'], function () {
   Route::get('/callback', 'UserAuth\LoginController@handleProviderCallback');
 });
 
+Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
+  Route::get('/', 'User\BlogController@index')->name('index');
+  Route::get('/categoria/{urn}', 'User\BlogController@category')->name('category');
+  Route::get('/{urn}', 'User\BlogController@single')->name('single');
+});
+
 Route::post('newsletter', 'Admin\NewsletterController@newsletter')->name('newsletter');
+Route::get('institucional', function(){
+  return view('user.pages.institucional');
+})->name('institucional');
+Route::get('parceiros', function(){
+  return view('user.pages.parceiros');
+})->name('parceiros');
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::post('transaction/callback', 'User\TransactionController@callback')->name('callback');
 Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');

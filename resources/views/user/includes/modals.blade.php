@@ -520,7 +520,7 @@
                                     @foreach($item_types as $item)
                                     @if($item->id > 6)
                                     <option value="{{$item->id}}" @if($item->id == old('item_type_id')) selected
-                                        @endif>{{$item->name}}</option>
+                                        @endif>{{$item->value}}</option>
                                     @endif
                                     @endforeach
                                     @endisset

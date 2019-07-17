@@ -338,7 +338,7 @@ class AdminCourseController extends Controller
         $this->validate($request, [
             'item_type_id'  => 'required',
             'name'          => 'required|max:200',
-            'desc'          => 'nullable|max:500'
+            'desc'          => 'nullable|max:10000'
         ]);
         $total_class = 0;
         $item = new CourseItem;

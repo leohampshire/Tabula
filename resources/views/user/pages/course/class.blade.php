@@ -26,7 +26,7 @@
 					@else
 					<a href="#" class="btn-class-item" data-item="{{$item->id}}" data-url="{{route('course.getclass')}}">
 						<div class="class-item">
-							<p class="">{{$item->name}}</p>
+							<p id="{{$item->id}}">{{$item->name}}</p>
 							<input id="{{$chapter->id}}-{{$item->id}}" class="check-class" data-user_id="{{$auth->id}}"
 								data-url="{{route('course.checked')}}" data-course_id="{{$course->id}}" type="checkbox"
 								name="check" 
@@ -50,3 +50,8 @@
 </section>
 
 @stop
+@section('scripts')
+<script type="text/javascript">
+
+</script>
+@endsection

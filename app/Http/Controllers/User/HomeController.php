@@ -96,10 +96,4 @@ class HomeController extends Controller
 		->with('company', $company);
 	}
 
-	public function thePostpost($urn)
-	{
-		$post = BlogPost::where('urn', $urn)->first();
-		return view('user.pages.post')->with('post', $post);
-	}
-
 }

@@ -222,14 +222,14 @@
 				<button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
 				<div class="carousel-courses">
 					@forelse($posts as $post)
-					<a href="{{route('post.the-post', ['urn' =>$post->urn])}}">
+					<a href="{{route('blog.single', ['urn' =>$post->urn])}}">
 					  	<div class="course-box">
 						  	<div class="course-thumb">
 						  		<img src="{{ asset('uploads/archives')}}/{{$post->cover}}" alt="Curso">
 						  	</div>
 						  	<div class="course-desc">
 						  		<h3>{{$post->name}}</h3>
-						  		<p>{{substr($post->desc, 0, 50)}}</p>
+						  		<p><?php echo substr($post->content, 0, 50) ?>...</p>
 						  	</div>
 					  	</div>
 					</a>
