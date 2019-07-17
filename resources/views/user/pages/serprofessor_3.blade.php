@@ -10,15 +10,14 @@
     <div class="container">
         <div class="box-w-shadow">
             <div class="row">
-                <div class="col-xs-10">
-                    <p>Esta pergunta facilita o processo de criação de cupons para o seu curso e o ajuda a distribuí-los
-                        ao público ideal.</p><br><br>
+                <div class="col-sm-10 col-xs-12">
+                    <p>Esta pergunta facilita o processo de criação de cupons para o seu curso e o ajuda a distribuí-los ao público ideal.</p><br><br>
                 </div>
             </div>
             <form action="{{route('teacher.store')}}" method="POST">
                 {{csrf_field()}}
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-sm-6 col-xs-12">
                         <p><b>Já produziu um conteúdo online?</b></p>
                         <input type="hidden" name="row" value="answer_third">
                         <div class="radio">
@@ -44,7 +43,7 @@
                             <button type="button" class="btn-back">Voltar</button>
                         </a>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-sm-6 col-xs-12">
                         <img src="{{ asset('images/img/tela3.png')}}" alt="Ser professor">
                     </div>
                 </div>
