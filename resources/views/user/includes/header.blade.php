@@ -38,7 +38,7 @@
             </a>
           </li>
             @if($auth->user_type_id == 3)
-            <li><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
+            <li class="hidden-xs"><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
             @endif
             <li class="hidden-xs"><a href="{{route('user.logout')}}">Sair</a></li>
           @else

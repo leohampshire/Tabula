@@ -46,7 +46,7 @@
 <!--/.Confirmação-->
 
 
-<!--Soliticao banco-->
+<!--Solicitacao banco-->
 <div class="modal fade" id="bankModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -61,41 +61,53 @@
                     {{csrf_field()}}
 
                     <div class="box-body">
-
-                        <div class="form-group row">
-
-                            <div class="col-xs-12">
-                                <label for="legal_name">Nome</label>
-                                <input name="legal_name" type="text" placeholder="Nome" class="form-control">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8">
+                                <div class="form-group">
+                                    <label for="legal_name">Nome</label>
+                                    <input name="legal_name" type="text" placeholder="Nome" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                <div class="form-group">
+                                    <label for="cpf">CPF</label>
+                                    <input name="cpf" type="text" placeholder="XXX.XXX.XXX-XX"
+                                        class="form-control input-cpf">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-xs-5">
-                                <label for="cpf">CPF</label>
-                                <input name="cpf" type="text" placeholder="XXX.XXX.XXX-XX"
-                                    class="form-control input-cpf">
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-4">
+                                <div class="form-group">
+                                    <label for="bank_code">Cód. Banco</label>
+                                    <input name="bank_code" placeholder="XXX" type="number" class="form-control">
+                                </div>
                             </div>
-                            <div class="col-xs-3">
-                                <label for="bank_code">Cód. Banco</label>
-                                <input name="bank_code" placeholder="XXX" type="number" class="form-control">
+                            <div class="col-xs-6 col-sm-4">
+                                <div class="form-group">
+                                    <label for="agencia">Agência</label>
+                                    <input name="agencia" placeholder="XXXXX" type="number" class="form-control">
+                                </div>
                             </div>
-                            <div class="col-xs-4">
-                                <label for="agencia">Agência</label>
-                                <input name="agencia" placeholder="XXXXX" type="number" class="form-control">
+                            <div class="col-xs-6 col-sm-4">
+                                <div class="form-group">
+                                    <label for="agencia_dv">Dig. Agência</label>
+                                    <input name="agencia_dv" placeholder="(Opcional)" type="number" class="form-control">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-xs-3">
-                                <label for="agencia_dv">Dig. Agência</label>
-                                <input name="agencia_dv" placeholder="(Opcional)" type="number" class="form-control">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-5">
+                                <div class="form-group">
+                                    <label for="conta">Conta (sem dígito)</label>
+                                    <input name="conta" type="number" placeholder="Conta" class="form-control">
+                                </div>
                             </div>
-                            <div class="col-xs-6">
-                                <label for="conta">Conta (sem dígito)</label>
-                                <input name="conta" type="number" placeholder="Conta" class="form-control">
-                            </div>
-                            <div class="col-xs-3">
-                                <label for="conta_dv">Dig. conta</label>
-                                <input name="conta_dv" placeholder="XX" type="number" class="form-control">
+                            <div class="col-xs-6 col-sm-3">
+                                <div class="form-group">
+                                    <label for="conta_dv">Dig. conta</label>
+                                    <input name="conta_dv" placeholder="XX" type="number" class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -867,11 +879,12 @@
                     {{csrf_field()}}
                     <input type="hidden" name="id">
                     <div class="box-body">
-                        <div class="form-group row">
+                        <div class="row">
                             <div class="col-xs-12">
-                                <label for="email">E-mail</label>
-                                <input type="text" name="email" placeholder="E-mail" class="form-control" id="email"
-                                    value="{{old('email')}}">
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="text" name="email" placeholder="E-mail" class="form-control" id="email" value="{{old('email')}}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -887,6 +900,7 @@
     <!-- /.modal-dialog -->
 </div>
 <!--/.fim Incluir aluno-->
+
 <!--Sacar-->
 <div class="modal fade" id="lootModal">
     <div class="modal-dialog">
@@ -967,51 +981,60 @@
                     {{csrf_field()}}
 
                     <div class="box-body">
-                        <div class="form-group row">
+                        <div class="row">
                             <div class="col-xs-12">
-                                <label for="type_discount">Tipo de desconto</label>
-                                <select class="form-control" id="type_discount" name="type_discount">
-                                    <option selected disabled hidden>Escolha uma...</option>
-                                    <option value="porcentagem" @if(old('type_discount')=='porcentagem' ) selected
-                                        @endif>Desconto Porcentagem</option>
-                                    <option value="dinheiro" @if(old('type_discount')=='dinheiro' ) selected @endif>
-                                        Desconto Monetário</option>
-                                </select>
+                                <div class="form-group">
+                                    <label for="type_discount">Tipo de desconto</label>
+                                    <select class="form-control" id="type_discount" name="type_discount">
+                                        <option selected disabled hidden>Escolha uma...</option>
+                                        <option value="porcentagem" @if(old('type_discount')=='porcentagem' ) selected
+                                            @endif>Desconto Porcentagem</option>
+                                        <option value="dinheiro" @if(old('type_discount')=='dinheiro' ) selected @endif>
+                                            Desconto Monetário</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="row">
                             <div class="col-xs-12">
-                                <label for="cod_coupon">Código cupom</label>
-                                <input name="cod_coupon" type="text" placeholder="Código cupom" class="form-control">
+                                <div class="form-group">
+                                    <label for="cod_coupon">Código cupom</label>
+                                    <input name="cod_coupon" type="text" placeholder="Código cupom" class="form-control">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="row">
                             <div class="col-xs-12">
-                                <label for="desc_coupon">Descrição cupom</label>
-                                <input name="desc_coupon" type="text" placeholder="Descrição cupom"
-                                    class="form-control">
+                                <div class="form-group">
+                                    <label for="desc_coupon">Descrição cupom</label>
+                                    <input name="desc_coupon" type="text" placeholder="Descrição cupom" class="form-control">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="row">
                             <div class="col-xs-12">
-                                <label for="limit">Limite cupom</label>
-                                <input name="limit" type="text" placeholder="Limite cupom" class="form-control">
+                                <div class="form-group">
+                                    <label for="limit">Limite cupom</label>
+                                    <input name="limit" type="text" placeholder="Limite cupom" class="form-control">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="row">
                             <div class="col-xs-12">
-                                <label for="value_coupon">Valor cupom</label>
-                                <input name="value_coupon" type="text" placeholder="Valor cupom"
-                                    class="form-control input-money">
+                                <div class="form-group">
+                                    <label for="value_coupon">Valor cupom</label>
+                                    <input name="value_coupon" type="text" placeholder="Valor cupom" class="form-control input-money">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="row">
                             <div class="col-xs-12 course">
-                                <label for="type_id">Curso</label>
-                                <select class="form-control multiple select2" style='width: 100%;' name="type_id[]"
-                                    multiple="multiple">
-                                    <option value='0'>- Digite o Curso -</option>
-                                </select>
+                                <div class="form-group">
+                                    <label for="type_id">Curso</label>
+                                    <select class="form-control multiple select2" style="width: 100%;" name="type_id[]" multiple="multiple">
+                                        <option value='0'>- Digite o Curso -</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
