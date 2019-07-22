@@ -4,7 +4,7 @@ namespace App\CustomClasses;
 
 use Illuminate\Http\Request;
 use Vimeo\Exceptions\VimeoUploadException;
-use Vimeo\Laravel\Facades\Vimeo;
+use Vimeo;
 use Ixudra\Curl\Facades\Curl;
 use Log;
 
@@ -23,7 +23,7 @@ class vimeo_tools
     */
     public static function Get_Vimeo_ID($item)
     {
-        $videoID = str_replace('https://vimeo.com/','',$item);
+        $videoID = str_replace('https://player.vimeo.com/video/','',$item);
         return $videoID;
     }
     /**
@@ -38,9 +38,8 @@ class vimeo_tools
     {
         $result = Vimeo::connection('main')->upload(public_path($attachment),[
             'name' => $name,
-            'description' => $name
         ]);
-        $result = str_replace('/videos','https://vimeo.com',$result);
+        $result = str_replace('/videos','https://player.vimeo.com/video/',$result);
         return $result;
     }
 

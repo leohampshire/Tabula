@@ -20,6 +20,7 @@ use Session;
 use Image;
 use Auth;
 use PDF;
+
 class AdminCourseController extends Controller
 {
 	public function index(Request $request)
@@ -292,7 +293,6 @@ class AdminCourseController extends Controller
         $chapter->desc       = $request->desc;
         $chapter->course_id  = $chapter->course_id;
         $chapter->save();
-        $course->save();
 
         return redirect()->back()->with('success', 'Capítulo editado com sucesso');
     }
@@ -552,8 +552,8 @@ class AdminCourseController extends Controller
         $attachment = "uploads/archives/{$attach_file_name}";
         $attach_file->move('uploads/archives', $attach_file_name);
         //Vimeo upload
-        if($request->vimeo == 'on'){                
-            $vimeo_result = vimeo_tools::Upload_Video($attachment, $attach_file_name);                
+        if($request->item_type_id == 1){          
+            $vimeo_result = vimeo_tools::Upload_Video($attachment, $request->name);                
             $path = $vimeo_result;
         }
         else {                

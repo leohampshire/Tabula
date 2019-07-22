@@ -355,3 +355,7 @@ Route::get('/edit-item', 'Admin\TestCourseController@edit')->name('edit-item');
 Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::get('/{urn}', 'User\CourseController@course')->name('single');
 });
+
+Route::get('/teste', function(){
+  geraAula();
+});

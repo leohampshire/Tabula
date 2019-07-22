@@ -53,9 +53,9 @@ return [
         ],
 
         'alternative' => [
-            'client_id' => 'your-client-id',
-            'client_secret' => 'your-client-secret',
-            'access_token' => null,
+            'client_id' => '544e6666a0ce983e910d9a30eff9842a0396c83b',
+            'client_secret' => 'kdp80vxYxnDhlFh1RxMDNqsEyIM76tDxhBLQvROH0SmMeVOiG6iV6VpuFTfiSNiTBG7dnEJssmfoiyIVKY4sjJ+Tc5KKzzOyUDHpg9KV9UgX8LJdoKJ/HRVMtl/sDqAg',
+            'access_token' => '4f427290d556010f057a862538a7f942',
         ],
 
     ],
