@@ -1,4 +1,4 @@
 <div>
 	<h1>{{$item->name}}</h1>
-	<p>{{$item->desc}}</p>
+	<p><?php echo $item->desc ?></p>
 </div>

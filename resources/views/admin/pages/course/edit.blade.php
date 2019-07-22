@@ -150,7 +150,7 @@
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="desc">Descrição</label>
-                    <input type="text" name="desc" placeholder="Descrição" class="form-control" id="desc" value="{{$course->desc}}">
+                    <textarea name="desc" class="form-control tinyeditor" rows="4">{{$course->desc}}</textarea>
                   </div>
                 </div>
                 <div class="form-group row">

@@ -21,7 +21,6 @@ Route::group(['prefix' => 'curso', 'as' => 'course.'], function(){
   Route::get('/forum/{id}', 'User\CourseController@forum')->name('forum');
 });
 
-
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], function(){
   Route::get('/', 'User\UserController@userPanel')->name('panel');
   Route::post('/update', 'User\UserController@update')->name('update');

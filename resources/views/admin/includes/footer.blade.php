@@ -371,7 +371,7 @@ function seoValidate()
         if(type != 1){
           $(".path").html('<img src="'+url+'/'+file+'" style="max-width: 100%;">');
         }else{
-          $(".path").html('<video style="max-width: 100%;" controls><source src="'+url+'/'+file+'"></video>');
+          $(".path").html('<iframe src="'+file+'" width="100%" frameborder="0" title="" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
         }
       }
       $('#itemEditModal').modal('show');

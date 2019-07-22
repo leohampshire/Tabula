@@ -39,7 +39,7 @@ class vimeo_tools
         $result = Vimeo::connection('main')->upload(public_path($attachment),[
             'name' => $name,
         ]);
-        $result = str_replace('/videos','https://player.vimeo.com/video/',$result);
+        $result = str_replace('/videos','https://player.vimeo.com/video',$result);
         return $result;
     }
 

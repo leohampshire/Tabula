@@ -164,7 +164,7 @@ class AdminCourseController extends Controller
 		$course = Course::find($id);
 		$course->price = number_format($course->price, 2, ',', '.');
 
-        $chapters = CourseItemChapter::where('course_id', $id)->orderBy('order', 'asc')->get();
+        $chapters = CourseItemChapter::where('course_id', $id)->get();
 		return view('admin.pages.course.edit')
 		->with('categories', Category::all())
         ->with('chapters', $chapters)

@@ -7,7 +7,7 @@
 		<source src="{{asset('/uploads/archives/')}}/{{$item->path}}" type="video/mp4">
 	</video>
 	@endif
-	<p>{{$item->desc}}</p>
+	<p><?php echo $item->desc ?></p>
 	
 </div>
 	
