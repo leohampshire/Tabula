@@ -60,6 +60,46 @@ function sortNameGenerate()
     return $str;
 }
 
+function corrigeCaractere()
+{
+    $courses = Course::all();
+    $chapters = CourseItemChapter::all();
+    $items = CourseItem::all();
+    
+    foreach ($courses as $course) {
+        $course->desc = caracteres($course->desc);
+        $course->save();
+    }
+    foreach ($chapters as $chapter) {
+        $chapter->name = caracteres($chapter->name);
+        $chapter->desc = caracteres($chapter->desc);
+        $chapter->save();
+    }
+    foreach ($items as $item) {
+        $item->name = caracteres($item->name);
+        $item->desc = caracteres($item->desc);
+        $course->save();
+    }
+    return dd('teste');
+}
+function caracteres($string)
+{
+    $string = str_replace('ÃƒÆ’Ã‚Â£', 'ã', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â¢', 'â', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â¡', 'á', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â©', 'é', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Âª', 'ê', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â­', 'í', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â³', 'ó', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â´', 'ô', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Âµ', 'õ', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Âº', 'ú', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â§', 'ç', $string);
+    $string = str_replace('ÃƒÆ’Ã¢â‚¬Â°', 'É', $string);
+    $string = str_replace('ÃƒÆ’Ã‚Â§', 'ç', $string);
+    return $string;
+}
+
 function geraAula()
 {
     $courses = Course::get();
