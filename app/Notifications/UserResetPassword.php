@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class UserResetPassword extends Notification
 {
@@ -44,8 +44,10 @@ class UserResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', url('user/password/reset', $this->token))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->greeting('Olá!')
+            ->subject('Noreply - Redefinição de Senha')
+            ->line('Você está recebendo este e-mail porque recebemos uma solicitação de redefinição de senha para sua conta.')
+            ->action('Redefinir Senha', url('user/password/reset', $this->token))
+            ->line('Se você não solicitou uma redefinição de senha, nenhuma ação é necessária.');
     }
 }

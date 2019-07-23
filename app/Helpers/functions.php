@@ -1,5 +1,5 @@
 <?php
-use App\{Course,CourseItemChapter};
+use App\{Course,CourseItemChapter, CourseUser};
 use App\CourseItem;
 use Illuminate\Http\Request;
 function fileGenerate(Request $request)
@@ -58,6 +58,27 @@ function sortNameGenerate()
         $str .= $characters[$rand];
     }
     return $str;
+}
+
+function vinculaAluno()
+{
+    // $courses = Course::all();
+    // foreach ($courses as $course) {
+    //     $users = DB::table('wp_usermeta')->where('meta_key', $course->id)->get();
+    //     if(count($users) > 0){
+    //         foreach($users as $user)
+    //         {
+
+    //             $date = date('Y-m-d', strtotime('+6 month'));
+    //             CourseUser::create([
+    //                 'user_id'   => $user->user_id,
+    //                 'course_id' => $course->id,
+    //                 'progress'  => 0,
+    //                 'expired'   => $date
+    //             ]);
+    //         }
+    //     }
+    // }
 }
 
 function corrigeCaractere()

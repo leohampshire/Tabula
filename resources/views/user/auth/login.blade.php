@@ -16,8 +16,8 @@
             </div>
         </div>
         <form method="POST" action="{{ url('/user/login') }}">
-              {{csrf_field()}}
-            
+            {{csrf_field()}}
+
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <label>E-mail</label>
@@ -33,19 +33,19 @@
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="">
-                        Lembrar-me
-                      </label>
+                        <label>
+                            <input type="checkbox" value="">
+                            Lembrar-me
+                        </label>
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-sm-offset-4 col-sm-4">
                     <button class="btn-block" type="submit">Entrar</button>
                 </div>
-                
+
             </div>
             <!-- 
             <div class="row">
@@ -69,7 +69,7 @@
             </div>
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <a href="#" class="btn-forgot-password">Esqueceu a senha?</a>
+                    <a href="{{url('user/password/reset')}}" class="btn-forgot-password">Esqueceu a senha?</a>
                 </div>
             </div>
         </form>
