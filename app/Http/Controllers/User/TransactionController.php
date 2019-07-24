@@ -80,6 +80,12 @@ class TransactionController extends Controller
         $data_bank->recipient_id    = $result->id;
         $data_bank->user_id         = $auth->id;
         $data_bank->save();
+        if($auth->courses->count() > 0){
+            foreach ($auth->courses as $course) {
+                $course->avaliable = 2;
+                $course->save();
+            }
+        }
 
         return redirect()->back()->with('success', 'Dados Bancários salvos com sucesso');
     }

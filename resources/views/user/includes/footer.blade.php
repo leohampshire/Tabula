@@ -237,15 +237,15 @@ $(document).on('click', '.scroll', function(event){
     else if(url.indexOf("#certificates") > 0){
       getContent("{{route('user.certificates')}}");
     }
-    else if(url.indexOf("#course-create") > 0){
-      getContent("{{route('user.course.create')}}");
-    }
+    // else if(url.indexOf("#course-create") > 0){
+    //   getContent("{{route('user.course.create')}}");
+    // }
     else if(url.indexOf("#course-edit") > 0){
       getContent("{{route('user.teach')}}");
     }
-    else if(url.indexOf("#teach") > 0){
-      getContent("{{route('user.teach')}}");
-    }
+    // else if(url.indexOf("#teach") > 0){
+    //   getContent("{{route('user.teach')}}");
+    // }
     else if(url.indexOf("#balance") > 0){
       getContent("{{route('user.balance')}}");
     }
@@ -268,9 +268,15 @@ $(document).on('click', '.scroll', function(event){
     });
     $('.teach').on('click', function(){
       var url = $(this).data('url');
-      $('.btn-panel-menu').removeClass('btn-active');
-      $(this).find('button').addClass('btn-active');
-      getContent(url);
+      var databank = $(this).data('databank');
+      if (databank == "") {
+        $('#bankModal').modal('show');
+      }else{
+        $('.btn-panel-menu').removeClass('btn-active');
+        $(this).find('button').addClass('btn-active');
+        getContent(url);
+    }
+     
     });
 
     $('.notification').on('click', function(){

@@ -20,6 +20,17 @@
                 </div>
             </div>
         </div>
+            @if($auth->courses->count() > 0 && $auth->databank == null)
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-sm-12">
+                    <div class="alert alert-danger"  style="margin-bottom: 0; margin-top: 25px; ">
+                        Para que o seu curso fique disponível para compra, cadastre uma conta bancária, <a href="#" class="course-create" data-databank=""> clicando aqui</a> 
+                    </div>
+                </section>
+            </div>
+            @endif
         <div class="box-w-shadow">
             <div class="container-scroll">
                 <div class="container-buttons-panel">
@@ -64,7 +75,8 @@
                     </div>
                     @else
                     <div class="box-button-panel">
-                        <a href="#teach" class="teach" data-url="{{route('user.teach')}}">
+                        <a href="#teach" class="teach" data-databank="{{$auth->databank}}"
+                            data-url="{{route('user.teach')}}">
                             <button class="btn-block btn-panel-menu" type="button">Cursos que leciono</button>
                         </a>
                     </div>
