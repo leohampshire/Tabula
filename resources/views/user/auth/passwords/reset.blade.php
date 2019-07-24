@@ -1,4 +1,4 @@
-w@extends('user.templates.default')
+@extends('user.templates.default')
 
 @section('title', 'Tabula')
 
