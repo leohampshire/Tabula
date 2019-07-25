@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section id="teacher-questions">
+<section>
     <div class="container">
         <div class="box-w-shadow">
             <div class="row">

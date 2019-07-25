@@ -141,7 +141,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/create', 'Admin\AdminCompanyController@create')->name('create');
       Route::post('/incluir', 'Admin\AdminCompanyController@include')->name('include');
       Route::post('/store', 'Admin\AdminCompanyController@store')->name('store');
-      Route::get('/edit/{id}', 'Admin\AdminCompanyController@edit')->name('edit');
+      Route::get('/edit/{company}', 'Admin\AdminCompanyController@edit')->name('edit');
       Route::post('/update/{id}', 'Admin\AdminCompanyController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCompanyController@delete')->name('delete');
   });

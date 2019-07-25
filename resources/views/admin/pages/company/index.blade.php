@@ -98,7 +98,7 @@
                     <tr>
                       <td>{{$company->company->name}}</td>
                       <td>
-                        <a href="{{ route('admin.company.edit', ['id' => $company->id])}}" title="Editar" class="act-list">
+                        <a href="{{ route('admin.company.edit', ['company' => $company->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.company.delete',  ['id' => $company->id])}}" title="Excluir" class="act-list act-delete">
