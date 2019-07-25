@@ -47,7 +47,7 @@
                 </div>
 
             </div>
-            <!-- 
+            
             <div class="row">
                 <div class="col-sm-offset-4 col-sm-2">
                     <a href="{{ url('facebook') }}">
@@ -61,7 +61,7 @@
                         <i class="fa fa-google" aria-hidden="true"></i> Google
                     </button>
                 </div>
-            </div> -->
+            </div>
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <a href="{{ route('user.register')}}" class="btn-forgot-password">Cadastre-se</a>
