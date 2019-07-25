@@ -75,13 +75,13 @@ class AdminCourseController extends Controller
 
 	public function store(Request $request)
 	{
-
+        return dd($request);
 		$this->validate($request, [
             'name'        => 'required|max:100',
             'desc'        => 'required|max:1500',
             'price'       => 'required',
             'category_id' => 'required',
-            'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
+            'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
             'video'		  => 'mimes:mp4, mkv',
             'requirements'=> 'max:10000'	,
             'timeM'       => 'max:59',
@@ -183,7 +183,7 @@ class AdminCourseController extends Controller
             'category_id' => 'required',
             'timeH'       => 'required',
             'timeM'       => 'max:59',
-            'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
+            'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
             'video'		  => 'mimes:mp4, mkv'	
         ]);
         $admin = Auth::guard('admin')->check();

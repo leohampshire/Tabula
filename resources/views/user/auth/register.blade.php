@@ -63,6 +63,20 @@
                     <button type="submit">Registrar</button>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-offset-4 col-sm-2">
+                    <a href="{{ url('facebook') }}">
+                        <button class="btn-block btn-login-facebook" type="button">
+                            <i class="fa fa-facebook" aria-hidden="true"></i> Facebook
+                        </button>
+                    </a>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn-block btn-login-google" type="button">
+                        <i class="fa fa-google" aria-hidden="true"></i> Google
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </section>

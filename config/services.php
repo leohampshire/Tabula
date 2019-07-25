@@ -37,7 +37,7 @@ return [
     'facebook' => [
         'client_id' => '679193755843490',
         'client_secret' => '78a8513ac6108ac98ad3b699de3b0957',
-        'redirect' => 'http://tabula.test/facebook/callback',
+        'redirect' => 'http://tabula.com.br/facebook/callback',
     ],
 
     'pagarme' => [
