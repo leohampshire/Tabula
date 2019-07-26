@@ -328,10 +328,10 @@ Route::get('/carrinho', 'User\CartController@cart')->name('cart');
 Route::post('/carrinho/cupom', 'User\CartController@coupon')->name('coupon');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('pagina/{urn}', 'User\HomeController@pages')->name('page');
-
-Route::group(['prefix' => 'facebook'], function () {
-  Route::get('/', 'UserAuth\LoginController@redirectToProvider');
-  Route::get('/callback', 'UserAuth\LoginController@handleProviderCallback');
+// Facebook
+Route::group(['prefix' => 'social'], function () {
+  Route::get('/{provider}', 'UserAuth\LoginController@redirectToProvider');
+  Route::get('/{provider}/callback', 'UserAuth\LoginController@handleProviderCallback');
 });
 
 Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
