@@ -143,14 +143,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Nome" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="desc">Descrição</label>
-                                <input type="text" name="desc" placeholder="Descrição" class="form-control" id="desc"
+                                <input type="text" name="desc" placeholder="Descrição" class="form-control"
                                     value="{{old('desc')}}">
                             </div>
                         </div>
@@ -190,14 +190,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Nome" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="desc">Descrição</label>
-                                <input type="text" name="desc" placeholder="Descrição" class="form-control" id="desc"
+                                <input type="text" name="desc" placeholder="Descrição" class="form-control"
                                     value="{{old('desc')}}">
                             </div>
                         </div>
@@ -249,14 +249,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Nome" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="desc">Descrição</label>
-                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                <textarea class="form-control" rows="4" placeholder="Descrição"
                                     name="desc">{{old('desc')}}</textarea>
 
                             </div>
@@ -314,14 +314,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Nome" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="desc">Descrição</label>
-                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                <textarea class="form-control" rows="4" placeholder="Descrição"
                                     name="desc">{{old('desc')}}</textarea>
 
                             </div>
@@ -374,14 +374,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Nome" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="desc">Descrição</label>
-                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                <textarea class="form-control" rows="4" placeholder="Descrição"
                                     name="desc">{{old('desc')}}</textarea>
 
                             </div>
@@ -427,14 +427,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Nome" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="desc">Descrição</label>
-                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                <textarea class="form-control" rows="4" placeholder="Descrição"
                                     name="desc">{{old('desc')}}</textarea>
 
                             </div>
@@ -480,14 +480,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" placeholder="Nome" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Nome" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="desc">Descrição</label>
-                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                <textarea class="form-control" rows="4" placeholder="Descrição"
                                     name="desc">{{old('desc')}}</textarea>
                             </div>
                         </div>
@@ -542,14 +542,14 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="name">Pergunta</label>
-                                <input type="text" name="name" placeholder="Pergunta" class="form-control" id="name"
+                                <input type="text" name="name" placeholder="Pergunta" class="form-control"
                                     value="{{old('name')}}">
                             </div>
                         </div>
                         <div class="form-group row dissertative">
                             <div class="col-xs-12">
                                 <label for="desc">Dissertativa</label>
-                                <textarea class="form-control" rows="4" placeholder="Descrição" id="desc"
+                                <textarea class="form-control" rows="4" placeholder="Descrição"
                                     name="desc">{{old('desc')}}</textarea>
                             </div>
                         </div>
@@ -803,7 +803,7 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="email">Nome</label>
-                                <input type="email" name="email" placeholder="E-mail" class="form-control" id="name"
+                                <input type="email" name="email" placeholder="E-mail" class="form-control"
                                     value="{{old('email')}}">
                             </div>
                         </div>
@@ -841,7 +841,7 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 <label for="email">Resposta</label>
-                                <textarea name="question" placeholder="Resposta" id="name"
+                                <textarea name="question" placeholder="Resposta"
                                     class="form-control">{{old('question')}}</textarea>
                             </div>
                         </div>

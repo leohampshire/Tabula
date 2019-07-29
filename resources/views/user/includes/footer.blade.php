@@ -68,7 +68,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="https://assets.pagar.me/checkout/1.1.0/checkout.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/afterglowplayer@1.x"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -299,7 +299,28 @@ $(document).on("click", '.course-create', function(event) {
         getContent(url);
     }
 });
-
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  var id = profile.getId();
+  var name = profile.getName();
+  var image = profile.getImageUrl();
+  var email = profile.getEmail();
+  var userToken = googleUser.getAuthResponse().id_token;
+  
+  if(name !== ''){
+      var dados = {
+        profile:profile,
+        id:id,
+        name:name,
+        image:image,
+        email:email,
+        userToken:userToken          
+      }
+  }else{
+      var msg = "Usuário não encontrado";
+      document.getElementById('msg').innerHTML = msg;
+  }
+}
 $(document).on("click", '.my-teacher', function(event) {
     var url = $(this).data('url');
     $('.btn-panel-menu').removeClass('btn-active');

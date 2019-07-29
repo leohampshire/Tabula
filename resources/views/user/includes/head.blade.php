@@ -13,6 +13,11 @@
  
 <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}">
 
+<!--Google Login API-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<meta name="google-signin-client_id" content="612767872532-243ng3sc0chq0sp70s87eocjeoem7k5p.apps.googleusercontent.com">
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

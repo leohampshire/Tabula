@@ -57,12 +57,9 @@
                     </a>
                 </div>
                 <div class="col-sm-2">
-                    <a href="{{url('social', ['provider' => 'google'])}}">
-                        <button class="btn-block btn-login-google" type="button">
-                            <i class="fa fa-google" aria-hidden="true"></i> Google
-                        </button>
-                    </a>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </div>
+                <p id="msg"></p>
             </div>
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">

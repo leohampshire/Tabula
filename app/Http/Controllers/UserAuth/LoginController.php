@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
+use App\User;
 use Socialite;
 
 class LoginController extends Controller
@@ -54,9 +55,38 @@ class LoginController extends Controller
      */
     public function handleProviderCallback($provider)
     {
-        $user = Socialite::driver($provider)->user();
+        try {
+            $user = Socialite::driver('facebook')->stateless()->user();
+        } catch (Exception $e) {
+            return redirect('user/login');
+        }
+        
+         $authUser = $this->findOrCreateUser($user);
 
-        return dd($user);
+        Auth::guard('user')->login($authUser);
+
+        return redirect()->route('cart.session');
+
+    }
+    
+    private function findOrCreateUser($facebookUser)
+    {
+        $authUser = User::where('facebook_id', $facebookUser->id)->orWhere('email', $facebookUser->email)->first();
+
+        if ($authUser){
+            $authUser->update([
+                'facebok_id' => $facebookUser->id,    
+            ]);
+            return $authUser;
+        } 
+
+        return User::create([
+            'name' => $facebookUser->name,
+            'email' => $facebookUser->email,
+            'facebook_id' => $facebookUser->id,
+            'user_type_id' => '3',
+            'password' => bcrypt($facebookUser->token)
+        ]);
     }
 
     /**

@@ -39,6 +39,12 @@ return [
         'client_secret' => '78a8513ac6108ac98ad3b699de3b0957',
         'redirect' => 'https://tabula.com.br/social/facebook/callback',
     ],
+    'google' => [
+        'client_id' => '612767872532-243ng3sc0chq0sp70s87eocjeoem7k5p.apps.googleusercontent.com',
+        'client_secret' => 'mWipvwkS9V59OY5Q2M2NylXW',
+        'redirect' => 'https://tabula.com.br/social/google/callback',
+    ],
+    
 
     'pagarme' => [
         'api_key' => 'ak_test_nw5MJ9qcAh7Y3HDyVKgl0rpcjObDvi',
