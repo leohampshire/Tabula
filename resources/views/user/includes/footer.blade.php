@@ -307,15 +307,29 @@ function onSignIn(googleUser) {
   var email = profile.getEmail();
   var userToken = googleUser.getAuthResponse().id_token;
   
-  if(name !== ''){
-      var dados = {
-        profile:profile,
-        id:id,
-        name:name,
-        image:image,
-        email:email,
-        userToken:userToken          
-      }
+  	if(name !== ''){
+    	var data = {
+	        profile:profile,
+	        id:id,
+	        name:name,
+	        image:image,
+	        email:email,
+	        userToken:userToken          
+    	}
+    	var requestData = JSON.stringify(data);
+      	$.ajax({
+	    	type: "POST",
+	     	cache: false,
+	     	data: {data:requestData},
+	     	url: "{{url('social/google/ajax')}}",
+	     	beforeSend: function() {},
+	    	success: function(response){
+          console.log(response);
+	    		if(response == 'sucesso'){
+	      			window.location.href="{{route('cart.session')}}";
+	    		}
+	    	}
+	  	});
   }else{
       var msg = "Usuário não encontrado";
       document.getElementById('msg').innerHTML = msg;

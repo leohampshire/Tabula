@@ -40,12 +40,29 @@
             @if($auth->user_type_id == 3)
             <li class="hidden-xs"><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
             @endif
-            <li class="hidden-xs"><a href="{{route('user.logout')}}">Sair</a></li>
+
+            <li class="hidden-xs"><a href="#" onclick="signOut();">Sair</a></li>
+
+            <script>
+              function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                var id = profile.getId();
+                var name = profile.getName();
+                var image = profile.getImageUrl();
+                var email = profile.getEmail();
+                var userToken = googleUser.getAuthResponse().id_token;
+              }
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                  window.location.href="{{route('user.logout')}}";
+                });
+              }
+            </script>
           @else
           
           <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>
-          <li class="hidden-xs"><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
-          
+          <li class="hidden-xs"><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>          
           @endif
           @if($auth)
           <li class="menu-cart">

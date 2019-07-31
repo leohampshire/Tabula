@@ -269,6 +269,7 @@ function seoValidate()
       });
     $('#sub_categ').hide();
     $('#category_id' ).change(function() {
+      alert('teste');
       var url = "{{route('admin.course.subcategory')}}";
       var categId = $('#category_id option:selected').val();
       categAjax(url, categId);

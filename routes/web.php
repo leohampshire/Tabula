@@ -333,6 +333,7 @@ Route::get('pagina/{urn}', 'User\HomeController@pages')->name('page');
 // Facebook
 Route::group(['prefix' => 'social'], function () {
   Route::get('/{provider}', 'UserAuth\LoginController@redirectToProvider');
+  Route::post('/{provider}/ajax', 'UserAuth\LoginController@redirectToGoogle');
   Route::get('/{provider}/callback', 'UserAuth\LoginController@handleProviderCallback');
 });
 
