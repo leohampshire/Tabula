@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="course-desc">
                                         <h3>{{ $cart['name'] }}</h3>
-                                        <p>{{substr($cart['desc'], 0, 50)}}</p>
+                                        <p><?php echo substr($cart['desc'], 0, 48); ?></p>
                                     </div>
                                     <div class="course-value">
                                         <span>R$ {{number_format($cart['price'],2,',','.')}}</span>

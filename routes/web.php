@@ -115,6 +115,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/create', 'Admin\AdminUserController@create')->name('create');
       Route::post('/store', 'Admin\AdminUserController@store')->name('store');
       Route::get('/edit/{id}/', 'Admin\AdminUserController@edit')->name('edit');
+      Route::post('/password/{user}/', 'Admin\AdminUserController@password')->name('password');
       Route::post('/update/{id}/', 'Admin\AdminUserController@update')->name('update');
       Route::get('/delete/{id}/', 'Admin\AdminUserController@delete')->name('delete');
   });
@@ -132,7 +133,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/', 'Admin\AdminController@configuration')->name('index');
       Route::get('/taxa', 'Admin\AdminController@taxa')->name('taxa');
       Route::post('/taxa', 'Admin\AdminController@taxaUpdate');
-      Route::post('/update/', 'Admin\AdminController@update')->name('update');
+      Route::post('/password', 'Admin\AdminController@password')->name('password');
+      Route::post('/update', 'Admin\AdminController@update')->name('update');
   });
 
   //EMPRESAS ADMIN

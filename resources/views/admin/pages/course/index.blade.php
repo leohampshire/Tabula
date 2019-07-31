@@ -152,7 +152,7 @@
                           </a>
                         @endif
                         <a href="{{ route('admin.course.edit', ['id' => $course->id])}}" title="Editar" class="act-list">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.course.student', ['id' => $course->id])}}" title="Alunos" class="act-list">
                           <i class="fa fa-graduation-cap" aria-hidden="true"></i>
@@ -161,7 +161,7 @@
                           <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.course.delete', ['id' => $course->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
 
                       </td>

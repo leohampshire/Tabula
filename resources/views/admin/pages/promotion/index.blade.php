@@ -83,10 +83,10 @@
                       <td>{{$promotion->url}}</td>
                       <td>
                         <a href="{{ route('admin.promotion.edit', ['id' => $promotion->id])}}" title="Editar" class="act-list">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.promotion.delete', ['id' => $promotion->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
