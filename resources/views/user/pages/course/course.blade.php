@@ -14,16 +14,16 @@
                     <h2 class="course-category">{{$course->category->name}}</h2>
                     <h1 class="course-name">{{$course->name}}</h1>
                     <p>
-                    @php($voted = $course->star)
-                    @php($no_voted = 5 - $course->star)
-                    
-                    @for($i= 0; $i < $voted; $i++)
-                        <img class="rating-style" src="{{asset('images/img/star1.png')}}">
-                    @endfor
-                    
-                    @for($i= 0; $i < $no_voted; $i++)
-                        <img class="rating-style" src="{{asset('images/img/star0.png')}}">
-                    @endfor
+                        @php($voted = $course->star)
+                        @php($no_voted = 5 - $course->star)
+
+                        @for($i= 0; $i < $voted; $i++) <img class="rating-style"
+                            src="{{asset('images/img/star1.png')}}">
+                            @endfor
+
+                            @for($i= 0; $i < $no_voted; $i++) <img class="rating-style"
+                                src="{{asset('images/img/star0.png')}}">
+                                @endfor
                     </p>
                     <hr>
                     <h4>Autor</h4>
@@ -58,9 +58,18 @@
                     @endif
                     @endif
                 </div>
+                @if($course->video != null)
+                <div class="col-sm-6">
+                    <video controlsList="nodownload" oncontextmenu="return false;" style="width:100%; height: 250px; object-fit: cover;" controls>
+                        <source src="{{ asset('images/thumbvideo')}}/{{$course->video}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                @else
                 <div class="col-sm-6">
                     <img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
                 </div>
+                @endif
             </div>
         </div>
         <div class="box-w-shadow">
