@@ -39,7 +39,8 @@ class User extends Authenticatable
         'avatar', 
         'user_type_id', 
         'bio',
-        'facebook_id'
+        'facebook_id',
+        'google_id'
     ];
 
     /**

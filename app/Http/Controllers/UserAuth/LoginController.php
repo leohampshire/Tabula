@@ -56,7 +56,6 @@ class LoginController extends Controller
            $user = User::where('google_id', $data['userToken'])
            ->orWhere('email', $data['email'])
            ->first();
-
            if ($user){
                 $user->update([
                     'google_id' => $data['userToken'],    
