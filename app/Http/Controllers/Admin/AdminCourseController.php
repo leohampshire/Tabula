@@ -163,10 +163,12 @@ class AdminCourseController extends Controller
 	{
 		$course = Course::find($id);
 		$course->price = number_format($course->price, 2, ',', '.');
+        $subcategories = Category::where('category_id', $course->category_id)->get();
 
         $chapters = CourseItemChapter::where('course_id', $id)->get();
 		return view('admin.pages.course.edit')
 		->with('categories', Category::all())
+        ->with('subcategories', $subcategories)
         ->with('chapters', $chapters)
 		->with('course', $course);
 	}

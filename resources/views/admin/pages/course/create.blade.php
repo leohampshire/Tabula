@@ -81,10 +81,10 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-xs-12" id="categ">
+                  <div class="col-xs-6" id="categ">
                     <label for="category_id">Categoria</label>
                     <select name="category_id" class="form-control" id="category_id">
-                      <option selected disabled="">SELECIONE...</option>
+                      <option selected disabled="">Selecione...</option>
                       @foreach($categories as $category)
                         @if($category->category_id === NULL)
                         <option value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif>{{$category->name}}</option>
@@ -95,7 +95,7 @@
                   <div class="col-xs-6" id="sub_categ">
                     <label for="subcategory_id">SubCategoria</label>
                     <select name="subcategory_id" class="form-control" id="subcategory_id">
-                      <option selected disabled="">SELECIONE...</option>
+                      <option selected disabled="">Selecione...</option>
                     </select>
                   </div>
                 </div>
