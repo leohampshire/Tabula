@@ -42,16 +42,25 @@
             @endif
 
             <li class="hidden-xs"><a href="#" onclick="signOut();">Sair</a></li>
-
+			<div style="display: none;"><div class="g-signin2" data-onsuccess="onSignIn"></div></div>
             <script>
-              function onSignIn(googleUser) {
-                var profile = googleUser.getBasicProfile();
-                var id = profile.getId();
-                var name = profile.getName();
-                var image = profile.getImageUrl();
-                var email = profile.getEmail();
-                var userToken = googleUser.getAuthResponse().id_token;
-              }
+            	function onSuccess(googleUser) {
+			      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+			    }
+			    function onFailure(error) {
+			      console.log(error);
+			    }
+            	function renderButton() {
+			      gapi.signin2.render('my-signin2', {
+			        'scope': 'profile email',
+			        'width': 240,
+			        'height': 50,
+			        'longtitle': true,
+			        'theme': 'dark',
+			        'onsuccess': onSuccess,
+			        'onfailure': onFailure
+			      });
+			    }
               function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
