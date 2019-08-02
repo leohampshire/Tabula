@@ -142,11 +142,14 @@
                       <td>{{$user->email}}</td>
                       <td>{{$user->userTypes->name}}</td>
                       <td>
-                        <a href="{{ route('admin.user.edit', ['id' => $user->id])}}" title="Editar" class="act-list">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <a href="{{ route('admin.user.edit', ['user' => $user->id])}}" title="Editar" class="act-list">
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" title="Alterar Senha" class="act-list act-password">
+                          <i class="fa fa-key" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.user.delete',  ['id' => $user->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
@@ -177,3 +180,56 @@
   </div>
 
 @stop
+
+
+@section('modals')
+<!--Alterar Senha-->
+<div class="modal fade" id="passwordModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Alterar Senha</h4>
+            </div>
+            <form method="POST" action="{{ route('admin.user.password', ['id' => $user->id])}}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {{csrf_field()}}
+                    <div class="box-body">
+                        <div class="form-group row">
+                            <div class="col-xs-6">
+                                <label for="password">Senha</label>
+                                <input type="password" name="password" placeholder="Senha" class="form-control"
+                                    id="password" >
+                            </div>
+                            <div class="col-xs-6">
+                                <label for="desc">Confirmação de Senha</label>
+                                <input type="password" name="password_confirmation" placeholder="Confirmação de Senha"
+                                    class="form-control" id="password_confirmation">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /. Alterar senha -->
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+$('.act-password').on('click', function(e) {
+    e.preventDefault();
+    $('#passwordModal').modal('show');
+
+})
+</script>
+@endsection

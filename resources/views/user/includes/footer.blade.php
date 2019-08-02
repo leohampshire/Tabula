@@ -68,13 +68,14 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="https://assets.pagar.me/checkout/1.1.0/checkout.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/afterglowplayer@1.x"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript">
@@ -299,7 +300,42 @@ $(document).on("click", '.course-create', function(event) {
         getContent(url);
     }
 });
-
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  var id = profile.getId();
+  var name = profile.getName();
+  var image = profile.getImageUrl();
+  var email = profile.getEmail();
+  var userToken = googleUser.getAuthResponse().id_token;
+  
+  	if(name !== ''){
+    	var data = {
+	        profile:profile,
+	        id:id,
+	        name:name,
+	        image:image,
+	        email:email,
+	        userToken:userToken          
+    	}
+    	var requestData = JSON.stringify(data);
+      	$.ajax({
+	    	type: "POST",
+	     	cache: false,
+	     	data: {data:requestData},
+	     	url: "{{url('social/google/ajax')}}",
+	     	beforeSend: function() {},
+	    	success: function(response){
+          console.log(response);
+	    		if(response == 'sucesso'){
+	      			window.location.href="{{route('cart.session')}}";
+	    		}
+	    	}
+	  	});
+  }else{
+      var msg = "Usuário não encontrado";
+      document.getElementById('msg').innerHTML = msg;
+  }
+}
 $(document).on("click", '.my-teacher', function(event) {
     var url = $(this).data('url');
     $('.btn-panel-menu').removeClass('btn-active');

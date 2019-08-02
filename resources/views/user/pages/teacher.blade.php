@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section id="teacher-questions">
+<section>
     <div class="container">
         <div class="box-w-shadow">
             <div class="row">
@@ -53,7 +53,7 @@
                             </div>
                             <div class="course-desc">
                                 <h3>{{$row->name}}</h3>
-                                <p>{{substr($row->desc, 0, 50)}}</p>
+                                <p><?php echo substr($row->desc, 0, 48); ?></p>
                             </div>
                             <div class="course-value">
                                 <span>R$ {{number_format($row->price, 2, ',', '.')}}</span>

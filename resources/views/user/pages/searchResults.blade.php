@@ -10,7 +10,7 @@
             </div>
             <div class="course-desc">
                 <h3>{{$course->name}}</h3>
-                <p>{{substr($course->desc, 0, 50)}}</p>
+                <p><?php echo substr($course->desc, 0, 48); ?></p>
             </div>
             <div class="course-value">
                 <span>R$ {{number_format($course->price, 2, ',', '.')}}</span>

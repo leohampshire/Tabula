@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->integer('schooling_id')->nullable();
             $table->integer('company_id')->nullable();
             $table->string('facebook_id')->nullable();
+            $table->longtext('google_id')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

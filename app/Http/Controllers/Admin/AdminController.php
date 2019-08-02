@@ -125,5 +125,16 @@ class AdminController extends Controller
         }
         $user->save();
 		return redirect()->back()->with('success', 'Alterado com sucesso');
-	}
+    }
+    
+    public function password(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+            ]);
+        $admin = Auth::guard('admin')->user();
+        $admin->password = bcrypt($request->password);
+        $admin->save();
+		return redirect()->back()->with('success', 'Senha alterada com sucesso');
+    }
 }

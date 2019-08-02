@@ -115,6 +115,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/create', 'Admin\AdminUserController@create')->name('create');
       Route::post('/store', 'Admin\AdminUserController@store')->name('store');
       Route::get('/edit/{id}/', 'Admin\AdminUserController@edit')->name('edit');
+      Route::post('/password/{user}/', 'Admin\AdminUserController@password')->name('password');
       Route::post('/update/{id}/', 'Admin\AdminUserController@update')->name('update');
       Route::get('/delete/{id}/', 'Admin\AdminUserController@delete')->name('delete');
   });
@@ -132,7 +133,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/', 'Admin\AdminController@configuration')->name('index');
       Route::get('/taxa', 'Admin\AdminController@taxa')->name('taxa');
       Route::post('/taxa', 'Admin\AdminController@taxaUpdate');
-      Route::post('/update/', 'Admin\AdminController@update')->name('update');
+      Route::post('/password', 'Admin\AdminController@password')->name('password');
+      Route::post('/update', 'Admin\AdminController@update')->name('update');
   });
 
   //EMPRESAS ADMIN
@@ -141,7 +143,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/create', 'Admin\AdminCompanyController@create')->name('create');
       Route::post('/incluir', 'Admin\AdminCompanyController@include')->name('include');
       Route::post('/store', 'Admin\AdminCompanyController@store')->name('store');
-      Route::get('/edit/{id}', 'Admin\AdminCompanyController@edit')->name('edit');
+      Route::get('/edit/{company}', 'Admin\AdminCompanyController@edit')->name('edit');
       Route::post('/update/{id}', 'Admin\AdminCompanyController@update')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminCompanyController@delete')->name('delete');
   });
@@ -328,10 +330,11 @@ Route::get('/carrinho', 'User\CartController@cart')->name('cart');
 Route::post('/carrinho/cupom', 'User\CartController@coupon')->name('coupon');
 Route::get('/categoria/{urn}', 'User\CategoryController@category')->name('category');
 Route::get('pagina/{urn}', 'User\HomeController@pages')->name('page');
-
-Route::group(['prefix' => 'facebook'], function () {
-  Route::get('/', 'UserAuth\LoginController@redirectToProvider');
-  Route::get('/callback', 'UserAuth\LoginController@handleProviderCallback');
+// Facebook
+Route::group(['prefix' => 'social'], function () {
+  Route::get('/{provider}', 'UserAuth\LoginController@redirectToProvider');
+  Route::post('/{provider}/ajax', 'UserAuth\LoginController@redirectToGoogle');
+  Route::get('/{provider}/callback', 'UserAuth\LoginController@handleProviderCallback');
 });
 
 Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {

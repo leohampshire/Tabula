@@ -108,10 +108,10 @@
                       <td>{{$category->urn}}</td>
                       <td>
                         <a href="{{ route('admin.categ.blog.edit', ['id' => $category->id])}}" title="Editar" class="act-list">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.categ.blog.delete', ['id' => $category->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>

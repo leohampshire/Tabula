@@ -40,12 +40,38 @@
             @if($auth->user_type_id == 3)
             <li class="hidden-xs"><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
             @endif
-            <li class="hidden-xs"><a href="{{route('user.logout')}}">Sair</a></li>
+
+            <li class="hidden-xs"><a href="#" onclick="signOut();">Sair</a></li>
+			<div style="display: none;"><div class="g-signin2" data-onsuccess="onSignIn"></div></div>
+            <script>
+            	function onSuccess(googleUser) {
+			      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+			    }
+			    function onFailure(error) {
+			      console.log(error);
+			    }
+            	function renderButton() {
+			      gapi.signin2.render('my-signin2', {
+			        'scope': 'profile email',
+			        'width': 240,
+			        'height': 50,
+			        'longtitle': true,
+			        'theme': 'dark',
+			        'onsuccess': onSuccess,
+			        'onfailure': onFailure
+			      });
+			    }
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                  window.location.href="{{route('user.logout')}}";
+                });
+              }
+            </script>
           @else
           
           <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>
-          <li class="hidden-xs"><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>
-          
+          <li class="hidden-xs"><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>          
           @endif
           @if($auth)
           <li class="menu-cart">

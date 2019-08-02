@@ -154,10 +154,10 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-xs-12" id="categ">
+                  <div class="col-xs-6" id="categ">
                     <label for="category_id">Categoria</label>
                     <select name="category_id" class="form-control" id="category_id">
-                      <option selected disabled="">SELECIONE...</option>
+                      <option selected disabled="">Selecione...</option>
                       @foreach($categories as $category)
                         @if($category->category_id === NULL)
                         <option value="{{$category->id}}" @if($category->id == $course->category_id) selected @endif>{{$category->name}}</option>
@@ -166,9 +166,12 @@
                     </select>
                   </div>
                   <div class="col-xs-6" id="sub_categ">
-                    <label for="subcategory_id">SubCategoria</label>
+                    <label for="subcategory_id">Subcategoria</label>
                     <select name="subcategory_id" class="form-control" id="subcategory_id">
-                      <option selected disabled="">SELECIONE...</option>
+                      <option selected disabled="">Selecione...</option>
+                      @foreach($subcategories as $subcategory)
+                        <option value="{{$subcategory->id}}" @if($subcategory->id == $course->subcategory_id) selected @endif>{{$subcategory->name}}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>

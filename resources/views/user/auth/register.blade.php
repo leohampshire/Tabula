@@ -63,6 +63,19 @@
                     <button type="submit">Registrar</button>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-offset-4 col-sm-2">
+                    <a href="{{ url('social', ['provider' => 'facebook']) }}">
+                        <button class="btn-block btn-login-facebook" type="button">
+                            <i class="fa fa-facebook" aria-hidden="true"></i> Facebook
+                        </button>
+                    </a>
+                </div>
+                <div class="col-sm-2">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+                <p id="msg"></p>
+            </div>
         </form>
     </div>
 </section>
