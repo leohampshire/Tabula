@@ -24,6 +24,8 @@ class CreateCategoriesTable extends Migration
             $table->string('mobile_hex_bg')->nullable();
             $table->string('hex_icon')->nullable();
             $table->string('hex_course_icon')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->longtext('meta_description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

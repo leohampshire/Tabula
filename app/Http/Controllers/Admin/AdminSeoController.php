@@ -62,28 +62,17 @@ class AdminSeoController extends Controller
 	public function update(Request $request)
 	{
 		$this->validate($request, [
-    		'metaDescription'  	=> 'required',
-    		'metaType'			=> 'required',
-    		'pageType' 			=> 'required'
+    		'meta_description'  	=> 'required',
+    		'meta_title' 			=> 'required'
     	]);   
  		
-    	//Confugura o Tipo da Página
-    	if ($request->pageType == 'home') {
- 			$page = 'Home';
-    	}elseif ($request->pageType == 'course') {
-    		$page = $request->pageCourse;
-    	}else{
-    		$page = $request->pageCateg;
-    	}
- 		$seo = Seo::find($request->id);
+ 		$seo = Seo::find(1);
 
- 		$seo->meta_type 		= $request->metaType;
- 		$seo->meta_description 	= $request->metaDescription;
- 		$seo->page              = $page;
- 		$seo->page_type 		= $request->pageType;
+ 		$seo->meta_title 	= $request->meta_title;
+ 		$seo->meta_description 		= $request->meta_description;
  		$seo->save();
 
-    	return redirect(route('admin.seo.index'))->with('success', 'SEO editado com sucesso');
+    	return redirect()->back()->with('success', 'SEO editado com sucesso');
 	}
 	
 	public function delete($id)

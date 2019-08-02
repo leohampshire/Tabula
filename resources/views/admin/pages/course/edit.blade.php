@@ -198,6 +198,18 @@
                 </div>
                 <div class="form-group  row">
                   <div class="col-xs-12">
+                    <label for="meta_title">Meta Title</label>
+                    <input class="form-control" id="meta_title" type="text" name="meta_title" placeholder="Meta Title" value="{{ $course->meta_title }}">
+                  </div>
+                </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="meta_description">Meta Description</label>
+                    <textarea name="meta_description" id="meta_description" rows="6" class="form-control">{{$course->meta_description}}</textarea>
+                  </div>
+                </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
                     <label for="thumb_img">Imagem da Vitrine</label>
                     <input class="form-control" type="file" name="thumb_img">
                   </div>

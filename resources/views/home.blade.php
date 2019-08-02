@@ -1,8 +1,8 @@
 @extends('user.templates.default')
+@php($seo = DB::table('seos')->first())
+@section('title', $seo->meta_title)
 
-@section('title', 'Tabula')
-
-@section('description', 'Descrição')
+@section('description', $seo->meta_description)
 
 @section('content')
 

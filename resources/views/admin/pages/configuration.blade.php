@@ -117,7 +117,42 @@
         </div>
 
         <!-- /.row (main row) -->
-
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="box-title">SEO Home</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <form method="POST" action="{{ route('admin.seo.update') }}">
+                        {{csrf_field()}}
+                        <div class="box-body">
+                            <div class="form-group  row">
+                                <div class="col-xs-12">
+                                    <label for="meta_title">Meta Title</label>
+                                    <input class="form-control" id="meta_title" type="text" name="meta_title"
+                                        placeholder="Meta Title" value="{{ $seo->meta_title }}">
+                                </div>
+                            </div>
+                            <div class="form-group  row">
+                                <div class="col-xs-12">
+                                    <label for="meta_description">Meta Description</label>
+                                    <textarea name="meta_description" id="meta_description" rows="7"
+                                        class="form-control">{{$seo->meta_description}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Atualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
     </section>
     <!-- /.content -->
 

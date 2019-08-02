@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Course;
 use App\UserType;
 use App\State;
+use App\Seo;
 use App\Country;
 use App\Taxa;
 use App\Schooling;
@@ -52,6 +53,7 @@ class AdminController extends Controller
         $auth = Auth::guard('admin')->user();
         $taxa = Taxa::first();
         return view('admin.pages.configuration')
+        ->with('seo', Seo::first())
         ->with('taxa', $taxa)
         ->with('auth', $auth);
     }

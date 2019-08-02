@@ -1,8 +1,8 @@
 @extends('user.templates.default')
 
-@section('title', 'Cursos')
+@section('title', $course->meta_title)
 
-@section('description', 'Descrição')
+@section('description', $course->meta_description)
 
 @section('content')
 
@@ -30,7 +30,7 @@
                     <p>{{$course->author->name}}</p>
 
                     <h4>Descrição</h4>
-                    <p>{{$course->desc}}</p>
+                    <p><?php echo $course->desc ?></p>
                     <br>
                     @if($hasCourse && $auth->expired($course->id) >= date('Y-m-d'))
                     <a href="{{route('course.class', ['id' => $course->id])}}">

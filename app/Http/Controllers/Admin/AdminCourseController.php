@@ -98,6 +98,8 @@ class AdminCourseController extends Controller
         $course->requirements       = $request->requirements;
         $course->timeH              = $request->timeH;
         $course->timeM              = $request->timeM;
+        $course->meta_title         = $request->meta_title;
+        $course->meta_description   = $request->meta_description;
         $course->total_class        = 0;
         
         $course->urn = $this->urnValidate($request->name);
@@ -200,6 +202,8 @@ class AdminCourseController extends Controller
         $course->requirements       = $request->requirements;
         $course->timeH              = $request->timeH;
         $course->timeM              = $request->timeM;
+        $course->meta_title         = $request->meta_title;
+        $course->meta_description   = $request->meta_description;
         $course->total_class        = 0;
 		
         

@@ -79,12 +79,12 @@
                     <i class="fa fa-shopping-basket" aria-hidden="true"></i> <span>CUPONS</span>
                 </a>
             </li>
-            <li {{ (Request::is('admin/seo') ? 'class=active' : '') }}
+            <!-- <li {{ (Request::is('admin/seo') ? 'class=active' : '') }}
                 {{ (Request::is('admin/seo/*') ? 'class=active' : '') }}>
                 <a href="{{route('admin.seo.index')}}">
                     <i class="fa fa-server" aria-hidden="true"></i> <span>SEO</span>
                 </a>
-            </li>
+            </li> -->
             <li {{ (Request::is('admin/promocao') ? 'class=active' : '') }}
                 {{ (Request::is('admin/promocao/*') ? 'class=active' : '') }}>
                 <a href="{{route('admin.promotion.index')}}">

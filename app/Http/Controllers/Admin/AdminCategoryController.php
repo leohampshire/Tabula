@@ -78,6 +78,8 @@ class AdminCategoryController extends Controller
 
         $category->name = $request->name;
         $category->urn = $request->urn;
+        $category->meta_title = $request->meta_title;
+        $category->meta_description = $request->meta_description;
 
         $category->save();
 
@@ -153,6 +155,8 @@ class AdminCategoryController extends Controller
 
         $category->name = $request->name;
         $category->urn = $request->urn;
+        $category->meta_title = $request->meta_title;
+        $category->meta_description = $request->meta_description;
 
         $category->save();
 
