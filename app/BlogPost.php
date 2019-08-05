@@ -14,7 +14,7 @@ class BlogPost extends Model
 
 	public function comments()
 	{
-		return $this->hasMany('App\BlogComment');
+		return $this->hasMany('App\BlogComment', 'post_id');
 	}
 
 	public function category()
@@ -24,6 +24,6 @@ class BlogPost extends Model
 
 	public function tags()
     {
-        return $this->belongsToMany('App\Tag', 'post_tags', 'tag_id', 'post_id');
+        return $this->belongsToMany('App\Tag', 'post_tags', 'post_id', 'tag_id');
     }
 }

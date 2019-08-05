@@ -214,3 +214,13 @@ function geraPath($var)
     $teste = str_replace("[/embed]", "", $teste);
     return $teste;
 }
+
+function generateSlug(String $name)
+{
+    $urn = '';
+    $urn = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+    $urn = preg_replace("/[^a-zA-Z0-9\/_| -]/", '', $urn);
+    $urn = strtolower(trim($urn, '-'));
+    $urn = preg_replace("/[\/_| -]+/", '-', $urn);
+    return $urn;
+}

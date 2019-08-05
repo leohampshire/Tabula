@@ -271,9 +271,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/store', 'Admin\AdminBlogController@storePost')->name('store');
       Route::get('/edit/{id}', 'Admin\AdminBlogController@editPost')->name('edit');
       Route::post('/update', 'Admin\AdminBlogController@updatePost')->name('update');
-      Route::get('/delete/{id}', 'Admin\AdminBlogController@deletePost')->name('delete');
+      Route::get('/delete/{post}', 'Admin\AdminBlogController@deletePost')->name('delete');
 
       Route::post('/tag/{post}', 'Admin\TagController@findOrCreate')->name('tag');
+      Route::get('/tag/delete/{tag}/{post}', 'Admin\TagController@delete')->name('tag.delete');
   });
 
   //PAGINAS ADMIN
@@ -342,7 +343,9 @@ Route::group(['prefix' => 'social'], function () {
 Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
   Route::get('/', 'User\BlogController@index')->name('index');
   Route::get('/categoria/{urn}', 'User\BlogController@category')->name('category');
-  Route::get('/{urn}', 'User\BlogController@single')->name('single');
+  Route::get('/tag/{slug}', 'User\BlogController@tag')->name('tag');
+  Route::get('post/{urn}', 'User\BlogController@single')->name('single');
+  Route::post('comment/', 'User\BlogController@comment')->name('comment');
 });
 
 Route::post('newsletter', 'Admin\NewsletterController@newsletter')->name('newsletter');
