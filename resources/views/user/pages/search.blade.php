@@ -16,7 +16,7 @@
                         <input type="checkbox" class="macro-main__checkbox--category" id="{{$category->id}}"
                             value="{{$category->id}}" name="macrotema">
                         <label for="{{$category->id}}" class="macro-main-label">{{$category->name}}</label>
-                        <ul class="macro-sub--category">
+                        <ul class="macro-sub--category" id="macrotema-sub-{{$category->id}}">
                             @forelse($category->parent_categories as $parent_category)
                             <li class="macro-sub__item">
                                 <input type="checkbox" name="subtema" class="macro-main__checkbox"
@@ -78,4 +78,18 @@
     </div>
 </section>
 
-@stop
+@endsection
+
+@section('scripts')
+
+<script type="text/javascript">
+    $('.macro-main__item .macro-main__checkbox--category').change( function(){
+        if($(this).prop('checked')){
+            $( "#macrotema-sub-" + $(this).val() ).css( "display", "block" );
+        } else {
+            $( "#macrotema-sub-" + $(this).val() ).css( "display", "none" );
+            $( "#macrotema-sub-" + $(this).val() ).find('input[type="checkbox"]').prop("checked", false);
+        }
+    })
+</script>
+@endsection

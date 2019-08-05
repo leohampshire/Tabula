@@ -215,7 +215,7 @@
 @endif
 
 @if($posts->count())
-<section>
+<section id="posts">
     <div class="container">
         <div class="box-w-shadow">
             <h2>Posts</h2>

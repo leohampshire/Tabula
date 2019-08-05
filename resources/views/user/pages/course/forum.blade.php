@@ -39,8 +39,8 @@
 						<h2>{{$question->title}}</h2>
 						<p><small>{{$question->user->name}}</small></p>
 						<p>{{$question->question}}</p>
-							<button type="button" class="btn-primary act-answer" data-course_id="{{$course->id}}" data-answer="{{$question->id}}" style="float: right; border: solid 1px #0b4b82;">RESPONDER</button>
-							<button type="button" class="btn-primary answers" onclick="seeAnswer({{$question->id}})" style="float: right; border: solid 1px #0b4b82;">VER RESPOSTAS</button>
+							<button type="button" class="btn-primary answers" onclick="seeAnswer({{$question->id}})" style="float: left; border: solid 1px #0b4b82; margin-right: 4px;">VER RESPOSTAS</button>
+							<button type="button" class="btn-primary act-answer" data-course_id="{{$course->id}}" data-answer="{{$question->id}}" style="float: left; border: solid 1px #0b4b82;">RESPONDER</button>
 					</div>
 					<div class="row answer" id="{{$question->id}}">
 						@forelse($question->forums as $answer)
@@ -50,14 +50,14 @@
 						</div>
 						@empty
 						<div class="col-sm-6">
-							<h1>Ainda sem respostas, sejam o primeiro a responder</h1>			
+							<p>Ainda sem respostas, sejam o primeiro a responder</p>			
 						</div>
 						@endforelse
 					</div>
 					@endif
 				@empty
 				<div class="col-sm-6">
-					<h1>Não Existem perguntas para este curso</h1>			
+					<p>Não Existem perguntas para este curso</p>			
 				</div>
 				@endforelse
 				

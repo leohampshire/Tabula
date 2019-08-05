@@ -111,17 +111,38 @@
             </div>
         </div>
 
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <label>Interesses</label>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-12">
+                    <label style="width: 100">Interesses</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <?php
+                        $i =0;
 
-                @forelse($interests as $interest)
-                <label class="form-check interest-label">
-                    <input type="checkbox" @if(in_array($interest->id, $auth['interest'])) checked @endif
-                    name="interest[]" class="form-check-input" value="{{$interest->id}}">{{$interest->name}}
-                </label>
-                @empty
-                @endforelse
+                        $countInterests = count($interests);
+
+                        if($countInterests > 0){
+                            $numToColInterests = $countInterests/2;
+                            $numToColInterests = (int) $numToColInterests;
+                        }
+                    ?>
+                    @forelse($interests as $interest)
+
+                    @if($i == $numToColInterests)
+                    </div><div class="col-sm-6">
+                    @endif
+
+                    <label class="form-check interest-label">
+                        <input type="checkbox" @if(in_array($interest->id, $auth['interest'])) checked @endif
+                        name="interest[]" class="form-check-input" value="{{$interest->id}}">{{$interest->name}}
+                    </label>
+                    @php($i++)
+                    @empty
+                    @endforelse
+                </div>
             </div>
         </div>
         <div class="row form-group">

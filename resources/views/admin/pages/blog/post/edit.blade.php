@@ -77,7 +77,7 @@
                                 <div class="col-xs-12">
                                     <label for="content">Conteúdo</label>
                                     <textarea class="form-control tinyeditor" rows="6" name="content"
-                                        placeholder="Escrever Conteúdo">{{ $post->meta_title }}</textarea>
+                                        placeholder="Escrever Conteúdo"><?php echo $post->content; ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
