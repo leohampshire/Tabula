@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\BlogCategory;
 use App\BlogPost;
+use App\PostTag;
 use Auth;
 
 class AdminBlogController extends Controller
@@ -174,7 +175,7 @@ class AdminBlogController extends Controller
 	public function deletePost(BlogPost $post)
 	{
 		PostTag::where('post_id', $post->id)->delete();
-		$post->comments->delete();
+		$post->comments()->delete();
 		$post->delete();
 		
 		return redirect()->back()

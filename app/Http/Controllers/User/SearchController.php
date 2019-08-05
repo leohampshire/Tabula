@@ -32,9 +32,9 @@ class SearchController extends Controller
             // se houver string, busca a string e manda a $search_string para ser escrita automaticamente no campo
             // se não houver, busca todos os cursos
             if($search_string != "")
-                $courses = Course::where('name','like', '%' . $search_string . '%')->get();
+                $courses = Course::where('name','like', '%' . $search_string . '%')->where('avaliable', 2)->get();
             else
-                $courses = Course::all();
+                $courses = Course::where('avaliable', 2)->get();
 
             return view('user.pages.search')
             ->with('category_count', 0)

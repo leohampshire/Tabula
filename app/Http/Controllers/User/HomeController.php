@@ -32,13 +32,13 @@ class HomeController extends Controller
 		$courses             = NULL;
 		if ($auth != NULL && $auth->interest != NULL) {
 			$interests  = unserialize($auth->interest); 
-			$courses    = Course::wherein('category_id', $interests)->inRandomOrder()->take(8)->get();
+			$courses    = Course::wherein('category_id', $interests)->where('avaliable', 2)->inRandomOrder()->take(8)->get();
 		}
 		$route = Route::getFacadeRoot()->current()->uri();
 
-		$featured_courses1 = $featured_category1->courses()->where('featured', 1)->inRandomOrder()->take(8)->get();
-		$featured_courses2 = $featured_category2->courses()->where('featured', 1)->inRandomOrder()->take(8)->get();
-		$featured_posts = Course::inRandomOrder()->take(8)->get();     
+		$featured_courses1 = $featured_category1->courses()->where('featured', 1)->where('avaliable', 2)->inRandomOrder()->take(8)->get();
+		$featured_courses2 = $featured_category2->courses()->where('featured', 1)->where('avaliable', 2)->inRandomOrder()->take(8)->get();
+		$featured_posts = Course::where('avaliable', 2)->inRandomOrder()->take(8)->get();     
 		return view('home')
 		->with('categories', Category::whereNull('category_id')->whereNotNull('desktop_index')->orderBy('desktop_index', 'ASC')->get())
 		->with('row_limit', 5)

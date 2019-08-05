@@ -19,7 +19,7 @@ class CategoryController extends Controller
         array_push($all_categories, $category->id);
         $all_categories = array_merge($all_categories, $parent_categories);
 
-        $courses = Course::whereIn('category_id', $all_categories)->get();
+        $courses = Course::whereIn('category_id', $all_categories)->where('avaliable',2)->get();
         $route = Route::getFacadeRoot()->current()->uri();
         return view('user.pages.category')
             ->with('category_name', $category->name)

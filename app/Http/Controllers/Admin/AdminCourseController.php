@@ -190,7 +190,6 @@ class AdminCourseController extends Controller
         //Chama o objeto
         $course = Course::find($request->id);
         //Vincula as variaveis 
-        return dd($request);
         $course->name               = $request->name;
         $course->desc               = $request->desc;
         $course->price              = $request->price == null || $request->price == 0.00 ? null : str_replace(',', '.', str_replace('.', '', $request->price));

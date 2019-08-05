@@ -23,7 +23,7 @@
 		?>
         <div class="row">
             @forelse ($courses as $row)
-            @if($row->avaliable == 2 || $course->price != null)
+            @if($row->avaliable == 2 || $row->price != null)
             <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
                 <a href="{{route('course.single', ['urn' => $row->urn])}}">
                     <div class="course-box">
