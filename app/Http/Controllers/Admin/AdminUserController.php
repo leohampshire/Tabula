@@ -124,6 +124,17 @@ class AdminUserController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->back()->with('success', 'Usuário Removido');
-	}
+    }
+    
+    public function password(User $user, Request $request)
+    {
+
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+        ]);
+        $user->password = bcrypt($request->password);
+        $user->save();
+		return redirect()->back()->with('success', "Senha alterada com sucesso do(a) $user->name");
+    }
 
 }

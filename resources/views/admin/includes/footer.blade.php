@@ -257,17 +257,10 @@ function seoValidate()
   });
 // Fim controle do cupom
   $(document).ready(function(){
-    @isset($course)
-    var id = '{{$course->category_id}}';
-    var url = "{{route('admin.course.subcategory')}}";
-    categAjax(url, id);
-    @endisset
-
       $('#categ' ).change(function() {
         var categId = $('#categ option:selected').val();
         categAjax(url, categId);
       });
-    $('#sub_categ').hide();
     $('#category_id' ).change(function() {
       var url = "{{route('admin.course.subcategory')}}";
       var categId = $('#category_id option:selected').val();
@@ -286,6 +279,14 @@ function seoValidate()
         },
         success: function(data){
             var result = $.parseJSON(data);
+            var i = 0;
+            $('#subcategory_id').html('');
+            $('#subcategory_id').append('<option value="" >Selecione..</option>');
+            if (result.length != 0) {
+              for (i =0; i < result.length; ++i){
+                $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
+              }
+            }
         }
       });
     }

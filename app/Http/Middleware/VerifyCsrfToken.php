@@ -17,5 +17,6 @@ class VerifyCsrfToken extends Middleware
         'curso/checked',
         'curso/item',
         'transaction/callback',
+        'social/*'
     ];
 }

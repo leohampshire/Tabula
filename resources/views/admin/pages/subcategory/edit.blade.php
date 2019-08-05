@@ -83,8 +83,20 @@
                     <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{$subcategory->urn}}">
                   </div>
                 </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="meta_title">Meta Title</label>
+                    <input class="form-control" id="meta_title" type="text" name="meta_title" placeholder="Meta Title" value="{{ $subcategory->meta_title }}">
+                  </div>
+                </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="meta_description">Meta Description</label>
+                    <textarea name="meta_description" id="meta_description" rows="6" class="form-control">{{$subcategory->meta_description}}</textarea>
+                  </div>
+                </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
                 <a href="{{route('admin.subcategory.index')}}">
                   <button type="button" class="btn btn-secondary">Voltar</button>
                 </a>

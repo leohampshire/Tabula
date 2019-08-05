@@ -81,10 +81,10 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-xs-12" id="categ">
+                  <div class="col-xs-6" id="categ">
                     <label for="category_id">Categoria</label>
                     <select name="category_id" class="form-control" id="category_id">
-                      <option selected disabled="">SELECIONE...</option>
+                      <option selected disabled="">Selecione...</option>
                       @foreach($categories as $category)
                         @if($category->category_id === NULL)
                         <option value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif>{{$category->name}}</option>
@@ -95,7 +95,7 @@
                   <div class="col-xs-6" id="sub_categ">
                     <label for="subcategory_id">SubCategoria</label>
                     <select name="subcategory_id" class="form-control" id="subcategory_id">
-                      <option selected disabled="">SELECIONE...</option>
+                      <option selected disabled="">Selecione...</option>
                     </select>
                   </div>
                 </div>
@@ -108,7 +108,19 @@
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="requirements">Requisitos para o curso</label>
-                    <textarea name="requirements" placeholder="Requisitos para realizar o curso (opcional)" class="form-control tinyeditor" rows="4">{{ old('requirements') }}</textarea>
+                    <textarea name="requirements"  placeholder="Requisitos para realizar o curso (opcional)" class="form-control tinyeditor" rows="4">{{ old('requirements') }}</textarea>
+                  </div>
+                </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="meta_title">Meta Title</label>
+                    <input class="form-control" id="meta_title" type="text" name="meta_title" placeholder="Meta Title" value="{{ old('meta_title') }}">
+                  </div>
+                </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="meta_description">Meta Description</label>
+                    <textarea name="meta_description" id="meta_description" rows="6" class="form-control">{{old('meta_description')}}</textarea>
                   </div>
                 </div>
                 <div class="form-group  row">

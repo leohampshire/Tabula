@@ -31,6 +31,8 @@ class CreateCoursesTable extends Migration
             $table->string('thumb_img')->nullable();
             $table->string('timeH')->nullable();
             $table->string('timeM')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->longtext('meta_description')->nullable();
             $table->integer('course_type');
             $table->softDeletes();
             $table->timestamps();

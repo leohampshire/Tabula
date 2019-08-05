@@ -75,13 +75,13 @@ class AdminCourseController extends Controller
 
 	public function store(Request $request)
 	{
-
+        return dd($request);
 		$this->validate($request, [
             'name'        => 'required|max:100',
             'desc'        => 'required|max:1500',
             'price'       => 'required',
             'category_id' => 'required',
-            'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
+            'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
             'video'		  => 'mimes:mp4, mkv',
             'requirements'=> 'max:10000'	,
             'timeM'       => 'max:59',
@@ -98,6 +98,8 @@ class AdminCourseController extends Controller
         $course->requirements       = $request->requirements;
         $course->timeH              = $request->timeH;
         $course->timeM              = $request->timeM;
+        $course->meta_title         = $request->meta_title;
+        $course->meta_description   = $request->meta_description;
         $course->total_class        = 0;
         
         $course->urn = $this->urnValidate($request->name);
@@ -163,10 +165,12 @@ class AdminCourseController extends Controller
 	{
 		$course = Course::find($id);
 		$course->price = number_format($course->price, 2, ',', '.');
+        $subcategories = Category::where('category_id', $course->category_id)->get();
 
         $chapters = CourseItemChapter::where('course_id', $id)->get();
 		return view('admin.pages.course.edit')
 		->with('categories', Category::all())
+        ->with('subcategories', $subcategories)
         ->with('chapters', $chapters)
 		->with('course', $course);
 	}
@@ -183,7 +187,7 @@ class AdminCourseController extends Controller
             'category_id' => 'required',
             'timeH'       => 'required',
             'timeM'       => 'max:59',
-            'thumb_img'   => 'mimes:jpeg, png, jpg, bmp',
+            'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
             'video'		  => 'mimes:mp4, mkv'	
         ]);
         $admin = Auth::guard('admin')->check();
@@ -198,6 +202,8 @@ class AdminCourseController extends Controller
         $course->requirements       = $request->requirements;
         $course->timeH              = $request->timeH;
         $course->timeM              = $request->timeM;
+        $course->meta_title         = $request->meta_title;
+        $course->meta_description   = $request->meta_description;
         $course->total_class        = 0;
 		
         

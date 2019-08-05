@@ -25,7 +25,7 @@
                             </div>
                             <div class="course-desc">
                                 <h3>{{$row->name}}</h3>
-                                <p>{{substr($row->desc, 0, 50)}}</p>
+                                <p><?php echo substr($row->desc, 0, 48); ?></p>
                             </div>
                         </div>
                     </a>

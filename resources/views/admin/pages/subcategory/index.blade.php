@@ -91,6 +91,34 @@
 
                 $filters = '&name='.request('name');
                 ?>
+                @if($paginate->lastPage() > 1)
+                  <ul class="pagination pagination-sm no-margin pull-right">
+                      <li class="{{ ($paginate->currentPage() == 1) ? ' disabled' : '' }}">
+                        <a href="{{ $paginate->url(1) . $filters}}">«</a>
+                      </li>
+                      @for($i = 1; $i <= $paginate->lastPage(); $i++)
+                          <?php
+                          $half_total_links = floor($link_limit / 2);
+                          $from = $paginate->currentPage() - $half_total_links;
+                          $to = $paginate->currentPage() + $half_total_links;
+                          if ($paginate->currentPage() < $half_total_links) {
+                             $to += $half_total_links - $paginate->currentPage();
+                          }
+                          if ($paginate->lastPage() - $paginate->currentPage() < $half_total_links) {
+                              $from -= $half_total_links - ($paginate->lastPage() - $paginate->currentPage()) - 1;
+                          }
+                          ?>
+                          @if ($from < $i && $i < $to)
+                              <li class="{{ ($paginate->currentPage() == $i) ? ' active' : '' }}">
+                                  <a href="{{ $paginate->url($i) . $filters}}">{{ $i }}</a>
+                              </li>
+                          @endif
+                      @endfor
+                      <li class="{{ ($paginate->currentPage() == $paginate->lastPage()) ? ' disabled' : '' }}">
+                          <a href="{{ $paginate->url($paginate->lastPage()) . $filters}}">»</a>
+                      </li>
+                  </ul>
+                @endif
               </div>
             </div>
             <div class="box-body table-responsive">
@@ -111,10 +139,10 @@
                       <td>{{$subcategory->category->name}}</td>
                       <td>
                         <a href="{{ route('admin.subcategory.edit', ['id' => $subcategory->id])}}" title="Editar" class="act-list">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.subcategory.delete', ['id' => $subcategory->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>

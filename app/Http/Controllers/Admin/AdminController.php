@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Course;
 use App\UserType;
 use App\State;
+use App\Seo;
 use App\Country;
 use App\Taxa;
 use App\Schooling;
@@ -52,6 +53,7 @@ class AdminController extends Controller
         $auth = Auth::guard('admin')->user();
         $taxa = Taxa::first();
         return view('admin.pages.configuration')
+        ->with('seo', Seo::first())
         ->with('taxa', $taxa)
         ->with('auth', $auth);
     }
@@ -125,5 +127,16 @@ class AdminController extends Controller
         }
         $user->save();
 		return redirect()->back()->with('success', 'Alterado com sucesso');
-	}
+    }
+    
+    public function password(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+            ]);
+        $admin = Auth::guard('admin')->user();
+        $admin->password = bcrypt($request->password);
+        $admin->save();
+		return redirect()->back()->with('success', 'Senha alterada com sucesso');
+    }
 }

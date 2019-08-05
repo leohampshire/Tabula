@@ -47,21 +47,20 @@
                 </div>
 
             </div>
-            <!-- 
+
             <div class="row">
                 <div class="col-sm-offset-4 col-sm-2">
-                    <a href="{{ url('facebook') }}">
+                    <a href="{{ url('social', ['provider' => 'facebook']) }}">
                         <button class="btn-block btn-login-facebook" type="button">
                             <i class="fa fa-facebook" aria-hidden="true"></i> Facebook
                         </button>
                     </a>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn-block btn-login-google" type="button">
-                        <i class="fa fa-google" aria-hidden="true"></i> Google
-                    </button>
+                    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+                    <div id="my-signin2"></div>
                 </div>
-            </div> -->
+            </div>
             <div class="row form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <a href="{{ route('user.register')}}" class="btn-forgot-password">Cadastre-se</a>

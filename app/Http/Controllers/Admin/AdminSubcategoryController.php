@@ -43,6 +43,8 @@ class AdminSubcategoryController extends Controller
         $subcategory->name 			= $request->name;
         $subcategory->urn 			= $request->urn;
         $subcategory->category_id 	= $request->category_id;
+        $subcategory->meta_title = $request->meta_title;
+        $subcategory->meta_description = $request->meta_description;
         $subcategory->save();
         Session::flash('success', 'Subcategoria vinculada com sucesso.');
         return redirect(route('admin.subcategory.index'));
@@ -72,6 +74,8 @@ class AdminSubcategoryController extends Controller
         $subcategory->name 			= $request->name;
         $subcategory->urn 			= $request->urn;
         $subcategory->category_id 	= $request->category_id;
+        $subcategory->meta_title = $request->meta_title;
+        $subcategory->meta_description = $request->meta_description;
         $subcategory->save();
         Session::flash('success', 'Subcategoria editada com sucesso.');
         return redirect()->route('admin.subcategory.index');

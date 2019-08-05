@@ -327,14 +327,26 @@ ul.macro-main li {
 }
 
 .course-box h3 {
-  color: #fff;
-  height: 52px;
+  font-size: 18px;
+  letter-spacing: -1px;
+  overflow-x: hidden;
   overflow-y: hidden;
+  height: 59px;
 }
 
 .course-box p {
-  height: 60px;
   overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.macro-sub--category {
+  list-style: none;
+  padding: 0 0 0 10px;
+  font-weight: 400;
+}
+
+.macro-sub--category li label {
+  font-weight: normal;
 }
 
 .add-course-box {
@@ -429,8 +441,10 @@ ul.macro-main li {
 }
 
 .course-desc {
-  min-height: 135px;
+  min-height: 188px;
   padding: 5px 14px;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .course-thumb img {

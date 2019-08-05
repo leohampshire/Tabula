@@ -81,6 +81,18 @@
                     <input type="text" name="mobile_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('mobile_index')}}">
                   </div>
                 </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="meta_title">Meta Title</label>
+                    <input class="form-control" id="meta_title" type="text" name="meta_title" placeholder="Meta Title" value="{{ old('meta_title') }}">
+                  </div>
+                </div>
+                <div class="form-group  row">
+                  <div class="col-xs-12">
+                    <label for="meta_description">Meta Description</label>
+                    <textarea name="meta_description" id="meta_description" rows="6" class="form-control">{{old('meta_description')}}</textarea>
+                  </div>
+                </div>
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="desktop_hex_bg">Hexágono Desktop</label>

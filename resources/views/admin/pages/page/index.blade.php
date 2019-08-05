@@ -79,7 +79,7 @@
                       <td>{{$page->name}}</td>
                       <td>
                         <a href="{{ route('admin.page.edit', ['id' => $page->id])}}" title="Editar" class="act-list">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>  
                       </td>
                     </tr>

@@ -1,8 +1,8 @@
 @extends('user.templates.default')
 
-@section('title', 'Tabula')
+@section('title', $checked_category->meta_title)
 
-@section('description', 'Descrição')
+@section('description', $checked_category->meta_description)
 
 @section('content')
 
@@ -32,7 +32,7 @@
                         </div>
                         <div class="course-desc">
                             <h3>{{$row->name}}</h3>
-                            <p>{{substr($row->desc, 0, 50)}}</p>
+                            <p><?php echo substr($row->desc, 0, 50) ?></p>
                         </div>
                         <div class="course-value">
                             <span>R$ {{number_format($row->price, 2, ',', '.')}}</span>
