@@ -56,15 +56,6 @@
                                     </tr>
                                     @endforelse
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Código do Cupom</th>
-                                        <th>Tipo Cupom</th>
-                                        <th>Tipo Desconto</th>
-                                        <th>Descrição Cupom</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         <!-- /.box-body -->

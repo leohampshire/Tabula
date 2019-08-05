@@ -48,7 +48,7 @@
             <div class="col-sm-8">
                 <div class="row" id="search-results">
                     @forelse($courses as $course)
-                    @if($course->avaliable == 2)
+                    @if($course->avaliable == 2 || $course->price != null)
                     <a href="{{route('course.single', ['id' => $course->urn])}}">
                         <div class="col-sm-4">
                             <div class="course-box">

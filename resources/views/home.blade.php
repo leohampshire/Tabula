@@ -116,7 +116,7 @@
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 <div class="carousel-courses">
                     @forelse($featured_courses1 as $course)
-                    @if($course->avaliable == 2)
+                    @if($course->avaliable == 2 || $course->price != null)
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
                         <div class="course-box">
                             <div class="course-thumb">
@@ -124,7 +124,7 @@
                             </div>
                             <div class="course-desc">
                                 <h3>{{$course->name}}</h3>
-                                <p>{{substr($course->desc, 0, 50)}}</p>
+                                <p><?php echo substr($course->desc,0,50) ?></p>
                             </div>
                             <div class="course-value">
                                 <span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
@@ -153,7 +153,7 @@
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 <div class="carousel-courses">
                     @forelse($featured_courses2 as $course)
-                    @if($course->avaliable == 2)
+                    @if($course->avaliable == 2 || $course->price != null)
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
                         <div class="course-box">
                             <div class="course-thumb">
@@ -161,7 +161,7 @@
                             </div>
                             <div class="course-desc">
                                 <h3>{{$course->name}}</h3>
-                                <p>{{substr($course->desc, 0, 50)}}</p>
+                                <p><?php echo substr($course->desc,0,50) ?></p>
                             </div>
                             <div class="course-value">
                                 <span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
@@ -191,6 +191,8 @@
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 <div class="carousel-courses">
                     @forelse($courses as $course)
+                    @if($course->avaliable == 2 || $course->price != null)
+
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
                         <div class="course-box">
                             <div class="course-thumb">
@@ -198,13 +200,14 @@
                             </div>
                             <div class="course-desc">
                                 <h3>{{$course->name}}</h3>
-                                <p>{{substr($course->desc, 0, 50)}}</p>
+                                <p><?php echo substr($course->desc,0,50) ?></p>
                             </div>
                             <div class="course-value">
                                 <span>R$ {{number_format($course->price, 2, ',', '.' )}}</span>
                             </div>
                         </div>
                     </a>
+                    @endif
                     @empty
                     @endforelse
                 </div>
