@@ -7,61 +7,71 @@
 @section('content')
 
 <section class="container">
-	<div class="row" >
-		<div class="col-sm-8">
-			<form action="{{route('course.question')}}" method="POST">
-				{{csrf_field()}}
-				<input type="hidden" name="course_id" value="{{$course->id}}">
-				<div class="form-group row">
-					<div class="col-sm-6">
-						<label for="question">FAÇA UMA PERGUNTA</label>
-						<input type="text" name="title" class="form-control" placeholder="Titulo">
-						<textarea class="form-control" name="question" rows="5" placeholder="Pergunta"></textarea>
+	<div class="box-w-shadow">
+		<div class="row">
+			<div class="col-sm-8">
+				<form action="{{route('course.question')}}" method="POST">
+					{{csrf_field()}}
+					<input type="hidden" name="course_id" value="{{$course->id}}">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="question">Faça uma pergunta</label>
+								<input type="text" name="title" class="form-control" placeholder="Titulo">
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" name="question" rows="5" placeholder="Pergunta"></textarea>
+							</div>
+						</div>
 					</div>
-					<div class="col-sm-6">
-						<button type="submit">Enviar</button>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<button type="submit">Enviar</button>
+								<a href="{{route('course.single', ['urn' => $course->urn])}}">
+									<button type="button" class="btn-default">Voltar</button>
+								</a>
+							</div>
+						</div>
 					</div>
-				</div>
-			</form>
-		</div>
-		<div class="col-sm-2">
-			<a href="{{route('course.single', ['urn' => $course->urn])}}">
-				<button type="button" class="btn-info">Voltar</button>
-			</a>
+				</form>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="box-w-shadow">
+	<div class="box-w-shadow">
+		<div class="row">
+			@forelse($course->question as $question)
+				@if($question->answer == '')
+				<div class="col-xs-12">
+					<h2>{{$question->title}}</h2>
+					<p><b><small>{{$question->user->name}}</small></b></p>
+					<p>{{$question->question}}</p>
+						<button type="button" class="btn-primary answers" onclick="seeAnswer({{$question->id}})" style="float: left; border: solid 1px #0b4b82; margin-right: 4px; margin-top: 10px;">VER RESPOSTAS</button>
+						<button type="button" class="btn-primary act-answer" data-course_id="{{$course->id}}" data-answer="{{$question->id}}" style="float: left; border: solid 1px #0b4b82; margin-top: 10px;">RESPONDER</button>
+				</div>
+			</div>
 			<div class="row">
-				@forelse($course->question as $question)
-					@if($question->answer == '')
-					<div class="col-sm-12">
-						<h2>{{$question->title}}</h2>
-						<p><small>{{$question->user->name}}</small></p>
-						<p>{{$question->question}}</p>
-							<button type="button" class="btn-primary answers" onclick="seeAnswer({{$question->id}})" style="float: left; border: solid 1px #0b4b82; margin-right: 4px;">VER RESPOSTAS</button>
-							<button type="button" class="btn-primary act-answer" data-course_id="{{$course->id}}" data-answer="{{$question->id}}" style="float: left; border: solid 1px #0b4b82;">RESPONDER</button>
-					</div>
+				<div class="col-xs-12">
 					<div class="row answer" id="{{$question->id}}">
 						@forelse($question->forums as $answer)
-						<div class="col-sm-12" >
+						<div class="col-xs-12" >
 							<p><b><small>{{$answer->user->name}}</small></b></p>
 							<p>{{$answer->question}}</p>
 						</div>
 						@empty
-						<div class="col-sm-6">
+						<div class="col-xs-12">
 							<p>Ainda sem respostas, sejam o primeiro a responder</p>			
 						</div>
 						@endforelse
 					</div>
-					@endif
-				@empty
-				<div class="col-sm-6">
-					<p>Não Existem perguntas para este curso</p>			
 				</div>
-				@endforelse
-				
+				@endif
+			@empty
+			<div class="col-sm-6">
+				<p>Não Existem perguntas para este curso</p>			
 			</div>
+			@endforelse
+			
 		</div>
 	</div>
 </section>

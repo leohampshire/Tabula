@@ -294,6 +294,42 @@ ul.macro-main li {
   margin: 0;
 }
 
+.row.answer {
+  color: #6f6f6f;
+  margin-top: 10px;
+}
+
+.tag-blog, .tag-blog:hover, .tag-blog:focus {
+  background: #000;
+  color: #fff;
+  display: table;
+  padding: 6px;
+  float: left;
+  margin-right: 6px;
+}
+
+.title-box {
+  margin-bottom: 22px;
+}
+
+iframe {
+  max-width: 100%;
+}
+
+.sidebar-blog ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-blog ul li {
+    margin-top: 12px;
+}
+
+.sidebar-blog a, .sidebar-blog a:hover, .sidebar-blog a:focus {
+  color: #000;
+}
+
 .container-carousel-courses {
 	position: relative;
 	margin-top: 20px;
