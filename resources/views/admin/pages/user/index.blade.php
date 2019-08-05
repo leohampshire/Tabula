@@ -60,13 +60,22 @@
               </div>
               <div class="box-body">
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-sm-4">
                     <label for="name">Nome do Usuário</label>
                     <input type="text" name="name" value="{{request('name')}}" class="form-control">
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-4">
                     <label for="email">E-mail</label>
                     <input type="text" name="email" value="{{request('email')}}" class="form-control">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="user_type_id">Tipo de Usuário</label>
+                    <select name="user_type_id" class="form-control"  id="user_type_id">
+                      <option value="" selected disabled>Selecione..</option>
+                      @foreach($user_type as $type)
+                      <option value="{{$type->id}}" {{$type->id == request('user_type_id') ? "selected" : ""}}>{{$type->name}}</option>
+                      @endforeach
+                    </select>
                   </div>
                   
                 </div>
@@ -94,6 +103,8 @@
                 $link_limit = 7;
 
                 $filters = '&name='.request('name');
+                $filters = '&email='.request('email');
+                $filters = '&user_type_id='.request('user_type_id');
                 ?>
                 @if($paginate->lastPage() > 1)
                   <ul class="pagination pagination-sm no-margin pull-right">

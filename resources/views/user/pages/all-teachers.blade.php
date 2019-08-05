@@ -16,7 +16,7 @@
 		?>
             <div class="row">
                 @forelse ($teachers as $row)
-                @if(count($row->courses) > 0)
+                @if(count($row->courses) > 0 || auth()->guard('admin')->user())
                 <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
                     <a href="{{route('teacher', ['id' => $row->id])}}">
                         <div class="course-box">

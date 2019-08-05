@@ -80,7 +80,7 @@
                 <div class="form-group row box-nome" >
                   <div class="col-xs-12">
                     <label for="urn">URN</label>
-                    <input type="text" name="urn" class="form-control" placeholder="EX.:informatica" id="urn" value="{{$subcategory->urn}}">
+                    <input type="text" name="urn" class="form-control input-urn" placeholder="EX.:informatica" id="urn" value="{{$subcategory->urn}}">
                   </div>
                 </div>
                 <div class="form-group  row">

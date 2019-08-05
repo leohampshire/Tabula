@@ -272,6 +272,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::get('/edit/{id}', 'Admin\AdminBlogController@editPost')->name('edit');
       Route::post('/update', 'Admin\AdminBlogController@updatePost')->name('update');
       Route::get('/delete/{id}', 'Admin\AdminBlogController@deletePost')->name('delete');
+
+      Route::post('/tag/{post}', 'Admin\TagController@findOrCreate')->name('tag');
   });
 
   //PAGINAS ADMIN

@@ -38,7 +38,9 @@
                 <h4>Suporte</h4>
                 <ul>
                     @foreach($pages as $page)
+                    @if($page->id != 2)
                     <li><a href="{{route('page', ['urn'=> $page->urn])}}">{{$page->name}}</a></li>
+                    @endif
                     @endforeach
                 </ul>
             </div>
@@ -291,14 +293,9 @@ $(document).on('click', '.scroll', function(event){
 
 $(document).on("click", '.course-create', function(event) {
     var url = $(this).data('url');
-      var databank = $(this).data('databank');
-      if (databank == "") {
-        $('#bankModal').modal('show');
-      }else{
-        $('.btn-panel-menu').removeClass('btn-active');
-        $(this).find('button').addClass('btn-active');
-        getContent(url);
-    }
+    $('.btn-panel-menu').removeClass('btn-active');
+    $(this).find('button').addClass('btn-active');
+    getContent(url);
 });
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
@@ -550,10 +547,15 @@ $(document).on("click", '.act-delete', function(e) {
   });
   $(document).on("click", '.act-avaliable', function(e) { 
     e.preventDefault();
-    var href = $(this).attr('href');
-    $('#avaliableModal').modal('show').on('click', '#confirm', function() {
-      window.location.href=href;
-    });
+    var databank = $(this).data('databank');
+    if (databank == "") {
+      $('#bankModal').modal('show');
+    }else{
+      var href = $(this).attr('href');
+      $('#avaliableModal').modal('show').on('click', '#confirm', function() {
+        window.location.href=href;
+      });
+    }
   });
 
   $(document).on("click", '.act-student', function(e){
@@ -749,10 +751,7 @@ $(document).ready(function() {
               for (i = 0; i < result.length; ++i){
                   $('#subcategory_id').append('<option value="'+result[i].id+'" >'+result[i].name+'</option>');
               }
-              $('#sub_categ').show();
 
-            }else{
-              $('#sub_categ').hide();
             }
         }
     });
@@ -762,7 +761,7 @@ function categAjax(){
     var url = "{{route('teacher.course.subcategory')}}";
     if (categId == null){
       $('#subcategory_id').html('');
-      $('#sub_categ').hide();
+      $('#subcategory_id').append('<option value="" selected disabled hidden>Escolha</option>');
     }else{
       getCateg(url, categId)
     }

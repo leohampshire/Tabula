@@ -144,7 +144,7 @@
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="urn">URN</label>
-                    <input type="text" name="urn" placeholder="URN" class="form-control" id="urn" value="{{$course->urn}}">
+                    <input type="text" name="urn" placeholder="URN" class="form-control input-urn" id="urn" value="{{$course->urn}}">
                   </div>
                 </div>
                 <div class="form-group row">

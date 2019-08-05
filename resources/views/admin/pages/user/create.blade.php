@@ -125,14 +125,22 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-sm-12 sex">
+                                <div class="col-sm-6sex">
                                     <label for="sex">Sexo: </label>
-                                    <label class="radio-inline"><input type="radio" name="sex"
-                                            @if(old('sex')=='Masculino' ) checked @endif
-                                            value="Masculino">Masculino</label>
-                                    <label class="radio-inline"><input type="radio" name="sex"
-                                            @if(old('sex')=='Feminino' ) checked @endif
-                                            value="Feminino">Feminino</label>
+                                    <div class="form-group">
+                                        <label class="radio-inline"><input type="radio" name="sex"
+                                                @if(old('sex')=='Masculino' ) checked @endif
+                                                value="Masculino">Masculino</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="radio-inline"><input type="radio" name="sex"
+                                                @if(old('sex')=='Feminino' ) checked @endif
+                                                value="Feminino">Feminino</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label for="avatar">Avatar</label>
+                                    <input type="file" name="avatar" id="avatar">
                                 </div>
                             </div>
                             <div class="form-group row">

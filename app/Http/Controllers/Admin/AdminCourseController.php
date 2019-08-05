@@ -75,7 +75,6 @@ class AdminCourseController extends Controller
 
 	public function store(Request $request)
 	{
-        return dd($request);
 		$this->validate($request, [
             'name'        => 'required|max:100',
             'desc'        => 'required|max:1500',

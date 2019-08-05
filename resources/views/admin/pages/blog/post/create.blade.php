@@ -87,7 +87,8 @@
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="meta_description">Meta Description</label>
-                    <input class="form-control" type="text" name="meta_description" placeholder="Definir Description" value="{{ old('meta_description') }}">
+                    <textarea name="meta_description" id="meta_description" class="form-control" rows="6">{{ old('meta_description') }}</textarea>
+
                   </div>
                 </div>
                 <div class="form-group row">
@@ -96,8 +97,8 @@
                     <input class="form-control" type="text" name="keywords" placeholder="Definir KeyWord" value="{{ old('keywords') }}">
                   </div>
                   <div class="col-xs-6">
-                    <label for="urn">URN</label>
-                    <input class="form-control" type="text" name="urn" placeholder="Definir URN" value="{{ old('urn') }}">
+                    <label for="urn ">URN</label>
+                    <input class="form-control input-urn" type="text" name="urn" placeholder="Definir URN" value="{{ old('urn') }}">
                   </div>
                 </div>
                 <div class="form-group row">

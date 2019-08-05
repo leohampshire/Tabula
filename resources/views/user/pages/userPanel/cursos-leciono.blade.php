@@ -35,8 +35,9 @@
                         data-url="{{route('user.course.student', ['id' => $course->id])}}"><span><i
                                 class="fa fa-graduation-cap" aria-hidden="true"></i></span></a>
                     @if($course->avaliable == 1)
-                    <a href="{{route('user.course.avaliable', ['id' => $course->id])}}" title="Disponibilizar Aula"
-                        class="act-avaliable"><span><i class="fa fa-unlock" aria-hidden="true"></i></span></a>
+                    <a href="{{route('user.course.avaliable', ['id' => $course->id])}}"
+                        data-databank="{{$auth->databank}}" title="Disponibilizar Aula" class="act-avaliable"><span><i
+                                class="fa fa-unlock" aria-hidden="true"></i></span></a>
                     @endif
                     @if($auth->company_id != NULL)
                     @if($course->company != 1)

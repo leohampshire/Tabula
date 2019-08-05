@@ -69,7 +69,7 @@
                 <div class="form-group row">
                   <div class="col-xs-12">
                     <label for="urn">URN</label>
-                    <input type="text" name="urn" placeholder="URN" class="form-control" id="urn" value="{{$categBlog->urn}}">
+                    <input type="text" name="urn" placeholder="URN" class="form-control input-urn" id="urn" value="{{$categBlog->urn}}">
                   </div>
                 </div>
                 <div class="form-group  row">
@@ -79,10 +79,11 @@
                   </div>
                 </div>
                 <div class="form-group  row">
-                  <div class="col-xs-12">
-                    <label for="meta_description">Meta Description</label>
-                    <input class="form-control" type="text" name="meta_description" placeholder="Definir Description" value="{{ $categBlog->meta_description}}">
-                  </div>
+                <div class="col-xs-12">
+                                    <label for="meta_description">Meta Description</label>
+                                    <textarea name="meta_description" id="meta_description" rows="7"
+                                        class="form-control">{{ $categBlog->meta_description }}</textarea>
+                                </div>
                 </div>
                 <div class="form-group  row">
                   <div class="col-xs-12">

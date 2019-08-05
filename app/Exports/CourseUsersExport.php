@@ -23,8 +23,6 @@ class CourseUsersExport implements FromArray, WithHeadings
         
         $export = [];
         foreach ($this->cUsers as $cUser) {
-
-            
     		$excel['ALUNO'] 	= $cUser['userName'];
     		$excel['CURSO'] 	= $cUser['courseName'];
             $excel['PROGRESSO']	= $cUser['progress'];

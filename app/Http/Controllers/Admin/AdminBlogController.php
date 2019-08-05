@@ -41,7 +41,7 @@ class AdminBlogController extends Controller
 
         $categBlog->name 				= $request->name;
         $categBlog->meta_title 			= $request->meta_title;
-        $categBlog->urn 	 			= $request->urn;
+        $categBlog->urn 	 			= strtolower ($request->urn);
         $categBlog->meta_description 	= $request->meta_description;
         $categBlog->keyword 			= $request->keyword;
         $categBlog->save();
@@ -107,8 +107,7 @@ class AdminBlogController extends Controller
 	public function storePost(Request $request)
 	{
 		$this->validate($request, [
-            'name' 				=> 'required|unique:blog_posts',		
-            'meta_title' 		=> 'required',
+            'name' 				=> 'required',		
             'category_id'		=> 'required',
             'content'			=> 'required',
             'urn'				=> 'required|unique:blog_posts',
@@ -121,7 +120,7 @@ class AdminBlogController extends Controller
 		$post->meta_description = $request->meta_description;
 		$post->keywords			= $request->keywords;
 		$post->content 			= $request->content;
-		$post->urn 				= $request->urn;
+		$post->urn 				= strtolower($request->urn);
 		$post->user_id 			= $auth->id;
 		$post->category_id 		= $request->category_id;
 		if($request->cover != ''){
@@ -151,7 +150,6 @@ class AdminBlogController extends Controller
                 'required',
                 Rule::unique('blog_posts')->ignore($request->id)
             ],	
-            'meta_title' 	=> 'required',
             'category_id'	=> 'required',
             'content'		=> 'required',
             'cover'		 		=> 'mimes:jpg,png,jpeg',

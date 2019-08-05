@@ -28,7 +28,7 @@
                         ministrados. A Saint Paul Escola de Negócios está dividida em quatro grandes áreas: cursos
                         abertos, cursos in company, pós-graduação, e consultoria educacional.
                     </p>
-                    <p>[Ir para o site]</p>
+                    <p> <a href="http://www.saintpaul.com.br/default.aspx" target="_blank"> [Ir para o site]</a></p>
                 </div>
             </div>
             <div class="row">
@@ -47,7 +47,7 @@
                         gerenciais, a UBS Escola de Negócios propõe ao mercado um novo conceito em escola de negócios,
                         oferecendo programas personalizados e com o fomento da troca de ideia.
                     </p>
-                    <p>[Ir para o site]</p>
+                    <p><a href="http://ubs.edu.br/academia-de-varejo" target="_blank"> [Ir para o site]</a></p>
                 </div>
             </div>
             <div class="row">
@@ -65,7 +65,7 @@
                         promovendo relacionamento profissional e social aos executivos que atuam – direta e
                         indiretamente – no mercado de varejo e consumo no Brasil”.
                     </p>
-                    <p>[Ir para o site]</p>
+                    <p> <a href="https://www.ibevar.org.br/" target="_blank">[Ir para o site]</a></p>
                 </div>
             </div>
         </div>
