@@ -116,7 +116,7 @@
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 <div class="carousel-courses">
                     @forelse($featured_courses1 as $course)
-                    @if($course->avaliable == 2)
+                    @if($course->avaliable == 2 || $course->price != null)
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
                         <div class="course-box">
                             <div class="course-thumb">
@@ -153,7 +153,7 @@
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 <div class="carousel-courses">
                     @forelse($featured_courses2 as $course)
-                    @if($course->avaliable == 2)
+                    @if($course->avaliable == 2 || $course->price != null)
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
                         <div class="course-box">
                             <div class="course-thumb">
@@ -191,6 +191,8 @@
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 <div class="carousel-courses">
                     @forelse($courses as $course)
+                    @if($course->avaliable == 2 || $course->price != null)
+
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
                         <div class="course-box">
                             <div class="course-thumb">
@@ -205,6 +207,7 @@
                             </div>
                         </div>
                     </a>
+                    @endif
                     @empty
                     @endforelse
                 </div>

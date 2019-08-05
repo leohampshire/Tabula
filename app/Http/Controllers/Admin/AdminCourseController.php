@@ -84,13 +84,12 @@ class AdminCourseController extends Controller
             'requirements'=> 'max:10000'	,
             'timeM'       => 'max:59',
         ]);
-
         //Chama o objeto
         $course = new Course();
         //Vincula as variaveis 
         $course->name               = $request->name;
         $course->desc               = $request->desc;
-        $course->price              = str_replace(',', '.', str_replace('.', '', $request->price));
+        $course->price              = $request->price == null ? null : str_replace(',', '.', str_replace('.', '', $request->price));
         $course->category_id        = $request->category_id;
         $course->subcategory_id     = $request->subcategory_id;
         $course->requirements       = $request->requirements;
@@ -191,9 +190,10 @@ class AdminCourseController extends Controller
         //Chama o objeto
         $course = Course::find($request->id);
         //Vincula as variaveis 
+        return dd($request);
         $course->name               = $request->name;
         $course->desc               = $request->desc;
-        $course->price              = str_replace(',', '.', str_replace('.', '', $request->price));
+        $course->price              = $request->price == null || $request->price == 0 ? null : str_replace(',', '.', str_replace('.', '', $request->price));
         $course->category_id        = $request->category_id;
         $course->subcategory_id     = $request->subcategory_id;
         $course->requirements       = $request->requirements;
