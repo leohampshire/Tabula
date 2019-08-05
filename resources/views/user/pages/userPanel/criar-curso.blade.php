@@ -39,6 +39,16 @@
                 </div>
             </div>
         </div>
+        @if(Auth::guard('user')->user()->user_type_id == 5)
+        <div class="row">
+            <div class="col-xs-12">
+                <label class="form-check" style="font-weight: 400; margin: 8px 0 18px;">
+                    <input type="checkbox" class="form-check-input input-check-private" value="1">
+                    Curso privado e não disponível para venda no site
+                </label>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-sm-4" id="categ">
                 <div class="form-group">
@@ -62,7 +72,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-4">
+            <div class="col-xs-6 col-sm-4 box-price">
                 <div class="form-group">
                     <label for="price">Preço</label>
                     <input name="price" value="{{ old('price') }}" type="text" onclick="ajaxMoney()"
@@ -103,3 +113,15 @@
         </div>
     </form>
 </div>
+
+
+<script type="text/javascript">
+    $('body').on('change', '.input-check-private', function(){
+        if($(this).prop('checked')){
+            $('input[name="price"]').val('');
+            $('.box-price').css( "display", "none" );
+        } else {
+            $('.box-price').css( "display", "block" );
+        }
+    });
+</script>

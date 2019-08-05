@@ -32,6 +32,10 @@ input:focus, select:focus, textarea:focus, button:focus {
 	outline: none;
 }
 
+.d-none {
+  display: none;
+}
+
 img {
   max-width: 100%;
 }

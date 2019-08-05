@@ -81,6 +81,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
+@yield('scripts')
+
 <script type="text/javascript">
 
 $('.carousel-courses').slick({
@@ -324,7 +326,7 @@ function signOut() {
     $('.teach').on('click', function(){
       var url = $(this).data('url');
       var databank = $(this).data('databank');
-      if (databank == "") {
+      if (databank != "") {
         $('#bankModal').modal('show');
       }else{
         $('.btn-panel-menu').removeClass('btn-active');
@@ -875,4 +877,3 @@ $('.input-date').datepicker({
   });
 //Fim mascaras
 </script>
-@yield('scripts')

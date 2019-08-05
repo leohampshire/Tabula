@@ -104,20 +104,29 @@
                 </div>
             </div>
         </div>
+        @if(Auth::guard('user')->user()->user_type_id == 5)
+        <div class="row">
+            <div class="col-xs-12">
+                <label class="form-check" style="font-weight: 400; margin: 8px 0 18px;">
+                    <input type="checkbox" class="form-check-input input-check-private" @if($course->price == '0,00') checked @endif value="1">
+                    Curso privado e não disponível para venda no site
+                </label>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-sm-4" id="categ">
                 <div class="form-group">
                     <label for="category_id">Categoria</label>
-                    <select name="category_id" class="form-control">
-                <select name="category_id" class="form-control" id="category_id" onchange="categAjax()">
-                    <option value="" selected disabled hidden>Escolha</option>
-                    @foreach($categories as $category)
-                    @if($category->category_id === NULL)
-                    <option value="{{$category->id}}" @if($category->id == $course->category_id) selected
-                        @endif>{{$category->name}}</option>
-                    @endif
-                    @endforeach
-                </select>
+                    <select name="category_id" class="form-control" id="category_id" onchange="categAjax()">
+                        <option value="" selected disabled hidden>Escolha</option>
+                        @foreach($categories as $category)
+                        @if($category->category_id === NULL)
+                        <option value="{{$category->id}}" @if($category->id == $course->category_id) selected
+                            @endif>{{$category->name}}</option>
+                        @endif
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-sm-4" id="sub_categ">
@@ -128,7 +137,11 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-4">
+            @php($classPrice = '')
+            @if(Auth::guard('user')->user()->user_type_id == 5 && $course->price == '0,00')
+                @php($classPrice = 'd-none')
+            @endif
+            <div class="col-xs-6 col-sm-4 box-price {{$classPrice}}">
                 <div class="form-group">
                     <label for="price">Preço</label>
                     <input name="price" onclick="ajaxMoney()" value="{{ $course->price }}" type="text" class="form-control input-money" placeholder="Preço">
@@ -168,3 +181,14 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $('body').on('change', '.input-check-private', function(){
+        if($(this).prop('checked')){
+            $('input[name="price"]').val('');
+            $('.box-price').css( "display", "none" );
+        } else {
+            $('.box-price').css( "display", "block" );
+        }
+    });
+</script>
