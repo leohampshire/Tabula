@@ -26,7 +26,7 @@
                 <!-- Left col -->
                 <section class="col-sm-12">
                     <div class="alert alert-danger"  style="margin-bottom: 0; margin-top: 25px; ">
-                        Para que o seu curso fique disponível para compra, cadastre uma conta bancária, <a href="#" class="course-create" data-databank=""> clicando aqui</a> 
+                        Para que o seu curso fique disponível para compra, cadastre uma conta bancária, <a href="#" class="data-bank" onclick="getDataBank();"> clicando aqui</a> 
                     </div>
                 </section>
             </div>
