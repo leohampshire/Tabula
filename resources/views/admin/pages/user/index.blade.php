@@ -156,7 +156,7 @@
                         <a href="{{ route('admin.user.edit', ['user' => $user->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
-                        <a href="#" title="Alterar Senha" class="act-list act-password">
+                        <a href="#" title="Alterar Senha" class="act-list act-password" data-user_id="{{$user->id}}">
                           <i class="fa fa-key" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.user.delete',  ['id' => $user->id])}}" title="Excluir" class="act-list act-delete">
@@ -204,7 +204,8 @@
                 </button>
                 <h4 class="modal-title">Alterar Senha</h4>
             </div>
-            <form method="POST" action="{{ route('admin.user.password', ['id' => $user->id])}}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.user.password')}}" enctype="multipart/form-data">
+            <input type="hidden" name="user_id">
                 <div class="modal-body">
                     {{csrf_field()}}
                     <div class="box-body">
@@ -239,6 +240,9 @@
 <script type="text/javascript">
 $('.act-password').on('click', function(e) {
     e.preventDefault();
+    var user_id = $(this).data('user_id');
+    $('#passwordModal form input[name="user_id"]').val(user_id);
+
     $('#passwordModal').modal('show');
 
 })

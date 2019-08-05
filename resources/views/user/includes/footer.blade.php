@@ -332,8 +332,7 @@ function signOut() {
         $('.btn-panel-menu').removeClass('btn-active');
         $(this).find('button').addClass('btn-active');
         getContent(url);
-    }
-     
+    }    
     });
 
     $('.notification').on('click', function(){
@@ -343,7 +342,9 @@ function signOut() {
     getContent(url);
 });
 
-
+function getDataBank(){
+  $('#bankModal').modal('show');
+}
 
 $(document).on("click", '.course-create', function(event) {
     var url = $(this).data('url');
