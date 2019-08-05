@@ -30,7 +30,7 @@
                     <p>{{$course->author->name}}</p>
 
                     <h4>Descrição</h4>
-                    <p><?php echo $course->desc ?></p>
+                    <p><?php echo substr($course->desc,0,50) ?></p>
                     <br>
                     @if($hasCourse && $auth->expired($course->id) >= date('Y-m-d'))
                     <a href="{{route('course.class', ['id' => $course->id])}}">

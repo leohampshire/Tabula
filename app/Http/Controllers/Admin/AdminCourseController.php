@@ -78,7 +78,6 @@ class AdminCourseController extends Controller
 		$this->validate($request, [
             'name'        => 'required|max:100',
             'desc'        => 'required|max:1500',
-            'price'       => 'required',
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
             'video'		  => 'mimes:mp4, mkv',
@@ -179,7 +178,6 @@ class AdminCourseController extends Controller
 		$this->validate($request, [
             'name'        => 'required|max:100',
             'desc'        => 'required|max:1500',
-            'price'       => 'required',
             'urn'  		  => [
                 Rule::unique('courses')->ignore($request->id)
             ],
