@@ -6,13 +6,12 @@
 
 @section('content')
 
-<section id="teacher-questions">
+<section id="post-blog">
     <div class="container">
         <div class="box-w-shadow">
             <div class="row">
                 <div class="col-sm-12">
-                    <img height="200px" style="width: 100%; object-fit: cover;"
-                        src="{{asset('uploads/archives')}}/{{$post->cover}}">
+                    <img id="post-blog-img" src="{{asset('uploads/archives')}}/{{$post->cover}}">
                 </div>
             </div>
         </div>

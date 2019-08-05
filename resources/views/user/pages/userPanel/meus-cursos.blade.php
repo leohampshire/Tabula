@@ -17,7 +17,7 @@
                     </div>
                     <div class="course-desc">
                         <h3>{{$myCourse->name}}</h3>
-                        <p>{{substr($myCourse->desc, 0, 30)}}</p>
+                        <p><?php echo substr($myCourse->desc, 0, 30); ?></p>
                     </div>
                     <div class="course-access">
                         <span>ACESSAR</span>

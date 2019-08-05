@@ -68,6 +68,14 @@ button[type="submit"].btn-search {
   background: #ccc;
 }
 
+.pagarme-checkout-btn {
+  background: #000;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  width: 100%;
+}
+
 
 .btn-forgot-password {
   display: table;
@@ -282,6 +290,10 @@ ul.macro-main li {
   margin: 25px 0 0;
 }
 
+.box-w-shadow p {
+  margin: 0;
+}
+
 .container-carousel-courses {
 	position: relative;
 	margin-top: 20px;
@@ -339,10 +351,23 @@ ul.macro-main li {
   overflow-x: hidden;
 }
 
+#posts .course-box h3 {
+  overflow-y: unset;
+  overflow-x: unset;
+  height: auto;
+}
+
+#post-blog-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
 .macro-sub--category {
   list-style: none;
   padding: 0 0 0 10px;
   font-weight: 400;
+  display: none;
 }
 
 .macro-sub--category li label {
