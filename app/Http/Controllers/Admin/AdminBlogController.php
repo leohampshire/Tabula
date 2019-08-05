@@ -171,9 +171,14 @@ class AdminBlogController extends Controller
 		return redirect()->back()
         ->with('success', 'Post do blog editado com sucesso');
 	}
-	public function deletePost($id)
+	public function deletePost(BlogPost $post)
 	{
-
+		PostTag::where('post_id', $post->id)->delete();
+		$post->comments->delete();
+		$post->delete();
+		
+		return redirect()->back()
+        ->with('success', 'Post Removido');
 	}
 
 	public function thumbImgValidate(Request $request)

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{BlogCategory,BlogComment,BlogPost};
+use App\{BlogCategory,BlogComment,BlogPost, Tag};
 
 class BlogController extends Controller
 {
@@ -33,5 +33,23 @@ class BlogController extends Controller
 	{
 		$post = BlogPost::where('urn', $urn)->first();
 		return view('user.pages.blog.single')->with('post', $post);
-	}
+    }
+
+    public function comment(Request $request)
+    {
+        $request->validate([
+            'content' => 'required',
+            'user_id' => 'required',
+            'post_id' => 'required',
+        ]);
+        BlogComment::create($request->all());
+        return redirect()->back()
+        ->with('success', 'Obrigado pelo comentário');
+    }
+    
+    public function tag($slug)
+    {
+        $tag = Tag::where('slug', $slug)->first();
+        return view('user.pages.blog.tag')->with('tag', $tag);
+    }
 }

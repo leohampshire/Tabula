@@ -112,7 +112,7 @@
                         <a href="{{ route('admin.post.blog.edit', ['id' => $post->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ route('admin.post.blog.delete', ['id' => $post->id])}}" title="Excluir" class="act-list act-delete">
+                        <a href="{{ route('admin.post.blog.delete', ['post' => $post->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
