@@ -254,7 +254,7 @@ function onFailure(error) {
 }
 function renderButton() {
   gapi.signin2.render('my-signin2', {
-    'longtitle': true,
+    'longtitle': false,
     'theme': 'dark',
     'onsuccess': onSuccess,
     'onfailure': onFailure

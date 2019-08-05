@@ -47,8 +47,8 @@ return [
     
 
     'pagarme' => [
-        'api_key' => 'ak_test_nw5MJ9qcAh7Y3HDyVKgl0rpcjObDvi',
-        'encryption_key' =>'ek_test_PP6Jee727xq2wgIvyV0gQ24OrruAQl',
+        'api_key' => 'ak_live_VJinHgDzqz8wMhCZCjSrNEdL0s9e86',
+        'encryption_key' =>'ek_live_KiNc4gMdgtmKizLJV7D3zk1c2etYIk',
         'recipient_id' => 're_cjtk7atzv08pfha6eo3ob690p',
     ],
 

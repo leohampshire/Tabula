@@ -193,7 +193,7 @@ class AdminCourseController extends Controller
         return dd($request);
         $course->name               = $request->name;
         $course->desc               = $request->desc;
-        $course->price              = $request->price == null || $request->price == 0 ? null : str_replace(',', '.', str_replace('.', '', $request->price));
+        $course->price              = $request->price == null || $request->price == 0.00 ? null : str_replace(',', '.', str_replace('.', '', $request->price));
         $course->category_id        = $request->category_id;
         $course->subcategory_id     = $request->subcategory_id;
         $course->requirements       = $request->requirements;

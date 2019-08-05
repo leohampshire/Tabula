@@ -89,10 +89,6 @@ button.btn-login-facebook {
   background: #3b5998;
 }
 
-button.btn-login-google {
-  margin-top: 8px;
-  background: #f14336;
-}
 
 button.btn-login-facebook i,
 button.btn-login-facebook i {
@@ -933,6 +929,27 @@ label.interest-label input{
 .box-button-panel a button {
   padding: 10px 10px;
   white-space: nowrap;
+}
+
+#my-signin2 {
+  display: inline-block;
+  background: white;
+  width: 100%;
+  margin-top: 8px;
+  white-space: nowrap;
+}
+.abcRioButton {
+  box-shadow: none !important;
+}
+.abcRioButton.abcRioButtonBlue {
+  width: 100% !important;
+  height: 40px !important;
+}
+.abcRioButtonIcon {
+  padding: 10px !important;
+}
+.abcRioButtonContents {
+  line-height: 38px !important;
 }
 
 /* HEXS MACROTEMAS */
