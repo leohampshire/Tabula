@@ -30,7 +30,7 @@
   <!-- select2 -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-  <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/style.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/style.css')}}?ver=2.0.0">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

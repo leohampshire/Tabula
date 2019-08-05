@@ -99,7 +99,15 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group  row">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <label class="form-check" style="font-weight: 400; margin: 8px 0 18px;">
+                      <input type="checkbox" class="form-check-input input-check-private" value="1">
+                      Curso privado e não disponível para venda no site
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group  row box-price">
                   <div class="col-xs-12">
                     <label for="price">Preço</label>
                     <input class="form-control input-money" type="text" name="price" placeholder="Definir Preço do Curso" value="{{ old('price') }}">
@@ -154,3 +162,16 @@
   </div>
 
 @stop
+
+@section('scripts')
+<script type="text/javascript">
+  $('.input-check-private').change( function(){
+    if($(this).prop('checked')){
+      $('input[name="price"]').val('');
+      $('.box-price').css( "display", "none" );
+    } else {
+      $('.box-price').css( "display", "block" );
+    }
+  });
+</script>
+@endsection
