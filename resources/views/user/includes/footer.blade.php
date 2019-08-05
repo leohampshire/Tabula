@@ -80,6 +80,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 <script type="text/javascript">
 
 $('.carousel-courses').slick({
@@ -131,14 +132,14 @@ $(document).on('click', '.scroll', function(event){
         }, 800);
     }
 });
-  function states()
-  {
+  function states(){
     if($('#country').val() == 1){
         $('.state').slideDown();
       }else{
         $('.state').slideUp();
      }
-   }
+  }
+
  $(document).ready(function(){
   // a cada click em qualquer checkbox ou no botao de procurar
   $('input[name="macrotema"], input[name="subtema"], #search_btn').click(function(){
@@ -215,6 +216,57 @@ $(document).on('click', '.scroll', function(event){
     });
     });
 });
+
+function onSuccess(googleUser) {
+  console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+  var profile = googleUser.getBasicProfile();
+  var id = profile.getId();
+  var name = profile.getName();
+  var image = profile.getImageUrl();
+  var email = profile.getEmail();
+  var userToken = googleUser.getAuthResponse().id_token;
+  if(name !== ''){
+    var data = {
+      profile:profile,
+      id:id,
+      name:name,
+      image:image,
+      email:email,
+      userToken:userToken          
+    }
+    var requestData = JSON.stringify(data);
+      $.ajax({
+      type: "POST",
+      cache: false,
+      data: {data:requestData},
+      url: "{{url('social/google/ajax')}}",
+      beforeSend: function() {},
+      success: function(response){
+        if(response == 'sucesso'){
+            window.location.href="{{route('cart.session')}}";
+        }
+      }
+    }); 
+  }
+}
+function onFailure(error) {
+  console.log(error);
+}
+function renderButton() {
+  gapi.signin2.render('my-signin2', {
+    'longtitle': true,
+    'theme': 'dark',
+    'onsuccess': onSuccess,
+    'onfailure': onFailure
+  });
+}
+function signOut() {
+  window.location.href="{{route('user.logout')}}";
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    window.location.href="{{route('user.logout')}}";
+  });
+};
 
   
   $('.state').hide();
