@@ -1,5 +1,5 @@
 <?php
-use App\{Course,CourseItemChapter, CourseUser};
+use App\{Course,CourseItemChapter, CourseUser, Company};
 use App\CourseItem;
 use Illuminate\Http\Request;
 function fileGenerate(Request $request)
@@ -223,4 +223,10 @@ function generateSlug(String $name)
     $urn = strtolower(trim($urn, '-'));
     $urn = preg_replace("/[\/_| -]+/", '-', $urn);
     return $urn;
+}
+function generateCompany($company_id)
+{
+    Company::create([
+        'user_id' => $company_id,
+    ]);
 }

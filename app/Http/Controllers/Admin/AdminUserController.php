@@ -10,6 +10,7 @@ use App\State;
 use App\Country;
 use App\Schooling;
 use App\UserType;
+use App\Company;
 use App\Admin;
 
 class AdminUserController extends Controller
@@ -41,7 +42,7 @@ class AdminUserController extends Controller
 	}
 	public function create()
 	{
-        $userTypes = UserType::whereIn('id', [3,4])->get();
+        $userTypes = UserType::where('id', '>', '2')->get();
 		return view('admin.pages.user.create')
 		->with('states', State::all())
         ->with('countries', Country::all())
@@ -78,6 +79,9 @@ class AdminUserController extends Controller
         $user->youtube      = $request->youtube;
         $user->email        = $request->email;
         $user->save();
+        if($request->user_type_id == 5){
+            generateCompany($user->id);
+        }
 
         return redirect(route('admin.user.index'))->with('success', 'Usuário Criado com sucesso');
 	}
@@ -105,7 +109,12 @@ class AdminUserController extends Controller
         ]);
        
 		$user = User::find($request->id);
-
+        if($user->user_type_id == 5 && $request->user_type_id != 5){
+            Company::where('user_id', $user->id)->delete();
+        }
+        if($user->user_type_id != 5 && $request->user_type_id == 5){
+            generateCompany($user->id);
+        }
         $user->name         = $request->name;
         $user->user_type_id = $request->user_type_id;
         $user->sex          = $request->sex;
@@ -174,7 +183,5 @@ class AdminUserController extends Controller
             $arq_img_name      = 'default.png';
         }
         return $arq_img_name;  
- 
     }
-
 }

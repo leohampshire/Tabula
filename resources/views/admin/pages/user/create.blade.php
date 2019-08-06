@@ -125,7 +125,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-sm-6sex">
+                                <div class="col-sm-6 sex">
                                     <label for="sex">Sexo: </label>
                                     <div class="form-group">
                                         <label class="radio-inline"><input type="radio" name="sex"

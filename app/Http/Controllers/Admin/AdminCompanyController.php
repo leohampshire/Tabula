@@ -31,11 +31,17 @@ class AdminCompanyController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|unique:users',
+            'email' => 'required',
             'country_id' => 'required',
             'password' => 'required|',
         ]);
-        $company = new User;
+        $user = User::where('email', $request->email)->first();
+        if(!$user){
+            $company = new User;
+        }else{
+            $company = $user;
+        }
+        
 
         $company->name = $request->name;
         $company->email = $request->email;
@@ -51,10 +57,12 @@ class AdminCompanyController extends Controller
         $company->password = bcrypt($request->password);
 
         $company->save();
-        Company::create([
+        if(!$company->company){
+            Company::create([
             'user_id' => $company->id,
-        ]);
-
+            ]);
+        }
+                
         return redirect(route('admin.company.index'))->with('success', 'Empresa criada com sucesso');
     }
 
