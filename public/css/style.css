@@ -934,7 +934,12 @@ label.interest-label input{
   padding: 10px 10px;
   white-space: nowrap;
 }
-
+.container-carousel-courses{
+  display: none;
+}
+.img-load{
+  display: block;
+}
 #my-signin2 {
   display: inline-block;
   background: white;

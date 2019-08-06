@@ -71,6 +71,15 @@ class HomeController extends Controller
 	public function allTeachers()
 	{
 		$teachers = User::where('user_type_id', 4)->get();
+		if(!Auth::guard('admin')->user()){
+			$filtered = $teachers->filter(function ($teacher, $key) {
+				$courses = $teacher->courses()->where('avaliable', 2)->count();
+				if($courses > 0){
+					return $teacher;
+				}
+			});
+			$teachers = $filtered->all();			
+		}
 		return view('user.pages.all-teachers')
 		->with('teachers', $teachers);
 	}
