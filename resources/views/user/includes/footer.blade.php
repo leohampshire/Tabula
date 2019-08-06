@@ -276,10 +276,6 @@ function signOut() {
   $(document).on("change", '#country', function(event){
     states();
   });
-  $(window).load(function(){
-    $('.container-carousel-courses').css('display','block');
-    $('.img-load').css('display','none');
-  });
   $(document).ready( function(){
 
     url = window.location.href;

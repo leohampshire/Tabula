@@ -529,6 +529,7 @@ iframe {
 
 .course-access {
   display: flex;
+  border: 1px solid #5fd22f;
 }
 
 .course-access a {
@@ -933,12 +934,6 @@ label.interest-label input{
 .box-button-panel a button {
   padding: 10px 10px;
   white-space: nowrap;
-}
-.container-carousel-courses{
-  display: none;
-}
-.img-load{
-  display: block;
 }
 #my-signin2 {
   display: inline-block;

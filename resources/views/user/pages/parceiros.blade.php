@@ -52,7 +52,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <img src="{{asset('images/img/logo-IBEVAR.jpg')}}" alt="">
+                    <img src="{{asset('images/img/logo-ibevar.jpg')}}" alt="">
                 </div>
                 <div class="col-xs-8">
                     <h4>IBEVAR</h4>

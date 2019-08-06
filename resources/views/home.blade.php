@@ -186,9 +186,7 @@
     <div class="container">
         <div class="box-w-shadow">
             <h2>Cursos recomendados</h2>
-            <div class="img-load">
-                <img src="{{asset('images/img/load.gif')}}" alt="Carregando..">
-            </div>
+           
             <div class="container-carousel-courses">
                 <button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>

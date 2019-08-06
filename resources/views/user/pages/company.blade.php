@@ -14,7 +14,7 @@
                     <img class="img-profile-company"
                         src="{{asset('images/profile')}}/{{$company->avatar}}">
                     <img style="width: 100%; height: 280px; object-fit: cover;"
-                        src="{{asset('images/cover')}}/{{$company->company->cover}}">
+                        src="{{asset('images/cover')}}/{{$company->cover}}">
                 </div>
                 <div class="col-sm-12">
                     <nav class="navbar navbar-light bg-light " style="float: right;">
@@ -29,7 +29,7 @@
                     <h1>Sobre {{$company->name}}</h1>
                 </div>
                 <div class="col-sm-12">
-                    <p>{{$company->company->about}}</p>
+                    <p>{{$company->about}}</p>
                 </div>
             </div>
             <hr id="courses">
@@ -71,7 +71,7 @@
                 </div>
                 @endforelse
 
-                @forelse ($company->company->teachers as $teachers)
+                @forelse ($company->company()->teachers as $teachers)
                 @foreach($teachers->courses as $row)
                 @if($row->company != NULL)
                 <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
@@ -114,7 +114,7 @@
                 <div class="col-sm-12">
                     <h1>Professores {{$company->name}}</h1>
                 </div>
-                @forelse ($company->company->teachers as $row)
+                @forelse ($company->company()->teachers as $row)
                 <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
                     <a href="{{route('teacher', ['id' => $row->id])}}">
                         <div class="course-box">
