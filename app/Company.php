@@ -13,7 +13,6 @@ class Company extends Authenticatable
         'mission', 'user_id', 'cover',
     ];
 
- 
     public function teachers()
     {
     	return $this->hasMany('App\User');

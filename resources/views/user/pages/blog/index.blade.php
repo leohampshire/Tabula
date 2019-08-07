@@ -45,14 +45,18 @@
                 @endforelse
             </div>
             <div class="col-sm-4">
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="box-w-shadow">
-                            <a href="{{route('blog.index')}}">Limpar</a>
+                            <!--
+                             <a href="{{route('blog.index')}}">Limpar</a>
+                            -->
                             <div class="title-box">
                                 <h4><i class="fa fa-list" aria-hidden="true"></i> Categorias</h4>
                             </div>
-                            <div class="content-sidebar">
+                            <div class="content-sidebar sidebar-blog">
+
                                 @forelse($categories as $category)
                                 <ul>
                                     <a href="{{route('blog.category', ['urn' => $category->urn])}}">
