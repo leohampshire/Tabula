@@ -71,7 +71,7 @@
                 </div>
                 @endforelse
 
-                @forelse ($company->company()->teachers as $teachers)
+                @forelse ($company->company->teachers as $teachers)
                 @foreach($teachers->courses as $row)
                 @if($row->company != NULL)
                 <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
@@ -114,7 +114,7 @@
                 <div class="col-sm-12">
                     <h1>Professores {{$company->name}}</h1>
                 </div>
-                @forelse ($company->company()->teachers as $row)
+                @forelse ($company->company->teachers as $row)
                 <div class="col-sm-<?php echo $bootstrapColWidth; ?>">
                     <a href="{{route('teacher', ['id' => $row->id])}}">
                         <div class="course-box">

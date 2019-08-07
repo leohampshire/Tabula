@@ -101,7 +101,6 @@ class HomeController extends Controller
 	public function company($id)
 	{
 		$company = User::find($id);
-		return dd($company->company);
 		return view('user.pages.company')
 		->with('company', $company);
 	}
