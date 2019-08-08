@@ -93,7 +93,9 @@ class AdminBlogController extends Controller
 
 	public function indexPost(Request $request)
 	{
-		$posts = BlogPost::all();
+        $posts = new BlogPost;
+
+        $posts = $posts->orderBy('name', 'asc')->paginate(10);
 		return view('admin.pages.blog.post.index')->with('posts', $posts);
 	}
 	public function createPost()
