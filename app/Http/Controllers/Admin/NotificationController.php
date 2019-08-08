@@ -52,4 +52,11 @@ class NotificationController extends Controller
 		$notification->save();
 		return view('admin.pages.notification.show')->with('notification', $notification);
 	}
+
+	public function delete(Notification $notification)
+	{
+		$notification->delete();
+		return redirect()->back()
+		->with('success', 'Notificação removida');
+	}
 }

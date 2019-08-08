@@ -63,6 +63,7 @@
                                     <th>Tipo de Notificação</th>
                                     <th>Descrição</th>
                                     <th>Data</th>
+                                    <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,6 +72,11 @@
                                     <td>{{$notification->type_notification}}</td>
                                     <td>{{$notification->desc_notification}}</td>
                                     <td>{{date("d/m/Y", strtotime($notification->created_at))}}</td>
+                                    <td>
+                                        <a href="{{route('admin.notification.delete', ['notification' => $notification])}}" title="Deletar" class="act-list act-delete">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>

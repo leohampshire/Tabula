@@ -64,7 +64,7 @@ class UserController extends Controller
             $notification->status = 2;
             $notification->save();
         }
-        return view('user.pages.UserPanel.notificacoes')
+        return view('user.pages.userPanel.notificacoes')
         ->with('notifications', $notifications);
     }
 

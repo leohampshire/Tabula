@@ -939,16 +939,21 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Lorem ipsum dolor</h4>
+                <h4 class="modal-title">A Equipe Tabula te dá as boas-vindas ao curso!</h4>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend auctor neque, et mollis
-                    libero feugiat eu. Donec magna neque, vestibulum a orci eu, feugiat laoreet eros. In dignissim erat
-                    semper est tempus placerat. Nulla eros lorem, auctor non imperdiet non, convallis a libero. Etiam
-                    tristique et nunc eu cursus. Ut nec elementum metus. Morbi varius est mattis iaculis tempus. Aenean
-                    vel libero eget quam convallis luctus. Praesent pulvinar venenatis turpis id fermentum. Nulla eget
-                    lorem erat. Nullam tincidunt vitae diam eget blandit. Nunc ligula quam, pharetra vel ornare ac,
-                    elementum vel nisi. In eu porttitor sapien. Nam commodo imperdiet nulla at scelerisque.</p>
+                <p>Informações importantes</p>
+                <p><b>§</b>  Os cursos estão divididos em Seções e Aulas</p>
+                <ul>
+                    <li>As Seções dividem o curso nos tópicos mais relevantes</li>
+                    <li>Nas Aulas você encontra o conteúdo, que pode ser composto por materiais de leitura, exercícios, e principalmente, vídeos</li>
+                </ul>
+                <p><b>§</b>  Ao terminar a aula, não se esqueça clicar na "bolinha" do lado do titulo da aula antes de passar para a próxima aula! Este passo é importante para a emissão do certificado</p>
+                <p><b>§</b>  Em muitos casos, ao final de cada Seção ou ao final do Curso, há uma Avaliação para examinar o seu progresso. Lembre-se, uma vez iniciada a avaliação, é impossível pausá-la. Logo, somente comece a avaliação caso tenha o tempo necessário para finalizá-la</p>
+                <p><b>§</b>  Com o intuito de criar um ambiente focado em compartilhamento de ideias, oferecemos um Fórum de Dúvidas e os Grupos de Discussão</p>
+                <p><b>§</b>  Ao concluir o curso, o Tabula fornece um certificado, que estará disponível em seu perfil</p>
+                <p><b>§</b>  A emissão do certificado depende da correção da avaliação por parte do professor, então, em alguns casos, este processo pode demorar um pouco.</p>
+                <p>Para qualquer problema ou sugestões, estamos à disposição através do suporte@tabula.com.br</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>

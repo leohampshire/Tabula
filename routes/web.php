@@ -25,6 +25,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
   Route::get('/', 'User\UserController@userPanel')->name('panel');
   Route::post('/update', 'User\UserController@update')->name('update');
   Route::post('/rating', 'User\RatingController@rating')->name('rating');
+  Route::get('/delete/{notification}', 'User\NotificationController@delete')->name('notification.delete');
 
   Route::get('/meus-cursos', 'User\UserController@contentMyCourses')->name('my.course');
   Route::get('/pedidos', 'User\UserController@contentOrders')->name('orders');
@@ -118,6 +119,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
       Route::post('/password', 'Admin\AdminUserController@password')->name('password');
       Route::post('/update/{id}/', 'Admin\AdminUserController@update')->name('update');
       Route::get('/delete/{id}/', 'Admin\AdminUserController@delete')->name('delete');
+      
   });
   //ADMINISTRADORES ADMIN
   Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
@@ -169,6 +171,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
   Route::group(['prefix' => 'notificacao', 'as' => 'notification.'], function (){
     Route::get('/visualizar/{id}', 'Admin\NotificationController@show')->name('show');
     Route::get('/status/{id}', 'Admin\NotificationController@changeStatus')->name('status');
+    Route::get('/delete/{notification}', 'Admin\NotificationController@delete')->name('delete');
     Route::get('/', 'Admin\NotificationController@index')->name('index');
   });
   //RELATORIOS ADMIN

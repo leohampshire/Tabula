@@ -16,15 +16,20 @@
                                 <th>Tipo de Notificação</th>
                                 <th>Descrição</th>
                                 <th>Data</th>
+                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($notifications as $notification)
-
                             <tr>
                                 <td>{{$notification->type_notification}}</td>
                                 <td>{{$notification->desc_notification}}</td>
                                 <td>{{$notification->created_at}}</td>
+                                <td>
+                                    <a href="{{route('user.notification.delete', ['notification' => $notification])}}" title="Deletar" class="act-list act-delete">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </td>
                             </tr>
                             @empty
                             <tr>
@@ -32,13 +37,6 @@
                             </tr>
                             @endforelse
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Tipo de Notificação</th>
-                                <th>Descrição</th>
-                                <th>Data</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

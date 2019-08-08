@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\{User, CourseUser, Certificate, Course};
+use App\CourseItemUser;
 use PDF;
 
 
@@ -47,6 +48,10 @@ class StudentController extends Controller
         CourseUser::where('course_id', $course_id)->where('user_id', $user_id)->update([
             'progress' => 0,
         ]);
+        $course = Course::find($course_id);
+        foreach ($course->course_item_chapters as $chapter) {
+            CourseItemUser::where('course_chapter_id', $chapter->id)->where('user_id', $user_id)->delete();
+        }
         return redirect()->back()->with('success', 'Progresso Reiniciado');
     }
 

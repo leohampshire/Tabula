@@ -189,6 +189,7 @@ class AdminCourseController extends Controller
         $admin = Auth::guard('admin')->check();
         //Chama o objeto
         $course = Course::find($request->id);
+        $total_class = 0;
         //Vincula as variaveis 
         $course->name               = $request->name;
         $course->desc               = $request->desc;
@@ -200,7 +201,10 @@ class AdminCourseController extends Controller
         $course->timeM              = $request->timeM;
         $course->meta_title         = $request->meta_title;
         $course->meta_description   = $request->meta_description;
-        $course->total_class        = 0;
+        foreach ($course->course_item_chapters as $chapter) {
+            $total_class += count($chapter->course_item->where('course_item_types_id', '<', 5));
+        }
+        $course->total_class = $total_class;
 		
         
         if($request->thumb_img != ''){

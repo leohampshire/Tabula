@@ -75,7 +75,7 @@
           @endif
           @if($auth)
           <li class="menu-cart">
-            <a href="#">
+            <a href="{{url('user')}}#notification">
               <i class="fa fa-bell-o" aria-hidden="true"></i><span class="menu-cart-count">{{$notification}}</span>
             </a>
           </li>
