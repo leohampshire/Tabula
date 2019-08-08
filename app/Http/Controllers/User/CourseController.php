@@ -136,6 +136,7 @@ class CourseController extends Controller
                     $notification->type_notification = "Curso Finalizado";
                     $notification->desc_notification = "O usuário {$auth->name} finalizou o curso {$value->name}.";
                     $notification->status = 1;
+                    $notification->user_id = $auth->id;
                     $notification->save();
                     $this->certificate($auth, $course);
                     return json_encode("true");
