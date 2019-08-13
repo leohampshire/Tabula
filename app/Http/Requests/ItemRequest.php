@@ -25,7 +25,7 @@ class ItemRequest extends FormRequest
     {
         return [
             'name' => 'required|max:200',
-            'desc' => 'max:500',
+            'desc' => 'max:500000',
             'item_type_id' => 'required',
         ];
     }
