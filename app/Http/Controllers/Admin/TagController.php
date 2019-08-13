@@ -22,10 +22,8 @@ class TagController extends Controller
             ]
         );
         $tag_id = $tag->id;
-        $intermediary = $post->with('tags')->whereHas('tags', function($query) use ($tag_id){
-            $query->where('tag_id', $tag_id);
-         })->count();
-         if($intermediary == 0){
+        $intermediary = PostTag::where('tag_id', $tag->id)->where('post_id', $post->id)->count();
+        if($intermediary == 0){
              $tag->posts()->save($post, ['tag_id'=> $tag->id, 'post_id' =>$post->id]);
          }
         return redirect()->back()->with('success', 'Tag Adicionada.');
