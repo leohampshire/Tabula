@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\CourseUser;
 use App\State;
 use App\Country;
 use App\Schooling;
@@ -140,6 +141,10 @@ class AdminUserController extends Controller
 	public function delete($id)
 	{
         $user = User::find($id);
+        foreach ($user->courses as $course) {
+            CourseUser::where('course_id', $course->id)->delete();
+        }
+        $user->courses()->delete();
         $user->delete();
         return redirect()->back()->with('success', 'Usuário Removido');
     }
