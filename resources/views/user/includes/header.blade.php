@@ -12,9 +12,6 @@
     }
   }
 ?>
-<div class="aviso" style="position: fixed; text-align: center; padding: 10px 0 2px; background: rgba(255, 0, 0, 0.8); color: #fff; font-weight: bold; bottom: 0; left: 0; right: 0; z-index: 999999999;">
-  <p>Este site ainda é uma versão de testes. Favor não realizar nenhum pedido.</p>
-</div>
 <header>
   <div class="container">
     <div class="row">
