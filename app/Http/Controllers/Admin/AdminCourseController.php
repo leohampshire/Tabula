@@ -186,6 +186,7 @@ class AdminCourseController extends Controller
             'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
             'video'		  => 'mimes:mp4, mkv'	
         ]);
+        // return dd($request);
         $admin = Auth::guard('admin')->check();
         //Chama o objeto
         $course = Course::find($request->id);
