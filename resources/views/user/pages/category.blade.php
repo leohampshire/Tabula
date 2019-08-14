@@ -35,7 +35,7 @@
                             <p><?php echo substr($row->desc, 0, 50) ?></p>
                         </div>
                         <div class="course-value">
-                            <span>R$ {{number_format($row->price, 2, ',', '.')}}</span>
+                            <span>@if($row->price == 0) Grátis @else R$ {{number_format($row->price,2,',','.')}}@endif</span>
                         </div>
                     </div>
                 </a>

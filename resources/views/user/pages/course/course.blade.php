@@ -183,7 +183,7 @@
                                 <p>{{substr($recommended->desc, 0, 55)}}</p>
                             </div>
                             <div class="course-value">
-                                <span>R$ {{number_format($recommended->price, 2, ',', '.')}}</span>
+                                <span>@if($recommended->price == 0) Grátis @else R$ {{number_format($recommended->price,2,',','.')}}@endif</span>
                             </div>
                         </div>
                     </a>

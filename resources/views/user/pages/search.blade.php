@@ -60,7 +60,7 @@
                                     <p><?php echo substr($course->desc, 0, 48); ?></p>
                                 </div>
                                 <div class="course-value">
-                                    <span>R$ {{number_format($course->price, 2, ',', '.')}}</span>
+                                    <span>@if($course->price == 0) Grátis @else R$ {{number_format($course->price,2,',','.')}}@endif</span>
                                 </div>
                             </div>
                         </div>

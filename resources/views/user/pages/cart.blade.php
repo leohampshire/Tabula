@@ -43,7 +43,7 @@
                                         <p><?php echo substr($cart['desc'], 0, 48); ?></p>
                                     </div>
                                     <div class="course-value">
-                                        <span>R$ {{number_format($cart['price'],2,',','.')}}</span>
+                                        <span>@if($cart['price'] == 0) Grátis @else R$ {{number_format($cart['price'],2,',','.')}}@endif</span>
                                     </div>
                                 </a>
                             </div>
