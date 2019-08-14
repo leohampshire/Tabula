@@ -49,7 +49,7 @@ return [
     'pagarme' => [
         'api_key' => 'ak_live_VJinHgDzqz8wMhCZCjSrNEdL0s9e86',
         'encryption_key' =>'ek_live_KiNc4gMdgtmKizLJV7D3zk1c2etYIk',
-        'recipient_id' => 're_cjtk7atzv08pfha6eo3ob690p',
+        'recipient_id' => 're_cjvfhdbp52kd5km64czduqj8c',
     ],
 
 ];

@@ -209,7 +209,7 @@ class TransactionController extends Controller
     		  	'amount' => $amount,
     		  	'payment_method' => $payment_method,
     		  	'card_hash' => $card_hash,
-    		  	'postback_url' => 'http://www.tabula.com.br/transaction/callback',
+    		  	'postback_url' => 'https://www.tabula.com.br/transaction/callback',
     		  	'customer' => [
     		    	'external_id' => $id,
     		    	'name' => $name, 
@@ -245,7 +245,7 @@ class TransactionController extends Controller
     			'api_key' => config('services.pagarme.api_key'),
     		  	'amount' => $amount,
     		  	'payment_method' => $payment_method,
-    		  	'postback_url' => 'http://www.tabula.com.br/transaction/callback',
+    		  	'postback_url' => 'https://www.tabula.com.br/transaction/callback',
     		  	'customer' => [
     		    	'external_id' => '1',
     		    	'name' => $name, 

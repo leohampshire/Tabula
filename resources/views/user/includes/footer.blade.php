@@ -326,7 +326,8 @@ function signOut() {
     $('.teach').on('click', function(){
       var url = $(this).data('url');
       var databank = $(this).data('databank');
-      if (databank != "") {
+
+      if (databank == "") {
         $('#bankModal').modal('show');
       }else{
         $('.btn-panel-menu').removeClass('btn-active');
