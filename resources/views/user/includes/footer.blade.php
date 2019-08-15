@@ -307,6 +307,12 @@ $(document).on("click", '.my-teacher', function(event) {
     $(this).find('button').addClass('btn-active');
     getContent(url);
 });
+$(document).on("click", '.test', function(event) {
+    var url = $(this).data('url');
+    $('.btn-panel-menu').removeClass('btn-active');
+    $(this).find('button').addClass('btn-active');
+    getContent(url);
+});
 
 $(document).on("click", '.coupons', function(event) {
     var url = $(this).data('url');
