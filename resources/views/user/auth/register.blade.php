@@ -74,7 +74,6 @@
                 <div class="col-sm-2">
                     <div id="my-signin2"></div>
                 </div>
-                <p id="msg"></p>
             </div>
         </form>
     </div>
