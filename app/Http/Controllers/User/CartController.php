@@ -9,6 +9,7 @@ use App\CourseUser;
 use App\CouponUser;
 use App\Coupon;
 use App\Course;
+use App\User;
 use Auth;
 use Session;
 
@@ -35,9 +36,13 @@ class CartController extends Controller
 
     public function insertCourseIntoFinish($id, Request $request)
     {
+        $course = Course::find($id);
         $cart = $request->session()->get('cart');
         $auth = Auth::guard('user')->user();
         if (!$auth) {
+            if($course->price == null || $course->price == 0 ){
+                return redirect('user/login');
+            }
             if ($cart) {
                 if (in_array($id, $cart)) {
                     return redirect()->back()->with('warning', 'Curso já adicionado');
@@ -47,7 +52,15 @@ class CartController extends Controller
             $request->session()->push('cart', $id);
             return redirect(route('cart'));
         }
+        if($course->price == null || $course->price == 0 ){
+            $newFreeCourse = $this->includeStudent($auth->id, $course->id);
+            if($newFreeCourse){
+                Session::flash('success', 'Curso adquirido com sucesso');
 
+                return redirect()->route('user.panel');
+            }
+        }
+        
         $items = Cart::where('user_id', $auth->id)->get();
         // boolean de duplicata no carrinho 
         $double = false;
@@ -77,9 +90,13 @@ class CartController extends Controller
 
     public function insertCourseIntoCart($id, Request $request)
     {   
+        $course = Course::find($id);
         $cart = $request->session()->get('cart');
         $auth = Auth::guard('user')->user();
         if (!$auth) {
+            if($course->price == null || $course->price == 0 ){
+                return redirect('user/login');
+            }
             if ($cart) {
                 if (in_array($id, $cart)) {
                     return redirect()->back()->with('warning', 'Curso já adicionado');
@@ -88,6 +105,14 @@ class CartController extends Controller
 
             $request->session()->push('cart', $id);
             return redirect()->back()->with('success', 'Curso Adicionado ao Carrinho');
+        }
+        if($course->price == null || $course->price == 0 ){
+            $newFreeCourse = $this->includeStudent($auth->id, $course->id);
+            if($newFreeCourse){
+                Session::flash('success', 'Curso adquirido com sucesso');
+
+                return redirect()->route('user.panel');
+            }
         }
 
         $items = Cart::where('user_id', $auth->id)->get();
@@ -343,6 +368,24 @@ class CartController extends Controller
                 $cart->pivot->save();
             }
         }
+    }
+
+    private function includeStudent($user_id, $course_id)
+    {
+        $student = User::find($user_id);
+        $date = date('Y-m-d', strtotime('+6 month'));
+        if($student){
+            if (count($student->myCourses->where('id', $course_id)) == 0) {
+                CourseUser::create([
+                    'user_id'   => $user_id,
+                    'course_id' => $course_id,
+                    'progress'  => 0,
+                    'expired'   => $date
+                ]);
+                return true;
+            }
+        }
+        return false;
     }
 
 }
