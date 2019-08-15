@@ -38,9 +38,9 @@
             <li class="hidden-xs"><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
             @endif
 
-            <li class="hidden-xs"><a href="#" onclick="signOut();">Sair</a></li>
-			<div style="display: none;"><div class="g-signin2" data-onsuccess="onSignIn"></div></div>
-            <script>
+            <li class="hidden-xs"><a href="{{route('user.logout')}}">Sair</a></li>
+			<!-- <div style="display: none;"><div class="g-signin2" data-onsuccess="onSignIn"></div></div> -->
+            <!-- <script>
             	function onSuccess(googleUser) {
 			      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
 			    }
@@ -64,7 +64,7 @@
                   window.location.href="{{route('user.logout')}}";
                 });
               }
-            </script>
+            </script> -->
           @else
           
           <li><a href="{{url('user/login')}}" class="btn-login">Login</a></li>

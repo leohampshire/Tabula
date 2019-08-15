@@ -219,56 +219,56 @@ $(document).on('click', '.scroll', function(event){
     });
 });
 
-function onSuccess(googleUser) {
-  console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-  var profile = googleUser.getBasicProfile();
-  var id = profile.getId();
-  var name = profile.getName();
-  var image = profile.getImageUrl();
-  var email = profile.getEmail();
-  var userToken = googleUser.getAuthResponse().id_token;
-  if(name !== ''){
-    var data = {
-      profile:profile,
-      id:id,
-      name:name,
-      image:image,
-      email:email,
-      userToken:userToken          
-    }
-    var requestData = JSON.stringify(data);
-      $.ajax({
-      type: "POST",
-      cache: false,
-      data: {data:requestData},
-      url: "{{url('social/google/ajax')}}",
-      beforeSend: function() {},
-      success: function(response){
-        if(response == 'sucesso'){
-            window.location.href="{{route('cart.session')}}";
-        }
-      }
-    }); 
-  }
-}
-function onFailure(error) {
-  console.log(error);
-}
-function renderButton() {
-  gapi.signin2.render('my-signin2', {
-    'longtitle': false,
-    'theme': 'dark',
-    'onsuccess': onSuccess,
-    'onfailure': onFailure
-  });
-}
-function signOut() {
-  window.location.href="{{route('user.logout')}}";
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    window.location.href="{{route('user.logout')}}";
-  });
-};
+// function onSuccess(googleUser) {
+//   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+//   var profile = googleUser.getBasicProfile();
+//   var id = profile.getId();
+//   var name = profile.getName();
+//   var image = profile.getImageUrl();
+//   var email = profile.getEmail();
+//   var userToken = googleUser.getAuthResponse().id_token;
+//   if(name !== ''){
+//     var data = {
+//       profile:profile,
+//       id:id,
+//       name:name,
+//       image:image,
+//       email:email,
+//       userToken:userToken          
+//     }
+//     var requestData = JSON.stringify(data);
+//       $.ajax({
+//       type: "POST",
+//       cache: false,
+//       data: {data:requestData},
+//       url: "{{url('social/google/ajax')}}",
+//       beforeSend: function() {},
+//       success: function(response){
+//         if(response == 'sucesso'){
+//             window.location.href="{{route('cart.session')}}";
+//         }
+//       }
+//     }); 
+//   }
+// }
+// function onFailure(error) {
+//   console.log(error);
+// }
+// function renderButton() {
+//   gapi.signin2.render('my-signin2', {
+//     'longtitle': false,
+//     'theme': 'dark',
+//     'onsuccess': onSuccess,
+//     'onfailure': onFailure
+//   });
+// }
+// function signOut() {
+//   window.location.href="{{route('user.logout')}}";
+//   // var auth2 = gapi.auth2.getAuthInstance();
+//   // auth2.signOut().then(function () {
+//   //   window.location.href="{{route('user.logout')}}";
+//   // });
+// };
 
   
   $('.state').hide();
@@ -353,42 +353,42 @@ $(document).on("click", '.course-create', function(event) {
     $(this).find('button').addClass('btn-active');
     getContent(url);
 });
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  var id = profile.getId();
-  var name = profile.getName();
-  var image = profile.getImageUrl();
-  var email = profile.getEmail();
-  var userToken = googleUser.getAuthResponse().id_token;
+// function onSignIn(googleUser) {
+//   var profile = googleUser.getBasicProfile();
+//   var id = profile.getId();
+//   var name = profile.getName();
+//   var image = profile.getImageUrl();
+//   var email = profile.getEmail();
+//   var userToken = googleUser.getAuthResponse().id_token;
   
-  	if(name !== ''){
-    	var data = {
-	        profile:profile,
-	        id:id,
-	        name:name,
-	        image:image,
-	        email:email,
-	        userToken:userToken          
-    	}
-    	var requestData = JSON.stringify(data);
-      	$.ajax({
-	    	type: "POST",
-	     	cache: false,
-	     	data: {data:requestData},
-	     	url: "{{url('social/google/ajax')}}",
-	     	beforeSend: function() {},
-	    	success: function(response){
-          console.log(response);
-	    		if(response == 'sucesso'){
-	      			window.location.href="{{route('cart.session')}}";
-	    		}
-	    	}
-	  	});
-  }else{
-      var msg = "Usuário não encontrado";
-      document.getElementById('msg').innerHTML = msg;
-  }
-}
+//   	if(name !== ''){
+//     	var data = {
+// 	        profile:profile,
+// 	        id:id,
+// 	        name:name,
+// 	        image:image,
+// 	        email:email,
+// 	        userToken:userToken          
+//     	}
+//     	var requestData = JSON.stringify(data);
+//       	$.ajax({
+// 	    	type: "POST",
+// 	     	cache: false,
+// 	     	data: {data:requestData},
+// 	     	url: "{{url('social/google/ajax')}}",
+// 	     	beforeSend: function() {},
+// 	    	success: function(response){
+//           console.log(response);
+// 	    		if(response == 'sucesso'){
+// 	      			window.location.href="{{route('cart.session')}}";
+// 	    		}
+// 	    	}
+// 	  	});
+//   }else{
+//       var msg = "Usuário não encontrado";
+//       document.getElementById('msg').innerHTML = msg;
+//   }
+// }
 $(document).on("click", '.my-teacher', function(event) {
     var url = $(this).data('url');
     $('.btn-panel-menu').removeClass('btn-active');
