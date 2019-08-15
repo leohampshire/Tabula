@@ -40,7 +40,9 @@ class CartController extends Controller
         $cart = $request->session()->get('cart');
         $auth = Auth::guard('user')->user();
         if (!$auth) {
+
             if($course->price == null || $course->price == 0 ){
+                session(['course_free' => $course->id]);
                 return redirect('user/login');
             }
             if ($cart) {
@@ -95,6 +97,7 @@ class CartController extends Controller
         $auth = Auth::guard('user')->user();
         if (!$auth) {
             if($course->price == null || $course->price == 0 ){
+                session(['course_free' => $course->id]);
                 return redirect('user/login');
             }
             if ($cart) {
@@ -166,6 +169,7 @@ class CartController extends Controller
     {
         $auth = Auth::guard('user')->user();
 
+
         if ($auth) {
             $carts = $request->session()->get('cart');
             if ($carts) {
@@ -183,9 +187,17 @@ class CartController extends Controller
                     }
                 }
                 $value = $request->session()->forget('cart');
-                return redirect()->route('cart');
+                if(!$request->session()->exists('course_free')){
+                    return redirect()->route('cart');
+                }
             }
-        return redirect(url('/'));        
+            if($request->session()->has('course_free')){
+                $course_id = $request->session()->get('course_free');
+                $course = Course::find($course_id);
+                $request->session()->forget('course_free');
+                return redirect()->route('course.single', ['urn' => $course->urn]);
+            }
+            return redirect(url('/'));        
         }
     }
 
