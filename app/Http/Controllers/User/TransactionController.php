@@ -116,7 +116,7 @@ class TransactionController extends Controller
 
         foreach ($auth->cart as $key => $cart) {
             $item[$key] = ([
-                'id' => $cart->id,
+                'id' => strval($cart->id),
                 'title'=> $cart->name,
                 'unit_price' => number_format($cart->price, 2, '', ''),
                 'quantity' => 1,
@@ -183,6 +183,7 @@ class TransactionController extends Controller
             }
 
         }
+
     	$amount 		= $request->pagarme['amount'];
     	$payment_method = $request->pagarme['payment_method'];
 
@@ -211,7 +212,7 @@ class TransactionController extends Controller
     		  	'card_hash' => $card_hash,
     		  	'postback_url' => 'https://www.tabula.com.br/transaction/callback',
     		  	'customer' => [
-    		    	'external_id' => $id,
+    		    	'external_id' => strval($id),
     		    	'name' => $name, 
     		    	'type' => 'individual',
     		    	'country' => 'br',
@@ -276,6 +277,7 @@ class TransactionController extends Controller
                 'split_rules' => $split_rules,
     		]);
     	}
+
     	$payload = json_encode($payload);
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -288,12 +290,14 @@ class TransactionController extends Controller
 		$result = json_decode($result);
         if(isset($result->errors))
         {
+        	return dd($result->errors['0']->message);
+
             $notification = new Notification;
             $notification->type_notification = "Erro de sistema";
             $notification->desc_notification = "O usuário {$auth->name} teve problemas ao finalizar a compra no sitema";
             $notification->status = 1;
             $notification->save();
-            return redirect()->back()->with('warning', 'Tivemos um problema técnico, pedimos para que entre em contato com um de nossos administradores.');
+            return redirect()->back()->with('warning', 'Tivemos um problema técnico, pedimos para que entre em contato com um de nossos administradores:'.$result->errors['0']->message);
         }
         
 		$order = new Order;
