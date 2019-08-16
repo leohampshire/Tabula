@@ -741,48 +741,48 @@ function categAjax(){
     }
   }
 
-function onSuccess(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  var id = profile.getId();
-  var name = profile.getName();
-  var image = profile.getImageUrl();
-  var email = profile.getEmail();
-  var userToken = googleUser.getAuthResponse().id_token;
-  if(name !== ''){
-    var data = {
-      profile:profile,
-      id:id,
-      name:name,
-      image:image,
-      email:email,
-      userToken:userToken          
-    }
-    var requestData = JSON.stringify(data);
-    $.ajax({
-      type: "POST",
-      cache: false,
-      data: {data:requestData},
-      url: "{{url('social/google/ajax')}}",
-      beforeSend: function() {},
-      success: function(response){
-        if(response == 'sucesso'){
-            window.location.href="{{route('cart.session')}}";
-        }
-      }
-    }); 
-  }
-}
-function onFailure(error) {
-  console.log(error);
-}
-function renderButton() {
-  gapi.signin2.render('my-signin2', {
-    'longtitle': false,
-    'theme': 'dark',
-    'onsuccess': onSuccess,
-    'onfailure': onFailure
-  });
-}
+// function onSuccess(googleUser) {
+//   var profile = googleUser.getBasicProfile();
+//   var id = profile.getId();
+//   var name = profile.getName();
+//   var image = profile.getImageUrl();
+//   var email = profile.getEmail();
+//   var userToken = googleUser.getAuthResponse().id_token;
+//   if(name !== ''){
+//     var data = {
+//       profile:profile,
+//       id:id,
+//       name:name,
+//       image:image,
+//       email:email,
+//       userToken:userToken          
+//     }
+//     var requestData = JSON.stringify(data);
+//     $.ajax({
+//       type: "POST",
+//       cache: false,
+//       data: {data:requestData},
+//       url: "{{url('social/google/ajax')}}",
+//       beforeSend: function() {},
+//       success: function(response){
+//         if(response == 'sucesso'){
+//             window.location.href="{{route('cart.session')}}";
+//         }
+//       }
+//     }); 
+//   }
+// }
+// function onFailure(error) {
+//   console.log(error);
+// }
+// function renderButton() {
+//   gapi.signin2.render('my-signin2', {
+//     'longtitle': false,
+//     'theme': 'dark',
+//     'onsuccess': onSuccess,
+//     'onfailure': onFailure
+//   });
+// }
 // function signOut() {
 //   window.location.href="{{route('user.logout')}}";
 //   // var auth2 = gapi.auth2.getAuthInstance();

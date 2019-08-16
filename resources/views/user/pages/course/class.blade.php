@@ -15,7 +15,7 @@
         </div>
 
         <div class="class-items">
-            @foreach($chapter->course_item as $item)
+            @foreach($chapter->course_item as $key => $item)
 				@if($item->course_items_parent == null)
 					@if($item->course_item_types_id == 5)
 					<a href="{{asset('uploads/archives')}}/{{$item->path}}" download="{{$item->name}}" class="btn-class-item">
@@ -24,7 +24,7 @@
 						</div>
 					</a>
 					@else
-					<a href="#" class="btn-class-item" data-item="{{$item->id}}" data-url="{{route('course.getclass')}}">
+					<a href="#" class="btn-class-item" data-item="{{$item->id}}" data-key="{{$key}}" data-url="{{route('course.getclass')}}">
 						<div class="class-item">
 							<p id="{{$item->id}}">{{substr($item->name, 0,40)}}...</p>
 							<input id="{{$chapter->id}}-{{$item->id}}" class="check-class" data-user_id="{{$auth->id}}"
@@ -52,6 +52,7 @@
 @stop
 @section('scripts')
 <script type="text/javascript">
-
+	// $('.btn-class-item').on('click', function(){
+	// });
 </script>
 @endsection

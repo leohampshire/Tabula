@@ -57,7 +57,7 @@
                     </a>
                 </div>
                 <div class="col-sm-2 ">
-                    <div id="my-signin2"></div>
+                    <!-- <div id="my-signin2"></div> -->
                 </div>
             </div>
             <div class="row form-group">

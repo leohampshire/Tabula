@@ -10,6 +10,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/afterglowplayer@1.x"></script>
+@yield('scripts')
 <script type="text/javascript">
 
 $('.carousel-courses').slick({

@@ -105,7 +105,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.course.student.test', ['student' => $student->id, 'course_id' => $course->id])}}"
-                                            title="Prova" class="act-list">
+                                            title="Prova" data-progress="{{$progress}}" class="act-list btnTest">
                                             <i class="fa fa-file-text" aria-hidden="true"></i>
                                         </a>
                                         <a href="{{ route('admin.course.student.restart', ['id' => $student->id, 'course_id' => $course->id])}}"
@@ -142,3 +142,41 @@
 <!-- /.row (main row) -->
 
 @stop
+@section('scripts')
+<script type="text/javascript">
+$('.btnTest').on('click', function(e){
+    e.preventDefault();
+    let progress = $(this).data('progress');
+    if(progress === 0){
+        $('#modalNoTest').modal('show')
+    }else{
+        var href = $(this).attr('href');
+        window.location.href=href;
+    }
+});
+</script>
+@endsection
+
+@section('modals')
+<div class="modal fade" id="modalNoTest">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Sem teste</h4>
+            </div>
+            <div class="modal-body">
+                <p>Não existe nenhum progresso para este aluno</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirm">Confirmar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@endsection

@@ -61,6 +61,9 @@ class StudentController extends Controller
 
         $course = Course::find($course_id);
         $test = $student->tests()->first();
+        if(!$test){
+            return redirect()->back()->with('warning', 'Este aluno não possui nenhum teste para apresentar');
+        }
         
         $item = CourseItem::find($test->course_item_id);
         
