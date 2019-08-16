@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\{User, CourseUser, Certificate, Course};
-use App\CourseItemUser;
+use App\{CourseItemUser, CourseItem};
 use PDF;
 
 
@@ -57,9 +57,21 @@ class StudentController extends Controller
 
     public function test(User $student, $course_id)
     {
-        $tests = $student->tests()->where('course_item_id', $course_id)->get();
+        // $tests = $student->tests()->where('course_item_id', $course_id)->get();
+
+        $course = Course::find($course_id);
+        $test = $student->tests()->first();
+        
+        $item = CourseItem::find($test->course_item_id);
+        
+        $items = CourseItem::where('course_items_parent', $item->id)->get();
+        $answers = $test->tests;   
         return view('admin.pages.course.student.tests')
-        ->with('tests', $student->tests);
+        ->with('items', $items)
+        ->with('item', $item)
+        ->with('answers', $answers)
+        ->with('tests', $student->tests)
+        ->with('student', $student);
     }
 
     public function student($id)

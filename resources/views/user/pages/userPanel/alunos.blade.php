@@ -50,6 +50,10 @@
                                         </div>
                                     </td>
                                     <td>
+                                        <a href="#test"
+                                            title="Prova" class="act-list test" data-url="{{ route('user.course.student.test', ['student' => $student->id, 'course_id' => $course->id])}}">
+                                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        </a>
                                         <a href="{{ route('user.course.restart', ['id' => $student->id, 'course_id' => $course->id])}}"
                                             title="Reiniciar" class="act-list act-delete">
                                             <i class="fa fa-refresh" aria-hidden="true"></i>

@@ -51,6 +51,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
     
     Route::get('/alunos/{id}', 'User\UserController@contentStudent')->name('student');
     Route::get('reiniciar/{course_id}/{user_id}', 'Admin\StudentController@studentRestart')->name('restart');
+    Route::get('provas/{student}/{course_id}', 'User\StudentController@test')->name('student.test');
     Route::get('certificado/{student}/{course}', 'Admin\StudentController@certificate')->name('student-certificate');
     Route::post('incluir/', 'Admin\StudentController@studentInclude')->name('include');
     Route::get('/liberar-empresa/{course}', 'Company\CompanyController@avaliable')->name('company');

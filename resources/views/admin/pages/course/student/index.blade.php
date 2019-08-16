@@ -105,7 +105,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.course.student.test', ['student' => $student->id, 'course_id' => $course->id])}}"
-                                            title="Reiniciar" class="act-list">
+                                            title="Prova" class="act-list">
                                             <i class="fa fa-file-text" aria-hidden="true"></i>
                                         </a>
                                         <a href="{{ route('admin.course.student.restart', ['id' => $student->id, 'course_id' => $course->id])}}"
