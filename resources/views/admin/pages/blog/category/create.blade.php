@@ -30,6 +30,20 @@
         </div>
     </section>
     @endisset
+    @if(session()->has('error'))
+      <section class="content-header">
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-sm-12">
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{session('error')}}
+            </div>
+          </section>
+        </div>
+      </section>
+    @endisset
 
     @if ($errors->any())
     <div class="content-header">
