@@ -85,9 +85,9 @@
 
 <script type="text/javascript">
 
-$('.carousel-courses').slick({
+$('#destaque-carousel').slick({
   dots: false,
-  infinite: false,
+  infinite: true,
     speed: 300,
     slidesToShow: 4,
   slidesToScroll: 4,
@@ -118,6 +118,78 @@ $('.carousel-courses').slick({
             }
         }
   ]
+});
+
+
+
+$('#post-carousel').slick({
+    dots: false,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    prevArrow: $('#prev-post'),
+    nextArrow: $('#next-post'),
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true
+            }
+        },
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }
+    ]
+});
+
+$('#destaque2-carousel').slick({
+    dots: false,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    prevArrow: $('#destaque2-prev'),
+    nextArrow: $('#destaque2-next'),
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true
+            }
+        },
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }
+    ]
 });
 
 $(document).on('click', '.scroll', function(event){

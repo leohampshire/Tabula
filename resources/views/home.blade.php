@@ -114,7 +114,7 @@
             <div class="container-carousel-courses">
                 <button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
                 <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                <div class="carousel-courses">
+                <div id="destaque-carousel" class="carousel-courses">
                     @forelse($featured_courses1 as $course)
                     @if($course->avaliable == 2 || $course->price != null)
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
@@ -149,9 +149,9 @@
         <div class="box-w-shadow">
             <h2>Cursos em destaque:{{$featured_category2}}</h2>
             <div class="container-carousel-courses">
-                <button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                <div class="carousel-courses">
+                <button id="destaque2-prev" class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <button id="destaque2-next" class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                <div id="destaque2-carousel" class="carousel-courses">
                     @forelse($featured_courses2 as $course)
                     @if($course->avaliable == 2 || $course->price != null)
                     <a href="{{route('course.single', ['urn' =>$course->urn])}}">
@@ -224,9 +224,9 @@
         <div class="box-w-shadow">
             <h2>Posts</h2>
             <div class="container-carousel-courses">
-                <button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                <div class="carousel-courses">
+                <button id="prev-post" class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <button id="next-post" class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                <div id="post-carousel" class="carousel-courses">
                     @forelse($posts as $post)
                     <a href="{{route('blog.single', ['urn' =>$post->urn])}}">
                         <div class="course-box">
@@ -251,9 +251,10 @@
 <section>
     <div class="container">
         <div class="box-w-shadow">
+            <h2>Conheça o Tabula!</h2>
             <video controlsList="nodownload" oncontextmenu="return false;" class="video-about" controls
-                poster="{{asset('/images/layout/home/poster-video.png')}}" width="500px">
-                <source src="{{asset('/images/layout/home/presentation-tabula.mp4')}}">
+                poster="{{asset('/images/layout/home/capa.png')}}" width="500px">
+                <source src="{{asset('/images/layout/home/Animação principal_2.mp4')}}">
             </video>
         </div>
     </div>

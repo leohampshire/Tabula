@@ -167,7 +167,7 @@
                 <div class="form-group">
                     <label for="legal_name">Nome</label>
                     <input name="legal_name" @if($auth->databank) value="{{$auth->databank->legal_name}}" @endif
-                    placeholder="Nome" type="text" class="form-control">
+                    placeholder="Informar nome que está no Cartão" type="text" class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4">
