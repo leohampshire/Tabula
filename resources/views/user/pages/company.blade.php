@@ -55,7 +55,7 @@
                                 <p>{{substr($row->desc, 0, 50)}}</p>
                             </div>
                             <div class="course-value">
-                                <span>@if($course->price == 0) Grátis @else R$ {{number_format($row->price,2,',','.')}}@endif</span>
+                                <span>@if($row->price == 0) Grátis @else R$ {{number_format($row->price,2,',','.')}}@endif</span>
                             </div>
                         </div>
                     </a>
@@ -99,7 +99,6 @@
                 @empty
                 <div class="col-sm-12">
                     <p>Não existem cursos para esta empresa</p>
-
                 </div>
                 @endforelse
             </div>

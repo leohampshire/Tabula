@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Company;
 use App\Country;
+use App\CourseUser;
 use App\Http\Controllers\Controller;
 use App\State;
 use App\User;
@@ -107,7 +108,11 @@ class AdminCompanyController extends Controller
     {
         $company = Company::find($id);
         $company->teachers()->update(['company_id' =>  null]);
-
+        $user = $company->company;
+        foreach ($user->courses as $course) {
+            CourseUser::where('course_id', $course->id)->delete();
+        }
+        $user->delete();
         $company->delete();
         return redirect()->back()->with('success', 'Curso removido com sucesso');
     }

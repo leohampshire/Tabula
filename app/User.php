@@ -110,7 +110,7 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->hasOne('App\Company');
+        return $this->hasOne('App\Company', 'user_id');
     }
     public function progress()
     {
