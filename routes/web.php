@@ -152,12 +152,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['admin']], 
   });
   //CATEGORIAS ADMIN
   Route::group(['prefix' => 'categoria', 'as' => 'category.'], function(){
-      Route::get('/', 'Admin\AdminCategoryController@index')->name('index');
-      Route::get('/create', 'Admin\AdminCategoryController@create')->name('create');
-      Route::post('/store', 'Admin\AdminCategoryController@store')->name('store');
-      Route::get('/edit/{id}', 'Admin\AdminCategoryController@edit')->name('edit');
-      Route::post('/update', 'Admin\AdminCategoryController@update')->name('update');
-      Route::get('/delete/{id}', 'Admin\AdminCategoryController@delete')->name('delete');
+      Route::get('/', 'Admin\CategoryController@index')->name('index');
+      Route::get('/create', 'Admin\CategoryController@create')->name('create');
+      Route::post('/store', 'Admin\CategoryController@store')->name('store');
+      Route::get('/edit/{id}', 'Admin\CategoryController@edit')->name('edit');
+      Route::post('/update', 'Admin\CategoryController@update')->name('update');
+      Route::get('/delete/{id}', 'Admin\CategoryController@delete')->name('delete');
   });
   //SUBCATEGORIAS ADMIN
   Route::group(['prefix' => 'subcategoria', 'as' => 'subcategory.'], function(){

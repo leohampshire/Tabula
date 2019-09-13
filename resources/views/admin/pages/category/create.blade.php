@@ -30,6 +30,20 @@
         </div>
       </section>
     @endisset
+    @if(session()->has('error'))
+      <section class="content-header">
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-sm-12">
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{session('error')}}
+            </div>
+          </section>
+        </div>
+      </section>
+    @endisset
 
     @if ($errors->any())
       <div class="content-header">
@@ -56,7 +70,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
             </div>
-            <form method="POST" action="{{route('admin.category.store')}}" >
+            <form method="POST" action="{{route('admin.category.store')}}" enctype="multipart/form-data" >
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">
@@ -74,11 +88,11 @@
                 <div class="form-group row">
                   <div class="col-sm-6">
                     <label for="desktop_index">Índice Desktop</label>
-                    <input type="text" name="desktop_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('desktop_index')}}">
+                    <input type="number" name="desktop_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('desktop_index')}}">
                   </div>
                   <div class="col-sm-6">
                     <label for="mobile_index">Índice Mobile</label>
-                    <input type="text" name="mobile_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('mobile_index')}}">
+                    <input type="number" name="mobile_index" placeholder="Sugerido: {{$last_index}}" class="form-control" value="{{old('mobile_index')}}">
                   </div>
                 </div>
                 <div class="form-group  row">

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 use App\Category;
-use Storage;
 use Session;
 
 class AdminCategoryController extends Controller
