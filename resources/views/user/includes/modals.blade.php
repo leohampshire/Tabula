@@ -65,7 +65,7 @@
                             <div class="col-xs-12 col-sm-8">
                                 <div class="form-group">
                                     <label for="legal_name">Nome</label>
-                                    <input name="legal_name" type="text" placeholder="Nome" class="form-control">
+                                    <input name="legal_name" type="text" placeholder="Informar nome que está no Cartão" class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-4">
