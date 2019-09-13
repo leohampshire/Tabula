@@ -168,9 +168,9 @@
         <div class="box-w-shadow">
             <h3>Cursos relacionados</h3>
             <div class="container-carousel-courses">
-                <button class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                <button class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                <div class="carousel-courses">
+                <button class="prev-carousel-courses" id="recommended-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <button class="next-carousel-courses" id="recommended-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                <div class="carousel-courses" id="recommended-carousel">
                     @forelse($allCourses as $recommended)
                     @if($recommended->avaliable == 2)
                     <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
@@ -180,7 +180,7 @@
                             </div>
                             <div class="course-desc">
                                 <h3>{{substr($recommended->name,0, 14)}}</h3>
-                                <p>{{substr($recommended->desc, 0, 55)}}</p>
+                                <p><?php echo substr($recommended->desc, 0, 55) ?></p>
                             </div>
                             <div class="course-value">
                                 <span>@if($recommended->price == 0) Grátis @else R$ {{number_format($recommended->price,2,',','.')}}@endif</span>

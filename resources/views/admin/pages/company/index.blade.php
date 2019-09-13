@@ -69,7 +69,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12">
+        <section class="col-lg-8">
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Lista de Empresas</h3>
@@ -96,13 +96,17 @@
                 
                   @forelse($companies as $company)
                     <tr>
+                      @if(isset($company->company))
                       <td>{{$company->company->name}}</td>
+                      @else
+                      <td>Empresa não localizada</td>
+                      @endif
                       <td>
                         <a href="{{ route('admin.company.edit', ['company' => $company->id])}}" title="Editar" class="act-list">
                           <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
                         <a href="#" title="Incluir usuário" class="act-list act-include" data-id="{{$company->id}}">
-                          <i class="fa fa-search-plus" aria-hidden="true"></i>
+                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.company.delete',  ['id' => $company->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-trash" aria-hidden="true"></i>

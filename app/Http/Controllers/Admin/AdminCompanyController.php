@@ -106,6 +106,8 @@ class AdminCompanyController extends Controller
     public function delete($id)
     {
         $company = Company::find($id);
+        $company->teachers()->update(['company_id' =>  null]);
+
         $company->delete();
         return redirect()->back()->with('success', 'Curso removido com sucesso');
     }

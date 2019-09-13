@@ -52,7 +52,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12">
+        <section class="col-lg-8">
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Dados</h3>
