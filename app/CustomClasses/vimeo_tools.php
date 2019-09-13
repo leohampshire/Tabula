@@ -109,16 +109,16 @@ class vimeo_tools
     * @return string $embedCode
     */
 
-    public static function Get_Vimeo_Thumbnail($item)
-    {        
-        if(!$item->path) return false;
+    // public static function Get_Vimeo_Thumbnail($item)
+    // {        
+    //     if(!$item->path) return false;
 
-        $data = json_decode(file_get_contents($oembed_endpoint.'.json?url='.rawurlencode($item->path)));
+    //     $data = json_decode(file_get_contents($oembed_endpoint.'.json?url='.rawurlencode($item->path)));
 
-        if(!$data) return false;
+    //     if(!$data) return false;
 
-        return $data->thumbnail_url;
-    }
+    //     return $data->thumbnail_url;
+    // }
 
     public static function Get_Vimeo_Embed($item)
     {
