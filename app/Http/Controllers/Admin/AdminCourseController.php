@@ -351,7 +351,7 @@ class AdminCourseController extends Controller
         $item->name                     = $request->name;
         $item->course_item_chapter_id   = $request->chapter_id;
         $item->course_item_types_id     = $request->item_type_id;
-        if ($request->item_type_id < 6) {
+        if ($request->item_type_id < 7) {
                 $item->desc             = $request->desc;
         }
         if(isset($request->file)){

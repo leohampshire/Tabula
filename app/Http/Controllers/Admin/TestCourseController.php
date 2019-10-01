@@ -30,7 +30,6 @@ class TestCourseController extends Controller
         if ($request->item_type_id > 6) {
             $item->course_items_parent  = $request->item_parent;
         }
-        return dd($request->all());
         $item->save();
         $sv->generateTest($request->item_type_id, $item, $request->all());
 

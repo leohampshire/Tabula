@@ -41,9 +41,11 @@ class CourseController extends Controller
     {
         $auth = Auth::guard('user')->user();
         $course = Course::find($id);
+        $progress = $auth->progress()->find($id)->pivot->progress; 
 
         return view('user.pages.course.class')
         ->with('auth', $auth)
+        ->with('progress', $progress)
         ->with('course', $course);
     }
 
@@ -201,7 +203,6 @@ class CourseController extends Controller
 
     public function testValidate(Request $request)
     {
-
         $auth = Auth::guard('user')->user();
         $itm = CourseItem::find($request->item_id);
 
@@ -256,7 +257,7 @@ class CourseController extends Controller
         $test->save();
         
 
-        return redirect()->back();
+        return redirect()->back()->with('send', 'Prova enviada com sucesso.');
     }
 
     public function avaliable($id)
