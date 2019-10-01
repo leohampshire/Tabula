@@ -98,10 +98,10 @@
                           @endif
                         @endif
                         <a href="#" title="Editar" class="act-list act-edit-item" data-name="{{$item->name}}" data-desc="{{$item->desc}}" data-id="{{$item->id}}" data-file="{{$item->path}}" data-url="{{asset('uploads/archives/')}}" data-type="{{$item->course_item_types_id}}">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.course.item.delete', ['id' => $item->id])}}" title="Excluir" class="act-list act-delete">
-                          <i class="fa fa-ban" aria-hidden="true"></i>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>

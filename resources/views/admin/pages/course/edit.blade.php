@@ -79,10 +79,10 @@
                       <td>{{$chapter->desc}}</td>
                       <td>
                         <a href="{{ route('admin.course.chapter.item', ['id' => $chapter->id])}}" title="Incluir Aula" class="act-list">
-                          <i class="fa fa-bars" aria-hidden="true"></i>
+                          <i class="fa fa-list-ul" aria-hidden="true"></i>
                         </a>
                         <a href="#" title="Editar" class="act-list act-edit-chapter" data-name="{{$chapter->name}}" data-desc="{{$chapter->desc}}" data-id="{{$chapter->id}}">
-                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <i class="fa fa-pencil-square" aria-hidden="true"></i>
                         </a>
                         <a href="{{ route('admin.course.chapter.delete', ['id' => $chapter->id])}}" title="Excluir" class="act-list act-delete">
                           <i class="fa fa-times" aria-hidden="true"></i>
@@ -122,16 +122,16 @@
               <input type="hidden" name="id" value="{{$course->id}}">
               <div class="box-body">
                 <div class="form-group row">
-                  <div class="col-xs-8">
+                  <div class="col-xs-12 col-sm-8">
                     <label for="name">Nome</label>
                     <input type="text" name="name" placeholder="Nome" class="form-control" id="name" value="{{$course->name}}">
                   </div>
-                  <div class="col-xs-2">
+                  <div class="col-xs-6 col-sm-2">
                   <label>Tempo em horas</label>
                     <input name="timeH" value="{{ $course->timeH }}" type="number" class="form-control" placeholder="Horas">
                   </div>
 
-                  <div class="col-xs-2">
+                  <div class="col-xs-6 col-sm-2">
                   <label>Tempo em minutos</label>
                     <input name="timeM" value="{{ $course->timeM }}" type="number" class="form-control" placeholder="Minutos">
                   </div>
