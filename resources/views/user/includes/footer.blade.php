@@ -948,11 +948,17 @@ function categAjax(){
     });
   });
 
-  $('.input-cpf').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
+   $('.input-cpf').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
   
   function ajaxCPF(){
     $('.cpf-ajax').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
   }
+$('.input-cnpj').inputmask({"mask": "99.999.999/9999-99", "placeholder":"_"});
+  
+  function ajaxCNPJ(){
+    $('.cnpj-ajax').inputmask({"mask": "99.999.999/9999-99", "placeholder":"_"});
+  }
+
 
  
   function ajaxMoney(){

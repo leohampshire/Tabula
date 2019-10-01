@@ -14,6 +14,7 @@ class Databank extends Model
 		'conta',
 		'conta_dv',
 		'document_number',
+		'document_type',
 		'legal_name',
 		'user_id',
 	];
