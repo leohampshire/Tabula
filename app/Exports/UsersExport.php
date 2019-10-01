@@ -27,6 +27,7 @@ class UsersExport implements FromArray, WithHeadings
     		$excel['NOME'] 		   			= $user['name'];
             $excel['EMAIL'] 				= $user['email'];
     		$excel['CPF'] 		   			= $user['cpf'];
+            $excel['CNPJ']                  = $user['cnpj'];
             $excel['DATA DE ANIVERSÁRIO'] 	= $user['birthdate'];
     		$excel['SEXO'] 		   			= $user['sex'];
             $excel['BIO'] 					= $user['bio'];

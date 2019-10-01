@@ -108,9 +108,11 @@ $(document).on("click", '.check-class', function(event){
       });
     }
     $(document).ready(function(){
-      $('#textModal').modal('show');
-    });
-
+          $('#textModal').modal('show');
+        });
+    $(document).ready(function(){
+        $('#textModalzin').modal('show');
+    })
 
 //--------Fim funções ajax-------------------------------------------------------------------------
 // Mask

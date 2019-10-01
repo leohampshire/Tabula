@@ -24,7 +24,7 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:200',
+            'name' => 'required|max:1500',
             'desc' => 'max:500000',
             'item_type_id' => 'required',
         ];

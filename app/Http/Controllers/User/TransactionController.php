@@ -29,6 +29,7 @@ class TransactionController extends Controller
           'conta'           => $request->conta,
           'conta_dv'        => $request->conta_dv,
           'document_number' => $request->cpf,
+          'document_type'   => $request->cnpj,
           'legal_name'      => $request->legal_name,
         ]);
 
@@ -67,7 +68,7 @@ class TransactionController extends Controller
         $result = curl_exec($ch);
         curl_close($ch);
         # Print response.
-        $result = json_decode($result);
+    $result = json_decode($result);
         $data_bank = new Databank;
         $data_bank->account_id      = $account_id;
         $data_bank->bank_code       = $request->bank_code;
@@ -77,6 +78,7 @@ class TransactionController extends Controller
         $data_bank->conta           = $request->conta;
         $data_bank->conta_dv        = $request->conta_dv;
         $data_bank->document_number = $request->cpf;
+        $data_bank->document_type   = $request->cnpj;
         $data_bank->recipient_id    = $result->id;
         $data_bank->user_id         = $auth->id;
         $data_bank->save();
@@ -190,6 +192,7 @@ class TransactionController extends Controller
     	$name 			= $request->pagarme['customer']['name'];
     	$email 			= $request->pagarme['customer']['email'];
     	$cpf 			= $request->pagarme['customer']['document_number'];
+        $cnpj           = $request->pagarme['customer']['document_type'];
     	$ddd 			= $request->pagarme['customer']['phone']['ddd'];
     	$phone 			= $request->pagarme['customer']['phone']['number'];
     	$zipcode 		= $request->pagarme['customer']['address']['zipcode'];
@@ -221,7 +224,10 @@ class TransactionController extends Controller
     		      	  	'type' => 'cpf',
     		      	  	'number' => $cpf,
     		      	]
+                   
 		    	],
+                     
+
 	    		    'phone_numbers' => [ "+55{$ddd}{$phone}" ],
 	    		    'email' => $email,
     		  	],
@@ -256,7 +262,8 @@ class TransactionController extends Controller
     		      	[
     		      	  	'type' => 'cpf',
     		      	  	'number' => $cpf,
-    		      	]
+    		      	],
+                    
 		    	],
 	    		    'phone_numbers' => [ "+55{$ddd}{$phone}" ],
 	    		    'email' => $email,
@@ -449,5 +456,6 @@ class TransactionController extends Controller
         return redirect()->route('user.panel')->with('success', 'Obrigado por comprar no tabula');
     }
 
+    
 
 }
