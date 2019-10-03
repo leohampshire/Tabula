@@ -11,7 +11,7 @@
         @foreach($course->course_item_chapters as $chapter)
 
         <div class="class-chapter">
-            <p class="active"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> {{$chapter->name}} cade</p>
+            <p class="active"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> {{$chapter->name}}</p>
         </div>
 
         <div class="class-items">

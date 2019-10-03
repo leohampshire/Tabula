@@ -62,7 +62,7 @@
                                 <tr>
                                     <th>Aluno</th>
                                     <th>Acertos</th>
-                                    <th>Data Atualização</th>
+                                    <th>Data do envio</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -75,7 +75,7 @@
                                     <td>Usuário não localizado</td>
                                     @endif
                                     <td>{{$answer->course_ite}}</td>
-                                    <td>{{date("d/m/Y", strtotime($answer->updated_at))}}</td>
+                                    <td>{{date("d/m/Y  H:m", strtotime($answer->created_at))}}</td>
                                     <td>
                                         <a href="{{route('admin.course.usertest.show', ['test' => $answer] )}}"
                                             title="Deletar" class="act-list">

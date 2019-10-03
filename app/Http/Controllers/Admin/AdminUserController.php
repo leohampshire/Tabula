@@ -142,8 +142,10 @@ class AdminUserController extends Controller
 	{
         $user = User::find($id);
         $company = $user->company;
-        $company->teachers()->update(['company_id' =>  null]);
-        $company->delete();
+        if($company){
+            $company->teachers()->update(['company_id' =>  null]);
+            $company->delete();
+        }
         foreach ($user->courses as $course) {
             CourseUser::where('course_id', $course->id)->delete();
         }

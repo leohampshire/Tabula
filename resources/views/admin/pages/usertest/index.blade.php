@@ -73,7 +73,7 @@
                                     <td>{{$test->name}}</td>
                                     <td>{{$test->course_item_parent()->count()}}</td>
                                     <td>{{$test->testUser()->count()}}</td>
-                                    <td>{{date("d/m/Y", strtotime($test->updated_at))}}</td>
+                                    <td>{{date("d/m/Y H:m", strtotime($test->updated_at))}}</td>
                                     <td>
                                         <a href="{{route('admin.course.usertest.answer', ['test' => $test])}}"
                                             title="Visualizar provas respondidas" class="act-list">
