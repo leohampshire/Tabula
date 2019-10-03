@@ -29,6 +29,10 @@ class CourseItem extends Model
     {
         return $this->hasMany('App\TestItem', 'course_item_id');
     }
+    public function testUser()
+    {
+        return $this->hasMany('App\Test', 'course_item_id');
+    }
 
     public function item_checked()
     {

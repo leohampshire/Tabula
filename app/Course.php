@@ -29,6 +29,10 @@ class Course extends Model
     {
         return $this->hasMany('App\CourseItemChapter');
     }
+    public function tests()
+    {
+        return $this->hasMany('App\CourseItemChapter');
+    }
 
     public function userGroups()
     {
@@ -62,6 +66,7 @@ class Course extends Model
     {
         return $this->hasMany('App\Rating');
     }
+    
 
     public function question()
     {

@@ -60,16 +60,16 @@
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group row">
-                  <div class="col-xs-8">
+                  <div class="col-xs-12 col-sm-8">
                     <label for="name">Nome</label>
                     <input type="text" name="name" placeholder="Nome" class="form-control" id="name" value="{{old('name')}}">
                   </div>
-                  <div class="col-xs-2">
+                  <div class="col-xs-6 col-sm-2">
                   <label>Tempo em horas</label>
                     <input name="timeH" value="{{ old('timeH') }}" type="number" class="form-control" placeholder="Horas">
                   </div>
 
-                  <div class="col-xs-2">
+                  <div class="col-xs-6 col-sm-2">
                   <label>Tempo em minutos</label>
                     <input name="timeM" value="{{ old('timeM') }}" type="number" class="form-control" placeholder="Minutos">
                   </div>

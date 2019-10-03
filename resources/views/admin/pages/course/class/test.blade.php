@@ -91,11 +91,11 @@
                                     <td>
                                         <a href="#" title="Editar" class="act-list act-edit-test"
                                             data-item="{{$item->id}}">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            <i class="fa fa-pencil-square" aria-hidden="true"></i>
                                         </a>
                                         <a href="{{ route('admin.course.item.delete', ['id' => $item->id])}}"
                                             title="Excluir" class="act-list act-delete">
-                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
                                         </a>
                                     </td>
                                 </tr>
