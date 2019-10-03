@@ -75,13 +75,6 @@
                                         class="form-control input-cpf">
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="form-group">
-                                    <label for="cnpj">CNPJ</label>
-                                    <input name="cnpj" type="text" placeholder="XX.XXX.XXX/XXXX-XX"
-                                        class="form-control input-cnpj">
-                                </div>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-8 col-sm-4">
@@ -938,65 +931,64 @@
 </div>
 <!--/.fim Sacar-->
 
- <div class="modal fade" id="textModalzin" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title"><b>Em Manutenção</b></h4>
-            </div>
-            <div class="modal-body">
-                <p>Caso você esteja acessando o site pelo celular, por favor, virar o celular na horizontal.</p>
-            </div>
-            <div class="modal-footer">
-                <center><button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">Confirmar</button></center>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+<div class="modal fade" id="textModalzin" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title"><b>Em Manutenção</b></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Caso você esteja acessando o site pelo celular, por favor, virar o celular na horizontal.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <center><button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">Confirmar</button></center>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
 
-<!--Texto inicia curso-->
-<div class="modal fade" id="textModal" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title"><b>A Equipe Tabula te dá as boas-vindas ao curso!</b></h4>
-            </div>
-            <div class="modal-body">
-                <p><b>Informações importantes</b></p><br>
+                                <!--Texto inicia curso-->
+                                <div class="modal fade" id="textModal" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title"><b>A Equipe Tabula te dá as boas-vindas ao curso!</b></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b>Informações importantes</b></p><br>
 
-                <p><b>Observação :</b></p>
-                O certififado desse curso é <b>GERADO AUTOMCATICAMENTE.</b><br>
-                Para que isso aconteça o aluno deverá dar o um <b>"CHECK"</b> em Todas Aulas.<br>
-                <br>
-                <p><b>1</b>  Os cursos estão divididos em Seções e Aulas</p>
-                <ul>
-                    <li>As Seções dividem o curso nos tópicos mais relevantes</li>
-                    <li>Nas Aulas você encontra o conteúdo, que pode ser composto por materiais de leitura, exercícios, e principalmente, vídeos</li>
-                </ul>
-                <p><b>2</b>  Ao terminar a aula, não se esqueça clicar na "bolinha" do lado do titulo da aula antes de passar para a próxima aula! Este passo é importante para a emissão do certificado</p>
-                <p><b>3</b>  Em muitos casos, ao final de cada Seção ou ao final do Curso, há uma Avaliação para examinar o seu progresso. Lembre-se, uma vez iniciada a avaliação, é impossível pausá-la. Logo, somente comece a avaliação caso tenha o tempo necessário para finalizá-la</p>
-                <p><b>4</b>  Com o intuito de criar um ambiente focado em compartilhamento de ideias, oferecemos um Fórum de Dúvidas e os Grupos de Discussão</p>
-                <p><b>5</b>  Ao concluir o curso, o Tabula fornece um certificado, que estará disponível em seu perfil</p>
-                <p><b>6</b>  A emissão do certificado é gerado automaticamente, exceto em casos de cursos que contenham  uma avaliação diseertativa, neste cenário o certificado sera gerado após a correção do professor.</p>
-                <p>Para qualquer problema ou sugestões, estamos à disposição através do suporte@tabula.com.br</p>
-            </div>
-            <div class="modal-footer">
-                <center><button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">Confirmar</button></center>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
+                                                <p><b>Observação :</b></p>
+                                                O certififado desse curso é <b>GERADO AUTOMCATICAMENTE.</b><br>
+                                                Para que isso aconteça o aluno deverá dar o um <b>"CHECK"</b> em Todas Aulas.<br>
+                                                <br>
+                                                <p><b>1</b>  Os cursos estão divididos em Seções e Aulas</p>
+                                                <ul>
+                                                    <li>As Seções dividem o curso nos tópicos mais relevantes</li>
+                                                    <li>Nas Aulas você encontra o conteúdo, que pode ser composto por materiais de leitura, exercícios, e principalmente, vídeos</li>
+                                                </ul>
+                                                <p><b>2</b>  Ao terminar a aula, não se esqueça clicar na "bolinha" do lado do titulo da aula antes de passar para a próxima aula! Este passo é importante para a emissão do certificado</p>
+                                                <p><b>3</b>  Em muitos casos, ao final de cada Seção ou ao final do Curso, há uma Avaliação para examinar o seu progresso. Lembre-se, uma vez iniciada a avaliação, é impossível pausá-la. Logo, somente comece a avaliação caso tenha o tempo necessário para finalizá-la</p>
+                                                <p><b>4</b>  Com o intuito de criar um ambiente focado em compartilhamento de ideias, oferecemos um Fórum de Dúvidas e os Grupos de Discussão</p>
+                                                <p><b>5</b>  Ao concluir o curso, o Tabula fornece um certificado, que estará disponível em seu perfil</p>
+                                                <p><b>6</b>  A emissão do certificado é gerado automaticamente, exceto em casos de cursos que contenham  uma avaliação diseertativa, neste cenário o certificado sera gerado após a correção do professor.</p>
+                                                <p>Para qualquer problema ou sugestões, estamos à disposição através do suporte@tabula.com.br</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <center><button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">Confirmar</button></center>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
 <!--Novo Cupom-->
 <div class="modal fade" id="couponModal">
     <div class="modal-dialog">
