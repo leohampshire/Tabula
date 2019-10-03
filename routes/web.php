@@ -376,6 +376,4 @@ Route::group(['prefix' => 'curso', 'as' => 'course.'], function () {
   Route::get('/{urn}', 'User\CourseController@course')->name('single');
 });
 
-Route::get('/teste', function () {
-  App\Http\Controllers\Admin\TestUserController::generateCourseId();
-});
+

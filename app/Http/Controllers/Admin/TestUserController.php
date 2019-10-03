@@ -37,14 +37,14 @@ class TestUserController extends Controller
             ->with('test', $test);
     }
 
-    public static function generateCourseId()
-    {
-        $tests= Test::all();
-        foreach ($tests as $test) {
-            $item = CourseItem::find ($test->course_item_id);
-            $chapter =$item->course_item_chapter; 
-            $test->course_id = $chapter->course_id;
-            $test->save();
-        }
-    }
+    // public static function generateCourseId()
+    // {
+    //     $tests= Test::all();
+    //     foreach ($tests as $test) {
+    //         $item = CourseItem::find ($test->course_item_id);
+    //         $chapter =$item->course_item_chapter; 
+    //         $test->course_id = $chapter->course_id;
+    //         $test->save();
+    //     }
+    // }
 }
