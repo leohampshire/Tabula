@@ -62,7 +62,6 @@
                                 <tr>
                                     <th>Aluno</th>
                                     <th>Acertos</th>
-                                    <th>Provas Respondidas</th>
                                     <th>Data Atualização</th>
                                     <th>Ação</th>
                                 </tr>
@@ -76,7 +75,6 @@
                                     <td>Usuário não localizado</td>
                                     @endif
                                     <td>{{$answer->course_ite}}</td>
-                                    <td>0</td>
                                     <td>{{date("d/m/Y", strtotime($answer->updated_at))}}</td>
                                     <td>
                                         <a href="{{route('admin.course.usertest.show', ['test' => $answer] )}}"

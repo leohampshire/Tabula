@@ -37,7 +37,7 @@
 
                         <div class="row row-item-question">
                             <div class="col-sm-12">
-                                <div class="form-group">
+                                <div class="form-group {{$question->answer == 1 ? 'has-success' : ''}}">
 
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -53,7 +53,7 @@
                         @empty
                         @endforelse
                         @elseif($itm->course_item_types_id == 8)
-                        <?php $itemTest = $test->tests()->where('course_item_id', $itm->id)->first(); ?>
+                        <?php $itemTest = $test->tests()->where('course_item_id', $itm->id)->first();?>
                         <div class="row">
                             <div class="col-sm-12">
                                 <label>{{$itm->name}}</label>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="form-group">
+                                <div class="form-group {{$itm->test()->first()->answer == 1 ? 'has-success' : ''}}">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <input type="radio" name="true_false[{{$itm->id}}]" value="1"
@@ -70,7 +70,7 @@
                                         <label class="form-control">Verdadeiro</label>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group {{$itm->test()->first()->answer == 0 ? 'has-success' : ''}}">
 
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -83,6 +83,7 @@
 
                             </div>
                         </div>
+                    
                         @elseif($itm->course_item_types_id == 7)
                         <div class="row">
                             <div class="col-sm-12">
@@ -94,7 +95,7 @@
 
                         <div class="row row-item-question">
                             <div class="col-sm-12">
-                                <div class="form-group">
+                                <div class="form-group {{$question->answer == 1 ? 'has-success' : ''}}">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <input type="checkbox" name="alt_mult[{{$itm->id}}][]"
