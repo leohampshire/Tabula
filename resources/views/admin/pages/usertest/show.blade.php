@@ -61,11 +61,12 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="form-group {{$itm->test()->first()->answer == 1 ? 'has-success' : ''}}">
+                                @php($answerItem = $itm->test()->first()->answer)
+                                <div class="form-group @if($answerItem) {{$answerItem == 1 ? 'has-success' : ''}} @endif">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <input type="radio" name="true_false[{{$itm->id}}]" value="1"
-                                                {{$itemTest->answer == "1" ? "checked" : ""}}>
+                                                @if($itemTest){{$itemTest->answer == "1" ? "checked" : ""}} @endif>
                                         </span>
                                         <label class="form-control">Verdadeiro</label>
                                     </div>
@@ -75,7 +76,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <input type="radio" name="true_false[{{$itm->id}}]" value="0"
-                                                {{$itemTest->answer == "0" ? "checked" : ""}}>
+                                            @if($itemTest){{$itemTest->answer == "0" ? "checked" : ""}} @endif> 
                                         </span>
                                         <label class="form-control">Falso</label>
                                     </div>
