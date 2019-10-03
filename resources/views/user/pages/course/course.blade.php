@@ -165,34 +165,36 @@
 
         </div>
         @if(count($allCourses) != 0)
-        <div class="box-w-shadow">
-            <h3>Cursos relacionados</h3>
-            <div class="container-carousel-courses">
-                <button class="prev-carousel-courses" id="recommended-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                <button class="next-carousel-courses" id="recommended-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                <div class="carousel-courses" id="recommended-carousel">
-                    @forelse($allCourses as $recommended)
-                    @if($recommended->avaliable == 2)
-                    <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
-                        <div class="course-box">
-                            <div class="course-thumb">
-                                <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
-                            </div>
-                            <div class="course-desc">
-                                <h3>{{substr($recommended->name,0, 50)}}</h3>
-                                <p><?php echo substr($recommended->desc, 0, 55) ?></p>
-                            </div>
-                            <div class="course-value">
-                                <span>@if($recommended->price == 0) Grátis @else R$ {{number_format($recommended->price,2,',','.')}}@endif</span>
-                            </div>
+        @if(count($allCourses) != 0)
+                <div class="box-w-shadow">
+                    <h3>Cursos relacionados</h3>
+                    <div class="container-carousel-courses">
+                        <button class="prev-carousel-courses" id="recommended-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                        <button class="next-carousel-courses" id="recommended-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                        <div class="carousel-courses" id="recommended-carousel">
+                            @forelse($allCourses as $recommended)
+                            @if($recommended->avaliable == 2)
+                            <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
+                                <div class="course-box">
+                                    <div class="course-thumb">
+                                        <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
+                                    </div>
+                                    <div class="course-desc">
+                                        <h3>{{substr($recommended->name,0, 14)}}</h3>
+                                        <p><?php echo substr($recommended->desc, 0, 55) ?></p>
+                                    </div>
+                                    <div class="course-value">
+                                        <span>@if($recommended->price == 0) Grátis @else R$ {{number_format($recommended->price,2,',','.')}}@endif</span>
+                                    </div>
+                                </div>
+                            </a>
+                            @endif
+                            @empty
+                            @endforelse
                         </div>
-                    </a>
-                    @endif
-                    @empty
-                    @endforelse
+                    </div>
                 </div>
-            </div>
-        </div>
+                @endif
         @endif
     </div>
 </section>

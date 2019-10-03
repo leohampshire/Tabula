@@ -84,7 +84,6 @@
 @yield('scripts')
 
 <script type="text/javascript">
-
 $('#destaque-carousel').slick({
   dots: false,
   infinite: true,
@@ -124,6 +123,7 @@ $('#destaque-carousel').slick({
 
 $('#post-carousel').slick({
     dots: false,
+    infinite: false,
     infinite: true,
     speed: 300,
     slidesToShow: 4,
@@ -156,7 +156,10 @@ $('#post-carousel').slick({
         }
     ]
 });
-$('#recommended-carousel').slick({
+
+$('#destaque2-carousel').slick({
+    dots: false,
+    infinite: false,
     dots: false,
     infinite: true,
     speed: 300,
@@ -225,8 +228,6 @@ $('#destaque2-carousel').slick({
         }
     ]
 });
-
-
 
 $(document).on('click', '.scroll', function(event){
     var tela = $(window).width();
@@ -948,17 +949,11 @@ function categAjax(){
     });
   });
 
-   $('.input-cpf').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
+  $('.input-cpf').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
   
   function ajaxCPF(){
     $('.cpf-ajax').inputmask({"mask": "999.999.999-99", "placeholder":"_"});
   }
-$('.input-cnpj').inputmask({"mask": "99.999.999/9999-99", "placeholder":"_"});
-  
-  function ajaxCNPJ(){
-    $('.cnpj-ajax').inputmask({"mask": "99.999.999/9999-99", "placeholder":"_"});
-  }
-
 
  
   function ajaxMoney(){
