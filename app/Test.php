@@ -12,4 +12,18 @@ class Test extends Model
     {
         return $this->hasMany('App\TestUser', 'test_id');
     }
+
+    public function item()
+    {
+        return $this->belongsTo('App\CourseItem', 'course_item_id');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo('App\Course', 'course_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

@@ -182,7 +182,8 @@ class CourseController extends Controller
     public function getClass(Request $request)
     {   
         $item = CourseItem::find($request->item);
-
+        $chapter = CourseItemChapter::find($item->course_item_chapter_id);
+        $course_id = $chapter->course_id;
         if ($item->course_item_types_id == 1) {
             return view('user.pages.course.video')->with('item', $item);
         }
@@ -196,6 +197,7 @@ class CourseController extends Controller
             $items = CourseItem::where('course_items_parent', $item->id)->get();
             return view('user.pages.course.test')
             ->with('items', $items)
+            ->with('course_id', $course_id)
             ->with('item', $item);
         }
         return view('user.pages.course.audio')->with('item', $item);
@@ -205,10 +207,10 @@ class CourseController extends Controller
     {
         $auth = Auth::guard('user')->user();
         $itm = CourseItem::find($request->item_id);
-
         $test                   = new Test;
         $test->user_id          = $auth->id;
         $test->course_item_id   = $request->item_id;
+        $test->course_id       = $request->course_id;
         $test->answers          = $itm->course_item_parent()->count();
         $test->save();
 
