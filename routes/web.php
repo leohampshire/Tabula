@@ -377,5 +377,5 @@ Route::group(['prefix' => 'curso', 'as' => 'course.'], function () {
 });
 
 Route::get('/teste', function () {
-  vinculaAluno();
+  App\Http\Controllers\Admin\TestUserController::generateCourseId();
 });
