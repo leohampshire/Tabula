@@ -90,7 +90,11 @@ class AdminBlogController extends Controller
     public function indexPost(Request $request)
     {
         $posts = new BlogPost;
-
+        if(request()->has('name')){
+            if(request('name') != ""){
+                $posts = $posts->where('name', 'like', '%' . request('name') . '%');
+            }
+        }
         $posts = $posts->orderBy('name', 'asc')->paginate(10);
         return view('admin.pages.blog.post.index')->with('posts', $posts);
     }
