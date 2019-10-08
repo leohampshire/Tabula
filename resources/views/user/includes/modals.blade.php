@@ -71,8 +71,14 @@
                             </div>
                             <div class="col-xs-12 col-sm-4">
                                 <div class="form-group">
+<<<<<<< HEAD
                                      <label for="cpfcnpj">CPF/CNPJ</label>
                                     <input type='text' name='cpfcnpj' onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()' class="form-control">
+=======
+                                    <label for="cpfcnpj">CPF/CNPJ</label>
+                                    <input type='text' name='cpfcnpj' onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()' class="form-control">
+ 
+>>>>>>> 4ffd20a13862410a3c1bf7c3794b9fb70fdd4189
                                 </div>
                             </div>
                         </div>
