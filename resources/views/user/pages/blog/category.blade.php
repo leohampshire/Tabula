@@ -26,10 +26,11 @@
                                 <h4>{{$post->name}}</h4>
                                 <p class="data-news"><i class="fa fa-calendar" aria-hidden="true"></i>
                                     {{strftime('%d de %B de %Y', strtotime($post->created_at))}}</p>
-                                    <br>
-                                <p class="summary-news"><?php echo substr($post->content,0, 150) ?> ...</p>
+                                <br>
+                                <p class="summary-news"><?php echo substr($post->content,0, 50) ?> ...</p>
                                 <button
-                                    onclick="window.location.href ='{{route('blog.single', ['urn' => $post->urn])}}'" style="margin-top: 12px;">Leia
+                                    onclick="window.location.href ='{{route('blog.single', ['urn' => $post->urn])}}'"
+                                    style="margin-top: 12px;">Leia
                                     mais</button>
                             </div>
                         </div>
@@ -48,9 +49,6 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="box-w-shadow">
-                            <!--
-                             <a href="{{route('blog.index')}}">Limpar</a>
-                            -->
                             <div class="title-box">
                                 <h4><i class="fa fa-list" aria-hidden="true"></i> Categorias</h4>
                             </div>

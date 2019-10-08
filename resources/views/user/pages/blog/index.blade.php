@@ -28,7 +28,6 @@
                                 <p class="data-news"><i class="fa fa-calendar" aria-hidden="true"></i>
                                     {{strftime('%d de %B de %Y', strtotime($post->created_at))}}</p>
                                     <br>
-                                <p class="summary-news"><?php echo substr($post->content,0, 150) ?> ...</p>
                                 <button
                                     onclick="window.location.href ='{{route('blog.single', ['urn' => $post->urn])}}'" style="margin-top: 12px;">Leia
                                     mais</button>

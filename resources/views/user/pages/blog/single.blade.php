@@ -1,8 +1,8 @@
 @extends('user.templates.default')
 
-@section('title', 'Tabula')
+@section('title', $post->meta_title)
 
-@section('description', 'Descrição')
+@section('description', $post->meta_description)
 
 @section('content')
 
