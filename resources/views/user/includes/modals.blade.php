@@ -71,9 +71,8 @@
                             </div>
                             <div class="col-xs-12 col-sm-4">
                                 <div class="form-group">
-                                    <label for="cpf">CPF</label>
-                                    <input name="cpf" type="text" placeholder="XXX.XXX.XXX-XX"
-                                        class="form-control input-cpf">
+                                     <label for="cpfcnpj">CPF/CNPJ</label>
+                                    <input type='text' name='cpfcnpj' onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()' class="form-control">
                                 </div>
                             </div>
                         </div>

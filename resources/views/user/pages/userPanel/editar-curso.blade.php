@@ -149,14 +149,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <label for="requirements">Requisitos</label>
-                    <textarea name="requirements" class="form-control" placeholder="Requisitos para o curso" rows="4">{{ $course->requirements }}</textarea>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-xs-12 col-sm-4">
                 <div class="form-group">
                     <label for="thumb_img">Imagem da vitrine</label>

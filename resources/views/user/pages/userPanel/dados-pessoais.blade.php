@@ -172,9 +172,8 @@
             </div>
             <div class="col-xs-12 col-sm-4">
                 <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input name="cpf" onclick="ajaxCPF()" @if($auth->databank) value="{{$auth->databank->document_number}}"
-                    @endif type="text" class="form-control cpf-ajax">
+                    <label for="cpfcnpj">CPF/CNPJ</label>
+                    <input type='text' name='cpfcnpj' onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()' @if($auth->databank) value="{{$auth->databank->document_number}}" @endif class="form-control">
                 </div>
             </div>
         </div>

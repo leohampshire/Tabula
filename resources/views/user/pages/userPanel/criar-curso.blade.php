@@ -35,7 +35,7 @@
             <div class="col-xs-12">
                 <div class="form-group">
                     <label for="desc">Descrição</label>
-                    <input name="desc" type="text" value="{{ old('desc') }}" class="form-control" placeholder="Descrição">
+                    <input name="desc" type="text" class="form-control" placeholder="Descrição">
                 </div>
             </div>
         </div>
@@ -77,14 +77,6 @@
                     <label for="price">Preço</label>
                     <input name="price" value="{{ old('price') }}" type="text" onclick="ajaxMoney()"
                         class="form-control input-money" placeholder="Preço">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <label for="requirements">Requisitos</label>
-                    <textarea name="requirements" class="form-control" placeholder="Requisitos para o curso" rows="4">{{ old('requirements') }}</textarea>
                 </div>
             </div>
         </div>

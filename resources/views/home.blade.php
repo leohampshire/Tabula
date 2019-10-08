@@ -58,7 +58,7 @@
                     <div class="macro-mobile-wrapper">
                         @for($i = 0; $i<3; $i++) <div class="macrotema-col-{{ $i+1 }}">
                             @for($j = 0; $j < $mobile_col_limit; $j++) <div class="macro-indv-mobile">
-                                <a href="{{ url('categoria/' . $categories[$mobile_category_count]->urn) }}"
+                                <a href="{{ url('categoria/' . $mobile_categories[$mobile_category_count]->urn) }}"
                                     style="background-image: url('{{ asset('images/hex/mobile/')}}/{{$mobile_categories[$mobile_category_count]->mobile_hex_bg }}')">
                                     <p id="macro-title">{{ $mobile_categories[$mobile_category_count]->name }}</p>
                                     <img class="macroicon"

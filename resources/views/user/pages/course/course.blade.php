@@ -29,8 +29,8 @@
                     <h4>Autor</h4>
                     <p>{{$course->author->name}}</p>
 
-                    <h4>Descrição</h4>
-                    <p><?php echo substr($course->desc,0,50) ?></p>
+                    <h4>Duração</h4>
+                    <p><?php echo ($course->timeH); echo (" horas "); echo ($course->timeM); echo (" minutos ") ?></p>
                     <br>
                     @if($hasCourse && $auth->expired($course->id) >= date('Y-m-d'))
                     <a href="{{route('course.class', ['id' => $course->id])}}">
@@ -49,6 +49,9 @@
                         <button>Visualizar</button>
                     </a>
                     @else
+                    <div class="course-value">
+                          <span style="margin-left:305px;position:absolute;">@if(['price'] == 0) Grátis @else R$ {{number_format(($course->price),2,',','.')}}@endif</span>
+                     </div>
                     <a href="{{route('cart.finish', ['id' => $course->id])}}">
                         <button>Comprar</button>
                     </a>
@@ -138,8 +141,8 @@
                     @endforeach
                 </div>
                 <div class="col-sm-5">
-                    <h3>Requisitos</h3>
-                    <p>{{$course->requirements}}</p>
+                    <h3>Descrição</h3>
+                    <p><?php echo ($course->desc); ?></p>
                 </div>
             </div>
         </div>

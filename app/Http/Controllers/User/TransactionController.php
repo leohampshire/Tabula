@@ -17,7 +17,7 @@ class TransactionController extends Controller
             'agencia'           => 'required',
             'conta'             => 'required',
             'conta_dv'          => 'required',
-            'cpf'               => 'required',
+            'cpfcnpj'               => 'required',
             'legal_name'        => 'required|max:200',
         ]);
 
@@ -28,7 +28,7 @@ class TransactionController extends Controller
           'agencia_dv'      => $request->agencia_dv,
           'conta'           => $request->conta,
           'conta_dv'        => $request->conta_dv,
-          'document_number' => $request->cpf,
+          'document_number' => $request->cpfcnpj,
           'legal_name'      => $request->legal_name,
         ]);
 
@@ -76,7 +76,7 @@ class TransactionController extends Controller
         $data_bank->agencia_dv      = $request->agencia_dv;
         $data_bank->conta           = $request->conta;
         $data_bank->conta_dv        = $request->conta_dv;
-        $data_bank->document_number = $request->cpf;
+        $data_bank->document_number = $request->cpfcnpj;
         $data_bank->recipient_id    = $result->id;
         $data_bank->user_id         = $auth->id;
         $data_bank->save();
@@ -189,7 +189,7 @@ class TransactionController extends Controller
 
     	$name 			= $request->pagarme['customer']['name'];
     	$email 			= $request->pagarme['customer']['email'];
-    	$cpf 			= $request->pagarme['customer']['document_number'];
+    	$cpfcnpj		= $request->pagarme['customer']['document_number'];
         $ddd 			= $request->pagarme['customer']['phone']['ddd'];
     	$phone 			= $request->pagarme['customer']['phone']['number'];
     	$zipcode 		= $request->pagarme['customer']['address']['zipcode'];
@@ -219,7 +219,7 @@ class TransactionController extends Controller
     		    	'documents' => [
     		      	[
     		      	  	'type' => 'cpf',
-    		      	  	'number' => $cpf,
+    		      	  	'number' => $cpfcnpj,
     		      	]
                    
 		    	],
@@ -258,7 +258,7 @@ class TransactionController extends Controller
     		    	'documents' => [
     		      	[
     		      	  	'type' => 'cpf',
-    		      	  	'number' => $cpf,
+    		      	  	'number' => $cpfcnpj,
     		      	],
                     
 		    	],
