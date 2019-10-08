@@ -18,12 +18,12 @@
                         @php($no_voted = 5 - $course->star)
 
                         @for($i= 0; $i < $voted; $i++) <img class="rating-style"
-                        src="{{asset('images/img/star1.png')}}">
-                        @endfor
+                            src="{{asset('images/img/star1.png')}}">
+                            @endfor
 
-                        @for($i= 0; $i < $no_voted; $i++) <img class="rating-style"
-                        src="{{asset('images/img/star0.png')}}">
-                        @endfor
+                            @for($i= 0; $i < $no_voted; $i++) <img class="rating-style"
+                                src="{{asset('images/img/star0.png')}}">
+                                @endfor
                     </p>
                     <hr>
                     <h4>Autor</h4>
@@ -50,8 +50,9 @@
                     </a>
                     @else
                     <div class="course-value">
-                          <span style="margin-left:305px;position:absolute;">@if(['price'] == 0) Grátis @else R$ {{number_format(($course->price),2,',','.')}}@endif</span>
-                     </div>
+                        <span style="margin-left:305px;position:absolute;">@if(['price'] == 0) Grátis @else R$
+                            {{number_format(($course->price),2,',','.')}}@endif</span>
+                    </div>
                     <a href="{{route('cart.finish', ['id' => $course->id])}}">
                         <button>Comprar</button>
                     </a>
@@ -63,97 +64,87 @@
                 </div>
                 @if($course->video != null)
                 <div class="col-sm-6">
-                    <video controlsList="nodownload" oncontextmenu="return false;" style="width:100%; height: 250px; object-fit: cover;" controls>
+                    <video controlsList="nodownload" oncontextmenu="return false;"
+                        style="width:100%; height: 250px; object-fit: cover;" controls>
                         <source src="{{ asset('images/thumbvideo')}}/{{$course->video}}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                @else
+                <div class="col-sm-6">
+                    <img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
+                </div>
+                @endif
+            </div>
+        </div>
+        <div class="box-w-shadow">
+            <div class="row">
+                <div class="col-sm-7">
+                    <h3>Conteúdo</h3>
+                    @foreach($course->course_item_chapters as $chapter)
+                    <div class="row-chapter">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>{{substr($chapter->name, 0, 40)}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach($chapter->course_item as $item)
+                    @if($item->course_items_parent == NULL)
+                    @if($item->free_item == 1)
+                    <div class="row-item">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>
+                                    @if($item->course_item_types_id == 3)
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                    @elseif($item->course_item_types_id == 2)
+                                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                    @elseif($item->course_item_types_id == 6)
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    @elseif($item->course_item_types_id == 5)
+                                    <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+                                    @else
+                                    <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                                    @endif
+                                    <span>{{$item->name}}</span>
+                                </h5>
+                                <a href="#" class="act-free-item" data-name="{{$item->name}}"
+                                    data-desc="{{$item->desc}}" data-path="{{$item->path}}"
+                                    data-type="{{$item->course_item_types_id}}"
+                                    data-url="{{asset('uploads/archives')}}">Grátis</a>
+                            </div>
+                        </div>
                     </div>
                     @else
-                    <div class="col-sm-6">
-                        <img src="{{ asset('images/aulas')}}/{{$course->thumb_img}}" alt="Curso">
-                    </div>
-                    @endif
-                </div>
-            </div>
-            <div class="box-w-shadow">
-                <div class="row">
-                    <div class="col-sm-7">
-                        <h3>Conteúdo</h3>
-                        @foreach($course->course_item_chapters as $chapter)
-                        <div class="row-chapter">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <h4>{{substr($chapter->name, 0, 40)}}</h4>
-                                </div>
+                    <div class="row-item">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>
+                                    @if($item->course_item_types_id == 3)
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                    @elseif($item->course_item_types_id == 2)
+                                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                    @elseif($item->course_item_types_id == 6)
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    @elseif($item->course_item_types_id == 5)
+                                    <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+                                    @else
+                                    <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                                    @endif
+                                    <span>{{$item->name}}</span>
+                                </h5>
                             </div>
-                        </div>
-                        @foreach($chapter->course_item as $item)
-                        @if($item->course_items_parent == NULL)
-                        @if($item->free_item == 1)
-                        <div class="row-item">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <h5>
-                                        @if($item->course_item_types_id == 3)
-                                        <i class="fa fa-file-text" aria-hidden="true"></i>
-                                        @elseif($item->course_item_types_id == 2)
-                                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                                        @elseif($item->course_item_types_id == 6)
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        @elseif($item->course_item_types_id == 5)
-                                        <i class="fa fa-folder-open-o" aria-hidden="true"></i>
-                                        @else
-                                        <i class="fa fa-play-circle-o" aria-hidden="true"></i>
-                                        @endif
-                                        <span>{{$item->name}}</span>
-                                    </h5>
-                                    <a href="#" class="act-free-item" data-name="{{$item->name}}"
-                                        data-desc="{{$item->desc}}" data-path="{{$item->path}}"
-                                        data-type="{{$item->course_item_types_id}}"
-                                        data-url="{{asset('uploads/archives')}}">Grátis</a>
-                                    </div>
-                                </div>
-                            </div>
-                            @else
-                            <div class="row-item">
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <h5>
-                                            @if($item->course_item_types_id == 3)
-                                            <i class="fa fa-file-text" aria-hidden="true"></i>
-                                            @elseif($item->course_item_types_id == 2)
-                                            <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                                            @elseif($item->course_item_types_id == 6)
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            @elseif($item->course_item_types_id == 5)
-                                            <i class="fa fa-folder-open-o" aria-hidden="true"></i>
-                                            @else
-                                            <i class="fa fa-play-circle-o" aria-hidden="true"></i>
-                                            @endif
-                                            <span>{{$item->name}}</span>
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                            @endif
-                            @endforeach
-                            @endforeach
-                        </div>
-                        <div class="col-sm-5">
-                            <h3>Requisitos</h3>
-                            <p>{{$course->requirements}}</p>
                         </div>
                     </div>
-<<<<<<< HEAD
                     @endif
                     @endif
                     @endforeach
                     @endforeach
                 </div>
                 <div class="col-sm-5">
-                    <h3>Descrição</h3>
-                    <p><?php echo ($course->desc); ?></p>
+                    <h3>Requisitos</h3>
+                    <p><?php echo $course->requirements ?></p>
                 </div>
             </div>
         </div>
@@ -172,63 +163,48 @@
             <div class="row">
                 <div class="col-xs-12">
                     <p>Este curso nunca foi avaliado, seja o primeiro a dizer o que acha do curso.</p>
-=======
->>>>>>> 4ffd20a13862410a3c1bf7c3794b9fb70fdd4189
                 </div>
-                <div class="box-w-shadow">
-                    <h3>Avaliações</h3>
-                    @forelse($course->rating as $rating)
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <p>{{$rating->pivot->star}}</p>
-                            <p>{{$rating->pivot->comment}}</p>
-                            <p><b>{{$rating->name}}</b></p>
-                            <hr>
-                        </div>
-                    </div>
-                    @empty
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <p>Este curso nunca foi avaliado, seja o primeiro a dizer o que acha do curso.</p>
-                        </div>
-                    </div>
-                    @endforelse
-
-
-                </div>
-                @if(count($allCourses) != 0)
-                @if(count($allCourses) != 0)
-                <div class="box-w-shadow">
-                    <h3>Cursos relacionados</h3>
-                    <div class="container-carousel-courses">
-                        <button class="prev-carousel-courses" id="recommended-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                        <button class="next-carousel-courses" id="recommended-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                        <div class="carousel-courses" id="recommended-carousel">
-                            @forelse($allCourses as $recommended)
-                            @if($recommended->avaliable == 2)
-                            <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
-                                <div class="course-box">
-                                    <div class="course-thumb">
-                                        <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
-                                    </div>
-                                    <div class="course-desc">
-                                        <h3>{{substr($recommended->name,0, 14)}}</h3>
-                                        <p><?php echo substr($recommended->desc, 0, 55) ?></p>
-                                    </div>
-                                    <div class="course-value">
-                                        <span>@if($recommended->price == 0) Grátis @else R$ {{number_format($recommended->price,2,',','.')}}@endif</span>
-                                    </div>
-                                </div>
-                            </a>
-                            @endif
-                            @empty
-                            @endforelse
-                        </div>
-                    </div>
-                </div>
-                @endif
-                @endif
             </div>
-        </section>
+            @endforelse
 
-        @stop
+
+        </div>
+        @if(count($allCourses) != 0)
+        @if(count($allCourses) != 0)
+        <div class="box-w-shadow">
+            <h3>Cursos relacionados</h3>
+            <div class="container-carousel-courses">
+                <button class="prev-carousel-courses" id="recommended-prev"><i class="fa fa-chevron-left"
+                        aria-hidden="true"></i></button>
+                <button class="next-carousel-courses" id="recommended-next"><i class="fa fa-chevron-right"
+                        aria-hidden="true"></i></button>
+                <div class="carousel-courses" id="recommended-carousel">
+                    @forelse($allCourses as $recommended)
+                    @if($recommended->avaliable == 2)
+                    <a href="{{route('course.single', ['urn' => $recommended->urn])}}">
+                        <div class="course-box">
+                            <div class="course-thumb">
+                                <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
+                            </div>
+                            <div class="course-desc">
+                                <h3>{{substr($recommended->name,0, 14)}}</h3>
+                                <p><?php echo substr($recommended->desc, 0, 55) ?></p>
+                            </div>
+                            <div class="course-value">
+                                <span>@if($recommended->price == 0) Grátis @else R$
+                                    {{number_format($recommended->price,2,',','.')}}@endif</span>
+                            </div>
+                        </div>
+                    </a>
+                    @endif
+                    @empty
+                    @endforelse
+                </div>
+            </div>
+        </div>
+        @endif
+        @endif
+    </div>
+</section>
+
+@stop
