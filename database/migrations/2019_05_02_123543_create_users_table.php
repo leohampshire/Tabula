@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('user_type_id');
             $table->string('avatar')->default('default.png');
             $table->string('cover')->default('default.png');
-            $table->string('cpf', 100)->nullable();
+            $table->string('cpfcnpj', 100)->nullable();
             $table->string('birthdate', 10)->nullable();
             $table->string('sex', 45)->nullable();
             $table->string('interest')->nullable();
