@@ -187,8 +187,8 @@
                                 <img src="{{ asset('images/aulas')}}/{{$recommended->thumb_img}}" alt="Curso">
                             </div>
                             <div class="course-desc">
-                                <h3>{{substr($recommended->name,0, 14)}}</h3>
-                                <p><?php echo substr($recommended->desc, 0, 55) ?></p>
+                                <h3>{{substr($recommended->name,0, 50)}}</h3>
+                                <p><?php echo substr($recommended->desc, 0, 100) ?></p>
                             </div>
                             <div class="course-value">
                                 <span>@if($recommended->price == 0) Grátis @else R$

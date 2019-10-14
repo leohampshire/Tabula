@@ -162,10 +162,6 @@
                     <h2>Dados bancários</h2>
                 </div>
             </div>
-<<<<<<< HEAD
-            <div class="col-xs-12 col-sm-4">
-                <div class="form-group">
-=======
             <div class="row">
                 <div class="col-xs-12 col-sm-8">
                     <div class="form-group">
@@ -177,7 +173,6 @@
                 <div class="col-xs-12 col-sm-4">
                    <div class="form-group">
                     
->>>>>>> 4ffd20a13862410a3c1bf7c3794b9fb70fdd4189
                     <label for="cpfcnpj">CPF/CNPJ</label>
                     <input type='text' name='cpfcnpj' onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()' @if($auth->databank) value="{{$auth->databank->document_number}}" @endif class="form-control">
                 </div>

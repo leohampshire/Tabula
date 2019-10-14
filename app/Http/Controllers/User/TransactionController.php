@@ -17,11 +17,7 @@ class TransactionController extends Controller
             'agencia'           => 'required',
             'conta'             => 'required',
             'conta_dv'          => 'required',
-<<<<<<< HEAD
-            'cpfcnpj'               => 'required',
-=======
             'cpfcnpj'           => 'required',
->>>>>>> 4ffd20a13862410a3c1bf7c3794b9fb70fdd4189
             'legal_name'        => 'required|max:200',
         ]);
 
@@ -190,8 +186,6 @@ class TransactionController extends Controller
 
         $amount 		= $request->pagarme['amount'];
         $payment_method = $request->pagarme['payment_method'];
-
-<<<<<<< HEAD
     	$name 			= $request->pagarme['customer']['name'];
     	$email 			= $request->pagarme['customer']['email'];
     	$cpfcnpj		= $request->pagarme['customer']['document_number'];
@@ -290,7 +284,6 @@ class TransactionController extends Controller
     	$payload = json_encode($payload);
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-=======
         $name 			= $request->pagarme['customer']['name'];
         $email 			= $request->pagarme['customer']['email'];
         $cpfcnpj		= $request->pagarme['customer']['document_number'];
@@ -389,7 +382,6 @@ class TransactionController extends Controller
       $payload = json_encode($payload);
       curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
       curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
->>>>>>> 4ffd20a13862410a3c1bf7c3794b9fb70fdd4189
 		# Return response instead of printing.
       curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		# Send request.
