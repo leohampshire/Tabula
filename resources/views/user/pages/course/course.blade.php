@@ -17,12 +17,10 @@
                         @php($voted = $course->star)
                         @php($no_voted = 5 - $course->star)
 
-                        @for($i= 0; $i < $voted; $i++) <img class="rating-style"
-                            src="{{asset('images/img/star1.png')}}">
+                        @for($i= 0; $i < $voted; $i++) <img class="rating-style" src="{{asset('images/img/star1.png')}}">
                             @endfor
 
-                            @for($i= 0; $i < $no_voted; $i++) <img class="rating-style"
-                                src="{{asset('images/img/star0.png')}}">
+                            @for($i= 0; $i < $no_voted; $i++) <img class="rating-style" src="{{asset('images/img/star0.png')}}">
                                 @endfor
                     </p>
                     <hr>
@@ -30,7 +28,10 @@
                     <p>{{$course->author->name}}</p>
 
                     <h4>Duração</h4>
-                    <p><?php echo ($course->timeH); echo (" horas "); echo ($course->timeM); echo (" minutos ") ?></p>
+                    <p><?php echo ($course->timeH);
+                        echo (" horas ");
+                        echo ($course->timeM);
+                        echo (" minutos ") ?></p>
                     <br>
                     @if($hasCourse && $auth->expired($course->id) >= date('Y-m-d'))
                     <a href="{{route('course.class', ['id' => $course->id])}}">
@@ -64,8 +65,7 @@
                 </div>
                 @if($course->video != null)
                 <div class="col-sm-6">
-                    <video controlsList="nodownload" oncontextmenu="return false;"
-                        style="width:100%; height: 250px; object-fit: cover;" controls>
+                    <video controlsList="nodownload" oncontextmenu="return false;" style="width:100%; height: 250px; object-fit: cover;" controls>
                         <source src="{{ asset('images/thumbvideo')}}/{{$course->video}}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -109,10 +109,7 @@
                                     @endif
                                     <span>{{$item->name}}</span>
                                 </h5>
-                                <a href="#" class="act-free-item" data-name="{{$item->name}}"
-                                    data-desc="{{$item->desc}}" data-path="{{$item->path}}"
-                                    data-type="{{$item->course_item_types_id}}"
-                                    data-url="{{asset('uploads/archives')}}">Grátis</a>
+                                <a href="#" class="act-free-item" data-name="{{$item->name}}" data-desc="{{$item->desc}}" data-path="{{$item->path}}" data-type="{{$item->course_item_types_id}}" data-url="{{asset('uploads/archives')}}">Grátis</a>
                             </div>
                         </div>
                     </div>
@@ -174,10 +171,8 @@
         <div class="box-w-shadow">
             <h3>Cursos relacionados</h3>
             <div class="container-carousel-courses">
-                <button class="prev-carousel-courses" id="recommended-prev"><i class="fa fa-chevron-left"
-                        aria-hidden="true"></i></button>
-                <button class="next-carousel-courses" id="recommended-next"><i class="fa fa-chevron-right"
-                        aria-hidden="true"></i></button>
+                <button class="prev-carousel-courses" id="recommended-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <button class="next-carousel-courses" id="recommended-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 <div class="carousel-courses" id="recommended-carousel">
                     @forelse($allCourses as $recommended)
                     @if($recommended->avaliable == 2)
@@ -208,3 +203,10 @@
 </section>
 
 @stop
+
+@section('head')
+
+<meta property="og:title" content="{{$course->meta_title}}">
+<meta property="og:description" content="{{$course->meta_description}}">
+<meta property='og:image' content="{{asset('images/aulas'}}/{{$course->thumb_img}}">
+@endsection
