@@ -208,5 +208,5 @@
 
 <meta property="og:title" content="{{$course->meta_title}}">
 <meta property="og:description" content="{{$course->meta_description}}">
-<meta property='og:image' content="{{asset('images/aulas'}}/{{$course->thumb_img}}">
+<meta property='og:image' content="{{asset('images/aulas')}}{{$course->thumb_img}}">
 @endsection
