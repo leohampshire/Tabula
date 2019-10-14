@@ -80,3 +80,9 @@
 </section>
 
 @stop
+@section('head')
+
+<meta property="og:title" content="{{$post->meta_title}}">
+<meta property="og:description" content="{{$post->meta_description}}">
+<meta property='og:image' content="{{asset('uploads/archives')}}/{{$post->cover}}">
+@endsection
