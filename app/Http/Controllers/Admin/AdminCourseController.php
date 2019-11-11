@@ -23,25 +23,25 @@ use PDF;
 
 class AdminCourseController extends Controller
 {
-	public function index(Request $request)
-	{
+    public function index(Request $request)
+    {
 
         $courses = new Course;
 
-        if($request->has('name')){
-            if(request('name') != ''){
+        if ($request->has('name')) {
+            if (request('name') != '') {
                 $courses = $courses->where('name', 'like', request('name') . '%');
             }
         }
         $courses = $courses->orderBy('name', 'asc')->paginate(20);
-		return view('admin.pages.course.index')->with('courses', $courses);
-	}
+        return view('admin.pages.course.index')->with('courses', $courses);
+    }
 
-	public function SubCourse(Request $request)
-	{
-		$data = Category::where('category_id', $request->categId)->get();
+    public function SubCourse(Request $request)
+    {
+        $data = Category::where('category_id', $request->categId)->get();
         return json_encode($data);
-	}
+    }
 
     public function avaliable($id)
     {
@@ -50,12 +50,12 @@ class AdminCourseController extends Controller
         if ($course->avaliable == 1 || $course->avaliable == 3) {
             $course->avaliable = 2;
             Session::flash('success', 'Curso disponibilizado');
-        }else{
+        } else {
             $course->avaliable = 1;
             Session::flash('success', 'Curso Removido');
         }
 
-        if($avaliable >2 && $course->course_type == 2){
+        if ($avaliable > 2 && $course->course_type == 2) {
             $notification = new Notification;
             $notification->type_notification = "Curso disponibilizado";
             $notification->desc_notification = "Curso liberado pelos nossos adminstradores.";
@@ -68,20 +68,20 @@ class AdminCourseController extends Controller
         return redirect()->back();
     }
 
-	public function create()
-	{
-		return view('admin.pages.course.create')->with('categories', Category::all());
-	}
+    public function create()
+    {
+        return view('admin.pages.course.create')->with('categories', Category::all());
+    }
 
-	public function store(Request $request)
-	{
-		$this->validate($request, [
+    public function store(Request $request)
+    {
+        $this->validate($request, [
             'name'        => 'required|max:100',
             'desc'        => 'required|max:1500',
             'category_id' => 'required',
             'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
-            'video'		  => 'mimes:mp4, mkv',
-            'requirements'=> 'max:10000'	,
+            'video'          => 'mimes:mp4, mkv',
+            'requirements' => 'max:10000',
             'timeM'       => 'max:59',
         ]);
         //Chama o objeto
@@ -98,25 +98,24 @@ class AdminCourseController extends Controller
         $course->meta_title         = $request->meta_title;
         $course->meta_description   = $request->meta_description;
         $course->total_class        = 0;
-        
+
         $course->urn = $this->urnValidate($request->name);
         //valida a foto de capa
-        if($request->thumb_img != ''){
+        if ($request->thumb_img != '') {
             $course->thumb_img      = $this->thumbImgValidate($request);
-        }else{
+        } else {
             $course->thumb_img      = 'course.jpg';
         }
 
         //Valida o video     
-        if($request->video != '')
-        {
+        if ($request->video != '') {
             $arq_video  = $request->file('video');
             $name = basename($arq_video->getClientOriginalName());
-            $type = strtolower(pathinfo($name,PATHINFO_EXTENSION));
+            $type = strtolower(pathinfo($name, PATHINFO_EXTENSION));
             $count = 1;
-            while($count != 0){
+            while ($count != 0) {
                 $str            = "";
-                $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+                $characters     = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
                 $max            = count($characters) - 1;
 
                 for ($i = 0; $i < 7; $i++) {
@@ -125,16 +124,16 @@ class AdminCourseController extends Controller
                     $count  = Course::where('video', $str)->count();
                 }
             }
-            $arq_video_name = $str.'.'.$type;
-            
-            $arq_video->move('images/thumbvideo', $arq_video_name); 
-            $course->video = $arq_video_name;  
+            $arq_video_name = $str . '.' . $type;
+
+            $arq_video->move('images/thumbvideo', $arq_video_name);
+            $course->video = $arq_video_name;
         }
-		if (Auth::guard('admin')->user()) {
+        if (Auth::guard('admin')->user()) {
             $course->course_type        = 1;
             $auth = Auth::guard('admin')->user();
             $course->user_id_owner      = $auth->id;
-        }elseif(Auth::guard('user')->user()){
+        } elseif (Auth::guard('user')->user()) {
             $course->course_type        = 2;
             $auth = Auth::guard('user')->user();
             $course->user_id_owner      = $auth->id;
@@ -147,44 +146,43 @@ class AdminCourseController extends Controller
         $course_items_chapter = CourseItemChapter::all();
         if ($auth->user_type_id <= 2) {
             return redirect(route('admin.course.edit', ['id' => $course->id]))
-            ->with('success', 'Curso criado com sucesso')
-            ->with('course', $course)
-            ->with('categories', $categories)
-            ->with('course_items_chapter', $course_items_chapter);
-        }else{
-            return redirect(route('user.panel')."#teach")
-            ->with('success', 'Curso criado com sucesso');            
+                ->with('success', 'Curso criado com sucesso')
+                ->with('course', $course)
+                ->with('categories', $categories)
+                ->with('course_items_chapter', $course_items_chapter);
+        } else {
+            return redirect(route('user.panel') . "#teach")
+                ->with('success', 'Curso criado com sucesso');
         }
+    }
 
-	}
-
-	public function edit($id)
-	{
-		$course = Course::find($id);
-		$course->price = number_format($course->price, 2, ',', '.');
+    public function edit($id)
+    {
+        $course = Course::find($id);
+        $course->price = number_format($course->price, 2, ',', '.');
         $subcategories = Category::where('category_id', $course->category_id)->get();
 
         $chapters = CourseItemChapter::where('course_id', $id)->get();
-		return view('admin.pages.course.edit')
-		->with('categories', Category::all())
-        ->with('subcategories', $subcategories)
-        ->with('chapters', $chapters)
-		->with('course', $course);
-	}
+        return view('admin.pages.course.edit')
+            ->with('categories', Category::all())
+            ->with('subcategories', $subcategories)
+            ->with('chapters', $chapters)
+            ->with('course', $course);
+    }
 
-	public function update(Request $request)
-	{
-		$this->validate($request, [
+    public function update(Request $request)
+    {
+        $this->validate($request, [
             'name'        => 'required|max:100',
             'desc'        => 'required|max:1500',
-            'urn'  		  => [
+            'urn'            => [
                 Rule::unique('courses')->ignore($request->id)
             ],
             'category_id' => 'required',
             'timeH'       => 'required',
             'timeM'       => 'max:59',
             'thumb_img'   => 'mimes:jpeg,png,jpg,bmp',
-            'video'		  => 'mimes:mp4, mkv'	
+            'video'          => 'mimes:mp4, mkv'
         ]);
         $admin = Auth::guard('admin')->check();
         //Chama o objeto
@@ -205,22 +203,21 @@ class AdminCourseController extends Controller
             $total_class += count($chapter->course_item->where('course_item_types_id', '<', 5));
         }
         $course->total_class = $total_class;
-		
-        
-        if($request->thumb_img != ''){
+
+
+        if ($request->thumb_img != '') {
             $course->thumb_img      = $this->thumbImgValidate($request);
         }
 
         //Valida o video     
-        if($request->video != '')
-        {
+        if ($request->video != '') {
             $arq_video  = $request->file('video');
             $name = basename($arq_video->getClientOriginalName());
-            $type = strtolower(pathinfo($name,PATHINFO_EXTENSION));
+            $type = strtolower(pathinfo($name, PATHINFO_EXTENSION));
             $count = 1;
-            while($count != 0){
+            while ($count != 0) {
                 $str            = "";
-                $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+                $characters     = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
                 $max            = count($characters) - 1;
 
                 for ($i = 0; $i < 7; $i++) {
@@ -229,40 +226,40 @@ class AdminCourseController extends Controller
                     $count  = Course::where('video', $str)->count();
                 }
             }
-            $arq_video_name = $str.'.'.$type;
-            
-            $arq_video->move('images/thumbvideo', $arq_video_name); 
-            $course->video = $arq_video_name;  
+            $arq_video_name = $str . '.' . $type;
+
+            $arq_video->move('images/thumbvideo', $arq_video_name);
+            $course->video = $arq_video_name;
         }
         if (Auth::guard('admin')->user()) {
             $course->featured           = $request->featured;
-            $course->urn 				= $request->urn;
+            $course->urn                 = $request->urn;
         }
         $course->save();
         if ($admin) {
             return redirect()->back()
-            ->with('success', 'Curso Editado com sucesso');
+                ->with('success', 'Curso Editado com sucesso');
         }
-        return redirect(route('user.panel')."#teach")
-        ->with('success', 'Curso Editado com sucesso');
-	}
+        return redirect(route('user.panel') . "#teach")
+            ->with('success', 'Curso Editado com sucesso');
+    }
 
-	public function delete($id)
-	{
+    public function delete($id)
+    {
         $course = Course::find($id);
 
         $course->delete();
 
         Session::flash('success', 'Curso removido com sucesso');
         return redirect()->back();
-	}
+    }
 
     public function free($id)
     {
         $item = CourseItem::find($id);
         if ($item->free_item == NULL || $item->free_item == '') {
             $item->free_item = 1;
-        }else{
+        } else {
             $item->free_item = NULL;
         }
         $item->save();
@@ -305,15 +302,14 @@ class AdminCourseController extends Controller
 
     public function deleteChapter($id)
     {
-    	$chapter = CourseItemChapter::find($id);
+        $chapter = CourseItemChapter::find($id);
 
-        foreach ($chapter->course_item as $item)
-        {
+        foreach ($chapter->course_item as $item) {
             $items = TestItem::where('course_item_id', $item->id);
-       
+
             if ($items->count() > 0) {
                 foreach ($items->get() as $i) {
-                   $i->forceDelete();
+                    $i->forceDelete();
                 }
             }
             if ($item->course_item_parent()->count() > 0) {
@@ -326,7 +322,7 @@ class AdminCourseController extends Controller
 
         $chapter->delete();
         return redirect()->back()
-        ->with('success', 'Capítulo e itens relacionados excluidos com sucesso!');
+            ->with('success', 'Capítulo e itens relacionados excluidos com sucesso!');
     }
 
     public function itemChapter($id)
@@ -334,9 +330,9 @@ class AdminCourseController extends Controller
         $chapter  = CourseItemChapter::find($id);
         $course   = Course::find($chapter->course_id);
         return view('admin.pages.course.class.index')
-        ->with('item_types', CourseItemType::all())
-        ->with('chapter', $chapter)
-        ->with('course', $course);
+            ->with('item_types', CourseItemType::all())
+            ->with('chapter', $chapter)
+            ->with('course', $course);
     }
 
     public function storeItem(Request $request)
@@ -352,20 +348,20 @@ class AdminCourseController extends Controller
         $item->course_item_chapter_id   = $request->chapter_id;
         $item->course_item_types_id     = $request->item_type_id;
         if ($request->item_type_id < 7) {
-                $item->desc             = $request->desc;
+            $item->desc             = $request->desc;
         }
-        if(isset($request->file)){
+        if (isset($request->file)) {
             $item->path = $this->strVideoGenerate($request);
         }
 
         $order = CourseItem::count();
-        
+
         $item->order = $order;
         //Controle de avaliação
-        if ($request->item_type_id >6 ) {
+        if ($request->item_type_id > 6) {
             $item->course_items_parent  = $request->item_parent;
         }
-        
+
         $item->save();
 
         if ($request->item_type_id == 8) {
@@ -373,33 +369,32 @@ class AdminCourseController extends Controller
             $itemTest->course_item_id   = $item->id;
             $itemTest->answer           = $request->trueFalse;
             $itemTest->save();
-
-        }elseif($request->item_type_id == 7){
+        } elseif ($request->item_type_id == 7) {
 
             foreach ($request->afirmacao as $key => $afirmacao) {
                 $itemTest                   = new TestItem;
                 $itemTest->desc             = $afirmacao;
                 $itemTest->course_item_id   = $item->id;
-                if(in_array($key, $request->verdadeira)){
+                if (in_array($key, $request->verdadeira)) {
                     $itemTest->answer       = 1;
-                }else{
+                } else {
                     $itemTest->answer       = 0;
                 }
                 $itemTest->save();
             }
-        }elseif($request->item_type_id == 9){
+        } elseif ($request->item_type_id == 9) {
             foreach ($request->afirma as $key => $afirma) {
                 $itemTest               = new TestItem;
                 $itemTest->desc         = $afirma;
                 $itemTest->course_item_id   = $item->id;
-                if($key == $request->verdadeira){
+                if ($key == $request->verdadeira) {
                     $itemTest->answer   = 1;
-                }else{
+                } else {
                     $itemTest->answer   = 0;
                 }
                 $itemTest->save();
             }
-        }elseif($request->item_type_id == 10){
+        } elseif ($request->item_type_id == 10) {
             $itemTest                   = new TestItem;
             $itemTest->course_item_id   = $item->id;
             $itemTest->desc             = $request->desc;
@@ -408,8 +403,8 @@ class AdminCourseController extends Controller
 
         $course = $item->course_item_chapter->course;
         foreach ($course->course_item_chapters as $chapter) {
-                $total_class += count($chapter->course_item
-                    ->where('course_item_types_id', '<', 5));
+            $total_class += count($chapter->course_item
+                ->where('course_item_types_id', '<', 5));
         }
         $course->update([
             'total_class' => $total_class,
@@ -426,11 +421,11 @@ class AdminCourseController extends Controller
         $items = CourseItem::where('course_items_parent', $id)->get();
 
         return view('admin.pages.course.class.test')
-        ->with('item_types', CourseItemType::all())
-        ->with('items', $items)
-        ->with('item_parent', $item_parent)
-        ->with('chapter', $chapter)
-        ->with('course', $course);
+            ->with('item_types', CourseItemType::all())
+            ->with('items', $items)
+            ->with('item_parent', $item_parent)
+            ->with('chapter', $chapter)
+            ->with('course', $course);
     }
     public function deleteItem($id)
     {
@@ -443,7 +438,7 @@ class AdminCourseController extends Controller
         }
         if ($items->count() > 0) {
             foreach ($items->get() as $i) {
-               $i->forceDelete();
+                $i->forceDelete();
             }
         }
         $item->delete();
@@ -454,8 +449,8 @@ class AdminCourseController extends Controller
     {
         $courses = new Course;
 
-        if($request->has('name')){
-            if(request('name') != ''){
+        if ($request->has('name')) {
+            if (request('name') != '') {
                 $courses = $courses->where('name', 'like', request('name') . '%');
             }
         }
@@ -465,7 +460,7 @@ class AdminCourseController extends Controller
     public function show($id)
     {
         $course = Course::find($id);
-     return view('admin.pages.course.show.class')->with('course', $course);   
+        return view('admin.pages.course.show.class')->with('course', $course);
     }
 
     public function urnValidate(String $name)
@@ -490,15 +485,15 @@ class AdminCourseController extends Controller
 
     public function thumbImgValidate(Request $request)
     {
-        $originalPath = public_path().'/images/aulas/';
+        $originalPath = public_path() . '/images/aulas/';
         $arq_img = $request->file('thumb_img');
         $name    = basename($arq_img->getClientOriginalName());
-        $type    = strtolower(pathinfo($name,PATHINFO_EXTENSION));
+        $type    = strtolower(pathinfo($name, PATHINFO_EXTENSION));
         $count = 1;
         //Gera string aleatória
-        while($count != 0){
+        while ($count != 0) {
             $str            = "";
-            $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+            $characters     = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
             $max            = count($characters) - 1;
 
             for ($i = 0; $i < 7; $i++) {
@@ -507,14 +502,14 @@ class AdminCourseController extends Controller
                 $count  = Course::where('thumb_img', $str)->count();
             }
         }
-        $arq_img_name = $str.'.'.$type;
+        $arq_img_name = $str . '.' . $type;
         $image = Image::make($arq_img);
         $image->resize(300, null, function ($constraint) {
             $constraint->aspectRatio();
         });
-        $image->save($originalPath.$arq_img_name); 
+        $image->save($originalPath . $arq_img_name);
 
-        return $arq_img_name;  
+        return $arq_img_name;
     }
 
     public function strVideoGenerate(Request $request)
@@ -526,15 +521,15 @@ class AdminCourseController extends Controller
             $this->validate($request, [
                 'file'      => 'mimes:mp4,avi,mpg,mkv'
             ]);
-        }elseif($request->item_type_id == 2){
+        } elseif ($request->item_type_id == 2) {
             $this->validate($request, [
                 'file'      => 'mimes:jpeg,bmp,png,jpg,gif,svg'
             ]);
-        }elseif ($request->item_type_id == 4) {
+        } elseif ($request->item_type_id == 4) {
             $this->validate($request, [
                 'file'      => 'mimes:mid,mp3,ogg,wav,mpga,mp2,mp2a,m2a,m3a'
             ]);
-        }elseif ($request->item_type_id == 5) {
+        } elseif ($request->item_type_id == 5) {
             $this->validate($request, [
                 'file'      => 'required|mimes:rar,pdf,xlsx,xls,ppt,pptx,doc,docx,otp,odp,ods,odt,pps,psd,jpeg,jpg,png'
             ]);
@@ -542,11 +537,11 @@ class AdminCourseController extends Controller
         $attach_file = $request->file;
         //Gera string aleatória
         $count = 1;
-        while($count != 0){
+        while ($count != 0) {
             $str            = "";
-            $characters     = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+            $characters     = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
             $max            = count($characters) - 1;
-            
+
             for ($i = 0; $i < 7; $i++) {
                 $rand   = mt_rand(0, $max);
                 $str   .= $characters[$rand];
@@ -554,16 +549,15 @@ class AdminCourseController extends Controller
             }
         }
         $attach_file_name = $str;
-        $attach_file_name =  $attach_file_name.".".pathinfo($attach_file->getClientOriginalName(),PATHINFO_EXTENSION);
+        $attach_file_name =  $attach_file_name . "." . pathinfo($attach_file->getClientOriginalName(), PATHINFO_EXTENSION);
         $attachment = "uploads/archives/{$attach_file_name}";
         $attach_file->move('uploads/archives', $attach_file_name);
         //Vimeo upload
-        if($request->item_type_id == 1){          
-            $vimeo_result = vimeo_tools::Upload_Video($attachment, $request->name);                
+        if ($request->item_type_id == 1) {
+            $vimeo_result = vimeo_tools::Upload_Video($attachment, $request->name);
             $path = $vimeo_result;
-        }
-        else {                
-            $path = $attach_file_name;       
+        } else {
+            $path = $attach_file_name;
         }
         return $path;
     }

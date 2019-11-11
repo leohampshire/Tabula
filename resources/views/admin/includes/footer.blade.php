@@ -152,7 +152,6 @@ function seoValidate()
 }
 //Fim Tela de SEO
 
-
   $(document).ready(function() {
     $(".multiple").select2({
       ajax: { 
