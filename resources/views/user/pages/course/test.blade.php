@@ -58,7 +58,8 @@
         @elseif($itm->course_item_types_id == 7)
         <div class="row">
             <div class="col-sm-12">
-                <h3>{{$itm->name}}</h3>
+                <h3><?php echo nl2br($itm->name);
+                        ?></h3>
             </div>
         </div>
         @forelse($itm->test as $question)

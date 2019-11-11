@@ -26,7 +26,7 @@ class UsersExport implements FromArray, WithHeadings
             
     		$excel['NOME'] 		   			= $user['name'];
             $excel['EMAIL'] 				= $user['email'];
-    		$excel['CPF'] 		   			= $user['cpf'];
+    		$excel['CPF/CNPJ'] 		   		= $user['cpfcnpj'];
             $excel['DATA DE ANIVERSÁRIO'] 	= $user['birthdate'];
     		$excel['SEXO'] 		   			= $user['sex'];
             $excel['BIO'] 					= $user['bio'];
@@ -49,7 +49,7 @@ class UsersExport implements FromArray, WithHeadings
     public function headings():array
     {
         return [
-            ['NOME', 'EMAIL', 'CPF', 'DATA DE ANIVERSÁRIO', 'SEXO', 'BIO', 'WEBSITE', 'YOUTUBE', 'GOOGLE', 'LINKEDIN', 'TWITTER', 'FACEBOOK', 'PAIS', 'ESTADO', 'ESCOLARIDADE']
+            ['NOME', 'EMAIL', 'CPF/CNPJ', 'DATA DE ANIVERSÁRIO', 'SEXO', 'BIO', 'WEBSITE', 'YOUTUBE', 'GOOGLE', 'LINKEDIN', 'TWITTER', 'FACEBOOK', 'PAIS', 'ESTADO', 'ESCOLARIDADE']
         ];
     }
 }

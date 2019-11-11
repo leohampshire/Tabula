@@ -121,6 +121,7 @@ class TransactionController extends Controller
                 'unit_price' => number_format($cart->price, 2, '', ''),
                 'quantity' => 1,
                 'tangible' => false,
+                
             ]);
         }
         if (!count($idUsers)) {

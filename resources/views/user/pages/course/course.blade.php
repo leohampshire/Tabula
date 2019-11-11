@@ -140,8 +140,8 @@
                     @endforeach
                 </div>
                 <div class="col-sm-5">
-                    <h3>Requisitos</h3>
-                    <p><?php echo $course->requirements ?></p>
+                    <h3>Descrição</h3>
+                    <p><?php echo ($course->desc); ?></p>
                 </div>
             </div>
         </div>

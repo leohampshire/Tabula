@@ -38,7 +38,7 @@
             <li class="hidden-xs"><a href="{{route('teacher.be')}}">Torne-se professor</a></li>
             @endif
 
-            <li class="hidden-xs"><a href="{{route('user.logout')}}">Sair</a></li>
+            <li><a href="{{route('user.logout')}}">Sair</a></li>
 			<!-- <div style="display: none;"><div class="g-signin2" data-onsuccess="onSignIn"></div></div> -->
             <!-- <script>
             	function onSuccess(googleUser) {
@@ -71,7 +71,7 @@
           <li class="hidden-xs"><a href="{{url('user/register')}}" class="btn-register">Cadastre-se</a></li>          
           @endif
           @if($auth)
-          <li class="menu-cart">
+          <li class="menu-cart hidden-xs">
             <a href="{{url('user')}}#notification">
               <i class="fa fa-bell-o" aria-hidden="true"></i><span class="menu-cart-count">{{$notification}}</span>
             </a>

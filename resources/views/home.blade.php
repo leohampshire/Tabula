@@ -147,7 +147,7 @@
 <section>
     <div class="container">
         <div class="box-w-shadow">
-            <h2>Cursos em destaque:{{$featured_category2}}</h2>
+            <h2>Cursos em destaque: {{$featured_category2}}</h2>
             <div class="container-carousel-courses">
                 <button id="destaque2-prev" class="prev-carousel-courses"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
                 <button id="destaque2-next" class="next-carousel-courses"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>

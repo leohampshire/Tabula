@@ -6,8 +6,8 @@
             <div class="form-group row">
                 <div class="col-xs-12">
                     <label for="name">Pergunta</label>
-                    <input type="text" name="name" placeholder="Pergunta" class="form-control" id="name"
-                        value="{{$item->name}}">
+                    <textarea type="text" name="name" placeholder="Pergunta" class="form-control" id="name"
+                              value="{{$item->name}}">{{$item->name}}</textarea>
                 </div>
             </div>
             <div class="form-group row alt_mult">

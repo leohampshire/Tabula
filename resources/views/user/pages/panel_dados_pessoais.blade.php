@@ -75,7 +75,7 @@
                     </div>
                     @else
                     <div class="box-button-panel">
-                        <a href="#teach" class="teach" data-databank="{{$auth->databank}}"
+                        <a href="#teach" class="teach" 
                             data-url="{{route('user.teach')}}">
                             <button class="btn-block btn-panel-menu" type="button">Cursos que leciono</button>
                         </a>
