@@ -63,8 +63,8 @@
                     <span class="subtotal-value">R$ {{number_format($auth->cart->sum('price'), 2, ',', '.')}}</span>
 
                     <span class="total">Total</span>
-                    @auth
-                    <?php $discount = $auth->cart->sum('price') - $auth->discount;?>
+                    @auth('user')
+                    @php($discount = $auth->cartTotalDiscount())
                     <span class="total-value">R$ {{number_format($discount, 2, ',', '.')}}</span>
                     @else
                     <span class="total-value">R$ {{number_format($auth->cart->sum('price'), 2, ',', '.')}}</span>

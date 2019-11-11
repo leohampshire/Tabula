@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Coupon;
 use App\Category;
 use App\Course;
+use App\Services\CouponService;
 use Auth;
 class AdminCouponController extends Controller
 {
@@ -65,12 +66,12 @@ class AdminCouponController extends Controller
     	return redirect(route('admin.coupon.index'))->with('success', 'Cupom criado com sucesso');
 	}
 
-	public function edit($id)
+	public function edit($id, CouponService $sv)
 	{
         $coupon = Coupon::find($id);
         $coupon->value_coupon = number_format($coupon->value_coupon, 2, ',', '.');
-        $coupon->type_id = unserialize($coupon->type_id);
-     
+        $coupon->type_id = unserialize($coupon->type_id) == null ? [] : unserialize($coupon->type_id) ;
+        $coupon->type = $sv->getTypeCoupon($coupon->type_id, $coupon->type_coupon);
     	return view('admin.pages.coupon.edit')
     	->with('coupon', $coupon)
         ->with('courseCoupons', Course::all())
@@ -121,6 +122,7 @@ class AdminCouponController extends Controller
         $coupon->active           = 1;
         $coupon->type_id          = serialize($request->type_id);
         $coupon->user_id          = $auth->id;
+
         $coupon->save();
     }
 

@@ -118,7 +118,7 @@ class TransactionController extends Controller
             $item[$key] = ([
                 'id' => strval($cart->id),
                 'title'=> $cart->name,
-                'unit_price' => number_format($cart->price, 2, '', ''),
+                'unit_price' => number_format(($cart->price - $cart->pivot->discount), 2, '', ''),
                 'quantity' => 1,
                 'tangible' => false,
                 
@@ -126,7 +126,7 @@ class TransactionController extends Controller
         }
         if (!count($idUsers)) {
             $split_rules[0] = ([
-              'amount' => $amount - $this->discount(),
+              'amount' => number_format($auth->cartTotalDiscount(), 2, '', ''),
               'recipient_id' => config('services.pagarme.recipient_id'),
               'charge_processing_fee' => true,
               'liable' => true
@@ -134,9 +134,10 @@ class TransactionController extends Controller
         }elseif (!count($idAdmins)) {
             foreach ($idUsers as $key => $idUser) {
                 foreach ($auth->cart as $cart) {
-                    $discount = $cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount');
+                    $discount = number_format($cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount'),2, '', '');
                 }
                 $databank = Databank::where('user_id', $idUser)->first();
+
                 $money = number_format(($auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount) * ($taxa->taxa_users/100),2,'','');
                 $split_rules[$key] = ([
                   'amount' => $money,
@@ -147,6 +148,7 @@ class TransactionController extends Controller
             }
             $tmp = count($split_rules);
             $money = number_format(($auth->cart->where('user_id_owner', $idUser)->sum('price') - $discount) * ($taxa->taxa_tabula/100),2,'','');
+            return dd($money);
             $split_rules[$tmp] = ([
               'amount' => $money,
               'recipient_id' => config('services.pagarme.recipient_id'),
@@ -157,7 +159,7 @@ class TransactionController extends Controller
         }else{
             foreach ($idUsers as $key => $idUser) {
                 foreach ($auth->cart as $cart) {
-                    $discount = $cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount');
+                    $discount = number_format($cart->pivot->where('teacher_id', $idUser)->where('type', 1)->sum('discount'),2, '', '');
                 }
                 $databank = Databank::where('user_id', $idUser)->first();
                 $money = number_format(($auth->cart->where('user_id_owner', $idUser)->where('course_type', 2)->sum('price') - $discount) * ($taxa->taxa_users/100),2,'','');
@@ -171,10 +173,11 @@ class TransactionController extends Controller
             $tmp = count($split_rules);
             foreach ($idAdmins as $key => $idAdmin) {
                 foreach ($auth->cart as $cart) {
-                    $discount = $cart->pivot->where('teacher_id', $idAdmin)->where('type', 2)->sum('discount');
+                    $discount = number_format($cart->pivot->where('teacher_id', $idAdmin)->where('type', 2)->sum('discount'),2, '', '');
                 }
                 $more = ($auth->cart->where('user_id_owner', $idUser)->where('course_type', 2)->sum('price') - $discount) * ($taxa->taxa_tabula/100);
                 $money = number_format($more +($auth->cart->where('user_id_owner', $idAdmin)->where('course_type', 1)->sum('price') - $discount),2,'','');
+                
                 $split_rules[$key+ $tmp] = ([
                   'amount' => $money,
                   'recipient_id' => config('services.pagarme.recipient_id'),
@@ -199,7 +202,6 @@ class TransactionController extends Controller
     	$neighborhood 	= $request->pagarme['customer']['address']['neighborhood'];
     	$city 			= $request->pagarme['customer']['address']['city'];
     	$state 			= $request->pagarme['customer']['address']['state'];
-
     	$ch = curl_init('https://api.pagar.me/1/transactions');
 
     	if ($payment_method == 'credit_card') {
@@ -281,7 +283,6 @@ class TransactionController extends Controller
                 'split_rules' => $split_rules,
     		]);
     	}
-
     	$payload = json_encode($payload);
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -392,7 +393,6 @@ class TransactionController extends Controller
       $result = json_decode($result);
       if(isset($result->errors))
       {
-       return dd($result->errors['0']->message);
 
        $notification = new Notification;
        $notification->type_notification = "Erro de sistema";

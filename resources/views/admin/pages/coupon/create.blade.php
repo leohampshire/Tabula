@@ -116,28 +116,28 @@
                                     <input class="form-control input-money" type="text" id="value_coupon"
                                         name="value_coupon" placeholder="Valor Cupom" value="{{ old('value_coupon') }}">
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-xs-12 course">
-                                        <label for="type_id">Curso</label>
-                                        <select class="form-control multiple select2" style='width: 400px;'
-                                            name="type_id[]" multiple="multiple">
-                                            <option value='0'>- Digite o Curso -</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-12 macrotema">
-                                        <label for="type_id">Macrotema</label>
-                                        <select class="form-control multiple" style='width: 100%;' name="type_id[]"
-                                            multiple="multiple">
-                                            <option value='0'>- Digite o Macrotema -</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-12 subcateg">
-                                        <label for="type_id">SubCategoria</label>
-                                        <select class="form-control multiple" style='width: 100%;' name="type_id[]"
-                                            multiple="multiple">
-                                            <option value='0'>- Digite a SubCategoria -</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12 course">
+                                    <label for="type_id">Curso</label>
+                                    <select class="form-control multiple select2" style='width: 400px;' name="type_id[]"
+                                        multiple="multiple">
+                                        <option value='0'>- Digite o Curso -</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 macrotema">
+                                    <label for="type_id">Macrotema</label>
+                                    <select class="form-control multiple" style='width: 100%;' name="type_id[]"
+                                        multiple="multiple">
+                                        <option value='0'>- Digite o Macrotema -</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 subcateg">
+                                    <label for="type_id">SubCategoria</label>
+                                    <select class="form-control multiple" style='width: 100%;' name="type_id[]"
+                                        multiple="multiple">
+                                        <option value='0'>- Digite a SubCategoria -</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

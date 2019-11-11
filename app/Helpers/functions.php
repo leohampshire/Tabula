@@ -230,3 +230,23 @@ function generateCompany($company_id)
         'user_id' => $company_id,
     ]);
 }
+
+function convertMoneyBraziltoUSA($value)
+{
+    $value = str_replace(',', '.', str_replace('.', '', $value));
+    $value = floatval($value);
+
+    return $value;
+}
+function convertMoneyUSAtoBrazil($value)
+{
+    $value = number_format($value, 2, ',', '.');
+
+    return $value;
+}
+
+function convertMoneyPagarMe($value)
+{
+    return number_format($value, 2, '', '');
+
+}

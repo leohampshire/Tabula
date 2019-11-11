@@ -17,10 +17,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 
+        'name',
         'email',
         'password',
-        'sex', 
+        'sex',
         'cpfcnpj',
         'birthdate',
         'sex',
@@ -32,12 +32,12 @@ class User extends Authenticatable
         'linkedin',
         'youtube',
         'cover',
-        'country_id', 
-        'state_id', 
+        'country_id',
+        'state_id',
         'schooling_id',
         'empresa_id',
-        'avatar', 
-        'user_type_id', 
+        'avatar',
+        'user_type_id',
         'bio',
         'facebook_id',
         'google_id'
@@ -98,6 +98,17 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Course', 'carts', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'coupon', 'discount');
     }
 
+    public function cartTotalDiscount()
+    {
+        $price = $this->cart->sum('price');
+        $discount = 0;
+        foreach ($this->cart as  $itemCart) {
+            $discount += $itemCart->pivot->discount;
+        }
+        $discountTotal = $price - $discount;
+
+        return $discountTotal >= 0 ? $discountTotal : 0;
+    }
     public function rating()
     {
         return $this->belongsToMany('App\Course', 'ratings', 'user_id', 'course_id')->withPivot('user_id', 'course_id', 'star', 'comment');
@@ -105,7 +116,7 @@ class User extends Authenticatable
 
     public function itemUser()
     {
-        return $this->belongsToMany('App\CourseItem', 'course_item_user', 'user_id', 'course_item_id')->withPivot('course_chapter_id', 'course_item_status_id'); 
+        return $this->belongsToMany('App\CourseItem', 'course_item_user', 'user_id', 'course_item_id')->withPivot('course_chapter_id', 'course_item_status_id');
     }
 
     public function company()
@@ -141,5 +152,4 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Test');
     }
-
 }
