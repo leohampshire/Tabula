@@ -25,11 +25,13 @@ class CouponService
     }
 
     //Valida se o cupom pode ser usado
-    public function validateCoupon(Coupon $coupon): bool
+    public function validateCoupon(Coupon $coupon, bool $isInCart = false): bool
     {
         $auth = Auth::guard('user')->user();
-        $couponUser = CouponUser::where('user_id', $auth->id)->where('coupon_id', $coupon->id)->first();
-
+        $couponUser = null;
+        if(!$isInCart){
+            $couponUser = CouponUser::where('user_id', $auth->id)->where('coupon_id', $coupon->id)->first();
+        }
 
         if (!$couponUser) {
             if ($coupon->limit != null) {
@@ -75,7 +77,7 @@ class CouponService
 
     private function fixedDiscount(Coupon $coupon, $courses)
     {
-        $discount = $coupon->value_coupon / $courses->count();
+        $discount = $coupon->type_discount == 'dinheiro' ? $coupon->value_coupon / $courses->count() : $coupon->value_coupon;
         if ($coupon->type_discount == 'dinheiro') {
             foreach ($courses as $cart) {
                 $cart->pivot->discount = $discount;

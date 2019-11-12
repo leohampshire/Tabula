@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cart;
 use App\CourseUser;
-use App\CouponUser;
 use App\Coupon;
 use App\Course;
 use App\Services\CouponService;
@@ -16,7 +15,7 @@ use Session;
 
 class CartController extends Controller
 {
-    public function cart(Request $request)
+    public function cart(Request $request, CouponService $sv)
     {
         $auth = Auth::guard('user')->user();
         if (!$auth) {
@@ -29,6 +28,11 @@ class CartController extends Controller
             }
         } else {
             $auth->discount = $this->discount();
+            $itemCart = Cart::where('user_id', $auth->id)->first();
+            $coupon = Coupon::where('cod_coupon', $itemCart->coupon)->first();
+            if ($coupon) {
+                $sv->validateCoupon($coupon, true);
+            }
         }
         return view('user.pages.cart')->with('auth', $auth);
     }
@@ -231,7 +235,7 @@ class CartController extends Controller
         }
         return $total;
     }
-    
+
     private function includeStudent($user_id, $course_id)
     {
         $student = User::find($user_id);
