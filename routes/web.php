@@ -367,6 +367,9 @@ Route::get('institucional', function () {
 Route::get('parceiros', function () {
   return view('user.pages.parceiros');
 })->name('parceiros');
+
+  Route::get('//{id}/finalizar', 'User\CartController@insertCourseIntoFinish')->name('finish');
+Route::post('transaction/freeCourse', 'User\CartController@priceCourseFree')->name('free.course.cart');
 Route::post('transaction/pagarme', 'User\TransactionController@pagarme');
 Route::post('transaction/callback', 'User\TransactionController@callback')->name('callback');
 Route::post('dados-bancarios/', 'User\TransactionController@getRecipient')->name('bank-data');

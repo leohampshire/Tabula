@@ -29,9 +29,11 @@ class CartController extends Controller
         } else {
             $auth->discount = $this->discount();
             $itemCart = Cart::where('user_id', $auth->id)->first();
-            $coupon = Coupon::where('cod_coupon', $itemCart->coupon)->first();
-            if ($coupon) {
-                $sv->validateCoupon($coupon, true);
+
+            if ($itemCart) {
+                $coupon = Coupon::where('cod_coupon', $itemCart->coupon)->first();
+                if ($coupon)
+                    $sv->validateCoupon($coupon, true);
             }
         }
         return view('user.pages.cart')->with('auth', $auth);
@@ -156,6 +158,7 @@ class CartController extends Controller
                 session()->put('cart', $cart);
             }
         } else {
+            
             $item = Cart::where('user_id', $auth->id)->where('course_id', $id)->first();
             $item->delete();
             Session::flash('success', 'Curso removido do carrinho!');
@@ -225,6 +228,16 @@ class CartController extends Controller
         return redirect()->back()->with('warning', 'Cupom não disponível ou já aplicado');
     }
 
+    public function priceCourseFree(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+        foreach ($user->cart as $courseItem) {
+            $this->includeStudent($user->id, $courseItem->id);
+            $courseItem->pivot->delete();
+        }
+        return redirect()->back()->with('success', 'Pedido finalizado');
+    }
+
     private function discount()
     {
         $total = 0;
@@ -253,4 +266,5 @@ class CartController extends Controller
         }
         return false;
     }
+
 }

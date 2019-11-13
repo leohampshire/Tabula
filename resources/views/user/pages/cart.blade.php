@@ -15,11 +15,11 @@
             </div>
         </div>
         <?php
-		//Columns must be a factor of 12 (1,2,3,4,6,12)
-		$numOfCols = 3;
-		$rowCount = 0;
-		$bootstrapColWidth = 12 / $numOfCols;
-		?>
+        //Columns must be a factor of 12 (1,2,3,4,6,12)
+        $numOfCols = 3;
+        $rowCount = 0;
+        $bootstrapColWidth = 12 / $numOfCols;
+        ?>
         <div class="row">
             @isset($auth->cart)
             @if(count($auth->cart) > 0)
@@ -43,15 +43,16 @@
                                         <p><?php echo substr($cart['desc'], 0, 48); ?></p>
                                     </div>
                                     <div class="course-value">
-                                        <span>@if($cart['price'] == 0) Grátis @else R$ {{number_format($cart['price'],2,',','.')}}@endif</span>
+                                        <span>@if($cart['price'] == 0) Grátis @else R$
+                                            {{number_format($cart['price'],2,',','.')}}@endif</span>
                                     </div>
                                 </a>
                             </div>
                         </div>
                         <?php
-							    $rowCount++;
-							    if($rowCount % $numOfCols == 0) echo '</div><div class="row">';
-							?>
+                        $rowCount++;
+                        if ($rowCount % $numOfCols == 0) echo '</div><div class="row">';
+                        ?>
                         @endforeach
                         @endforeach
                     </div>
@@ -84,21 +85,27 @@
                         </div>
                     </form>
                     @if(Auth::guard('user')->check())
-                    <form method="POST" action="{{url('transaction/pagarme/')}}">
-                        {{csrf_field()}}
-                        <script type="text/javascript" src="https://assets.pagar.me/checkout/checkout.js"
-                            data-encryption-key="{{config('services.pagarme.encryption_key')}}"
-                            data-customer-data="true" data-create-token="false" data-button-text="Finalizar Compra"
-                            data-amount="{{number_format(($auth->cart->sum('price') - $auth->discount), 2, '','')}}">
-                        </script>
-                    </form>
-                    @else
-                    <form action="{{url('transaction/pagarme/')}}" method="POST">
+                    @if(($auth->cart->sum('price') - $auth->discount) <= 0) <form method="post"
+                        action="{{route('free.course.cart')}}">
                         {{csrf_field()}}
                         <button>Finalizar Compra</button>
-
-                    </form>
-                    @endif
+                        </form>
+                        @else
+                        <form method="POST" action="{{url('transaction/pagarme/')}}">
+                            {{csrf_field()}}
+                            <script type="text/javascript" src="https://assets.pagar.me/checkout/checkout.js"
+                                data-encryption-key="{{config('services.pagarme.encryption_key')}}"
+                                data-customer-data="true" data-create-token="false" data-button-text="Finalizar Compra"
+                                data-amount="{{number_format(($auth->cart->sum('price') - $auth->discount), 2, '','')}}">
+                            </script>
+                        </form>
+                        @endif
+                        @else
+                        <form action="{{url('transaction/pagarme/')}}" method="POST">
+                            {{csrf_field()}}
+                            <button>Finalizar Compra</button>
+                        </form>
+                        @endif
                 </div>
             </div>
             @endif
