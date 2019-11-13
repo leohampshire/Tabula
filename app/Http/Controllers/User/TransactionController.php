@@ -385,7 +385,6 @@ class TransactionController extends Controller
                 'split_rules' => $split_rules,
             ]);
         }
-        return dd($payload);
 
         $payload = json_encode($payload);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
