@@ -193,8 +193,8 @@ class TransactionController extends Controller
             }
         }
 
-        $amount         = $request->pagarme['amount'];
         $payment_method = $request->pagarme['payment_method'];
+        $installments             = $request->pagarme['installments'];
         $name             = $request->pagarme['customer']['name'];
         $email             = $request->pagarme['customer']['email'];
         $cpfcnpj        = $request->pagarme['customer']['document_number'];
@@ -207,6 +207,7 @@ class TransactionController extends Controller
         $neighborhood     = $request->pagarme['customer']['address']['neighborhood'];
         $city             = $request->pagarme['customer']['address']['city'];
         $state             = $request->pagarme['customer']['address']['state'];
+
         $ch = curl_init('https://api.pagar.me/1/transactions');
 
         if ($payment_method == 'credit_card') {
@@ -215,9 +216,10 @@ class TransactionController extends Controller
             $payload = ([
                 'api_key' => config('services.pagarme.api_key'),
                 'amount' => $amount,
+                'installments' => $installments,
                 'payment_method' => $payment_method,
                 'card_hash' => $card_hash,
-                'postback_url' => 'https://www.tabula.com.br/transaction/callback',
+                'postback_url' => config('services.pagarme.callback_url'),
                 'customer' => [
                     'external_id' => strval($id),
                     'name' => $name,
@@ -228,10 +230,7 @@ class TransactionController extends Controller
                             'type' => 'cpf',
                             'number' => $cpfcnpj,
                         ]
-
                     ],
-
-
                     'phone_numbers' => ["+55{$ddd}{$phone}"],
                     'email' => $email,
                 ],
@@ -256,7 +255,7 @@ class TransactionController extends Controller
                 'api_key' => config('services.pagarme.api_key'),
                 'amount' => $amount,
                 'payment_method' => $payment_method,
-                'postback_url' => 'https://www.tabula.com.br/transaction/callback',
+                'postback_url' => config('services.pagarme.callback_url'),
                 'customer' => [
                     'external_id' => '1',
                     'name' => $name,
@@ -288,104 +287,6 @@ class TransactionController extends Controller
                 'split_rules' => $split_rules,
             ]);
         }
-        $payload = json_encode($payload);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        $name             = $request->pagarme['customer']['name'];
-        $email             = $request->pagarme['customer']['email'];
-        $cpfcnpj        = $request->pagarme['customer']['document_number'];
-        $ddd             = $request->pagarme['customer']['phone']['ddd'];
-        $phone             = $request->pagarme['customer']['phone']['number'];
-        $zipcode         = $request->pagarme['customer']['address']['zipcode'];
-        $street         = $request->pagarme['customer']['address']['street'];
-        $street_number     = $request->pagarme['customer']['address']['street_number'];
-        $complementary     = $request->pagarme['customer']['address']['complementary'];
-        $neighborhood     = $request->pagarme['customer']['address']['neighborhood'];
-        $city             = $request->pagarme['customer']['address']['city'];
-        $state             = $request->pagarme['customer']['address']['state'];
-
-        $ch = curl_init('https://api.pagar.me/1/transactions');
-
-        if ($payment_method == 'credit_card') {
-            $card_hash = $request->pagarme['card_hash'];
-
-            $payload = ([
-                'api_key' => config('services.pagarme.api_key'),
-                'amount' => $amount,
-                'payment_method' => $payment_method,
-                'card_hash' => $card_hash,
-                'postback_url' => 'https://www.tabula.com.br/transaction/callback',
-                'customer' => [
-                    'external_id' => strval($id),
-                    'name' => $name,
-                    'type' => 'individual',
-                    'country' => 'br',
-                    'documents' => [
-                        [
-                            'type' => 'cpf',
-                            'number' => $cpfcnpj,
-                        ]
-
-                    ],
-
-
-                    'phone_numbers' => ["+55{$ddd}{$phone}"],
-                    'email' => $email,
-                ],
-                'billing' => [
-                    'name' => $name,
-                    'address' => [
-                        'country' => 'br',
-                        'street' => $street,
-                        'street_number' => $street_number,
-                        'state' => $state,
-                        'city' => $city,
-                        'neighborhood' => $neighborhood,
-                        'zipcode' => $zipcode
-                    ]
-                ],
-                'items' => $item,
-                'split_rules' => $split_rules,
-            ]);
-        } elseif ($payment_method == 'boleto') {
-
-            $payload = ([
-                'api_key' => config('services.pagarme.api_key'),
-                'amount' => $amount,
-                'payment_method' => $payment_method,
-                'postback_url' => 'https://www.tabula.com.br/transaction/callback',
-                'customer' => [
-                    'external_id' => '1',
-                    'name' => $name,
-                    'type' => 'individual',
-                    'country' => 'br',
-                    'documents' => [
-                        [
-                            'type' => 'cpf',
-                            'number' => $cpfcnpj,
-                        ],
-
-                    ],
-                    'phone_numbers' => ["+55{$ddd}{$phone}"],
-                    'email' => $email,
-                ],
-                'billing' => [
-                    'name' => $name,
-                    'address' => [
-                        'country' => 'br',
-                        'street' => $street,
-                        'street_number' => $street_number,
-                        'state' => $state,
-                        'city' => $city,
-                        'neighborhood' => $neighborhood,
-                        'zipcode' => $zipcode
-                    ]
-                ],
-                'items'       => $item,
-                'split_rules' => $split_rules,
-            ]);
-        }
-
         $payload = json_encode($payload);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));

@@ -47,9 +47,10 @@ return [
     
 
     'pagarme' => [
-        'api_key' => 'ak_live_VJinHgDzqz8wMhCZCjSrNEdL0s9e86',
-        'encryption_key' =>'ek_live_KiNc4gMdgtmKizLJV7D3zk1c2etYIk',
-        'recipient_id' => 're_cjvfhdbp52kd5km64czduqj8c',
+        'api_key' => env('PAGARME_API_KEY'),
+        'encryption_key' =>env('PAGARME_ENCRYPTION_KEY'),
+        'recipient_id' => env('PAGARME_RECIPIENT_ID'),
+        'callback_url' => env('PAGARME_CALLBACK_URL'),
     ],
 
 ];

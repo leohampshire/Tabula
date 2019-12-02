@@ -94,7 +94,7 @@
                         <form method="POST" action="{{url('transaction/pagarme/')}}">
                             {{csrf_field()}}
                             <script type="text/javascript" src="https://assets.pagar.me/checkout/checkout.js"
-                                data-encryption-key="{{config('services.pagarme.encryption_key')}}"
+                                data-encryption-key="{{config('services.pagarme.encryption_key')}}" data-max-installments="12"
                                 data-customer-data="true" data-create-token="false" data-button-text="Finalizar Compra"
                                 data-amount="{{number_format(($auth->cart->sum('price') - $auth->discount), 2, '','')}}">
                             </script>
