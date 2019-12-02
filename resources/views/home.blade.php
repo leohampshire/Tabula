@@ -231,7 +231,7 @@
                     <a href="{{route('blog.single', ['urn' =>$post->urn])}}">
                         <div class="course-box">
                             <div class="course-thumb">
-                                <img src="{{ asset('uploads/archives')}}/{{$post->cover}}" alt="Curso">
+                                <img src="{{ asset('uploads/archives')}}/{{$post->cover}}" alt="Post Blog">
                             </div>
                             <div class="course-desc">
                                 <h3>{{$post->name}}</h3>
