@@ -50,6 +50,15 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'user'], func
     Route::get('/visualizar/{id}', 'User\CourseController@show')->name('show');
     Route::get('/visualizar/{course}', 'User\CourseController@allTest')->name('alltest');
 
+    Route::group(['prefix' => 'provas', 'as' => 'usertest.'], function () {
+      Route::get('/{course}', 'User\TestUserController@index')->name('index');
+      Route::get('respondidas/{test}', 'User\TestUserController@answer')->name('answer');
+      Route::get('aluno/{test}/', 'User\TestUserController@show')->name('show');
+      Route::get('certificado/{student}/', 'User\TestUserController@certificate')->name('certificate');
+      Route::get('reiniciar/{course_id}', 'User\TestUserController@studentRestart')->name('restart');
+      Route::get('provas/{student}', 'User\TestUserController@test')->name('test');
+    });
+
     Route::get('/alunos/{id}', 'User\UserController@contentStudent')->name('student');
     Route::get('reiniciar/{course_id}/{user_id}', 'Admin\StudentController@studentRestart')->name('restart');
     Route::get('certificado/{student}/{course}', 'Admin\StudentController@certificate')->name('student-certificate');

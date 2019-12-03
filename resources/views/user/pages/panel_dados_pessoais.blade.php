@@ -20,17 +20,18 @@
                 </div>
             </div>
         </div>
-            @if($auth->courses->count() > 0 && $auth->databank == null)
-            <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <section class="col-sm-12">
-                    <div class="alert alert-danger"  style="margin-bottom: 0; margin-top: 25px; ">
-                        Para que o seu curso fique disponível para compra, cadastre uma conta bancária, <a href="#" class="data-bank" onclick="getDataBank();"> clicando aqui</a> 
-                    </div>
-                </section>
-            </div>
-            @endif
+        @if($auth->courses->count() > 0 && $auth->databank == null)
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-sm-12">
+                <div class="alert alert-danger" style="margin-bottom: 0; margin-top: 25px; ">
+                    Para que o seu curso fique disponível para compra, cadastre uma conta bancária, <a href="#"
+                        class="data-bank" onclick="getDataBank();"> clicando aqui</a>
+                </div>
+            </section>
+        </div>
+        @endif
         <div class="box-w-shadow">
             <div class="container-scroll">
                 <div class="container-buttons-panel">
@@ -68,15 +69,13 @@
                     @else
                     @if($auth->courses()->count() == 0)
                     <div class="box-button-panel">
-                        <a href="#course-create" class="course-create" 
-                            data-url="{{route('user.course.create')}}">
+                        <a href="#course-create" class="course-create" data-url="{{route('user.course.create')}}">
                             <button class="btn-block btn-panel-menu btn-danger" type="button">Criar Curso</button>
                         </a>
                     </div>
                     @else
                     <div class="box-button-panel">
-                        <a href="#teach" class="teach" 
-                            data-url="{{route('user.teach')}}">
+                        <a href="#teach" class="teach" data-url="{{route('user.teach')}}">
                             <button class="btn-block btn-panel-menu" type="button">Cursos que leciono</button>
                         </a>
                     </div>
@@ -116,3 +115,15 @@
 </section>
 
 @stop
+@section('scripts')
+<script type="text/javascript">
+$(document).on("click", '.usertest', function(event) {
+    let url = $(this).data('url');
+    getContent(url);
+});
+$(document).on("click", '.show-answer', function(event) {
+    let url = $(this).data('url');
+    getContent(url);
+});
+</script>
+@endsection
