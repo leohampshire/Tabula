@@ -7,7 +7,7 @@ $pages = DB::table('pages')->get();
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
-          <h4>Receba novidaddes</h4>
+          <h4>Receba Novidades</h4>
         </div>
         <form class="form-group" action="{{route('newsletter')}}" method="POST">
           {{csrf_field()}}

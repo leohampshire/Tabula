@@ -23,6 +23,20 @@ body {
  }
 }
 
+@media (max-width: 375px){
+  .searchhome{
+      position: absolute;
+      margin-top: -5px;
+      margin-left: 120px;
+      width: 25vw;
+    }
+    .btn-search{
+      width: 8vw;
+      position: absolute;
+      z-index: 999;
+    }
+}
+
 a, a:hover {
 	text-decoration: none;
 }

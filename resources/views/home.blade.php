@@ -22,7 +22,7 @@
                         @if($promotion->type == 'image')
                         <a href="{{$promotion->url}}" target="_blank">
                             <img src="{{ asset('images/promotion')}}/{{$promotion->file}}" alt="Slider"
-                                style="width:100%; height: 350px; object-fit: cover;">
+                               style="width:100%; height: 30vw; object-fit: cover;" >
                         </a>
                         @else
                         <video controlsList="nodownload" oncontextmenu="return false;" class="afterglow"

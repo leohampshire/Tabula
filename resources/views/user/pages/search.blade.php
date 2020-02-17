@@ -35,7 +35,7 @@
             <form action="{{ route('search.single', ['id' => -1]) }}" method="get" enctype="multipart/form-data"
                 style="display: none;">
                 <?php
-                if(isset($_GET['search_string'])){
+                if(isset($_GET[''])){
                     $search_string = $_GET['search_string'];
                 } else {
                     $search_string = '';

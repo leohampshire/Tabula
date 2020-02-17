@@ -18,12 +18,11 @@
       <div class="col-xs-6 col-sm-3">
         <a href="{{ url('/')}}"><img class="logo" src="{{ asset('images/logo.png')}}"></a>
       </div>
-      <div class="col-sm-4 hidden-xs">
+      <div class="col-sm-4 searchhome">
         <form autocomplete="off" action="{{ route('search.single', ['id' => -1]) }}" method="get">
           <input type="text" name="search_string" placeholder="O que você quer aprender hoje?">
           <button class="btn-search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
-       
       </div>
 
       <div class="col-xs-6 col-sm-5">
