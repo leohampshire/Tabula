@@ -26,7 +26,6 @@ class CouponController extends Controller
 
     public function store(Request $request)
     {
-        return dd($request);
         //valida os campos digitados
     	$this->validate($request, [
             'type_discount' => 'required',

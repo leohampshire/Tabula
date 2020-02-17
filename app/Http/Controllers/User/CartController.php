@@ -219,6 +219,7 @@ class CartController extends Controller
         if (!$auth) {
             return redirect(url('/user/login'));
         }
+        
         $coupon = Coupon::where('cod_coupon', $request->coupon)->first();
         if ($coupon) {
             if ($sv->validateCoupon($coupon)) {
